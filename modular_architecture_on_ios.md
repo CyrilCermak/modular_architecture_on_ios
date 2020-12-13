@@ -16,25 +16,21 @@ Building Large Scale Modular iOS Apps And Frameworks
 
 "Finally, to whoever my current girlfriend is..."
 
-# What is this book about?
-This book describes essentials about building modular architecture on iOS. You will find examples of different approaches, framework types, pros and cons, common problems and so on. By the end of this book you should have a very good understanding of what benefits will bring such architecture to your project, whether it is necessary at all or which would be the best way for modularising your project.
-
-At the end of this book, you can read experiences from top notch iOS engineers working across numerous different projects.
-
-## What is this book NOT about?
-SwiftUI.
-
 # About the author
 Cyril Cermak is a software engineer by heart and author of this book. Most of his professional career was spent by building iOS apps or iOS frameworks. Beginning by Skoda Auto Connect App in Prague, continuing building iOS platform for Freelancer Ltd in Sydney and as of now being an iOS TechLead in Stuttgart for Porsche AG. In this book, Cyril describes different approaches for building modular iOS architecture so as some mechanisms and essential knowledge that should help you, the reader, to decide which approach would fit in the best or should be considered on your project.
 
 ## Reviewers
 Joerg Nestele
-... Ask Joerg whether he wants do be the reviewer. 
+... Ask Joerg whether he wants be the reviewer. 
 
 # Table Of Contents
 - Introduction
+  - What you need
+  - What is this book about
+  - What is this book NOT about
 - Modular Architecture 
   - Motivation
+  - Design
   - Workflow
   - Scalability
   - Pros And Cons
@@ -59,6 +55,7 @@ Joerg Nestele
   - Dynamic
   - Static
   - Linker and Compiler
+  - X86_64 and ARM
     
 - Dependency Managers
   - Cocopods
@@ -102,7 +99,7 @@ Joerg Nestele
   
 # Introduction
 
-In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts. Numerous problems will rise up, that are limiting the way how iOS projects are built itself. 
+In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise up, that are limiting the way how iOS projects are built itself or even on the organisational level. 
 
 Scaling up a monolithic approach to a team of e.g 7+ developers will most likely result in hell. By hell, I mean, resolving xcodeproj issues, where in the worst case both parties renamed or edited and deleted the same file, touched the same {storyboard|xib} file (I hope no one uses that thing), or typically both worked on the same file which would resolve in classic merge conflicts. Somehow, those issues we all got used to live with.
 
@@ -112,8 +109,20 @@ Surely, a better approach would be to start refactoring the app into a modular a
 
 Another scenario could be, that you are already working on an app which is done in a modular way but your app takes at around 20 mins to compile. As it is a huge legacy codebase that was in development past 8 or so years and linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean you can take double shot of espresso. I had been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process [here](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
 
-Nowadays, as an iOS tech lead, I am often getting asked same questions all over again from new teams or new colleagues regards those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. I hope it will help developers working on such architectures to gain the speed, knowledge and understanding faster.
+Nowadays, as an iOS tech lead, I am often getting asked some questions all over again from new teams or new colleagues regards those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. I hope it will help developers working on such architectures to gain the speed, knowledge and understanding faster.
 
+I hope this introduction gave enough motivation to deep dive further into this book.
 
+## What you Need
 
+The latest version of Xcode for compiling the demo examples, brew to install some mandatory dependencies, Ruby and Bundler for running scripts and downloading some Ruby gems. 
+//TODO: Provide a tutorials for installing those softwares 
+
+## What is this book about
+This book describes essentials about building modular architecture on iOS. You will find examples of different approaches, framework types, pros and cons, common problems and so on. By the end of this book you should have a very good understanding of what benefits will bring such architecture to your project, whether it is necessary at all or which would be the best way for modularising your project.
+
+At the end of this book, you can read experiences from top notch iOS engineers working across numerous different projects.
+
+## What is this book NOT about
+SwiftUI.
 
