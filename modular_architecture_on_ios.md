@@ -28,6 +28,8 @@ Joerg Nestele
   - What you need
   - What is this book about
   - What is this book NOT about
+  
+  
 - Modular Architecture 
   - Motivation
   - Design
@@ -37,6 +39,7 @@ Joerg Nestele
   - Limitations 
     - Monolit
     - Modularity
+  
     
 - Highlevel Overview
   - Architecture
@@ -50,6 +53,7 @@ Joerg Nestele
   - Application Framework
     - Distribution 
     - The Software Foundation
+  
     
 - Frameworks on iOS
   - Dynamic
@@ -57,10 +61,12 @@ Joerg Nestele
   - Linker and Compiler
   - X86_64 and ARM
     
+    
 - Dependency Managers
   - Cocopods
   - Carthage
   - SwiftPM
+    
     
 - Development
   - Dynamic CocoaTouch Framework
@@ -73,11 +79,13 @@ Joerg Nestele
   - Handling Secrets
     - Mobile Secrets
   
+  
 - Distribution
   - Frameworks
   - XCFrameworks
   - Static Library
   - Open sourcing
+  
   
 - Project Automation
   - Motivation
@@ -85,10 +93,13 @@ Joerg Nestele
   - Translations, Stages, Configurations etc.
   - Ruby
 
+
 - CI/CD
   - Scripts execution
 
+
 - GitFlow
+
 
 - Profesional Experience
   - Joerg Nestele: iOS Tech Lead - Porsche AG
@@ -116,10 +127,11 @@ I hope this introduction gave enough motivation to deep dive further into this b
 ## What you Need
 
 The latest version of Xcode for compiling the demo examples, brew to install some mandatory dependencies, Ruby and Bundler for running scripts and downloading some Ruby gems. 
+
 //TODO: Provide a tutorials for installing those softwares 
 
 ## What is this book about
-This book describes essentials about building modular architecture on iOS. You will find examples of different approaches, framework types, pros and cons, common problems and so on. By the end of this book you should have a very good understanding of what benefits will bring such architecture to your project, whether it is necessary at all or which would be the best way for modularising your project.
+This book describes essentials about building modular architecture on iOS. You will find examples of different approaches, framework types, pros and cons, common problems and so on. By the end of this book you should have a very good understanding of what benefits will bring such architecture to your project, whether it is necessary at all or which would be the best way for modularising the project.
 
 At the end of this book, you can read experiences from top notch iOS engineers working across numerous different projects.
 
