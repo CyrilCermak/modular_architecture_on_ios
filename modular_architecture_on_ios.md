@@ -24,27 +24,33 @@ Joerg Nestele
 ... Ask Joerg whether he wants be the reviewer. 
 
 # Table Of Contents
-- Introduction ✅
-  - What you need ✅
-  - What is this book about ✅
-  - What is this book NOT about ✅
+- Introduction 
+  - What you need 
+  - What is this book about 
+  - What is this book NOT about 
   
   
 - Modular Architecture 
-  - Design ✅
-  - Layers ✅
-    - App Layer ✅
-    - Domain Layer ✅
-    - Service Layer ✅
-    - Core Layer ✅
-    - Shared Layer ✅
-  - Example: International Space Station
-    - Modules
-  - Pros And Cons
-  - Limitations 
-    - Monolit
-    - Modularity
-    
+  - Design 
+  - Layers 
+    - App Layer 
+    - Domain Layer 
+    - Service Layer 
+    - Core Layer 
+    - Shared Layer 
+  - Example: International Space Station 
+    - ISS Overview 
+    - Cosmonaut 
+    - Laboratory 
+  - Conclusion 
+
+  
+- Frameworks on iOS
+  - Dynamic
+  - Static
+  - Linker and Compiler
+  - X86_64 and ARM  
+
     
 - Development
   - Scalability
@@ -53,13 +59,15 @@ Joerg Nestele
   - Application Framework
     - Distribution 
     - The Software Foundation
-  
-    
-- Frameworks on iOS
-  - Dynamic
-  - Static
-  - Linker and Compiler
-  - X86_64 and ARM
+
+
+- Design Patterns
+  - Configurations
+  - Coordinators
+  - Decoupling
+  - MVVM
+  - Clean Architecture
+  - Protocols
     
     
 - Dependency Managers
@@ -203,7 +211,9 @@ For example a shared module in an e-commerce app could be `Logging` or `AppAnaly
 
 ## Example: International Space Station
 
-Now in this example, let us have a look at how such architecture could really look like for [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). Diagram below shows the four layer architecture with the modules and linking.
+Now in this example, let us have a look at how such architecture could really look like for [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). Diagram below shows the four layer architecture with the modules and linking. 
+
+While this chapter is rather theoretical, in the following chapter everything will be explained and showcased in practice.  
 
 ![Overview](assets/ISS.svg) 
 
@@ -235,10 +245,41 @@ Linked services are using `Network` and `Radio` core modules which are providing
 ![Cosmonaut App](assets/Cosmonaut.svg) 
 ### Laboratory
 
-I will leave this one for the reader to figure it out.
+I will leave this one for the reader to figure it out. 
  
- 
- 
- 
- 
+## Conclusion
+
+As you can probably imagine, scaling of the architecture described above should not be a problem. When it comes to extending for example the ISS Overview app for another ISS periphery, a new domain module can be easily added with some service modules etc. 
+
+When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield tested Cosmonaut domain module with other necessary modules that are required. Development of the new app will become way more easier due to that.
+
+The knowledge of the software remains in one repository or one project where developers have access to and can learn from is also very beneficial.         
+
+There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play. So as, proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
+
+   
+# Frameworks on Apple's ecosystem
+
+Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such project and its behaviour.
+
+In Apple ecosystem as of today we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Dynamic library previously known as `Cocoa Touch Framework`,  nowadays simplified to `Framework` and the statically linked, the `Static Library`.
+
+![Xcode Framework Types](assets/FrameworksType.png) 
+
+## What is Framework?
+
+We can look at a framework as some bundle that is standalone and can be attached to a project with its own executable. 
+
+The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the executable. On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
+
+As mentioned above, the way framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the framework is done through a framework interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the framework after the framework compilation.
+
+A framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark .h files as public. Xcode generates headers for ObjC for public files when compiling. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
+
+No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, you want to expose only files that are called outside of the framework.
+
+https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
+https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
+
+
  
