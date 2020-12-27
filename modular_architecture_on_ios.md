@@ -46,8 +46,7 @@ Joerg Nestele
 
   
 - Frameworks on iOS
-  - Dynamic
-  - Static
+  - Dynamic framework vs static library
   - Linker and Compiler
   - X86_64 and ARM  
 
@@ -260,26 +259,57 @@ There are of course some disadvantages as well. For example, onboarding new deve
    
 # Frameworks on Apple's ecosystem
 
-Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such project and its behaviour.
+Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library (framework) that is going to be used for building such project and its behaviour.
 
-In Apple ecosystem as of today we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Dynamic library previously known as `Cocoa Touch Framework`,  nowadays simplified to `Framework` and the statically linked, the `Static Library`.
-
-![Xcode Framework Types](assets/FrameworksType.png) 
-
-## What is Framework?
+In Apple's ecosystem as of today we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Dynamic library previously known as `Cocoa Touch Framework`,  nowadays simplified to `Framework` and the statically linked, the `Static Library`.
 
 We can look at a framework as some bundle that is standalone and can be attached to a project with its own executable. 
 
-The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the executable. On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
+![Xcode Framework Types](assets/FrameworksType.png) 
+
+## Dynamic framework vs static library?
+
+The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable. On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
 
 As mentioned above, the way framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the framework is done through a framework interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the framework after the framework compilation.
 
 A framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark .h files as public. Xcode generates headers for ObjC for public files when compiling. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
-No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, you want to expose only files that are called outside of the framework.
+No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, only files that are called outside of the framework should be exposed.
 
 https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
 https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
+
+
+## Essentials
+
+When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes much slower app start as the app needs to decide which of those classes will be used. So as, in the worst case when two different versions of the same static library are used the app will use them interchangeably. The debugging will become a horror if that case happens that being said, it is very important to be sure that the linking was done right and no warnings appears.   
+
+All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is unfortunately inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subset of those SDKs are linked statically. 
+
+When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App and Framework) it would fail the installation with `target has transitive dependencies that include static binaries`.
+
+It takes extra effort to link the static library into a dynamically linked projects correctly. The crucial part is to make sure that it is linked only at one place. Either towards one dynamic framework where the static library can be exposed via umbrella file and then everywhere where the framework is linked the static library can be accessed through it as well. Or, towards the app target from where it cannot be exposed anywhere else but via some level of abstraction it can be passed through to other frameworks on the code level.
+
+As an example of such umbrella file exposing GoogleMaps library that was linked to it could be:
+
+```ObjC
+// Framework.h - Umbrella file
+#import <UIKit/UIKit.h>
+#import "GoogleMaps/GoogleMaps.h"
+```      
+
+The import of the header file of `GoogleMaps` into the frameworks umbrella file exposes all public headers of the GoogleMaps because of the `GoogleMaps.h` has all the GoogleMaps public headers.
+
+```ObjC
+// GoogleMaps.h
+#import "GMSIndoorBuilding.h"
+#import "GMSIndoorLevel.h"
+#import "GMSAddress.h"
+...
+``` 
+
+From now on it is sufficient to link and import the Framework we created which allows then direct access to the static GoogleMaps library.
 
 
  
