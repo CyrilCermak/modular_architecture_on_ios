@@ -45,8 +45,15 @@ Joerg Nestele
   - Conclusion 
 
   
-- Frameworks on iOS
+- Frameworks on Apple's ecosystem
   - Dynamic framework vs static library
+  - Essentials
+  - Exposing static 3rd party library
+  - Examining dynamic library
+    - Fat headers
+    - Dependencies
+    - Symbols table
+    - Strings
   - Linker and Compiler
   - X86_64 and ARM  
 
@@ -277,10 +284,6 @@ A framework does not support any Bridging-Header file; instead there is an umbre
 
 No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, only files that are called outside of the framework should be exposed.
 
-https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
-https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
-
-
 ## Essentials
 
 When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes much slower app start as the app needs to decide which of those classes will be used. So as, in the worst case when two different versions of the same static library are used the app will use them interchangeably. The debugging will become a horror if that case happens that being said, it is very important to be sure that the linking was done right and no warnings appears.   
@@ -288,6 +291,8 @@ When building any kind of modular architecture, it is crucial to keep in mind th
 All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is unfortunately inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subset of those SDKs are linked statically. 
 
 When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App and Framework) it would fail the installation with `target has transitive dependencies that include static binaries`.
+
+## Exposing static 3rd party library
 
 It takes extra effort to link the static library into a dynamically linked projects correctly. The crucial part is to make sure that it is linked only at one place. Either towards one dynamic framework where the static library can be exposed via umbrella file and then everywhere where the framework is linked the static library can be accessed through it as well. Or, towards the app target from where it cannot be exposed anywhere else but via some level of abstraction it can be passed through to other frameworks on the code level.
 
@@ -309,7 +314,153 @@ The import of the header file of `GoogleMaps` into the frameworks umbrella file 
 ...
 ``` 
 
-From now on it is sufficient to link and import the Framework we created which allows then direct access to the static GoogleMaps library.
+From now on it is sufficient to link and import the Framework which allows then direct access to the static GoogleMaps library.
+
+## Examining dynamic library
+
+Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source framework. To give it a quick start let's have a look at binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
+
+Apple ships various different tools for exploring compiled libraries. On the UIKit framework I will demonstrate only essential commands that I find useful quite often. 
+
+### Fat headers
+
+First, let's have a look on what Architectures the binary can be linked on. For that, we are going to use `otool`;the utility that is shipped within every macOS. To list fat headers of a compiled binary we will use the flag `-f` and to produce a symbols readable output I also added the `-v` flag.
+
+```shell
+otool -fv ./UIKit
+```
+Not surprisingly, the output produces two architectures. One that runs on the Intel mac (`x86_64`) when deploying to simulator and one that runs on iPhones so as on recently introduced M1 mac (`arm64`). 
+```
+Fat headers
+fat_magic FAT_MAGIC
+nfat_arch 2
+architecture x86_64
+    cputype CPU_TYPE_X86_64
+    cpusubtype CPU_SUBTYPE_X86_64_ALL
+    capabilities 0x0
+    offset 4096
+    size 26736
+    align 2^12 (4096)
+architecture arm64
+    cputype CPU_TYPE_ARM64
+    cpusubtype CPU_SUBTYPE_ARM64_ALL
+    capabilities 0x0
+    offset 32768
+    size 51504
+    align 2^14 (16384)
+```
+
+When the command finishes successfully while not printing any output it simply means that the binary does not contain the fat header. That being said, the library can run only on one architecture and to see what the architecture is we have to print out the mach-o header of the executable.
+
+```shell
+otool -hv ./UIKit
+```
+From the output of the mach-o header we can see that the `cputype` is `X86_64` so as some extra imformation like which flags the library was compiled with.
+```
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
+```
+### Dependencies
+Second, let's have a look at what the library is linking. For that the otool provides `-l` flag.
+```shell
+otool -L ./UIKit
+```
+The output lists all dependencies of that framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing UIKit into a source code file.
+```
+./UIKit:
+	/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0, current version 3987.0.109)
+	/System/Library/Frameworks/FileProvider.framework/FileProvider (compatibility version 1.0.0, current version 1.0.0, reexport)
+  /System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1751.108.0)
+  /System/Library/PrivateFrameworks/DocumentManager.framework/DocumentManager (compatibility version 1.0.0, current version 200.0.0, reexport)
+	/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore (compatibility version 1.0.0, current version 3987.0.109, reexport)
+	/System/Library/PrivateFrameworks/ShareSheet.framework/ShareSheet (compatibility version 1.0.0, current version 1564.6.0, reexport)
+	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
+```
+
+### Symbols table
+
+Third, it is also useful to know what are the symbols that are defined in the framework. For that the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag so as to print them demangled `-C`. 
+```shell
+nm -Ca ./UIKit
+```
+Unfortunately, the output here is very limited as those symbols listed are the ones that defines the framework itself. The limitation is because of Apple ships the binary obfuscated and when reverse engineering the binary with for example Radare2 disassembler, all we can see is couple of `add byte` assembly instructions. It is still possible to dump the list of symbols but for that we would have to either use `lldb` and have the UIKit framework loaded in the memory space or dump the memory footprint of the framework and explore it decrypted. That is unfortunately not part of this book.
+```
+0000000000000ff0 s _UIKitVersionNumber
+0000000000000fc0 s _UIKitVersionString
+                 U dyld_stub_binder
+```
+Just to give an example how the symbols would look like I printed out compiled realm framework by running `nm -Ca ./Realm`. 
+```
+...
+00000000002c4650 T realm::Table::do_move_row(unsigned long, unsigned long)
+00000000002cb1e8 T realm::Table::do_set_link(unsigned long, unsigned long, unsigned long)
+00000000004305e0 S realm::Table::max_integer
+00000000004305e8 S realm::Table::min_integer
+00000000002c44b4 T realm::Table::do_swap_rows(unsigned long, unsigned long)
+00000000002ce9bc T realm::Table::find_all_int(unsigned long, long long)
+00000000002cb3ac T realm::Table::get_linklist(unsigned long, unsigned long)
+00000000002c4d64 T realm::Table::set_subtable(unsigned long, unsigned long, realm::Table const*)
+00000000002ba4f0 T realm::Table::add_subcolumn(std::__1::vector<unsigned long, std::__1::allocator<unsigned long> > const&, realm::DataType, realm::StringData)
+00000000002bd9f8 T realm::Table::create_column(realm::ColumnType, unsigned long, bool, realm::Allocator&)
+00000000002bf3fc T realm::Table::discard_views()
+...
+```
+It seams like Realm was developed in C++ so one more example for Swift with Alamofire. There we can unfortunately see that the `nm` was not able to demangle the symbols.  
+```
+...
+0000000000034d00 T _$s9Alamofire7RequestC8delegateAA12TaskDelegateCvM
+0000000000034dc0 T _$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg
+0000000000034e20 T _$s9Alamofire7RequestC7sessionSo12NSURLSessionCvg
+0000000000034e50 T _$s9Alamofire7RequestC7request10Foundation10URLRequestVSgvg
+00000000000350c0 T _$s9Alamofire7RequestC8responseSo17NSHTTPURLResponseCSgvg
+00000000000351e0 T _$s9Alamofire7RequestC10retryCountSuvpfi
+...
+```
+To demangle swift manually following command can be used.
+```shell
+nm -a ./Alamofire | awk '{ print $3 }' | xargs swift demangle {} \;
+```
+Which produces the mangled name with the demangled explanation.
+```
+...
+_$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg ---> Alamofire.Request.task.getter : __C.NSURLSessionTask?
+_$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvgTq ---> method descriptor for Alamofire.Request.task.getter : __C.NSURLSessionTask?
+_$s9Alamofire7RequestC10retryCountSuvpfi ---> variable initialization expression of Alamofire.Request.retryCount : Swift.UInt
+...
+```
+
+### Strings
+
+Last but not least, it can be also helpful to list all strings that the binary contains. That could help catch developers mistakes like not obfuscated secrets etc. To do that we will use `strings` utility.
+```shell
+strings ./Alamofire
+```
+The output is a list of plain text strings found in the binary.
+```
+...
+Could not fetch the file size from the provided URL:
+The URL provided is a directory:
+The system returned an error while checking the provided URL for
+reachability.
+URL:
+The URL provided is not reachable:
+...
+```
+
+## In conclusion
+I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine the dynamic one. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
+
+I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend; 
+
+How does the executable structure looks like:
+https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103
+Difference in between static and dynamic library from our beloved StackOverflow:
+https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
+The official Apple documentation about dynamic libraries:
+https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
+
 
 
  
