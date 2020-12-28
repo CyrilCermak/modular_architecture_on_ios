@@ -276,11 +276,13 @@ We can look at a framework as some bundle that is standalone and can be attached
 
 ## Dynamic framework vs static library?
 
-The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable. On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
+The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during compilation. On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
 
 As mentioned above, the way framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the framework is done through a framework interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the framework after the framework compilation.
 
 A framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark .h files as public. Xcode generates headers for ObjC for public files when compiling. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
+
+A typical extension of a framework is `.framework`, `.dylib` or none and a typical extension of a static library is `.a`. 
 
 No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, only files that are called outside of the framework should be exposed.
 
@@ -316,11 +318,39 @@ The import of the header file of `GoogleMaps` into the frameworks umbrella file 
 
 From now on it is sufficient to link and import the Framework which allows then direct access to the static GoogleMaps library.
 
-## Examining dynamic library
+## Examining library
 
 Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source framework. To give it a quick start let's have a look at binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
 
-Apple ships various different tools for exploring compiled libraries. On the UIKit framework I will demonstrate only essential commands that I find useful quite often. 
+Apple ships various different tools for exploring compiled libraries and frameworks. On the UIKit framework I will demonstrate only essential commands that I find useful quite often. 
+
+
+## Mach-O 
+
+Before we start, it is useful to know what we are going to be exploring. In Apple ecosystem, file format of any executable is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands etc.  
+
+Since you are surely a curious reader, you are now having tons of questions about where it all comes from. The answer to that is quite simple. Since it is all part of the system you can open up Xcode and look for a file in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file for example the Mach-O header struct is defined.
+
+```c++
+/*
+ * The 64-bit mach header appears at the very beginning of object files for
+ * 64-bit architectures.
+ */
+struct mach_header_64 {
+	uint32_t	magic;		/* mach magic number identifier */
+	cpu_type_t	cputype;	/* cpu specifier */
+	cpu_subtype_t	cpusubtype;	/* machine specifier */
+	uint32_t	filetype;	/* type of file */
+	uint32_t	ncmds;		/* number of load commands */
+	uint32_t	sizeofcmds;	/* the size of all the load commands */
+	uint32_t	flags;		/* flags */
+	uint32_t	reserved;	/* reserved */
+};
+```
+
+When compiler produces final executable the Mach-O header is placed at a concrete byte position in it. Therefore, tools that are working with the executables knows exactly where to look for desired information.  
+
+For further knowledge, I would recommend reading following article: https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103.
 
 ### Fat headers
 
@@ -355,7 +385,7 @@ When the command finishes successfully while not printing any output it simply m
 ```shell
 otool -hv ./UIKit
 ```
-From the output of the mach-o header we can see that the `cputype` is `X86_64` so as some extra imformation like which flags the library was compiled with.
+From the output of the mach-o header we can see that the `cputype` is `X86_64` so as some extra information like which flags the library was compiled with.
 ```
 Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
@@ -379,9 +409,40 @@ The output lists all dependencies of that framework. For example, here you can s
 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
 ```
 
+
+### Executable type
+
+Third, let us determine what type of a library we are dealing with. For that we will use again the `otool` as mach-o header specifies `filetype`. So running it again on the UIKit.framework with the `-hv` flags produces the following output:  
+
+```
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
+```
+From the output's `filetype` we can see that it is a dynamically linked library. Well, not surprisingly as the extension of the library is `framework`. Nevertheless, there are some exceptions. The perfect example of that is `GoogleMaps.framework`. When running the same command on the executable of `GoogleMaps` from the output we can see that the executable is NOT dynamically linked but its type is OBJECT aka object files which means that the library is static and linked to the attached executable at the compile time.
+```
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+MH_MAGIC_64  X86_64        ALL  0x00      OBJECT     4       2688 SUBSECTIONS_VIA_SYMBOLS
+```
+I am guessing that the reason for wrapping the static library into a framework was the necessary include of `GoogleMaps.bundle` which needs to be copied to the target in order the library to work correctly.
+
+Now let's try to run the same command on the typical static library. As an example we can use again one of the Xcodes libraries located at `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a` path. From the library extension we can immediately say the library is static. Running the `otool -hv libswiftCompatibility50.a` just confirmes that the `filetype` is `OBJECT`.
+
+```
+Archive : ./libswiftCompatibility50.a (architecture armv7)
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+   MH_MAGIC     ARM         V7  0x00      OBJECT     4        588 SUBSECTIONS_VIA_SYMBOLS
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+   MH_MAGIC     ARM         V7  0x00      OBJECT     5        736 SUBSECTIONS_VIA_SYMBOLS
+...
+```
+
 ### Symbols table
 
-Third, it is also useful to know what are the symbols that are defined in the framework. For that the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag so as to print them demangled `-C`. 
+Fourth, it is also useful to know what are the symbols that are defined in the framework. For that the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag so as to print them demangled `-C`. 
 ```shell
 nm -Ca ./UIKit
 ```
