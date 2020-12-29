@@ -282,9 +282,9 @@ As mentioned above, the way framework code execution works is slightly different
 
 A framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark .h files as public. Xcode generates headers for ObjC for public files when compiling. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
-A typical extension of a framework is `.framework`, `.dylib` or none and a typical extension of a static library is `.a`. 
-
 No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, only files that are called outside of the framework should be exposed.
+
+The typical extension of a framework is `.framework` or `.dylib` which is some sort of a bundle that contains the executable with no extension so as some resources if they are included. A typical extension of a static library is `.a` and unlike a framework it is the plain executable format. It contains object files and object files consists of object code which is compiler or assembler produced machine code.
 
 ## Essentials
 
@@ -320,12 +320,11 @@ From now on it is sufficient to link and import the Framework which allows then 
 
 ## Examining library
 
-Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source framework. To give it a quick start let's have a look at binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
+Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source framework or a library. To give it a quick start let's have a look at a binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
 
-Apple ships various different tools for exploring compiled libraries and frameworks. On the UIKit framework I will demonstrate only essential commands that I find useful quite often. 
+Apple ships various different tools for exploring compiled libraries and frameworks. On the UIKit framework I will demonstrate only essential commands that I find useful quite often.
 
-
-## Mach-O 
+### Mach-O file format
 
 Before we start, it is useful to know what we are going to be exploring. In Apple ecosystem, file format of any executable is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands etc.  
 
@@ -348,9 +347,11 @@ struct mach_header_64 {
 };
 ```
 
-When compiler produces final executable the Mach-O header is placed at a concrete byte position in it. Therefore, tools that are working with the executables knows exactly where to look for desired information.  
+When compiler produces final executable the Mach-O header is placed at a concrete byte position in it. Therefore, tools that are working with the executables knows exactly where to look for desired information. The same principle applies to all other parts of Mach-O as well.  
 
-For further knowledge, I would recommend reading following article: https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103.
+`// TODO: Redirect to an article or explain here?`
+
+For further exploration of Mach-O file, I would recommend reading the following [article](https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103.).
 
 ### Fat headers
 
@@ -385,41 +386,24 @@ When the command finishes successfully while not printing any output it simply m
 ```shell
 otool -hv ./UIKit
 ```
-From the output of the mach-o header we can see that the `cputype` is `X86_64` so as some extra information like which flags the library was compiled with.
+From the output of the Mach-O header we can see that the `cputype` is `X86_64` so as some extra information like which `flags` the library was compiled with, `filetype` and so on.
 ```
 Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
 MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 ```
-### Dependencies
-Second, let's have a look at what the library is linking. For that the otool provides `-l` flag.
-```shell
-otool -L ./UIKit
-```
-The output lists all dependencies of that framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing UIKit into a source code file.
-```
-./UIKit:
-	/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0, current version 3987.0.109)
-	/System/Library/Frameworks/FileProvider.framework/FileProvider (compatibility version 1.0.0, current version 1.0.0, reexport)
-  /System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1751.108.0)
-  /System/Library/PrivateFrameworks/DocumentManager.framework/DocumentManager (compatibility version 1.0.0, current version 200.0.0, reexport)
-	/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore (compatibility version 1.0.0, current version 3987.0.109, reexport)
-	/System/Library/PrivateFrameworks/ShareSheet.framework/ShareSheet (compatibility version 1.0.0, current version 1564.6.0, reexport)
-	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
-	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
-```
-
 
 ### Executable type
 
-Third, let us determine what type of a library we are dealing with. For that we will use again the `otool` as mach-o header specifies `filetype`. So running it again on the UIKit.framework with the `-hv` flags produces the following output:  
+Second, let us determine what type of a library we are dealing with. For that we will use again the `otool` as mentioned above Mach-O header specifies `filetype`. So running it again on the UIKit.framework with the `-hv` flags produces the following output:  
 
 ```
 Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
 MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 ```
-From the output's `filetype` we can see that it is a dynamically linked library. Well, not surprisingly as the extension of the library is `framework`. Nevertheless, there are some exceptions. The perfect example of that is `GoogleMaps.framework`. When running the same command on the executable of `GoogleMaps` from the output we can see that the executable is NOT dynamically linked but its type is OBJECT aka object files which means that the library is static and linked to the attached executable at the compile time.
+From the output's `filetype` we can see that it is a dynamically linked library. Well, not surprisingly as the extension of the library is `.framework`. Nevertheless, there are some exceptions. The perfect example of that is `GoogleMaps.framework`. When running the same command on the executable of `GoogleMaps` from the output we can see that the executable is NOT dynamically linked but its type is `OBJECT` aka object files which means that the library is static and linked to the attached executable at the compile time.
+
 ```
 Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
@@ -427,7 +411,7 @@ MH_MAGIC_64  X86_64        ALL  0x00      OBJECT     4       2688 SUBSECTIONS_VI
 ```
 I am guessing that the reason for wrapping the static library into a framework was the necessary include of `GoogleMaps.bundle` which needs to be copied to the target in order the library to work correctly.
 
-Now let's try to run the same command on the typical static library. As an example we can use again one of the Xcodes libraries located at `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a` path. From the library extension we can immediately say the library is static. Running the `otool -hv libswiftCompatibility50.a` just confirmes that the `filetype` is `OBJECT`.
+Now let's try to run the same command on the static library. As an example we can use again one of the Xcode's libraries located at `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a` path. From the library extension we can immediately say the library is static. Running the `otool -hv libswiftCompatibility50.a` just confirms that the `filetype` is `OBJECT`.
 
 ```
 Archive : ./libswiftCompatibility50.a (architecture armv7)
@@ -438,6 +422,27 @@ Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
    MH_MAGIC     ARM         V7  0x00      OBJECT     5        736 SUBSECTIONS_VIA_SYMBOLS
 ...
+```
+
+While library ending with `.a` is clearly static one with a framework to be really sure that the library is dynamically linked it is better to check the executable for its `filetype`.
+
+### Dependencies
+Third, let's have a look at what the library is linking. For that the otool provides `-l` flag.
+```shell
+otool -L ./UIKit
+```
+The output lists all dependencies of that framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing UIKit into a source code file.
+
+```
+./UIKit:
+	/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0, current version 3987.0.109)
+	/System/Library/Frameworks/FileProvider.framework/FileProvider (compatibility version 1.0.0, current version 1.0.0, reexport)
+  /System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1751.108.0)
+  /System/Library/PrivateFrameworks/DocumentManager.framework/DocumentManager (compatibility version 1.0.0, current version 200.0.0, reexport)
+	/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore (compatibility version 1.0.0, current version 3987.0.109, reexport)
+	/System/Library/PrivateFrameworks/ShareSheet.framework/ShareSheet (compatibility version 1.0.0, current version 1564.6.0, reexport)
+	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
 ```
 
 ### Symbols table
