@@ -264,17 +264,38 @@ The knowledge of the software remains in one repository or one project where dev
 There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play. So as, proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
 
    
-# Frameworks on Apple's ecosystem
+# Libraries on Apple's ecosystem
 
-Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library (framework) that is going to be used for building such project and its behaviour.
+Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such project and its behaviour.
 
 In Apple's ecosystem as of today we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Dynamic library previously known as `Cocoa Touch Framework`,  nowadays simplified to `Framework` and the statically linked, the `Static Library`.
 
-We can look at a framework as some bundle that is standalone and can be attached to a project with its own executable. 
-
 ![Xcode Framework Types](assets/FrameworksType.png) 
 
-## Dynamic framework vs static library?
+**What is a library?**
+
+To quote Apple:
+*"Libraries define symbols that are not built as part of your target."*
+
+What are symbols?
+*Symbols reference to chunks of code or data within binary.*
+
+**Types of libraries:**
+
+1) Dynamicaly linked
+  - **Dylib**: Library that has its own Mach-O (explained later) binary. (`.dylib`)
+  - **Framework**: Framework is a bundle that contains the binary and other resources the binary might need during the run time. (`.framework`)
+  - **TBDs**: Text Based Dynamic Library Stubs is a text stubbed library around a binary without including it as the binary resides on the target system, used by Apple to ship lightweight SDKs for development. 
+  - **XCFramework**: From Xcode 11 the XCFramework was introduced which allows to group a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`,`watchOS` etc.
+
+2) Statically linked
+  - **Archive**: Archive of a compiler produced object files with object code. (`.a`)
+  - **Framework**: Framework contains the static binary or static archive with additional resources the library might need. (`.framework`)
+  - **XCFramework**: Same as for dynamically linked library the XCFramework can be used with statically linked.
+
+We can look at a framework as some bundle that is standalone and can be attached to a project with its own binary. Nevertheless, the binary cannot run by itself, it must be part of some target. 
+
+## Dynamic vs static library?
 
 The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during compilation. On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
 
@@ -284,7 +305,7 @@ A framework does not support any Bridging-Header file; instead there is an umbre
 
 No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, only files that are called outside of the framework should be exposed.
 
-The typical extension of a framework is `.framework` or `.dylib` which is some sort of a bundle that contains the executable with no extension so as some resources if they are included. A typical extension of a static library is `.a` and unlike a framework it is the plain executable format. It contains object files and object files consists of object code which is compiler or assembler produced machine code.
+**PROS & CONS**
 
 ## Essentials
 
@@ -293,6 +314,8 @@ When building any kind of modular architecture, it is crucial to keep in mind th
 All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is unfortunately inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subset of those SDKs are linked statically. 
 
 When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App and Framework) it would fail the installation with `target has transitive dependencies that include static binaries`.
+
+Let's have a look how to link such static library into a dynamically linked SDK. 
 
 ## Exposing static 3rd party library
 
@@ -515,6 +538,8 @@ The URL provided is not reachable:
 ...
 ```
 
+## Compiler and Linker
+
 ## In conclusion
 I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine the dynamic one. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
 
@@ -522,8 +547,10 @@ I would highly recommend to deep dive into this topic even more. Here are some r
 
 How does the executable structure looks like:
 https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103
+
 Difference in between static and dynamic library from our beloved StackOverflow:
 https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
+
 The official Apple documentation about dynamic libraries:
 https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
 
