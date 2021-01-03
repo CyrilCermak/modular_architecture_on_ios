@@ -297,13 +297,15 @@ We can look at a framework as some bundle that is standalone and can be attached
 
 ## Dynamic vs static library?
 
-The main difference between a static library and a framework is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during build process (linking). On the other hand when you are using something from a framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executable process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code. A framework can contain everything you can think of e.g storyboards, xibs, images and so on…
+The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during build process (linking). On the other hand when you are using something from a dynamic framework you are passing responsibility for it to the framework as framework is dynamically linked on the app start to the executables process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, xibs, images and so on…
 
-As mentioned above, the way framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the framework is done through a framework interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the framework after the framework was built.  
+As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a frameworks interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.   
 
-A framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
+A dynamic framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the dynamic framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
-No need to say, classes and other structures must be marked as public to be visible outside of a framework. Not surprisingly, only files that are called outside of the framework should be exposed.
+On the other hand, static library is attached directly to the main executable during linking as a library contains already pre-compiled archive of the source files with symbols. That being said, there is no need for umbrella file so as IoC like in dynamic framework.
+
+No need to say, classes and other structures must be marked as public to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
 
 **PROS & CONS**
 
@@ -311,15 +313,15 @@ No need to say, classes and other structures must be marked as public to be visi
 
 When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes much slower app start as the app needs to decide which of those classes will be used. So as, in the worst case when two different versions of the same static library are used the app will use them interchangeably. The debugging will become a horror if that case happens that being said, it is very important to be sure that the linking was done right and no warnings appears.   
 
-All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is unfortunately inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subset of those SDKs are linked statically. 
+All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is unfortunately inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subsets of those SDKs are linked statically. 
 
-When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App and Framework) it would fail the installation with `target has transitive dependencies that include static binaries`.
+When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App or Framework) it would fail the installation with `target has transitive dependencies that include static binaries`. Therefore, it takes an extra effort to link static binaries into multiple frameworks.
 
 Let's have a look how to link such static library into a dynamically linked SDK. 
 
 ## Exposing static 3rd party library
 
-It takes extra effort to link the static library into a dynamically linked projects correctly. The crucial part is to make sure that it is linked only at one place. Either towards one dynamic framework where the static library can be exposed via umbrella file and then everywhere where the framework is linked the static library can be accessed through it as well. Or, towards the app target from where it cannot be exposed anywhere else but via some level of abstraction it can be passed through to other frameworks on the code level.
+As mentioned above, it takes an extra effort to link a static library or static framework into a dynamically linked projects correctly. The crucial part is to make sure that it is linked only at one place. Either towards one dynamic framework where the static library can be exposed via umbrella file and then everywhere where the framework is linked the static library can be accessed through it as well. Or, only towards the app target from where it cannot be exposed anywhere else but via some level of abstraction it can be passed through to other frameworks on the code level. The same applies for static framework.
 
 As an example of such umbrella file exposing GoogleMaps library that was linked to it could be:
 
@@ -339,17 +341,17 @@ The import of the header file of `GoogleMaps` into the frameworks umbrella file 
 ...
 ``` 
 
-From now on it is sufficient to link and import the Framework which allows then direct access to the static GoogleMaps library.
+From now on it is sufficient to link and import the dynamic framework which allows then direct access to the static GoogleMaps framework. In case of the static GoogleMaps framework, it is necessary to copy its bundle towards the app as there the GoogleMaps binary is looking for its resources like translations, images and so on. 
 
 ## Examining library
 
-Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source framework or a library. To give it a quick start let's have a look at a binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
+Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source dynamic framework or a static library. To give it a quick start let's have a look at a binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
 
 Apple ships various different tools for exploring compiled libraries and frameworks. On the UIKit framework I will demonstrate only essential commands that I find useful quite often.
 
 ### Mach-O file format
 
-Before we start, it is useful to know what we are going to be exploring. In Apple ecosystem, file format of any executable is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands etc.  
+Before we start, it is useful to know what we are going to be exploring. In Apple ecosystem, file format of any binary is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands and so on.  
 
 Since you are surely a curious reader, you are now having tons of questions about where it all comes from. The answer to that is quite simple. Since it is all part of the system you can open up Xcode and look for a file in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file for example the Mach-O header struct is defined.
 
@@ -378,7 +380,7 @@ For further exploration of Mach-O file, I would recommend reading the following 
 
 ### Fat headers
 
-First, let's have a look on what Architectures the binary can be linked on. For that, we are going to use `otool`;the utility that is shipped within every macOS. To list fat headers of a compiled binary we will use the flag `-f` and to produce a symbols readable output I also added the `-v` flag.
+First, let's have a look on what Architectures the binary can be linked on (fat headers). For that, we are going to use `otool`;the utility that is shipped within every macOS. To list fat headers of a compiled binary we will use the flag `-f` and to produce a symbols readable output I also added the `-v` flag.
 
 ```shell
 otool -fv ./UIKit
@@ -425,16 +427,16 @@ Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
 MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 ```
-From the output's `filetype` we can see that it is a dynamically linked library. Well, not surprisingly as the extension of the library is `.framework`. Nevertheless, there are some exceptions. The perfect example of that is `GoogleMaps.framework`. When running the same command on the executable of `GoogleMaps` from the output we can see that the executable is NOT dynamically linked but its type is `OBJECT` aka object files which means that the library is static and linked to the attached executable at the compile time.
+From the output's `filetype` we can see that it is a dynamically linked library. From its extension we can say it is a dynamically linked framework. Like described before, framework can be dynamically or statically linked. The perfect example of statically linked framework is `GoogleMaps.framework`. When running the same command on the binary of `GoogleMaps` from the output we can see that the binary is NOT dynamically linked as its type is `OBJECT` aka object files which means that the library is static and linked to the attached executable at the compile time.
 
 ```
 Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
 MH_MAGIC_64  X86_64        ALL  0x00      OBJECT     4       2688 SUBSECTIONS_VIA_SYMBOLS
 ```
-I am guessing that the reason for wrapping the static library into a framework was the necessary include of `GoogleMaps.bundle` which needs to be copied to the target in order the library to work correctly.
+The reason for wrapping the static library into a framework was the necessary include of `GoogleMaps.bundle` which needs to be copied to the target in order the library to work correctly with its resources.
 
-Now let's try to run the same command on the static library. As an example we can use again one of the Xcode's libraries located at `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a` path. From the library extension we can immediately say the library is static. Running the `otool -hv libswiftCompatibility50.a` just confirms that the `filetype` is `OBJECT`.
+Now, let's try to run the same command on the static library archive. As an example we can use again one of the Xcode's libraries located at `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a` path. From the library extension we can immediately say the library is static. Running the `otool -hv libswiftCompatibility50.a` just confirms that the `filetype` is `OBJECT`.
 
 ```
 Archive : ./libswiftCompatibility50.a (architecture armv7)
@@ -447,14 +449,14 @@ Mach header
 ...
 ```
 
-While library ending with `.a` is clearly static one with a framework to be really sure that the library is dynamically linked it is better to check the executable for its `filetype`.
+While static library archive ending with `.a` is clearly static one with a framework to be really sure that the library is dynamically linked it is necessary to check the binary for its `filetype` in the Mach-O header.
 
 ### Dependencies
-Third, let's have a look at what the library is linking. For that the otool provides `-l` flag.
+Third, let's have a look at what the library is linking. For that the `otool` provides `-l` flag.
 ```shell
 otool -L ./UIKit
 ```
-The output lists all dependencies of that framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing UIKit into a source code file.
+The output lists all dependencies of UIKit framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing `UIKit` into a source code file.
 
 ```
 ./UIKit:
@@ -470,11 +472,12 @@ The output lists all dependencies of that framework. For example, here you can s
 
 ### Symbols table
 
-Fourth, it is also useful to know what are the symbols that are defined in the framework. For that the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag so as to print them demangled `-C`. 
+Fourth, it is also useful to know what are the symbols that are defined in the framework. For that the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag so as `-C` to print them demangled. The name mangling is a technique of adding extra information about the language data type (class, struct, enum ...) to the symbol during compile time in order to pass more information about it to the linker. With mangled symbol the linker will know that this symbols is for a class, getter, setter etc and can work with it accordingly. 
+
 ```shell
 nm -Ca ./UIKit
 ```
-Unfortunately, the output here is very limited as those symbols listed are the ones that defines the framework itself. The limitation is because of Apple ships the binary obfuscated and when reverse engineering the binary with for example Radare2 disassembler, all we can see is couple of `add byte` assembly instructions. It is still possible to dump the list of symbols but for that we would have to either use `lldb` and have the UIKit framework loaded in the memory space or dump the memory footprint of the framework and explore it decrypted. That is unfortunately not part of this book.
+Unfortunately, the output here is very limited as those symbols listed are the ones that defines the dynamic framework itself. The limitation is because of Apple ships the binary obfuscated and when reverse engineering the binary with for example Radare2 disassembler, all we can see is couple of `add byte` assembly instructions. It is still possible to dump the list of symbols but for that we would have to either use `lldb` and have the UIKit framework loaded in the memory space or dump the memory footprint of the framework and explore it decrypted. That is unfortunately not part of this book.
 ```
 0000000000000ff0 s _UIKitVersionNumber
 0000000000000fc0 s _UIKitVersionString
@@ -496,7 +499,7 @@ Just to give an example how the symbols would look like I printed out compiled r
 00000000002bf3fc T realm::Table::discard_views()
 ...
 ```
-It seams like Realm was developed in C++ so one more example for Swift with Alamofire. There we can unfortunately see that the `nm` was not able to demangle the symbols.  
+It seams like Realm was developed in C++ but it can be clearly seen what kind of symbols are available within the binary. One more example for Swift with Alamofire. There we can unfortunately see that the `nm` was not able to demangle the symbols.  
 ```
 ...
 0000000000034d00 T _$s9Alamofire7RequestC8delegateAA12TaskDelegateCvM
@@ -511,7 +514,7 @@ To demangle swift manually following command can be used.
 ```shell
 nm -a ./Alamofire | awk '{ print $3 }' | xargs swift demangle {} \;
 ```
-Which produces the mangled name with the demangled explanation.
+Which produces the mangled symbol name with the demangled explanation.
 ```
 ...
 _$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg ---> Alamofire.Request.task.getter : __C.NSURLSessionTask?
@@ -522,7 +525,7 @@ _$s9Alamofire7RequestC10retryCountSuvpfi ---> variable initialization expression
 
 ### Strings
 
-Last but not least, it can be also helpful to list all strings that the binary contains. That could help catch developers mistakes like not obfuscated secrets etc. To do that we will use `strings` utility.
+Last but not least, it can be also helpful to list all strings that the binary contains. That could help catch developers mistakes like not obfuscated secrets and some other strings that should not be part of the binary. To do that we will use `strings` utility again on the Alamofire binary.
 ```shell
 strings ./Alamofire
 ```
@@ -541,7 +544,7 @@ The URL provided is not reachable:
 ## Compiler and Linker
 
 ## In conclusion
-I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine the dynamic one. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
+I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine them. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
 
 I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend; 
 
@@ -557,6 +560,9 @@ https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework
 The official Apple documentation about dynamic libraries:
 https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
 
-
+Binaries: 
+GoogleMaps: https://developers.google.com/maps/documentation/ios-sdk/v3-client-migration#install-manually
+Alamofire: https://github.com/Alamofire/Alamofire
+Realm: https://realm.io/docs/swift/latest
 
  
