@@ -57,17 +57,26 @@ Joerg Nestele
     - Dependencies
     - Symbols table
     - Strings
-  - Compiler and Linker (//TODO: ?)
+  - Compiler and Linker
   - Conclusion 
 
     
-- Development
-  - Scalability
-  - Workflow
+- Development of the modular architecture
+  - Creating frameworks
+  - Workspace and projects
+    - xcodegen
+  - Contributions 
+    - Mono-repository 
+    - Versionised frameworks
   - Ground Rules
+  - Mobile Secrets
+  - Workflow
+  - Scalability
   - Application Framework
     - Distribution 
     - The Software Foundation
+  - Common Problems
+  - Conclusion
 
 
 - Design Patterns
@@ -85,18 +94,6 @@ Joerg Nestele
   - SwiftPM
     
     
-- Development
-  - Dynamic CocoaTouch Framework
-  - Workspace and projects
-      - xcodegen
-  - Contributions 
-    - Mono-repository 
-    - Versionised frameworks
-  - Common Problems
-  - Handling Secrets
-    - Mobile Secrets
-  
-  
 - Distribution
   - Frameworks
   - XCFrameworks
@@ -590,11 +587,11 @@ Let's have a quick look at what Xcode does when the build is triggered.
 
 1. **Preprocessing**
 
-  As mentioned above, Xcode build system uses two compilers; clang and swiftc. Compiler consists of two parts, front-end and back-end. Both compilers are using the same back-end, LLVM (Low Level Virtual Machine) and language specific front-end. Preprocessing resolves preprocessors macros and prepares the code for the compiler. Preprocessor also decides which compiler will be used for which source code file. Not surprisingly, swift source code file will be compiled by swiftc and other C like files will use clang.
+  Preprocessing resolves macros, removes comments, imports files and so on. In a nutshell it prepares the code for the compiler. Preprocessor also decides which compiler will be used for which source code file. Not surprisingly, swift source code file will be compiled by swiftc and other C like files will use clang.
 
 2. **Compiler** (`swiftc`, `clang`)
 
-  The job of a compiler is to compile the preprocessed source code files into object files which contains object code. Object code is simply human readable assembly instructions that can be understood by the CPU.   
+  As mentioned above, Xcode build system uses two compilers; clang and swiftc. Compiler consists of two parts, front-end and back-end. Both compilers are using the same back-end, LLVM (Low Level Virtual Machine) and language specific front-end. The job of a compiler is to compile the preprocessed source code files into object files which contains object code. Object code is simply human readable assembly instructions that can be understood by the CPU.   
 
 3. **Assembler** (`asm`)
 
@@ -610,7 +607,7 @@ Let's have a quick look at what Xcode does when the build is triggered.
   
 Now you should have a high level overview of what phases Xcode build system goes through when the build is started.
 
-## In conclusion
+## Conclusion
 I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine them. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
 
 I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend; 
