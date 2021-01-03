@@ -45,17 +45,20 @@ Joerg Nestele
   - Conclusion 
 
   
-- Frameworks on Apple's ecosystem
-  - Dynamic framework vs static library
+- Libraries on Apple's ecosystem
+  - Dynamic vs static library
+    - Pros & Cons
   - Essentials
   - Exposing static 3rd party library
   - Examining dynamic library
+    - Mach-O file format
     - Fat headers
+    - Executable type
     - Dependencies
     - Symbols table
     - Strings
-  - Linker and Compiler
-  - X86_64 and ARM  
+  - Compiler and Linker (//TODO: ?)
+  - Conclusion 
 
     
 - Development
@@ -579,6 +582,33 @@ The URL provided is not reachable:
 
 ## Compiler and Linker
 
+Last piece of information that is missing now is; how it all gets glued together. As Apple developers, we are using Xcode for developing apps for Apple products that are then distributed via App Store or other distribution channels. Xcode under the hood is using `Xcode Build System` for producing final executables that runs on `X86` and `ARM` processor architectures.
+
+The Xcode build system consists of multiple steps that depends on each other. Xcode build system supports C based languages (C, C++, Objective-C, Objective-C++) compiled with `clang` so as Swift language compiled with `swiftc`. 
+
+Let's have a quick look at what Xcode does when the build is triggered.
+
+1. **Preprocessing**
+
+  As mentioned above, Xcode build system uses two compilers; clang and swiftc. Compiler consists of two parts, front-end and back-end. Both compilers are using the same back-end, LLVM (Low Level Virtual Machine) and language specific front-end. Preprocessing resolves preprocessors macros and prepares the code for the compiler. Preprocessor also decides which compiler will be used for which source code file. Not surprisingly, swift source code file will be compiled by swiftc and other C like files will use clang.
+
+2. **Compiler**
+
+  The job of a compiler is to compile the preprocessed source code files into object files which contains object code. Object code is simply human readable assembly instructions that can be understood by the CPU.   
+
+3. **Assembler**
+
+  Assembler takes the output of the compiler (assembly) and produces relocatable machine code. Machine code is recognised by a concrete type of a processor (ARM, X86). The opposite of relocatable machine code would be absolute machine code. While relocatable code can be placed at any position in memory by loader the absolute machine code has its position set in the binary.   
+
+4. **Linker**
+
+  Final step of the build system is linking. Linker is a program that takes object files (multiple compiled files) and links (merges) them together based on the symbols those files are using so as links static and dynamic libraries if needed. In order to be able to link libraries linker needs to know the paths where to look for them. Linker produces final single file; Mach-O executable.
+
+5. **Loader**
+
+  After the executable was built the job of a loader is to bring the executable into memory and start the program execution. Loader is a system program operating on the kernel level. Loader assigns the memory space and loads Mach-O executable to it. 
+  
+  
 ## In conclusion
 I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine them. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
 
@@ -595,6 +625,11 @@ https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework
 
 The official Apple documentation about dynamic libraries:
 https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
+
+To know more about the Xcode build system:
+https://medium.com/flawless-app-stories/xcode-build-system-know-it-better-96936e7f52a
+https://www.objc.io/issues/6-build-tools/mach-o-executables/
+
 
 Used binaries: 
 GoogleMaps: https://developers.google.com/maps/documentation/ios-sdk/v3-client-migration#install-manually
