@@ -307,7 +307,43 @@ On the other hand, static library is attached directly to the main executable du
 
 No need to say, classes and other structures must be marked as public to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
 
-**PROS & CONS**
+### PROS & CONS
+Now let's have a look at some pros & cons of both binaries.
+
+**Dynamic:**
+
+  - **PROS**
+    - Faster app start time as library is linked during app launch time or runtime, therefore the main executable has lesser memory footprint to load
+    - Can be opened on demand, therefore might not get opened at all if user do not open specific part of the app (`dlopen`)
+    - Can be linked transitively to other dynamic libraries without any difficulty
+    - Can be exchanged without the recompile of the main executable just by replacing the framework with a new version
+    - Is loaded into a different memory space than the main executable 
+    - Can be shared in between applications especially useful for system libraries
+    - Can be loaded partially, only the needed symbols can be loaded into the memory (`dlsym`)
+    - Can be loaded lazily, only objects that are referenced will be loaded
+    - Library can perform some cleanup tasks when it is closed (`dlclose`)
+  
+  - **CONS**
+    - The target must copy all dynamic libraries else the app crashes on the start or during runtime with `dyld library not found`
+    - The overall size of the binary is bigger than the static one as compiler can strip of symbols from the static library during the compile time while in dynamic library the symbols at least the public ones must remain 
+    - Potential replace of a dynamic library with a new version with different interfaces can break the main executable
+    - Slower library API calls as it is loaded into a different memory space and called via library interface
+    - App's executable can be linked against incompatible library version
+    - Launch time of the app might take longer if all dynamic libraries are opened during the launch time
+  
+**Static:**
+
+  - **PROS**
+    - Is part of the main executable therefore, the app cannot crash during launch or runtime due to a missing library
+    - Overall smaller size of the final executable as the symbols can be stripped of
+    - In terms of calls speed there is no difference in between the main executable and the library as the library is part of the main executable
+    - Compiler can provide some extra optimisation during the build time of the main executable   
+
+  - **CONS**  
+  
+    - The library must NOT be linked transitively, the library must be present only once in the memory either in the main executable or one of its dependencies
+    - The main executable must be recompiled when the library has an update even though the library's interface remains the same
+    - Memory footprint of the main executable is bigger which implies the load time is slower
 
 ## Essentials
 
@@ -560,7 +596,7 @@ https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework
 The official Apple documentation about dynamic libraries:
 https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
 
-Binaries: 
+Used binaries: 
 GoogleMaps: https://developers.google.com/maps/documentation/ios-sdk/v3-client-migration#install-manually
 Alamofire: https://github.com/Alamofire/Alamofire
 Realm: https://realm.io/docs/swift/latest
