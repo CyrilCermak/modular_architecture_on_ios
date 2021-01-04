@@ -1,10 +1,7 @@
 class AppFactory
   
   def initialize app_name, destination_path
-    @app_name = app_name
-    @destination_path = destination_path
-    puts @app_name
-    puts @destination_path
+    make_new_app app_name, destination_path
   end
   
   private 
@@ -15,9 +12,9 @@ class AppFactory
     app_uitests_path = "#{destination}/#{name}UITests/"
     
     # Template paths
-    template_path = "template/Template/"
-    template_tests_path = "template/TemplateTests/"
-    template_uitests_path = "template/TemplateUITests/"
+    template_path = "#{__FILE__}/template/Template/"
+    template_tests_path = "#{__FILE__}/template/TemplateTests/"
+    template_uitests_path = "#{__FILE__}/template/TemplateUITests/"
     
     # Create folder structure
     [app_path, app_tests_path, app_uitests_path].each { |path| Dir.mkdir path }
