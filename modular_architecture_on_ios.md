@@ -58,6 +58,7 @@ Joerg Nestele
     - Symbols table
     - Strings
   - Compiler and Linker
+    - (Step by step compiler process) // Topic for extension
   - Conclusion 
 
     

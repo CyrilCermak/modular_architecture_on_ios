@@ -1,0 +1,36 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: Cosmonaut
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  Cosmonaut:
+    type: application
+    platform: iOS
+    sources: Cosmonaut
+  
+  # Tests for the main application
+  CosmonautTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: CosmonautTests
+    dependencies:
+      - target: Cosmonaut
+    settings:
+      TEST_HOST: $(BUILT_PRODUCTS_DIR)/Cosmonaut.app/Cosmonaut
+
+  # UITests for the main application
+  CosmonautUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: CosmonautUITests
+    dependencies:
+      - target: Cosmonaut

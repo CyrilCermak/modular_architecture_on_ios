@@ -1,0 +1,66 @@
+options:
+  bundleIdPrefix: com.iss
+  developmentLanguage: en
+settingGroups:
+  BuildSettings:
+    base:
+    # Architectures
+      SDKROOT: iphoneos
+    # Build Options
+      ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      ENABLE_BITCODE: false
+    # Deployment
+      IPHONEOS_DEPLOYMENT_TARGET: 13.0
+      TARGETED_DEVICE_FAMILY: 1
+    # Linking
+      LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
+    # Packaging
+      DEFINES_MODULE: true
+      PRODUCT_NAME: "$(TARGET_NAME)"
+    # Search Paths
+      ALWAYS_SEARCH_USER_PATHS: false
+      FRAMEWORK_SEARCH_PATHS: "$(inherited)"
+      HEADER_SEARCH_PATHS: $(inherited)
+      LIBRARY_SEARCH_PATHS: $(inherited)
+    # Signing
+      CODE_SIGN_STYLE: Manual
+      # DEVELOPMENT_TEAM: XXX
+    # Versioning
+      CURRENT_PROJECT_VERSION: 1
+    # Apple LLVM 9.0 - Code Generation
+      GCC_GENERATE_DEBUGGING_SYMBOLS: true
+      GCC_INSTRUMENT_PROGRAM_FLOW_ARCS: false
+      GCC_NO_COMMON_BLOCKS: false
+    # Apple LLVM 9.0 - Custom Compiler Flags
+      OTHER_CFLAGS: $(inherited)
+    # Apple LLVM 9.0 - Language
+      GCC_PRECOMPILE_PREFIX_HEADER: true
+    # Apple LLVM 9.0 - Language - Modules
+      CLANG_ENABLE_MODULES: true
+    # Swift Complier - Language
+      SWIFT_VERSION: 5.0
+    # User-Defined
+      COMPRESS_PNG_FILES: false
+      SWIFT_COMPILATION_MODE: wholemodule
+      CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF: true
+      CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS: true
+
+    # Configuration specific options
+    configs:
+      Debug:
+        ENABLE_TESTABILITY: true
+        LLVM_LTO: false
+        OTHER_SWIFT_FLAGS: "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150"
+        OTHER_LDFLAGS: "$(inherited) -ObjC -lz"
+        ONLY_ACTIVE_ARCH: true
+        SWIFT_OPTIMIZATION_LEVEL: -Onone
+        DEBUG_INFORMATION_FORMAT: dwarf
+        
+      Release:
+        ENABLE_TESTABILITY: false
+        LLVM_LTO: Monolithic
+        OTHER_SWIFT_FLAGS: "$(inherited) -DRELEASE"
+        OTHER_LDFLAGS: $(inherited)
+        ONLY_ACTIVE_ARCH: true
+        SWIFT_OPTIMIZATION_LEVEL: -Owholemodule
