@@ -1,6 +1,6 @@
 //
-//  ISSNetworkTests.swift
-//  ISSNetworkTests
+//  NetworkTests.swift
+//  NetworkTests
 //
 //  Created by Cyril Cermak on 04.01.21.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import ISSNetwork
 
-class ISSNetworkTests: XCTestCase {
+class NetworkTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -7,30 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		446B0F3A80ACB698CCD92BE5 /* ISSNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D185C091A272FF6034DB41 /* ISSNetworkTests.swift */; };
-		A48B569CED44A6F188D4B61A /* ISSNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = EA1AC94702D219A51893CF03 /* ISSNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDE3965F235CE019D1FB7F22 /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 298888D8169FB7D0CE48E45D /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E2714A54379CF011DAEE5823 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 298888D8169FB7D0CE48E45D /* ISSNetwork.framework */; };
+		3872CB2263F9FCA6EEE11F18 /* Network.h in Headers */ = {isa = PBXBuildFile; fileRef = AE5561193B5201EF3AF74C23 /* Network.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; };
+		D3E1F43411BF58BB40B2117B /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E778F92E918BD126BAA989AF /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F812B411A786CECE70EE3 /* NetworkTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8773E15AE086C7F13C24C210 /* PBXContainerItemProxy */ = {
+		5A028325E71F4BF851E51792 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 18BD8A466DF1E6BFF3AC2816 /* Project object */;
+			containerPortal = CE30DA66E8F9024F4E5F5F22 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A38578FABD7D2D72A53F8AFE;
+			remoteGlobalIDString = 0E6FA5BB0F3AF42A884ABC1F;
 			remoteInfo = ISSNetwork;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1231874A2C0A88F4C541F9B1 /* Embed Frameworks */ = {
+		25CC73EFCBFA850690E82C35 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CDE3965F235CE019D1FB7F22 /* ISSNetwork.framework in Embed Frameworks */,
+				D3E1F43411BF58BB40B2117B /* ISSNetwork.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,100 +38,82 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		24FC5B2151B60E6F48707334 /* ISSNetworkTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ISSNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		298888D8169FB7D0CE48E45D /* ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9945F7B6186001C2075C2715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		9E8C37659FF21A07E96AFADC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		EA1AC94702D219A51893CF03 /* ISSNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSNetwork.h; sourceTree = "<group>"; };
-		F8D185C091A272FF6034DB41 /* ISSNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSNetworkTests.swift; sourceTree = "<group>"; };
+		0223A82975333FAAA7476EEE /* ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A0F812B411A786CECE70EE3 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
+		A96B8F878FAAE41B2DD2DF82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AE5561193B5201EF3AF74C23 /* Network.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Network.h; sourceTree = "<group>"; };
+		D31D00108B0A681EE3FC2CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F41BD618F19CEE10F0289308 /* NetworkTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		CEC862C35C560A826D61939C /* Frameworks */ = {
+		D4E73BBAFF38C9F70CF753D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2714A54379CF011DAEE5823 /* ISSNetwork.framework in Frameworks */,
+				857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B30AAF090FD5A7E55675B1C /* ISSNetwork */ = {
+		45136B8DDE2D542E43FEAB3B = {
 			isa = PBXGroup;
 			children = (
-				9E8C37659FF21A07E96AFADC /* Info.plist */,
-				EA1AC94702D219A51893CF03 /* ISSNetwork.h */,
-			);
-			path = ISSNetwork;
-			sourceTree = "<group>";
-		};
-		5FF57F99B73CF41A7672B361 = {
-			isa = PBXGroup;
-			children = (
-				1B30AAF090FD5A7E55675B1C /* ISSNetwork */,
-				CAF73B95BBC512013310A634 /* ISSNetworkTests */,
-				6DA08B041E38E558FC37BE77 /* Products */,
+				9166151E42F735C5010F5460 /* Network */,
+				4C5A1FFBB1E33A6E0CA3A32E /* NetworkTests */,
+				B02A4899222D2A1DA3F4A4FA /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		6DA08B041E38E558FC37BE77 /* Products */ = {
+		4C5A1FFBB1E33A6E0CA3A32E /* NetworkTests */ = {
 			isa = PBXGroup;
 			children = (
-				298888D8169FB7D0CE48E45D /* ISSNetwork.framework */,
-				24FC5B2151B60E6F48707334 /* ISSNetworkTests.xctest */,
+				A96B8F878FAAE41B2DD2DF82 /* Info.plist */,
+				9A0F812B411A786CECE70EE3 /* NetworkTests.swift */,
+			);
+			path = NetworkTests;
+			sourceTree = "<group>";
+		};
+		9166151E42F735C5010F5460 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D31D00108B0A681EE3FC2CCB /* Info.plist */,
+				AE5561193B5201EF3AF74C23 /* Network.h */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		B02A4899222D2A1DA3F4A4FA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0223A82975333FAAA7476EEE /* ISSNetwork.framework */,
+				F41BD618F19CEE10F0289308 /* NetworkTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		CAF73B95BBC512013310A634 /* ISSNetworkTests */ = {
-			isa = PBXGroup;
-			children = (
-				9945F7B6186001C2075C2715 /* Info.plist */,
-				F8D185C091A272FF6034DB41 /* ISSNetworkTests.swift */,
-			);
-			path = ISSNetworkTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		6A2FBB1CCFBD31B8CFFBC449 /* Headers */ = {
+		09939F63682BF52A64515657 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A48B569CED44A6F188D4B61A /* ISSNetwork.h in Headers */,
+				3872CB2263F9FCA6EEE11F18 /* Network.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		90FC977EF85FC00220226929 /* ISSNetworkTests */ = {
+		0E6FA5BB0F3AF42A884ABC1F /* ISSNetwork */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 118A13FD25F81ED5F435B703 /* Build configuration list for PBXNativeTarget "ISSNetworkTests" */;
+			buildConfigurationList = 00500DF359729D36DDC8883A /* Build configuration list for PBXNativeTarget "ISSNetwork" */;
 			buildPhases = (
-				1291986275E22810D22AD2DE /* Sources */,
-				CEC862C35C560A826D61939C /* Frameworks */,
-				1231874A2C0A88F4C541F9B1 /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C55ADAD541B1FB77737E0156 /* PBXTargetDependency */,
-			);
-			name = ISSNetworkTests;
-			productName = ISSNetworkTests;
-			productReference = 24FC5B2151B60E6F48707334 /* ISSNetworkTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		A38578FABD7D2D72A53F8AFE /* ISSNetwork */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C061645EA1A72802ED48F776 /* Build configuration list for PBXNativeTarget "ISSNetwork" */;
-			buildPhases = (
-				6A2FBB1CCFBD31B8CFFBC449 /* Headers */,
-				CE13C7B18821DAA3C3F3194A /* Sources */,
+				09939F63682BF52A64515657 /* Headers */,
+				4B8C23063178FA348869FF8D /* Sources */,
 			);
 			buildRules = (
 			);
@@ -139,26 +121,44 @@
 			);
 			name = ISSNetwork;
 			productName = ISSNetwork;
-			productReference = 298888D8169FB7D0CE48E45D /* ISSNetwork.framework */;
+			productReference = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		802E8B11362B1C5C00136DF4 /* NetworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 379CEDB68CA75D0691C9BE7E /* Build configuration list for PBXNativeTarget "NetworkTests" */;
+			buildPhases = (
+				C165DA99FCC1F49503359338 /* Sources */,
+				D4E73BBAFF38C9F70CF753D6 /* Frameworks */,
+				25CC73EFCBFA850690E82C35 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA70DFF0F796DAF7B9DAB207 /* PBXTargetDependency */,
+			);
+			name = NetworkTests;
+			productName = NetworkTests;
+			productReference = F41BD618F19CEE10F0289308 /* NetworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		18BD8A466DF1E6BFF3AC2816 /* Project object */ = {
+		CE30DA66E8F9024F4E5F5F22 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
-					90FC977EF85FC00220226929 = {
+					0E6FA5BB0F3AF42A884ABC1F = {
 						ProvisioningStyle = Manual;
 					};
-					A38578FABD7D2D72A53F8AFE = {
+					802E8B11362B1C5C00136DF4 = {
 						ProvisioningStyle = Manual;
 					};
 				};
 			};
-			buildConfigurationList = E67334C663CF3896A4427B16 /* Build configuration list for PBXProject "ISSNetwork" */;
+			buildConfigurationList = EB691E6AAD04B88F092CB587 /* Build configuration list for PBXProject "Network" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -166,44 +166,122 @@
 				Base,
 				en,
 			);
-			mainGroup = 5FF57F99B73CF41A7672B361;
+			mainGroup = 45136B8DDE2D542E43FEAB3B;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A38578FABD7D2D72A53F8AFE /* ISSNetwork */,
-				90FC977EF85FC00220226929 /* ISSNetworkTests */,
+				0E6FA5BB0F3AF42A884ABC1F /* ISSNetwork */,
+				802E8B11362B1C5C00136DF4 /* NetworkTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1291986275E22810D22AD2DE /* Sources */ = {
+		4B8C23063178FA348869FF8D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				446B0F3A80ACB698CCD92BE5 /* ISSNetworkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE13C7B18821DAA3C3F3194A /* Sources */ = {
+		C165DA99FCC1F49503359338 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E778F92E918BD126BAA989AF /* NetworkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C55ADAD541B1FB77737E0156 /* PBXTargetDependency */ = {
+		FA70DFF0F796DAF7B9DAB207 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A38578FABD7D2D72A53F8AFE /* ISSNetwork */;
-			targetProxy = 8773E15AE086C7F13C24C210 /* PBXContainerItemProxy */;
+			target = 0E6FA5BB0F3AF42A884ABC1F /* ISSNetwork */;
+			targetProxy = 5A028325E71F4BF851E51792 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0DFC31FCADF3F88BD53CFF8F /* Debug */ = {
+		1D1388190647ED043AE809CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NetworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iss.NetworkTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		63C3D388EFA9CB324D00120E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Network/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSNetwork;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		72ADF54385C9883FC0A8A576 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Network/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSNetwork;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		E003F887272A2101EBD29D1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NetworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.iss.NetworkTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC1CDA88B25D7972DF99B786 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
@@ -285,85 +363,7 @@
 			};
 			name = Debug;
 		};
-		4F7A2DADADBAAADDBF84D2F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ISSNetworkTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSNetworkTests;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		502F2384B97013E5319490D9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ISSNetworkTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSNetworkTests;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		77016C5A5B6B8DB8B3EA1B72 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ISSNetwork/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSNetwork;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
-		D565F2E98E6E98C6FC2B262C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = ISSNetwork/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSNetwork;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Debug;
-		};
-		EEAAC649C9789B636B7F73A5 /* Release */ = {
+		F7289CD4700EAB402DCE2DAD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
@@ -442,34 +442,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		118A13FD25F81ED5F435B703 /* Build configuration list for PBXNativeTarget "ISSNetworkTests" */ = {
+		00500DF359729D36DDC8883A /* Build configuration list for PBXNativeTarget "ISSNetwork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4F7A2DADADBAAADDBF84D2F1 /* Debug */,
-				502F2384B97013E5319490D9 /* Release */,
+				72ADF54385C9883FC0A8A576 /* Debug */,
+				63C3D388EFA9CB324D00120E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		C061645EA1A72802ED48F776 /* Build configuration list for PBXNativeTarget "ISSNetwork" */ = {
+		379CEDB68CA75D0691C9BE7E /* Build configuration list for PBXNativeTarget "NetworkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D565F2E98E6E98C6FC2B262C /* Debug */,
-				77016C5A5B6B8DB8B3EA1B72 /* Release */,
+				E003F887272A2101EBD29D1F /* Debug */,
+				1D1388190647ED043AE809CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E67334C663CF3896A4427B16 /* Build configuration list for PBXProject "ISSNetwork" */ = {
+		EB691E6AAD04B88F092CB587 /* Build configuration list for PBXProject "Network" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0DFC31FCADF3F88BD53CFF8F /* Debug */,
-				EEAAC649C9789B636B7F73A5 /* Release */,
+				EC1CDA88B25D7972DF99B786 /* Debug */,
+				F7289CD4700EAB402DCE2DAD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 18BD8A466DF1E6BFF3AC2816 /* Project object */;
+	rootObject = CE30DA66E8F9024F4E5F5F22 /* Project object */;
 }

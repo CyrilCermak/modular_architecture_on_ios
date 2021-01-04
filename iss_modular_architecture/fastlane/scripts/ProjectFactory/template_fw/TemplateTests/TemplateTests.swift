@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import **NAME**
+@testable import ISS**NAME**
 
 class **NAME**Tests: XCTestCase {
 

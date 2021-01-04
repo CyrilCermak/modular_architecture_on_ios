@@ -12,7 +12,7 @@ settings:
 targets:
   
   # The main application
-  **NAME**:
+  ISS**NAME**:
     type: framework
     platform: iOS
     sources: **NAME**
@@ -23,4 +23,4 @@ targets:
     platform: iOS
     sources: **NAME**Tests
     dependencies:
-      - target: **NAME**
+      - target: ISS**NAME**

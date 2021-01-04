@@ -3,7 +3,7 @@ include:
   - ../../fastlane/build_settings.yml
 
 # Definition of the project
-name: ISSNetwork
+name: Network
 settings:
   groups:
     - BuildSettings
@@ -15,12 +15,12 @@ targets:
   ISSNetwork:
     type: framework
     platform: iOS
-    sources: ISSNetwork
+    sources: Network
   
   # Tests for the main application
-  ISSNetworkTests:
+  NetworkTests:
     type: bundle.unit-test
     platform: iOS
-    sources: ISSNetworkTests
+    sources: NetworkTests
     dependencies:
       - target: ISSNetwork

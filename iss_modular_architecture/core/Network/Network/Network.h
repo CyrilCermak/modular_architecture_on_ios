@@ -1,6 +1,6 @@
 //
-//  ISSNetwork.h
-//  ISSNetwork
+//  Network.h
+//  Network
 //
 //  Created by Cyril Cermak on 04.01.21.
 //

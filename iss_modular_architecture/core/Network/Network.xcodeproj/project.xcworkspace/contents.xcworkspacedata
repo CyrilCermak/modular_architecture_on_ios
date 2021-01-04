@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ISSNetwork.xcodeproj">
+      location = "self:Network.xcodeproj">
    </FileRef>
 </Workspace>
