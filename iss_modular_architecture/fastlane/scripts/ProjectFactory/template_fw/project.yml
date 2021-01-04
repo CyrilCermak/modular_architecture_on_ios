@@ -1,0 +1,26 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: **NAME**
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  **NAME**:
+    type: framework
+    platform: iOS
+    sources: **NAME**
+  
+  # Tests for the main application
+  **NAME**Tests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: **NAME**Tests
+    dependencies:
+      - target: **NAME**

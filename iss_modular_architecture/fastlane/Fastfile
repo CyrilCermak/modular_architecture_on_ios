@@ -1,10 +1,17 @@
-require_relative "scripts/AppFactory/app_factory"
+require_relative "scripts/ProjectFactory/project_factory"
 
-lane :make_new_app do |options|
-  app_name = options[:app_name]
+lane :make_new_project do |options|
+  type = options[:type] # Project type can be either app or framework 
+  project_name = options[:project_name]
   destination_path = options[:destination_path]
   
-  UI.error "💥app_name and destination_path must be provided.💥" unless app_name || destination_path
+  UI.error "💥app_name and destination_path must be provided.💥" unless project_name || destination_path
   
-  AppFactory.new app_name, destination_path
+  factory = ProjectFactory.new project_name, destination_path
+  
+  if type == "app"
+    factory.make_new_app  
+  else 
+    factory.make_new_framework  
+  end
 end

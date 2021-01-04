@@ -15,9 +15,9 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
-### make_new_app
+### make_new_project
 ```
-fastlane make_new_app
+fastlane make_new_project
 ```
 
 

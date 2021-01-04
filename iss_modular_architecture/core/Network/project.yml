@@ -1,0 +1,26 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: ISSNetwork
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSNetwork:
+    type: framework
+    platform: iOS
+    sources: ISSNetwork
+  
+  # Tests for the main application
+  ISSNetworkTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: ISSNetworkTests
+    dependencies:
+      - target: ISSNetwork

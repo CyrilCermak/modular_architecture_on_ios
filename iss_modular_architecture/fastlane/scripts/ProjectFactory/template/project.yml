@@ -15,7 +15,7 @@ targets:
   **NAME**:
     type: application
     platform: iOS
-    sources: Cosmonaut
+    sources: **NAME**
   
   # Tests for the main application
   **NAME**Tests:
