@@ -3,6 +3,8 @@ class AppFactory
   def initialize app_name, destination_path
     @app_name = app_name
     @destination_path = destination_path
+    puts @app_name
+    puts @destination_path
   end
   
   private 
