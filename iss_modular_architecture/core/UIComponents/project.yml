@@ -1,0 +1,26 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: UIComponents
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSUIComponents:
+    type: framework
+    platform: iOS
+    sources: UIComponents
+  
+  # Tests for the main application
+  UIComponentsTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: UIComponentsTests
+    dependencies:
+      - target: ISSUIComponents

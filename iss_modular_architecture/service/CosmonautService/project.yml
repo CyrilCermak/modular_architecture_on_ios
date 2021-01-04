@@ -1,0 +1,31 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: CosmonautService
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSCosmonautService:
+    type: framework
+    platform: iOS
+    sources: CosmonautService
+    dependencies:
+      # Core
+      - framework: ISSPersistence.framework
+        implicit: true
+      - framework: ISSNetwork.framework
+        implicit: true
+  # Tests for the main application
+  CosmonautServiceTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: CosmonautServiceTests
+    dependencies:
+      - target: ISSCosmonautService

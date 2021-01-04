@@ -8,14 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		019BEDBDE04ABA841810F72A /* CosmonautTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEBC5992E4F7E1070360D26 /* CosmonautTests.swift */; };
+		081842011D33C5E154786343 /* ISSPersistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4922A8558254238164E0BC0C /* ISSPersistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		125F1B7404CA2D4BC33032D3 /* ISSSpacesuit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30AD361CC3AAEB6E02A6CF0B /* ISSSpacesuit.framework */; };
+		163886D562A6BE0907D93320 /* ISSSpacesuitService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C8077076CBEE95F3F690C02B /* ISSSpacesuitService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		199B5ED7BC8D90BADB16B913 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F0C42444541599487B96001D /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1FD818727CE2DC9E83EDF4FE /* CosmonautUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C60E16E0760116DBAEAEC56 /* CosmonautUITests.swift */; };
+		2AF584190E4F3B58B791F036 /* ISSCosmonautService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6933CEFC4C0391D039A4975 /* ISSCosmonautService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		455E15097FD764837D072DDC /* ISSSpacesuit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 30AD361CC3AAEB6E02A6CF0B /* ISSSpacesuit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47D0D15E5275F590E2FF2A07 /* ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4922A8558254238164E0BC0C /* ISSPersistence.framework */; };
+		4D9373FFA21443EF9C1955A3 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C42444541599487B96001D /* ISSUIComponents.framework */; };
+		6A140EFEEB424663836892DF /* ISSScaffold.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45B7D44DD0B5C7C4415CC497 /* ISSScaffold.framework */; };
+		71117F202BE67AD9CD9EED9F /* ISSScaffold.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45B7D44DD0B5C7C4415CC497 /* ISSScaffold.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7788C086B0C2381063F75E6B /* ISSCosmonautService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6933CEFC4C0391D039A4975 /* ISSCosmonautService.framework */; };
 		7ADF6ED74A93BAEC53B99D2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A681F6FB8BC71214F6356034 /* Assets.xcassets */; };
+		AF80578FC4E5F1389BAD03FE /* ISSCosmonaut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22C33DFF1660AC1EABFC7687 /* ISSCosmonaut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA9870FB882EA37259E88729 /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8C9173EE79D59729A9F106C /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C33F51FE8D61EED0A4058DE2 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C9173EE79D59729A9F106C /* ISSNetwork.framework */; };
 		CCB0CAA96AFFBC0534886A08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */; };
+		CD647EFA073B9F55D676C2D9 /* ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */; };
 		CFB27BF88A9B6936C206D9D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD24CE164CBAD1E7B608C00 /* LaunchScreen.storyboard */; };
+		CFC7382B91E25797039EF57D /* ISSCosmonaut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C33DFF1660AC1EABFC7687 /* ISSCosmonaut.framework */; };
 		D3F3764AB3765E3D7FD1C0F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CCC01EAA21988C3EE9F9B7 /* Main.storyboard */; };
 		E055A0ABE9B3DA23CC3185E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6ABA8D15B4199DB537CD396 /* AppDelegate.swift */; };
+		E90AEB30E1DFC06539D96399 /* ISSRadio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EC089C3AA1910EF1940C78D8 /* ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8077076CBEE95F3F690C02B /* ISSSpacesuitService.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,7 +58,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				AF80578FC4E5F1389BAD03FE /* ISSCosmonaut.framework in Embed Frameworks */,
+				455E15097FD764837D072DDC /* ISSSpacesuit.framework in Embed Frameworks */,
+				71117F202BE67AD9CD9EED9F /* ISSScaffold.framework in Embed Frameworks */,
+				163886D562A6BE0907D93320 /* ISSSpacesuitService.framework in Embed Frameworks */,
+				2AF584190E4F3B58B791F036 /* ISSCosmonautService.framework in Embed Frameworks */,
 				BA9870FB882EA37259E88729 /* ISSNetwork.framework in Embed Frameworks */,
+				E90AEB30E1DFC06539D96399 /* ISSRadio.framework in Embed Frameworks */,
+				081842011D33C5E154786343 /* ISSPersistence.framework in Embed Frameworks */,
+				199B5ED7BC8D90BADB16B913 /* ISSUIComponents.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,18 +76,26 @@
 /* Begin PBXFileReference section */
 		028445425CC48B3D0622003C /* CosmonautTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0839267CC32150293C0E77B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		22C33DFF1660AC1EABFC7687 /* ISSCosmonaut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSCosmonaut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30AD361CC3AAEB6E02A6CF0B /* ISSSpacesuit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSSpacesuit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39A082F0FDB90C2E8FED548F /* Cosmonaut.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Cosmonaut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFA08020D95635C816354E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		45B7D44DD0B5C7C4415CC497 /* ISSScaffold.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSScaffold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4922A8558254238164E0BC0C /* ISSPersistence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EEBC5992E4F7E1070360D26 /* CosmonautTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautTests.swift; sourceTree = "<group>"; };
 		7C60E16E0760116DBAEAEC56 /* CosmonautUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautUITests.swift; sourceTree = "<group>"; };
 		837510F40804997E05D71FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8F9035BAD1DD5BCD4FD1B561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A681F6FB8BC71214F6356034 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6ABA8D15B4199DB537CD396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8230536CFB8F5555A64B36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C8077076CBEE95F3F690C02B /* ISSSpacesuitService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB9BA22488AE6EC4AC8F248 /* CosmonautUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6933CEFC4C0391D039A4975 /* ISSCosmonautService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSCosmonautService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8C9173EE79D59729A9F106C /* ISSNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0C42444541599487B96001D /* ISSUIComponents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +103,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC7382B91E25797039EF57D /* ISSCosmonaut.framework in Frameworks */,
+				125F1B7404CA2D4BC33032D3 /* ISSSpacesuit.framework in Frameworks */,
+				6A140EFEEB424663836892DF /* ISSScaffold.framework in Frameworks */,
+				EC089C3AA1910EF1940C78D8 /* ISSSpacesuitService.framework in Frameworks */,
+				7788C086B0C2381063F75E6B /* ISSCosmonautService.framework in Frameworks */,
 				C33F51FE8D61EED0A4058DE2 /* ISSNetwork.framework in Frameworks */,
+				CD647EFA073B9F55D676C2D9 /* ISSRadio.framework in Frameworks */,
+				47D0D15E5275F590E2FF2A07 /* ISSPersistence.framework in Frameworks */,
+				4D9373FFA21443EF9C1955A3 /* ISSUIComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,7 +134,15 @@
 		5925F9B78AE2BFC42957C51A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22C33DFF1660AC1EABFC7687 /* ISSCosmonaut.framework */,
+				E6933CEFC4C0391D039A4975 /* ISSCosmonautService.framework */,
 				E8C9173EE79D59729A9F106C /* ISSNetwork.framework */,
+				4922A8558254238164E0BC0C /* ISSPersistence.framework */,
+				AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */,
+				45B7D44DD0B5C7C4415CC497 /* ISSScaffold.framework */,
+				30AD361CC3AAEB6E02A6CF0B /* ISSSpacesuit.framework */,
+				C8077076CBEE95F3F690C02B /* ISSSpacesuitService.framework */,
+				F0C42444541599487B96001D /* ISSUIComponents.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

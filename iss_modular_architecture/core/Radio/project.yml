@@ -1,0 +1,26 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: Radio
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSRadio:
+    type: framework
+    platform: iOS
+    sources: Radio
+  
+  # Tests for the main application
+  RadioTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: RadioTests
+    dependencies:
+      - target: ISSRadio

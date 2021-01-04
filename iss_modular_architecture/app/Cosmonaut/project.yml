@@ -17,7 +17,26 @@ targets:
     platform: iOS
     sources: Cosmonaut
     dependencies:
+      # Domains
+      - framework: ISSCosmonaut.framework
+        implicit: true
+      - framework: ISSSpacesuit.framework
+        implicit: true
+      - framework: ISSScaffold.framework
+        implicit: true
+      # Services
+      - framework: ISSSpacesuitService.framework
+        implicit: true
+      - framework: ISSCosmonautService.framework
+        implicit: true
+      # Core
       - framework: ISSNetwork.framework
+        implicit: true
+      - framework: ISSRadio.framework
+        implicit: true
+      - framework: ISSPersistence.framework
+        implicit: true
+      - framework: ISSUIComponents.framework
         implicit: true
   
   # Tests for the main application

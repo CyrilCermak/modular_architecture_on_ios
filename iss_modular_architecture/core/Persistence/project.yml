@@ -1,0 +1,26 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: Persistence
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSPersistence:
+    type: framework
+    platform: iOS
+    sources: Persistence
+  
+  # Tests for the main application
+  PersistenceTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: PersistenceTests
+    dependencies:
+      - target: ISSPersistence

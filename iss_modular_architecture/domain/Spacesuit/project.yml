@@ -1,0 +1,33 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: Spacesuit
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSSpacesuit:
+    type: framework
+    platform: iOS
+    sources: Spacesuit
+    dependencies:
+      # Service
+      - framework: ISSSpacesuitService.framework
+        implicit: true
+      # Core dependencu of ISSSpacesuitService
+      - framework: ISSRadio.framework
+        implicit: true
+  
+  # Tests for the main application
+  SpacesuitTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: SpacesuitTests
+    dependencies:
+      - target: ISSSpacesuit
