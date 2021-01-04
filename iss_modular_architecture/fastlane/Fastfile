@@ -15,3 +15,14 @@ lane :make_new_project do |options|
     factory.make_new_framework  
   end
 end
+
+lane :generate do
+  # Finding all projects within directories
+  Dir["../**/project.yml"].each do |project_path|
+    # Skipping the template files
+    next if project_path.include? "fastlane"
+    
+    UI.success "Generating project: #{project_path}"
+    `xcodegen -s #{project_path}`
+  end 
+end

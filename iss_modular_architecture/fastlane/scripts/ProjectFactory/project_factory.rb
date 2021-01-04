@@ -42,7 +42,9 @@ class ProjectFactory
   
   # Makes new framework from the pre-defined template
   def make_new_framework
-    
+    # To avoid conflicts it is better to prefix locally developed frameworks 
+    # the template already has prefix fixed within
+    prefix = "ISS"
     # Framework paths
     fw_path = "#{@destination_path}/#{@project_name}/"
     fw_tests_path = "#{@destination_path}/#{@project_name}Tests/"
@@ -52,9 +54,11 @@ class ProjectFactory
     template_path = "#{current_dir_name}/template_fw/Template/"
     template_tests_path = "#{current_dir_name}/template_fw/TemplateTests/"
     
+    # Create folder structure
     [fw_path, fw_tests_path].each { |path| FileUtils.mkdir_p path }
     
-    substitute_name_and_copy "#{template_path}/Template.h", "#{fw_path}/#{@project_name}.h"
+    # Generate essential files for the framework and its tests from the template
+    substitute_name_and_copy "#{template_path}/Template.h", "#{fw_path}/#{prefix}#{@project_name}.h"
     FileUtils.cp "#{template_path}/Info.plist", "#{fw_path}/Info.plist"
     
     substitute_name_and_copy "#{template_tests_path}/TemplateTests.swift", "#{fw_tests_path}/#{@project_name}Tests.swift"

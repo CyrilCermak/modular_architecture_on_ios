@@ -16,6 +16,9 @@ targets:
     type: application
     platform: iOS
     sources: Cosmonaut
+    dependencies:
+      - framework: ISSNetwork.framework
+        implicit: true
   
   # Tests for the main application
   CosmonautTests:

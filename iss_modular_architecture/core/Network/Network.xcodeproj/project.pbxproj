@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3872CB2263F9FCA6EEE11F18 /* Network.h in Headers */ = {isa = PBXBuildFile; fileRef = AE5561193B5201EF3AF74C23 /* Network.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4A613B7CD7700F0D025CD080 /* ISSNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; };
 		D3E1F43411BF58BB40B2117B /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E778F92E918BD126BAA989AF /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F812B411A786CECE70EE3 /* NetworkTests.swift */; };
@@ -41,8 +41,8 @@
 		0223A82975333FAAA7476EEE /* ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0F812B411A786CECE70EE3 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		A96B8F878FAAE41B2DD2DF82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AE5561193B5201EF3AF74C23 /* Network.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Network.h; sourceTree = "<group>"; };
 		D31D00108B0A681EE3FC2CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSNetwork.h; sourceTree = "<group>"; };
 		F41BD618F19CEE10F0289308 /* NetworkTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -80,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				D31D00108B0A681EE3FC2CCB /* Info.plist */,
-				AE5561193B5201EF3AF74C23 /* Network.h */,
+				E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -101,7 +101,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3872CB2263F9FCA6EEE11F18 /* Network.h in Headers */,
+				4A613B7CD7700F0D025CD080 /* ISSNetwork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,11 @@ or alternatively using `brew install fastlane`
 fastlane make_new_project
 ```
 
+### generate
+```
+fastlane generate
+```
+
 
 ----
 

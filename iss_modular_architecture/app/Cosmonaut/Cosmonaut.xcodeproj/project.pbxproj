@@ -10,6 +10,8 @@
 		019BEDBDE04ABA841810F72A /* CosmonautTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEBC5992E4F7E1070360D26 /* CosmonautTests.swift */; };
 		1FD818727CE2DC9E83EDF4FE /* CosmonautUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C60E16E0760116DBAEAEC56 /* CosmonautUITests.swift */; };
 		7ADF6ED74A93BAEC53B99D2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A681F6FB8BC71214F6356034 /* Assets.xcassets */; };
+		BA9870FB882EA37259E88729 /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8C9173EE79D59729A9F106C /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C33F51FE8D61EED0A4058DE2 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C9173EE79D59729A9F106C /* ISSNetwork.framework */; };
 		CCB0CAA96AFFBC0534886A08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */; };
 		CFB27BF88A9B6936C206D9D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD24CE164CBAD1E7B608C00 /* LaunchScreen.storyboard */; };
 		D3F3764AB3765E3D7FD1C0F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CCC01EAA21988C3EE9F9B7 /* Main.storyboard */; };
@@ -33,6 +35,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		61EDA2DA319685BEC108121E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BA9870FB882EA37259E88729 /* ISSNetwork.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		028445425CC48B3D0622003C /* CosmonautTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0839267CC32150293C0E77B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -47,7 +63,19 @@
 		AF8230536CFB8F5555A64B36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CCB9BA22488AE6EC4AC8F248 /* CosmonautUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8C9173EE79D59729A9F106C /* ISSNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9C59E1FFB4CA0AD848FA9A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C33F51FE8D61EED0A4058DE2 /* ISSNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		26830A280B7ACFCDD368CD12 /* Cosmonaut */ = {
@@ -63,12 +91,21 @@
 			path = Cosmonaut;
 			sourceTree = "<group>";
 		};
+		5925F9B78AE2BFC42957C51A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8C9173EE79D59729A9F106C /* ISSNetwork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		763AE077D34B6491FCE55162 = {
 			isa = PBXGroup;
 			children = (
 				26830A280B7ACFCDD368CD12 /* Cosmonaut */,
 				78B22AA7F43CFFD1FCD7CCC5 /* CosmonautTests */,
 				87BF64B43F22D719622284C0 /* CosmonautUITests */,
+				5925F9B78AE2BFC42957C51A /* Frameworks */,
 				8384CED613351C80B04AA640 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,6 +179,8 @@
 			buildPhases = (
 				B8DB3E6908184E648BAD6AED /* Sources */,
 				98A33ADCE9C4F08C404FBAF6 /* Resources */,
+				E9C59E1FFB4CA0AD848FA9A4 /* Frameworks */,
+				61EDA2DA319685BEC108121E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -323,10 +362,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -458,21 +494,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lz",
-				);
+				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
