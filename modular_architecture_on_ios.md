@@ -687,14 +687,144 @@ The overall ISS Application Framework should look as follows:
 
 Each directory contains Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer can use the script to create a framework or an app that will be developed.
 
+### Xcode's workspace
 Last but not least, let us create the same directory structure in the Xcode's Workspace so that we can later on link those frameworks together and towards the app. In the Cosmonaut app our `Cosmonaut.xcworkspace` resides. An `xcworkspace` is simply a structure that contains;
  - `xcshareddata`: Directory that contains schemes, breakpoints and other shared information
  - `xcuserdata`: Directory that contains information about the current interface state, opened/modified files of the user and so on
  - `contents.xcworkspacedata`: An XML file that describes what projects are linked towards the workspace such that Xcode can understand it
 
-The workspace structure can be created either by drag and dropping all necessary frameworks for the `Cosmonaut` app or by directly modifying the `contents.xcworkspacedata` XML file. No matter which way was chosen the final `xcworkspace` should look as follow:
+The workspace structure can be created either by drag and dropping all necessary framework projects for the `Cosmonaut` app or by directly modifying the `contents.xcworkspacedata` XML file. No matter which way was chosen the final `xcworkspace` should look as follow:
 
 ![Workspace strucutre](assets/xcode_workspace.png)
 
+## Generating projects
+You might have noticed `project.yml` file that was created with every framework or app. This file is used by `xcodegen` that will be introduced in a second to generate the main project based on the settings described in the yaml file. This will avoid conflicts in the Apple's infamous `project.pbxproj` files that are representing each project. In the modular architecture this is particularly useful as we are working with many projects across the workspace. 
 
+Conflicts in the `project.pbxproj` files are very common when more than one developer are working on the same codebase. Besides the build settings for the project, the file also contains and tracks files that are included for the compilation so as which target they belongs to. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it. This will resolve in a merge conflict in the pbxproj file which is very time consuming to fix as the file is using Apple's mystified language no one can understand. 
+
+Since programmers are lazy creatures, very often also happens that the file that was removed from the Xcode's project still remain in the repository as it was not moved to the trash. That could lead to a tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
+
+### Hello xcodegen
+Luckily, in the Apple ecosystem we can use `xcodegen`, a program that generates the pbxproj file for us based on the well-arranged yaml file. As an example let us have a look at the Cosmonaut app project.yml. 
+
+```yaml
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: Cosmonaut
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  Cosmonaut:
+    type: application
+    platform: iOS
+    sources: Cosmonaut
+    dependencies:
+      # Domains
+      - framework: ISSCosmonaut.framework
+        implicit: true
+      - framework: ISSSpacesuit.framework
+        implicit: true
+      - framework: ISSScaffold.framework
+        implicit: true
+      # Services
+      - framework: ISSSpacesuitService.framework
+        implicit: true
+      - framework: ISSCosmonautService.framework
+        implicit: true
+      # Core
+      - framework: ISSNetwork.framework
+        implicit: true
+      - framework: ISSRadio.framework
+        implicit: true
+      - framework: ISSPersistence.framework
+        implicit: true
+      - framework: ISSUIComponents.framework
+        implicit: true
+  
+  # Tests for the main application
+  CosmonautTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: CosmonautTests
+    dependencies:
+      - target: Cosmonaut
+    settings:
+      TEST_HOST: $(BUILT_PRODUCTS_DIR)/Cosmonaut.app/Cosmonaut
+
+  # UITests for the main application
+  CosmonautUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: CosmonautUITests
+    dependencies:
+      - target: Cosmonaut
+``` 
+
+Even though the yaml file speaks for itself, some explanation is needed.
+
+First of all, the `include` in the beginning.
+
+```yaml
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+```
+Before xcodegen starts generating the pbxproj project it processes and includes other yaml files if the include keyword is found. In case of the application framework this is extremely helpful as the build settings for each project can be described just by one yaml file. 
+
+Imagine a scenario where the deployment iOS version must be bumped up for the app. Since the app links also many frameworks which are being compiled before the app, their deployment target also needs to be bumped up. Without xcodegen, each project would have to be modified to have the new deployment target. Even worse, when trying some build settings out instead of modifying it on each project a simple change in one file that is included into the others will do the trick.   
+
+A simplified build settings yaml file could look like this:
+
+```yaml
+options:
+  bundleIdPrefix: com.iss
+  developmentLanguage: en
+settingGroups:
+  BuildSettings:
+    base:
+    # Architectures
+      SDKROOT: iphoneos
+    # Build Options
+      ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      ENABLE_BITCODE: false
+    # Deployment
+      IPHONEOS_DEPLOYMENT_TARGET: 13.0
+      TARGETED_DEVICE_FAMILY: 1
+...
+```
+
+As you can see the `BuildSettings` key is then referred inside the project.yml file under the settings right after the project name.
+
+```yaml
+name: Cosmonaut
+settings:
+  groups:
+    - BuildSettings
+```
+
+The following key is `targets`. In case of the Cosmonaut application we are setting three targets. One for the app itself, one for unit tests and finally one for ui tests. Each key sets the name of the target and then describes it with `type`, `platform`, `dependencies` and other parameters xcodegen supports.
+
+Last but not least, let us have a look at the dependencies.
+```yaml
+dependencies:
+  # Domains
+  - framework: ISSCosmonaut.framework
+    implicit: true
+  - framework: ISSSpacesuit.framework
+    implicit: true
+  - framework: ISSScaffold.framework
+    implicit: true
+...
+```
+
+Dependencies links the specified frameworks towards the app. On the snippet above you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation in order to be found. That being said, the framework needs to be part of the workspace in order the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default xcodegen has `embeded: true` for applications as they have to copy the compiled framework to the target in order the app to launch successfully and `embeded: false` for frameworks. Since framework is not a standalone executable and must be part of some application it is expected that the application copies the framework.
 
