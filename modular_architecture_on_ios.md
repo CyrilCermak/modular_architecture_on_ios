@@ -66,6 +66,7 @@ Joerg Nestele
   - Creating frameworks
   - Workspace and projects
     - xcodegen
+    - Linking
   - Contributions 
     - Mono-repository 
     - Versionised frameworks
@@ -125,7 +126,7 @@ Joerg Nestele
   
 # Introduction
 
-In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise up, that are limiting the way how iOS projects are built itself or even on the organisational. 
+In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise up, that are limiting the way how iOS projects are built itself or even on the organisational level. 
 
 Scaling up the monolithic approach to a team of e.g 7+ developers will most likely result in hell. By hell, I mean, resolving xcodeproj issues, where in the worst case both parties renamed or edited and deleted the same file, touched the same {storyboard|xib} file, or typically both worked on the same file which would resolve in classic merge conflicts. Somehow, those issues we all got used to live with...
 
@@ -578,7 +579,7 @@ The URL provided is not reachable:
 ...
 ```
 
-## Compiler and Linker
+## Build system
 
 Last piece of information that is missing now is; how it all gets glued together. As Apple developers, we are using Xcode for developing apps for Apple products that are then distributed via App Store or other distribution channels. Xcode under the hood is using `Xcode Build System` for producing final executables that runs on `X86` and `ARM` processor architectures.
 
@@ -637,4 +638,63 @@ GoogleMaps: https://developers.google.com/maps/documentation/ios-sdk/v3-client-m
 Alamofire: https://github.com/Alamofire/Alamofire
 Realm: https://realm.io/docs/swift/latest
 
- 
+# Development of the modular architecture
+
+Finally, the necessary theory about Apple's libraries and some essentials were explained. Now, it is the time to deep dive into the building phase. 
+
+First, let us do it manually and automate the process of creating libraries later on so that new comers do not have to copy paste much of the boilerplate code when starting a new team or part of the framework development. 
+
+After creating the folders structure let us create the first app. For the first app, I chose the Cosmonaut app and all its necessary dependencies. Nevertheless, the same principle applies for all other apps within our future iOS/macOS ISS foundational framework. 
+
+You can either follow the steps described here or download the repository with already built structure [here](TODO://).  
+
+As a reminder the following schema showcases what the Cosmonaut app dependencies are.  
+![Cosmonaut App](assets/Cosmonaut.svg) 
+
+## Creating workspace structure
+
+First let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes project is not optimal. We will be working in a workspace that will contain multiple xcode projects(apps and frameworks). 
+
+![Create New App](assets/xcode_create_app.png) 
+
+Since we do not have `Cocopods` yet that would convert the project to the workspace we have to do it manually. In Xcode under `File` select option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
+
+Going top down through the diagram first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory. 
+
+![Create New Framework](assets/xcode_create_framework.png)
+
+### Automating the process
+
+While creating new frameworks and apps is not a daily business it still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app in order to create a new one with the same ability. Now is the good time to create first script that will support the development of the application framework.
+
+If you are building the application framework from scratch please copy the `fastlane` directory from the repository into your `iss_application_framework` directory. 
+
+All scripting around the framework with `Fastlane` is explained later in the book. However, all you need to know now is that Fastlane contains lane `make_new_project` that takes three arguments; `type` {app|framework}, `project_name`, `destination_path`. The lane in Fastlane simple calls the `ProjectFactory` script located in the `scripts/ProjectFactory` directory. 
+
+The `ProjectFactory` creates new framework or app based on the `type` parameter that is passed to it from the command line. As an example of creating the Spacesuit domain framework the following command can be used. 
+
+```shell
+fastlane make_new_project type:framework project_name:Spacesuit destination_path:../domain/Spacesuit
+```  
+
+In case of Fastlane not being installed on you mac you can install it via `brew` or later on via Ruby `gems` defined in `Gemfile`. For installation you can follow the official [manual](https://docs.fastlane.tools/getting-started/ios/setup/). 
+
+Furthermore, we can continue creating all dependencies via the script up until we reach the point where all dependencies were created.
+
+The overall ISS Application Framework should look as follows:
+
+![Structure](assets/tree_framework.png)
+
+Each directory contains Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer can use the script to create a framework or an app that will be developed.
+
+Last but not least, let us create the same directory structure in the Xcode's Workspace so that we can later on link those frameworks together and towards the app. In the Cosmonaut app our `Cosmonaut.xcworkspace` resides. An `xcworkspace` is simply a structure that contains;
+ - `xcshareddata`: Directory that contains schemes, breakpoints and other shared information
+ - `xcuserdata`: Directory that contains information about the current interface state, opened/modified files of the user and so on
+ - `contents.xcworkspacedata`: An XML file that describes what projects are linked towards the workspace such that Xcode can understand it
+
+The workspace structure can be created either by drag and dropping all necessary frameworks for the `Cosmonaut` app or by directly modifying the `contents.xcworkspacedata` XML file. No matter which way was chosen the final `xcworkspace` should look as follow:
+
+![Workspace strucutre](assets/xcode_workspace.png)
+
+
+
