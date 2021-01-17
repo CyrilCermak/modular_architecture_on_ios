@@ -705,7 +705,9 @@ Conflicts in the `project.pbxproj` files are very common when more than one deve
 Since programmers are lazy creatures, very often also happens that the file that was removed from the Xcode's project still remain in the repository as it was not moved to the trash. That could lead to a tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
 
 ### Hello xcodegen
-Luckily, in the Apple ecosystem we can use `xcodegen`, a program that generates the pbxproj file for us based on the well-arranged yaml file. As an example let us have a look at the Cosmonaut app project.yml. 
+Luckily, in the Apple ecosystem we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the pbxproj file for us based on the well-arranged yaml file. In order to use it we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
+
+As an example let us have a look at the Cosmonaut app project.yml. 
 
 ```yaml
 # Import of the main build_settings file
@@ -828,3 +830,22 @@ dependencies:
 
 Dependencies links the specified frameworks towards the app. On the snippet above you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation in order to be found. That being said, the framework needs to be part of the workspace in order the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default xcodegen has `embeded: true` for applications as they have to copy the compiled framework to the target in order the app to launch successfully and `embeded: false` for frameworks. Since framework is not a standalone executable and must be part of some application it is expected that the application copies the framework.
 
+Full documentation of xcodegen can be found on its GitHub [page](https://github.com/yonaskolb/XcodeGen): 
+
+Finally, a let's generate the projects and build the app with all its frameworks. For that a simple lane in Fastlane was created.
+
+```ruby
+lane :generate do
+  # Finding all projects within directories
+  Dir["../**/project.yml"].each do |project_path|
+    # Skipping the template files
+    next if project_path.include? "fastlane"
+    
+    UI.success "Generating project: #{project_path}"
+    `xcodegen -s #{project_path}`
+  end 
+end
+```
+
+Simply executing the `fastlane generate` command in the root directory of the application framework generates all the projects and we can open the workspace and press run. The output of the command should look as follows:
+![fastlane generate output](assets/fastlane_generate.png)
