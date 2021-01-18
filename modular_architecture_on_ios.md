@@ -640,36 +640,36 @@ Realm: https://realm.io/docs/swift/latest
 
 # Development of the modular architecture
 
-Finally, the necessary theory about Apple's libraries and some essentials were explained. Now, it is time to deep dive into the building phase. 
+The necessary theory about Apple's libraries and some essentials were explained. Thereafter, it is time to deep dive into the building phase. 
 
 First, let us do it manually and automate the process of creating libraries later on so that new comers do not have to copy paste much of the boilerplate code when starting a new team or part of the framework. 
 
-First of all let us create the folders structure and the first app in it. For the first app, I chose the Cosmonaut app and all its necessary dependencies. Nevertheless, the same principle applies for all other apps within our future iOS/macOS ISS foundational framework. 
+First of all let us create the folders structure and the first app in it. For the first app, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies for all other apps within our future iOS/macOS ISS foundational framework. 
 
-You can either follow the steps described here and build it from scratch or download the repository with already built structure [here](TODO://).  
+You can either follow the steps described here and build it from scratch or download the pre-build repository [here](TODO://).  
 
-As a reminder the following schema showcases what the Cosmonaut app dependencies are.  
+As a reminder the following schema showcases the Cosmonaut app with its dependencies.  
 ![Cosmonaut App](assets/Cosmonaut.svg) 
 
 ## Creating workspace structure
 
-First let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes project is not optimal. We will be working in a workspace that will contain multiple xcode projects(apps and frameworks). 
+First let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes project is not optimal. We will be working in a workspace which will contain multiple projects(apps and frameworks). 
 
 ![Create New App](assets/xcode_create_app.png) 
 
-Since we do not have `Cocopods` yet which would convert the project to the workspace we have to do it manually. In Xcode under `File` select option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
+Since we do not have `Cocopods` yet which would convert the project to the workspace we have to do it manually. In Xcode under `File` select the option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
 
-Going top down through the diagram first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory. 
+Going top down through the diagram, first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory. 
 
 ![Create New Framework](assets/xcode_create_framework.png)
 
 ### Automating the process
 
-While creating new frameworks and apps is not a daily business it still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app in order to create a new one with the same ability. Now is the good time to create first script that will support the development of the application framework.
+While creating new frameworks and apps is not a daily business the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app in order to create a new one with the same patterns. Now is good time to create first script that will support the development of the application framework.
 
 If you are building the application framework from scratch please copy the `fastlane` directory from the repository into your `iss_application_framework` directory. 
 
-All scripting around the framework with `Fastlane` is explained later in the book. However, all you need to know now is that Fastlane contains lane `make_new_project` that takes three arguments; `type` {app|framework}, `project_name` and `destination_path`. The lane in Fastlane simple uses the `ProjectFactory` object located in the `scripts/ProjectFactory/project_factory.rb` file. 
+The scripting around the framework with `Fastlane` is explained later on in the book. However, all you need to know now is that Fastlane contains lane `make_new_project` that takes three arguments; `type` {app|framework}, `project_name` and `destination_path`. The lane in Fastlane simple uses the instance of the `ProjectFactory` class located in the `scripts/ProjectFactory/project_factory.rb` file. 
 
 The `ProjectFactory` creates new framework or app based on the `type` parameter that is passed to it from the command line. As an example of creating the Spacesuit domain framework the following command can be used. 
 
@@ -679,7 +679,7 @@ fastlane make_new_project type:framework project_name:Spacesuit destination_path
 
 In case of Fastlane not being installed on your mac you can install it via `brew install fastlane` or later on via Ruby `gems` defined in `Gemfile`. For installation please follow the official [manual](https://docs.fastlane.tools/getting-started/ios/setup/). 
 
-Furthermore, we can continue creating all dependencies via the script up until we reach the point where all dependencies were created.
+Furthermore, we can continue creating all dependencies via the script up until the point where all dependencies were created is reached.
 
 The overall ISS Application Framework should look as follows:
 
@@ -698,13 +698,13 @@ The workspace structure can be created either by drag and dropping all necessary
 ![Workspace strucutre](assets/xcode_workspace.png)
 
 ## Generating projects
-You might have noticed `project.yml` file that was created with every framework or app. This file is used by `xcodegen` to generate the main project based on the settings described in the yaml file. XcodeGen will be introduced in a second. This will avoid conflicts in the Apple's infamous `project.pbxproj` files that are representing each project. In the modular architecture this is particularly useful as we are working with many projects across the workspace. 
+You might have noticed `project.yml` file that was created with every framework or app. This file is used by `XcodeGen` (will be introduced in a second) to generate the project based on the settings described in the yaml file. This will avoid conflicts in the Apple's infamous `project.pbxproj` files that are representing each project. In the modular architecture this is particularly useful as we are working with many projects across the workspace. 
 
-Conflicts in the `project.pbxproj` files are very common when more than one developer are working on the same codebase. Besides the build settings for the project, the file also contains and tracks files that are included for the compilation so as which target they belongs to. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it. This will resolve in a merge conflict in the pbxproj file which is very time consuming to fix as the file is using Apple's mystified language no one can understand. 
+Conflicts in the `project.pbxproj` files are very common when more than one developer are working on the same codebase. Besides the build settings for the project, the file also contains and tracks files that are included for the compilation so as which target they belongs to. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand. 
 
-Since programmers are lazy creatures, very often also happens that the file that was removed from the Xcode's project still remain in the repository as it was not moved to the trash. That could lead to a git tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
+Since programmers are lazy creatures, very often also happens that the file that was removed from the Xcode's project still remains in the repository as it was not moved to the trash. That could lead to a git tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
 
-### Hello xcodegen
+### Hello XcodeGen
 Fortunately, in the Apple ecosystem we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the pbxproj file for us based on the well-arranged yaml file. In order to use it we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
 
 As an example let us have a look at the Cosmonaut app project.yml. 
@@ -772,7 +772,7 @@ targets:
 
 Even though the yaml file speaks for itself, some explanation is needed.
 
-First of all, the `include` in the beginning.
+First of all, the `include` in the very beginning.
 
 ```yaml
 # Import of the main build_settings file
@@ -781,7 +781,7 @@ include:
 ```
 Before xcodegen starts generating the pbxproj project it processes and includes other yaml files if the include keyword is found. In case of the application framework this is extremely helpful as the build settings for each project can be described just by one yaml file. 
 
-Imagine a scenario where the iOS deployment version must be bumped up for the app. Since the app links also many frameworks which are being compiled before the app, their deployment target also needs to be bumped up. Without xcodegen, each project would have to be modified to have the new deployment target. Even worse, when trying some build settings out instead of modifying it on each project a simple change in one file that is included into the others will do the trick.   
+Imagine a scenario where the iOS deployment version must be bumped up for the app. Since the app links also many frameworks which are being compiled before the app, their deployment target also needs to be bumped up. Without XcodeGen, each project would have to be modified to have the new deployment target. Even worse, when trying some build settings out instead of modifying it on each project a simple change in one file that is included into the others will do the trick.   
 
 A simplified build settings yaml file could look like this:
 
@@ -804,7 +804,7 @@ settingGroups:
 ...
 ```
 
-As you can see the `BuildSettings` key is then referred inside the project.yml file under the settings right after the project name.
+Worth mentioning is that in the `BuildSettings` the key in the yaml matches with Xcode build settings which can be seen in the inspector side panel. As you can see the `BuildSettings` key is then referred inside the project.yml file under the settings right after the project name.
 
 ```yaml
 name: Cosmonaut
@@ -813,7 +813,7 @@ settings:
     - BuildSettings
 ```
 
-The following key is `targets`. In case of the Cosmonaut application we are setting three targets. One for the app itself, one for unit tests and finally one for ui tests. Each key sets the name of the target and then describes it with `type`, `platform`, `dependencies` and other parameters xcodegen supports.
+The following key is `targets`. In case of the Cosmonaut application we are setting three targets. One for the app itself, one for unit tests and finally one for ui tests. Each key sets the name of the target and then describes it with `type`, `platform`, `dependencies` and other parameters XcodeGen supports.
 
 Next, let us have a look at the dependencies.
 ```yaml
@@ -828,9 +828,9 @@ dependencies:
 ...
 ```
 
-Dependencies links the specified frameworks towards the app. On the snippet above you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation in order to be found. That being said, the framework needs to be part of the workspace in order the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default xcodegen has `embeded: true` for applications as they have to copy the compiled framework to the target in order the app to launch successfully and `embeded: false` for frameworks. Since framework is not a standalone executable and must be part of some application it is expected that the application copies the framework.
+Dependencies links the specified frameworks towards the app. On the snippet above you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation in order to be found. That being said, the framework needs to be part of the workspace in order the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default XcodeGen has `embeded: true` for applications as they have to copy the compiled framework to the target in order the app to launch successfully and `embeded: false` for frameworks. Since framework is not a standalone executable and must be part of some application it is expected that the application copies it.
 
-Full documentation of xcodegen can be found on its GitHub [page](https://github.com/yonaskolb/XcodeGen): 
+Full documentation of XcodeGen can be found on its GitHub [page](https://github.com/yonaskolb/XcodeGen): 
 
 Finally, let's generate the projects and build the app with all its frameworks. For that a simple lane in Fastlane was created.
 
@@ -847,5 +847,5 @@ lane :generate do
 end
 ```
 
-Simply executing the `fastlane generate` command in the root directory of the application framework generates all the projects and we can open the workspace and press run. The output of the command should look as follows:
+Simply executing the `fastlane generate` command in the root directory of the application framework generates all projects and we can open the workspace and press run. The output of the command should look as follows:
 ![fastlane generate output](assets/fastlane_generate.png)
