@@ -69,7 +69,10 @@ Joerg Nestele
   - Generating projects
     - Hello XcodeGen
   - Ground Rules
+    - Cross linking dependencies
+    - Vertical linking
   - Secrets
+    - Mobile Secrets
   - Workflow
   - Scalability
   - Application Framework
