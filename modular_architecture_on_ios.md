@@ -63,15 +63,13 @@ Joerg Nestele
 
     
 - Development of the modular architecture
-  - Creating frameworks
-  - Workspace and projects
-    - xcodegen
-    - Linking
-  - Contributions 
-    - Mono-repository 
-    - Versionised frameworks
+  - Creating workspace structure
+    - Automating the process
+    - Xcode's workspace
+  - Generating projects
+    - Hello XcodeGen
   - Ground Rules
-  - Mobile Secrets
+  - Secrets
   - Workflow
   - Scalability
   - Application Framework
@@ -849,3 +847,27 @@ end
 
 Simply executing the `fastlane generate` command in the root directory of the application framework generates all projects and we can open the workspace and press run. The output of the command should look as follows:
 ![fastlane generate output](assets/fastlane_generate.png)
+
+## Ground Rules
+
+Looking at the ISS architecture, there is one very important pattern that is being followed. 
+
+First of all, any framework does NOT allow to link modules on the same layer. That is a prevention for creating cross linking cycles in between frameworks. For example, if Network module would link Radio module and Radio module would link Network module we would be in a serious trouble. Surprisingly, not every time Xcode build fails in such set up, however, it will have a really hard time with compiling and linking up until one day it fails. 
+
+Second of all, each layer can link frameworks only from its sublayer. This ensures the vertical linking pattern. That being said, the cross linking dependencies will not happen on the the vertical level.
+
+### Cross linking dependencies
+
+Let us say, the build system will jump on compiling the Network module where the Radio is being linked to. When the compiler comes to the point where the Radio needs to be linked it jumps to compile Radio module without finish the compilation of the Network. The Radio module now requires Network module in order to continue compiling, however, the Network module has not finished compiling yet, therefore, no swiftmodule and other files were yet created. The compiler will continue compiling up until one file will be referencing some part(e.g a class in a file) of the other module and the other module will be referencing the caller. That's where the compiler will stop.
+
+No need to say, each layer is defined to contain stand alone modules that are just in need of some sub-dependencies. While, in theory this is all nice and makes sense but in practice it can happen that for example the Cosmonaut domain will require something from the Spacesuit domain. It can be some domain only logic, views or even the whole flow of screens. In that case there are some options how to tackle that issue. Either, creating a new module on the service layer and moving  there the necessary source code files that are shared across multiple domains or shifting those files from the domain layer to the service layer. Third option would be to use some sort of a abstraction and achieving the same not from the module level but on the code level. 
+
+A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a coordinator pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework we can count that all domains understands it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
+
+### Vertical linking
+
+Same as the horizontal layer linking, the vertical linking is also very important and must be followed in order to avoid above mentioned compiler issues. In practice, such scenario can also happen very easily. Imagine, that your team designed a new framework on the Core layer that will provide some extent logging functionality so as data analytics and so on. After a while, some team will want to use the logging functionality for example in the Radio module in order to provide more debugging details for developers for the Bluetooth module. 
+
+Unlike in the cross linking dependencies scenario, in this case the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer that will contain mostly some shared functionality for the Core layer so as some protocols that would allow passing references from the top down. 
+
+### Secrets
