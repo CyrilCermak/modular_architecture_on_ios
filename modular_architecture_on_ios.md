@@ -875,4 +875,12 @@ Unlike in the cross linking dependencies scenario, in this case the abstraction 
 
 No need to say, any higher level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app, can link anything from the Core or the newly defined Shared layer.
 
-### Secrets
+## App secrets
+
+Considering, many developers are working in the same repository on the same project, handling project secrets in the secure way is inevitable. Project secrets could be for example API, SDK or encryption keys, so as configuration files or certificates containing sensitive information that could cause potential harm to the app. Essentially, any piece of sensitive information that should not be exposed to anyone not working directly on the project. That being said, secrets should NOT be stored in the repository so as in the compiled binary.
+
+The app ideally should decrypt encrypted secret in its runtime. Even though, on the jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network considering the SSLPinning was in place like it should. In any case, it will take much more effort than just dumping strings that contain secrets from the binary.
+
+All that being said, let us have a look at how to achieve such goal with the easiest possible solution. At about two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets. Mobile Secrets works on top of GPG with pre-defined yaml file structure.  
+
+
