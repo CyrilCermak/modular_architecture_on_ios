@@ -911,11 +911,11 @@ Mobile Secrets exported Swift source code will look like similar to the image be
 
 ### The ugly and brilliant part of the code
 
-What happened behind the hood? Out of the yaml configuration, secrets were obfuscated with the specified hash key and converted into bytes. Therefore, we ended up with an array of UInt8 arrays.
+What happened behind the hood? Out of the yaml configuration, secrets were obfuscated with the specified hash key and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
 The first item in the bytes array is the hash key. The second item is the key for a secret, the third item contains the obfuscated secret, fourth is again the key and fifth is the value, and so forth.
 To get the de-obfuscated key just call the string(forKey key: String) function. It will iterate over the bytes array convert the bytes into a string and compare it with the given key. If the key was found the decrypt function will be called with a value on the next index.
 
-Since we have [[UInt8]] mixed with the hash, keys and obfuscated secrets it would take a significant amount of effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort.
+Since we have [[UInt8]] mixed with the hash, keys and obfuscated secrets it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort.
 
 
 
