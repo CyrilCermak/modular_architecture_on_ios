@@ -77,7 +77,9 @@ Joerg Nestele
     - GEM: Mobile Secrets 📱
     - The ugly and brilliant part of the Secrets source code
   - Workflow
-  - Scalability
+    - Teams
+    - Git
+    - Scalability
   - Application Framework
     - Distribution 
     - The Software Foundation
@@ -94,7 +96,7 @@ Joerg Nestele
   - Protocols
     
     
-- Dependency Managers
+- Thrid Party Dependency Managers
   - Cocopods
   - Carthage
   - SwiftPM
@@ -116,9 +118,6 @@ Joerg Nestele
 
 - CI/CD
   - Scripts execution
-
-
-- GitFlow
 
 
 - Profesional Experience
@@ -927,7 +926,36 @@ To get the de-obfuscated key just call the string(forKey key: String) function. 
 
 Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Even though, it made it really hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app like mentioned before.
 
+## Workflow
+While this book is mostly focused on the development aspects of the modular architecture some management essentials must also be mentioned. Not surprisingly, developing software for large organisation can be a real challenge, imagine a scenario where at around 30 to 50 developers per platform (iOS/Android/Backend) are working towards the same goal, the same project. Those developers are usually divided into multiple cross-functional teams that are working standalone towards the team's goal. 
 
+Cross-functional team usually consists of a product owner or a product manager, that highly depends on the company and its structure so as the agile methodologies the company is using. Furthermore, designers, who are defining the UI/UX and behaviour on each platform, developers from each platform and last but not least, the quality assurance.
+
+The team goal can be for example developing some specific business domain, the team then becomes the domain expert and is further responsible for developing, improving and integrating that domain into the final customer facing application. 
+
+It could also be that the team develops a standalone application on top of the framework. If the team followed the same patterns defined in the framework, usually, by technical leads it can also be easily later on integrated as a part of some bigger application that for example groups those functionalities in one app. 
+
+### Teams
+Teams and their management plays crucial role in the success of the project. The modular architecture by any means helps to find boundaries of teams. From the developers POV, each developer is responsible for developing the frameworks belonging to the team. In our Cosmonaut example, it could be Cosmonaut domain along side with Cosmonaut service. While Spacesuit domain and Spacesuit service would be developed by another team.
+
+That does not necessary mean that the team Cosmonaut, let us say, cannot develop or modify the source code in the domain or service of Spacesuit, however, it surely should not be able to merge their changes into the repository without the given permission of that affected team. 
+
+Luckily, there is one simple solution for it. The code owners definition, which most of the CI/CD platforms supports. The code owner file simply defines who is the owner of what part of the codebase. This already briefly touched the topic of git so let's get to it.      
+
+TODO:// CODE team
+
+### Git
+
+While there are many different approaches how to contribute to the repository via git in our modular architecture I find out one most helpful. The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
+
+Most likely, on projects developed by a single team it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of team of teams the GitFlow alongside with four eyes principle is the way to go.  
+
+Four eyes principles simply means that in order to merge a pull request it needs to be reviewed first. That being said, in the team, it is essential that on each platform works at least two developers so that the team can gain autonomy and work without being dependent on others.
+
+The second scenario is making changes in other teams code. In that case the proper codeowner must approve the changes into the particular part. Only with that, the team can stay ahead and have the ultimate overview of their part of the codebase. Without defining the codeowners soon everyone would be working everywhere and it would all turn into chaos.
+
+### Scalability
+As mentioned already in the book, the modular architecture is designed to be highly scalable.
 
   
 
