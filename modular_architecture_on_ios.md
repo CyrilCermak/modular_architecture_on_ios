@@ -71,8 +71,11 @@ Joerg Nestele
   - Ground Rules
     - Cross linking dependencies
     - Vertical linking
-  - Secrets
-    - Mobile Secrets
+  - App secrets
+    - How to handle secrets
+    - The GnuPG (GPG)
+    - GEM: Mobile Secrets 📱
+    - The ugly and brilliant part of the Secrets source code
   - Workflow
   - Scalability
   - Application Framework
@@ -922,7 +925,7 @@ The first item in the bytes array is the hash key. The second item is the key fo
 
 To get the de-obfuscated key just call the string(forKey key: String) function. It will iterate over the bytes array, convert the bytes into a string and compare it with the given key. If the key was found the decrypt function will be called with a value on the next index.
 
-Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Even though, it made it really hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app.
+Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Even though, it made it really hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app like mentioned before.
 
 
 
