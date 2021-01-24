@@ -881,6 +881,44 @@ Considering, many developers are working in the same repository on the same proj
 
 The app ideally should decrypt encrypted secret in its runtime. Even though, on the jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network considering the SSLPinning was in place like it should. In any case, it will take much more effort than just dumping strings that contain secrets from the binary.
 
-All that being said, let us have a look at how to achieve such goal with the easiest possible solution. At about two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets. Mobile Secrets works on top of GPG with pre-defined yaml file structure.  
+At about two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets.
+
+### How to handle secrets
+First thing first, as mentioned above any secret must be obfuscated, without a doubt. String obfuscation is a technique that via XOR, AES or other encryption algorithms modifies the confidential string or a file such that it cannot be de-obfuscated without the initial password.
+
+Unfortunately, obfuscation might not be enough. What if there is a colleague who has access to the source repository or someone who might want to steal these secrets and hand it out? Simply downloading the repository and printing the de-obfuscated string into a console would do it.
+
+In general, the secret should be visible only for the right developer in any circumstances. Especially, for mono-repository projects where many teams are contributing to simultaneously.
+
+### GEM: Mobile Secrets 📱
+Mobile Secrets gem is using XOR cipher alongside with GPG to handle the whole process. Run `gem install mobile-secrets` to install it.
+
+Mobile Secrets can then initialise the GPG for the current project if it has not been done yet by: `mobile-secrets —-init-gpg .`.
+
+When the GPG is initialised a template yaml file can be created by: `mobile-secrets --create-template`
+
+![MobileSecrets.yml](assets/mobile_secrets_yaml.png)
+
+In the `MobileSecrets.yml` edit the configuration to the project needs.
+
+Import finalised secrets by `mobile-secrets --import ./MobileSecrets.yml` to secrets.gpg
+
+Finally, we can run: `mobile-secrets --export ./Output/Path/` to export the swift file with obfuscated secrets.
+
+Mobile Secrets exported Swift source code will look like similar to the image below. Last but not least, that path to this file must be added to the gitignore.
+
+![Exported Swift secrets source file](assets/mobile_secrets_final.png)
+
+### The ugly and brilliant part of the code
+
+What happened behind the hood? Out of the yaml configuration, secrets were obfuscated with the specified hash key and converted into bytes. Therefore, we ended up with an array of UInt8 arrays.
+The first item in the bytes array is the hash key. The second item is the key for a secret, the third item contains the obfuscated secret, fourth is again the key and fifth is the value, and so forth.
+To get the de-obfuscated key just call the string(forKey key: String) function. It will iterate over the bytes array convert the bytes into a string and compare it with the given key. If the key was found the decrypt function will be called with a value on the next index.
+
+Since we have [[UInt8]] mixed with the hash, keys and obfuscated secrets it would take a significant amount of effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort.
+
+
+
+  
 
 
