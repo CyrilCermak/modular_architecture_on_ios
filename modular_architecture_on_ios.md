@@ -940,22 +940,26 @@ Teams and their management plays crucial role in the success of the project. The
 
 That does not necessary mean that the team Cosmonaut, let us say, cannot develop or modify the source code in the domain or service of Spacesuit, however, it surely should not be able to merge their changes into the repository without the given permission of that affected team. 
 
-Luckily, there is one simple solution for it. The code owners definition, which most of the CI/CD platforms supports. The code owner file simply defines who is the owner of what part of the codebase. This already briefly touched the topic of git so let's get to it.      
+Luckily, there is one simple solution for it. The code owners definition, which most of the CI/CD platforms supports. The code owner file simply defines who is the owner of what part of the codebase. This already briefly touched the topic of git which is covered in the following subchapter.      
 
-TODO:// CODE team
+### Git & Contribution
 
-### Git
-
-While there are many different approaches how to contribute to the repository via git in our modular architecture I find out one most helpful. The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
+While there are many different approaches how to contribute to the repository via git in our modular architecture I find out one particular the most helpful. The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
 
 Most likely, on projects developed by a single team it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of team of teams the GitFlow alongside with four eyes principle is the way to go.  
 
-Four eyes principles simply means that in order to merge a pull request it needs to be reviewed first. That being said, in the team, it is essential that on each platform works at least two developers so that the team can gain autonomy and work without being dependent on others.
+Four eyes principles simply means that in order to merge a pull request it needs to be reviewed first. That being said, in the team, it is essential that on each platform works at least two developers so that the team can gain autonomy and work independently.
 
-The second scenario is making changes in other teams code. In that case the proper codeowner must approve the changes into the particular part. Only with that, the team can stay ahead and have the ultimate overview of their part of the codebase. Without defining the codeowners soon everyone would be working everywhere and it would all turn into chaos.
+In case of making changes in other team's code a dedicated code-owner from the team must approve the changes. Only with that, the team can stay ahead and have the ultimate overview of their part of the codebase and domain knowledge. Without defining the code-owners soon everyone would be working everywhere and it would all turn into chaos.
+
+Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that's very difficult to maintain and takes the most effort. That part will be the core layer. While, core layer could be develop by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer, if we don't count the utils layer, it will be highly likely used by many frameworks on the higher layer.
+
+The core layer, after all the desired functionality was implemented and bugs were fixed will not need much of a focus. However, teams might need to extent the functionality on that layer, which could lead as mentioned above towards opening a PR with their suggestions for extension. In this case, the core ownership should be made of tech leads who are having the overall vision over the project. 
 
 ### Scalability
-As mentioned already in the book, the modular architecture is designed to be highly scalable.
+As mentioned already in the book, the modular architecture is designed to be highly scalable. With the pre-defined scripts new team can simply create new framework or an app and start the implementation. Nevertheless, the onboarding of a new colleague or the whole team plays significant time that needs to be taken into account.
+
+Most likely, scaling for example to a 6th team working on the framework will require quite extensive onboarding session. Due to the large amount of code, design patterns, CI/CD, code style etc. will take a lot of time for new comers to get the speed. In such case, usually platform technical leads are doing pair programming, code reviews and further onboarding up until the new comers are familiar with the development concept, patterns and so on.   
 
   
 
