@@ -80,9 +80,7 @@ Joerg Nestele
     - Teams
     - Git
     - Scalability
-  - Application Framework
-    - Distribution 
-    - The Software Foundation
+    - Application Framework & Distribution 
   - Common Problems
   - Conclusion
 
@@ -946,7 +944,7 @@ Luckily, there is one simple solution for it. The code owners definition, which 
 
 While there are many different approaches how to contribute to the repository via git in our modular architecture I find out one particular the most helpful. The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
 
-Most likely, on projects developed by a single team it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of team of teams the GitFlow alongside with four eyes principle is the way to go.  
+Most likely, on projects developed by a single team it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of team of teams, contributing into mono-repository with GitFlow alongside with four eyes principle is the way to go.  
 
 Four eyes principles simply means that in order to merge a pull request it needs to be reviewed first. That being said, in the team, it is essential that on each platform works at least two developers so that the team can gain autonomy and work independently.
 
@@ -962,5 +960,36 @@ As mentioned already in the book, the modular architecture is designed to be hig
 Most likely, scaling for example to a 6th team working on the framework will require quite extensive onboarding session. Due to the large amount of code, design patterns, CI/CD, code style etc. will take a lot of time for new comers to get the speed. In such case, usually platform technical leads are doing pair programming, code reviews and further onboarding up until the new comers are familiar with the development concept, patterns and so on.   
 
   
+### Application Framework & Distribution
+
+Architecture-wise, the whole application framework can be used as the software foundation for the whole company. Different products can be easily created with the already pre-built foundation which contains the whole company knowledge in terms of the software development. No need to say, from engineering point of view, this is a big win for the whole company. For example, thanks to that, SW engineers can much more precisely estimate how much of the development time can the new product cost, how long will it take so as probably what would be the biggest challenges there.  
+
+Nevertheless, there are much more use cases where such architecture would be helpful. Due to the modularisation, standalone frameworks can be exported and used for development without affecting the current development workflow. This could be particularly helpful when, for example, a subsidiary would be developing another software product. With already pre-built core components, most importantly the UI part facing the customers, new product in the subsidiary can be built much faster and without gaining the confidential parts held in service or domain layers. However, in such case the team responsible for developing the distributed components or let us say the SDK is becoming the support team for the customers of the SDK. In that case a new process and workflow must be established. The responsible team could be opened for submitting bug reports and distributing the new versions of the SDK bi-weekly, or whenever it is suitable.
+
+### Common Problems
+
+While praising such architecture pretty much all the time, like everything, it comes with it's disadvantages as well. 
+
+### Maintenance
+
+First things first, the maintenance of the application framework can be very inefficient. The whole framework will not go far without technical leads who are having the company strategy aligned vision for the development of the framework or products and can, thereafter, give the directions for the development, also technically backed up by solution architects. Since there can be many teams working and contributing to the repository, the maintenance might be happening on a daily basis. Most effected part is probably the CI/CD chain, where things can break quickly, failing unit-tests, legacy code, supporting apps that are no longer in development etc.
+
+In case of the maintenance, particularly hard could be maintaining apps or frameworks that are no longer in development. Let us say, an app consists of domains and services was successfully delivered to the customers and there is no more development planned for it. This resolves in code that runs in production, therefore, it is very important. However, since it relies on the e.g core frameworks that are still in development the tests will start failing, the interfaces needs to be updated and so on. In the end, this will require additional effort for one of the teams to just take care of it until further decision is made for development. Or, archive it, remove it from the actively developed codebase and when time comes, put it back, update all interfaces and changes that happened in the framework and then happily continue development.
+
+### Code style
+
+Since there are many different developers working, following the same code style, principles and patterns can be a challenge. Everybody has a different preferences, different experience and getting sometimes people on the same boat is quite challenging. Nevertheless, following the ground rules and overall framework patters is what matters the most. In this case what really helps is well documented code, framework documentations so as proper onboarding that ideally consists of pair programming, code reviews and ad-hoc one on one sessions. 
+
+### Conclusion
+
+
+
+
+
+
+
+
+
+
 
 
