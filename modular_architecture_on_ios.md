@@ -978,10 +978,17 @@ In case of the maintenance, particularly hard could be maintaining apps or frame
 
 ### Code style
 
-Since there are many different developers working, following the same code style, principles and patterns can be a challenge. Everybody has a different preferences, different experience and getting sometimes people on the same boat is quite challenging. Nevertheless, following the ground rules and overall framework patters is what matters the most. In this case what really helps is well documented code, framework documentations so as proper onboarding that ideally consists of pair programming, code reviews and ad-hoc one on one sessions. 
+Since there are many different developers working, following the same code style, principles and patterns can be a challenge. Everybody has a different preferences, different experience and getting sometimes people on the same board is quite challenging. Nevertheless, following the ground rules and overall framework patterns is what matters the most. In this case what really helps is well documented code, framework documentations so as proper onboarding that ideally consists of pair programming, code reviews and ad-hoc one on one sessions. Changes in the code-style, importing new libraries, new patterns and so on can be discussed in developers guild meetings where everybody can vote for what seams to be the best option. In guilds, everybody can make suggestions for improvements and vote for changes he or she likes.  
+
+### Not fully autonomous teams
+
+In theory, each team should have its autonomy. Nevertheless, in practice it is slightly different, in some cases, teams might depend on each other which, furthermore, brings more teams communication, and worst case failing the teams goal because of the unfulfilled promises of the dependent team. 
 
 ### Conclusion
 
+In this chapter we had a look, how in practice development of modular architecture could look like. We explored ground rules, project generations with XcodeGen, handling secrets in the secure way so as some common problems people working on such project will be facing.
+
+I hope it all gave a good understanding of how to work in such setup. 
 
 
 
