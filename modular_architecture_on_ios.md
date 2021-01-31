@@ -82,6 +82,9 @@ Joerg Nestele
     - Scalability
     - Application Framework & Distribution 
   - Common Problems
+    - Maintenance
+    - Code style
+    - Not fully autonomous teams
   - Conclusion
 
 
@@ -886,7 +889,7 @@ In about two years ago me and my colleague Jörg Nestele had a look at the probl
 ### How to handle secrets
 First thing first, as mentioned above any secret must be obfuscated, without a doubt. String obfuscation is a technique that via XOR, AES or other encryption algorithms modifies the confidential string or a file such that it cannot be de-obfuscated without the initial encryption key.
 
-Unfortunately, obfuscating strings or files and commiting them to the repository might not be enough. What if there is a colleague who has access to the source repository or someone who might want to steal these secrets and hand it out? Simply downloading the repository and printing the de-obfuscated string into a console would do it.
+Unfortunately, obfuscating strings or files and committing them to the repository might not be enough. What if there is a colleague who has access to the source repository or someone who might want to steal these secrets and hand it out? Simply downloading the repository and printing the de-obfuscated string into a console would do it.
 
 Essentially, the secret should be visible only for the right developer in any circumstances. Especially, for mono-repository projects where many teams are contributing to simultaneously. That is where the GPG comes into play. 
 
@@ -991,6 +994,22 @@ In this chapter we had a look, how in practice development of modular architectu
 I hope it all gave a good understanding of how to work in such setup. 
 
 
+### Third Party Dependency Managers
+
+Generally, good practice when working on large codebases is not to import many 3rd party libraries. Especially the huge ones, for example, RxSwift, Alamofire, Moja etc. Those libraries are extraordinarily big and highly likely some of their functionality will never be used. This will resolve in having a dead code attached to the project. No need to say, the binary size, compile time and most importantly the maintenance will increase heavily. With each API change of the library every part of the codebase will have to be adapted. Obviously, essentials SDKs, like GoogleMaps, Firebase, AmazonSDK and so on will still have to be linked to the project, however, using libraries to provide wrappers around native iOS code can be avoided and developed specifically to the project needs.
+
+In one of my projects I worked on, the compile time of the whole application was at about 20-25 minutes. The project was in development for about 8 years and had approximately 80 3rd party dependencies linked via Cocopods. That was the biggest problem that took so much of the compile time. I do remember that I spent nearly three full months refactoring the huge codebase into the modular architecture described here, along the way also removed some of the unused libraries, and most importantly removed the Alamofire, RxSwift, RxCocoa, and other big libraries from Cocoapods and linked them via Carthage which was essential. Cocopods libraries are compiled every time the project is cleaned while Carthage is compiled only ones, produces binaries that are then linked. Cleaning a project was pretty common thing to do, Xcode has improved in that sense a lot, but with first Swift versions it was nowhere near to be perfect and with clean build most issues disappeared immediately. Due to that refactoring, the compile time after cleaning the project was decreased to 10 minutes which was mostly compile of the project source code with a few 3rd party libraries that remained linked via Cocoapods.
+
+The way third party libraries are managed and linked to the project matters a lot, especially, when the project is big or is aiming to be big. Now let us have a look at the three most commonly used dependency managers on iOS and how to use them in the modular architecture. By the most common I obviously mean Cocopods, Carthage and the new Apple's SwiftPM.
+
+### Cocopods
+
+Probably the most used and well known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrating a new library so as to remove it. Cocoapods manages everything for the developer under the hood, when the cocoapods are installed they are attached to the workspace as a Xcode project that contains all the libraries that are linked by during the pod install phase. During the compile of the project the dependencies are compiled as they are needed. This could be really great for small projects or even big ones but the libraries must be linked carefully as every library takes some compile time and further maintenance, like mentioned before. 
+
+
+
+- Carthage
+- SwiftPM
 
 
 
