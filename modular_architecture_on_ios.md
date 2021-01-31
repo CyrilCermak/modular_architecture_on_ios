@@ -1004,9 +1004,9 @@ The way third party libraries are managed and linked to the project matters a lo
 
 ### Cocopods
 
-Probably the most used and well known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrating a new library so as to remove it. Cocoapods manages everything for the developer under the hood, when the cocoapods are installed they are attached to the workspace as a Xcode project that contains all the libraries that are linked by during the pod install phase. During the compile of the project the dependencies are compiled as they are needed. This could be really great for small projects or even big ones but the libraries must be linked carefully as every library takes some compile time and further maintenance, like mentioned before. 
+The most used and well known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrate a new library so as to remove it. Cocoapods manage everything for the developer under the hood, therefore, there is no further work required in order to start using the library. When cocoapods are installed, with `pod install`, they are attached to the workspace as Xcode project that contains all libraries that are specified in the Podfile. During the compile of the project dependencies are compiled as they are needed. This is really good for small projects or even big ones but the libraries must be linked carefully as every library takes some compile time and further maintenance, like mentioned before. 
 
-
+To integrate Cocoapods for our Cosmonaut app is really easy. In the Fastlane's `generate` script just add `cocoapods` and fastlane will execute pod install for us after all the projects were generated. In the Podfile for Cosmonaut app a framework pods must also be defined. 
 
 - Carthage
 - SwiftPM
