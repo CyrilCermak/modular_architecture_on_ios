@@ -994,7 +994,7 @@ In this chapter we had a look, how in practice development of modular architectu
 I hope it all gave a good understanding of how to work in such setup. 
 
 
-### Third Party Dependency Managers
+# Dependency Managers
 
 Generally, good practice when working on large codebases is not to import many 3rd party libraries. Especially the huge ones, for example, RxSwift, Alamofire, Moja etc. Those libraries are extraordinarily big and highly likely some of their functionality will never be used. This will resolve in having a dead code attached to the project. No need to say, the binary size, compile time and most importantly the maintenance will increase heavily. With each API change of the library every part of the codebase will have to be adapted. Obviously, essentials SDKs, like GoogleMaps, Firebase, AmazonSDK and so on will still have to be linked to the project, however, using libraries to provide wrappers around native iOS code can be avoided and developed specifically to the project needs.
 
@@ -1002,11 +1002,16 @@ In one of my projects I worked on, the compile time of the whole application was
 
 The way third party libraries are managed and linked to the project matters a lot, especially, when the project is big or is aiming to be big. Now let us have a look at the three most commonly used dependency managers on iOS and how to use them in the modular architecture. By the most common I obviously mean Cocopods, Carthage and the new Apple's SwiftPM.
 
-### Cocopods
+## Cocopods
 
 The most used and well known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrate a new library so as to remove it. Cocoapods manage everything for the developer under the hood, therefore, there is no further work required in order to start using the library. When cocoapods are installed, with `pod install`, they are attached to the workspace as Xcode project that contains all libraries that are specified in the Podfile. During the compile of the project dependencies are compiled as they are needed. This is really good for small projects or even big ones but the libraries must be linked carefully as every library takes some compile time and further maintenance, like mentioned before. 
 
-To integrate Cocoapods for our Cosmonaut app is really easy. In the Fastlane's `generate` script just add `cocoapods` and fastlane will execute pod install for us after all the projects were generated. In the Podfile for Cosmonaut app a framework pods must also be defined. 
+Quite often Cocoapods are also used for in-house framework development which is very convenient, however, all the fun stops when the project grows and the internal dependencies are using some of big libraries, like Alamofire. Then the whole project depends on the in-house developed pods who are internally linking the 3rd party pods. This scenario can easily result in huge compile time as there is no legit way of replacing the linked 3rd party frameworks via their compiled version. In such cases may be necessary to move away from Cocoapods and integrate similar approach like described above. This could lead to a weeks of work, depends how the project is structured etc. Nevertheless, moving away from such design will improve everyday compile-time of each developer when it comes to that point. Like mentioned before, for small projects it could really be the way to go but it definitely has its limits.   
+
+To integrate Cocoapods in the whole application framework might also not be as easy as you can imagine. Cocoapods should keep the same versioning for each framework so as each app developed on the framework. This will require a little bit of Ruby programming. Essentially, the application framework will have one common Podfile that will define Pods for each framework such as every app can easily reuse it. Each app will have its own Podfile that will just specify what Pods should be installed for what framework to avoid unnecessary linking for libraries the app will not need.
+
+Last but not least, in the Fastlane's `generate` script we will add the `cocoapods` action and Fastlane will execute pod install for us after all the projects were generated. 
+
 
 - Carthage
 - SwiftPM
