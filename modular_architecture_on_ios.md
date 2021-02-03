@@ -1008,12 +1008,15 @@ The most used and well known dependency manager on iOS is [Cocoapods](https://co
 
 Quite often Cocoapods are also used for in-house framework development which is very convenient, however, all the fun stops when the project grows and the internal dependencies are using some of big libraries, like Alamofire. Then the whole project depends on the in-house developed pods who are internally linking the 3rd party pods. This scenario can easily result in huge compile time as there is no legit way of replacing the linked 3rd party frameworks via their compiled version. In such cases may be necessary to move away from Cocoapods and integrate similar approach like described above. This could lead to a weeks of work, depends how the project is structured etc. Nevertheless, moving away from such design will improve everyday compile-time of each developer when it comes to that point. Like mentioned before, for small projects it could really be the way to go but it definitely has its limits.   
 
-To integrate Cocoapods in the whole application framework might also not be as easy as you can imagine. Cocoapods should keep the same versioning for each framework so as each app developed on the framework. This will require a little bit of Ruby programming. Essentially, the application framework will have one common Podfile that will define Pods for each framework such as every app can easily reuse it. Each app will have its own Podfile that will just specify what Pods should be installed for what framework to avoid unnecessary linking for libraries the app will not need.
+To integrate Cocoapods in the whole application framework might also not be as easy as you can imagine. Cocoapods must keep the same versions of libraries across all frameworks so as each app developed on the framework. This will require a little bit of Ruby programming. Essentially, the application framework will have one common Podfile that will define Pods for each framework, thereafter, every app can easily reuse it. Each app will have its own Podfile that will just specify what Pods should be installed for whom framework to avoid unnecessary linking for libraries the app will not need.
 
-Last but not least, in the Fastlane's `generate` script we will add the `cocoapods` action and Fastlane will execute pod install for us after all the projects were generated. 
+Last but not least, the Fastfile for each app also needs to be created. The app's Fastfile will link the shared Fastfile defined on the root of the project. In the app Fastlane's `generate` script we will add the `cocoapods` action and Fastlane will execute pod install for us after all the projects were generated. 
+
+// TODO: Code it
+## Carthage
 
 
-- Carthage
+
 - SwiftPM
 
 
