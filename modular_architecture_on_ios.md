@@ -1055,13 +1055,16 @@ By the end of the day, Carthage will require much more work for having it proper
 
 One last thing worth mentioning is ABI (Application Binary Interface) interoperability. Since with Carthage the binaries are being linked, the compiler must be interoperable with the compiler who produced the binaries. That in the end might be a big problem, as the whole team will have to update Xcode in the same time so as the vendors of those libraries might need to update their source code to be compatible with the higher version of Swift. ABI is a very interesting topic in language development. I would highly encourage reading about it in the official Swift [repository](https://github.com/apple/swift/blob/main/docs/ABIStabilityManifesto.md).
 
-- SwiftPM
+## SwiftPM
 
+[Swift Package Manager](https://swift.org/package-manager/) is official dependency manager provided by Apple. It works on a similar basis as Cocoapods. Each framework or app is described with its dependencies in Package.swift file and compiled during the build. The benefit of using SwiftPM is that it can be used for scripts development or even cross-platform development, while Cocopods are AppeOS dependent. Nevertheless, SwiftPM can be used for iOS/macOS development with an ease. In comparision with Cocoapods, SwiftPM does not require extra actions in order to fetch the dependencies, Xcode simply takes care of it. SwiftPM also does not require to use Workspace for development as it directly adds the dependencies to the current Xcode project while Cocopods requires to work in a Xcode's workspace as the Pods are attached as a standalone project that contains all the binaries.
 
+One of the example projects using the SwiftPM for cross-platform development is the Swift server-side web framework, [Vapor](https://github.com/vapor/vapor). Vapor runs happily on both, macOS and linux instances. Nevertheless, developing Swift code for both platform might not be as easy as you imagine. There is a lot of differences in the Foundation developed for Apple OSes and Linux versions. Therefore, some alignments might be necessary in order to run the code on both systems which can be the reason why some libraries cannot be simply used on both systems.
 
+![SwiftPM with Vapor application](assets/SwiftPM.png)
 
+## Conclusion
 
-
-
+This chapter gave an introduction into the most common package managers that can be used for managing vendor frameworks with an easy. Choosing the right one might, unfortunately, not be as obvious as we would wish for. There are trade-offs for each one of them, however, choosing Cocopods or SwiftPM at start and then potentially replacing some of the big libraries with Carthage, such that the compile time can be decreased might be a good way to go. That being said, with the hybrid approach benefits from both can be used which could speed up the everyday development dramatically.
 
 
