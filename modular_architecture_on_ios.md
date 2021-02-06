@@ -97,7 +97,7 @@ Joerg Nestele
   - Protocols
     
     
-- Thrid Party Dependency Managers
+- Dependency Managers
   - Cocopods
   - Carthage
   - SwiftPM
@@ -1017,7 +1017,43 @@ Last but not least, the Fastfile for each app also needs to be created. The app'
 // TODO: Code it
 ## Carthage
 
+While Cocoapods is true 3rd party dependency manager that does everything for the developer under the hood, [Carthage](https://github.com/Carthage/Carthage) leaves developers with free hands. Carthage pre-build libraries described in the Cartfile and produces compiled binaries for pre-defined architectures. Executing Carthage's build command with `carthage update` will fetch all the dependencies and produces the compiled versions. Such task can be really time consuming, especially, when 3rd party libraries are one of the big ones. Nevertheless, such command is usually executed only ones. Compiled libraries can then be stored in some cloud storage where each developer or CI will pull them from into the pre-defined git ignored project's folder or possibly update them if it is necessary. That being said, some dependency maintenance and sharing strategy needs to be in place. 
 
+As mentioned above, Carthage ony builds the libraries, it is on the developer how they are then linked towards the frameworks and apps. Luckily, XcodeGen helps a lot when linking Carthage libraries. In the yaml file it can be easily defined where the Carthage executables are stored so as which ones we want to link. In case the linked framework is a static one it can also be easily specified with linkType.
+
+// TODO: Code it
+```yaml
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  Cosmonaut:
+    type: application
+    platform: iOS
+    sources: Cosmonaut
+    # Considering the Carthage is stored in the root folder of the project
+    carthageBuildPath: ../../Carthage/build
+    carthageExecutablePath: ../../Carthage
+    dependencies:
+      - carthage: Alamofire
+      - carthage: SnapKit
+      - carthage: MSAppCenter
+        linkType: static
+      # Domains
+      - framework: ISSCosmonaut.framework
+        implicit: true
+      - framework: ISSSpacesuit.framework
+        implicit: true
+      - framework: ISSScaffold.framework
+        implicit: true
+    ...
+```
+
+Eventually, the compiled binaries are linked to the frameworks and apps which no longer requires the expensive compile time. When the build is started Xcode looks at the library search paths for linking the compiled binaries. In comparison to compiling the whole 3rd party libraries from source code linking takes only a couple of seconds. 
+
+By the end of the day, Carthage will require much more work for having it properly setup and maintained in the project, updating of one library will require recompile the library and its dependencies, uploading it somewhere to the server where it can be accessible by all developers and finally, downloading the latest Carthage builds by developers locally. Surely, each developer can also recompile the libraries locally but that can take away again a lot of time from each developer, depends on the amount of libraries used. 
+
+One last thing worth mentioning is ABI (Application Binary Interface) interoperability. Since with Carthage the binaries are being linked, the compiler must be interoperable with the compiler who produced the binaries. That in the end might be a big problem, as the whole team will have to update Xcode in the same time so as the vendors of those libraries might need to update their source code to be compatible with the higher version of Swift. ABI is a very interesting topic in language development. I would highly encourage reading about it in the official Swift [repository](https://github.com/apple/swift/blob/main/docs/ABIStabilityManifesto.md).
 
 - SwiftPM
 
