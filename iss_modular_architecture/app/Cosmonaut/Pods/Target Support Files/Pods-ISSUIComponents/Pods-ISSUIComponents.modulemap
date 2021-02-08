@@ -1,0 +1,6 @@
+module Pods_ISSUIComponents {
+  umbrella header "Pods-ISSUIComponents-umbrella.h"
+
+  export *
+  module * { export * }
+}

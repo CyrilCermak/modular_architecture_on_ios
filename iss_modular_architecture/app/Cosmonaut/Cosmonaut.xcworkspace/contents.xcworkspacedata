@@ -43,4 +43,10 @@
          location = "group:../../core/Network/Network.xcodeproj">
       </FileRef>
    </Group>
+   <FileRef
+      location = "group:Cosmonaut.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

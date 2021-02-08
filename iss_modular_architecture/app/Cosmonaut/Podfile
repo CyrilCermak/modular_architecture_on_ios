@@ -1,0 +1,20 @@
+require_relative "../../fastlane/Podfile"
+
+platform :ios, '13.0'
+workspace 'Cosmonaut'
+
+uicomponents_sdk
+
+target 'Cosmonaut' do
+  use_frameworks!
+  
+  target 'CosmonautTests' do
+    inherit! :search_paths
+    
+  end
+
+  target 'CosmonautUITests' do
+    # Pods for testing
+  end
+
+end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		856033BE57906D1F9DBBAD30 /* libPods-ISSUIComponents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F138EE7FED8779A9DC903B4 /* libPods-ISSUIComponents.a */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C73D976168152E2BD4CB9EF8 /* UIComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0471ABD241540AC7B751087 /* UIComponentsTests.swift */; };
@@ -38,6 +39,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2891755EE721AC311174CB56 /* Pods-ISSUIComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.debug.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.debug.xcconfig"; sourceTree = "<group>"; };
+		2F138EE7FED8779A9DC903B4 /* libPods-ISSUIComponents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ISSUIComponents.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSUIComponents.h; sourceTree = "<group>"; };
@@ -47,6 +51,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B6BFC2963DF22C1BF6EE21CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				856033BE57906D1F9DBBAD30 /* libPods-ISSUIComponents.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D72DCCFF297A73FC0B1A1112 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -67,6 +79,16 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		4F5EE92AA35893F868180A2D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2891755EE721AC311174CB56 /* Pods-ISSUIComponents.debug.xcconfig */,
+				4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
+			sourceTree = "<group>";
+		};
 		A3AF73A7E1A5280A591BB443 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,7 +104,17 @@
 				0B23238E3B6CEDD4ADC7CB9A /* UIComponents */,
 				EEBF5FB3201C009D7B5868A6 /* UIComponentsTests */,
 				A3AF73A7E1A5280A591BB443 /* Products */,
+				4F5EE92AA35893F868180A2D /* Pods */,
+				D7785F7C1D692708A32C1D76 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		D7785F7C1D692708A32C1D76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2F138EE7FED8779A9DC903B4 /* libPods-ISSUIComponents.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EEBF5FB3201C009D7B5868A6 /* UIComponentsTests */ = {
@@ -112,8 +144,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0A2557C1E089E82D00E4D5B /* Build configuration list for PBXNativeTarget "ISSUIComponents" */;
 			buildPhases = (
+				ED7AEE793A063DF5223895C2 /* [CP] Check Pods Manifest.lock */,
 				6FF78DDEA9D3D1D2890DD190 /* Headers */,
 				75B36429A0E95D7C43E07EB2 /* Sources */,
+				B6BFC2963DF22C1BF6EE21CB /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -167,6 +201,7 @@
 				en,
 			);
 			mainGroup = CB17CC7A66071F8C2CE73EB3;
+			productRefGroup = A3AF73A7E1A5280A591BB443 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -175,6 +210,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ED7AEE793A063DF5223895C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ISSUIComponents-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5AE26BAFC723D4EF2342AC2E /* Sources */ = {
@@ -261,7 +321,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -281,6 +344,7 @@
 		};
 		1314541D635C003A0BA3AAA6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -365,14 +429,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -418,6 +489,7 @@
 		};
 		7F9A0A6311522F099BF10F04 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2891755EE721AC311174CB56 /* Pods-ISSUIComponents.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
