@@ -1,16 +1,28 @@
 PODS:
+  - lottie-ios (3.1.2)
+  - Siren (5.8.1)
   - SnapKit (5.0.0)
+  - TrustKit (1.7.0)
 
 DEPENDENCIES:
+  - lottie-ios (= 3.1.2)
+  - Siren (= 5.8.1)
   - SnapKit (= 5.0.0)
+  - TrustKit (= 1.7.0)
 
 SPEC REPOS:
   trunk:
+    - lottie-ios
+    - Siren
     - SnapKit
+    - TrustKit
 
 SPEC CHECKSUMS:
+  lottie-ios: 49cd85b1f24f61a7708ad7ec76a523ab2d0e3100
+  Siren: de768099aff1f1c9acda4247064788a4940b4bf3
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
+  TrustKit: dac38bb37e49bdfeca41b1a19d020da38017b51c
 
-PODFILE CHECKSUM: c3ccf7da4e0a15beb19e8cc307caa2c1444c0b2a
+PODFILE CHECKSUM: 817f9613bd9036e30223dfed75d48c7a9071fa48
 
 COCOAPODS: 1.10.1

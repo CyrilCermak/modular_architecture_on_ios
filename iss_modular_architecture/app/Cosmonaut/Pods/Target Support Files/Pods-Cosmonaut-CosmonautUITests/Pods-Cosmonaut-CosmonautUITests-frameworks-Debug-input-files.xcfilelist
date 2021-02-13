@@ -1,2 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Cosmonaut-CosmonautUITests/Pods-Cosmonaut-CosmonautUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Siren-framework/Siren.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit-framework/SnapKit.framework
+${BUILT_PRODUCTS_DIR}/lottie-ios-framework/Lottie.framework
+${BUILT_PRODUCTS_DIR}/TrustKit-framework/TrustKit.framework

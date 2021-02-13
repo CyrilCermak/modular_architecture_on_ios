@@ -22,6 +22,8 @@ targets:
         implicit: true
       - framework: ISSNetwork.framework
         implicit: true
+      - framework: ISSUIComponents.framework
+        implicit: true
   # Tests for the main application
   CosmonautServiceTests:
     type: bundle.unit-test

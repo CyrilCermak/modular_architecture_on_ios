@@ -4,6 +4,8 @@ platform :ios, '13.0'
 workspace 'Cosmonaut'
 
 uicomponents_sdk
+network_sdk
+cosmonautservice_sdk
 
 target 'Cosmonaut' do
   use_frameworks!

@@ -175,10 +175,16 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Siren-framework/Siren.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit-framework/SnapKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios-framework/Lottie.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TrustKit-framework/TrustKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Siren-framework/Siren.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit-framework/SnapKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/lottie-ios-framework/Lottie.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/TrustKit-framework/TrustKit.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

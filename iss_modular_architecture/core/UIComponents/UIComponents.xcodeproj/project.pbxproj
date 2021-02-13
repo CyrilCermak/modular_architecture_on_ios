@@ -148,6 +148,7 @@
 				6FF78DDEA9D3D1D2890DD190 /* Headers */,
 				75B36429A0E95D7C43E07EB2 /* Sources */,
 				B6BFC2963DF22C1BF6EE21CB /* Frameworks */,
+				ECA0399FC5B1039BB8E80C1C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -212,6 +213,23 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		ECA0399FC5B1039BB8E80C1C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		ED7AEE793A063DF5223895C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
