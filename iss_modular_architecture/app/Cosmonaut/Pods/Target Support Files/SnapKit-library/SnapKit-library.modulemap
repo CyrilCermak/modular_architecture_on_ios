@@ -1,5 +1,5 @@
 module SnapKit {
-  umbrella header "SnapKit-umbrella.h"
+  umbrella header "SnapKit-library-umbrella.h"
 
   export *
   module * { export * }

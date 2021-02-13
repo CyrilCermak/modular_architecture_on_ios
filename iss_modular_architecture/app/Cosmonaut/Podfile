@@ -8,11 +8,13 @@ uicomponents_sdk
 target 'Cosmonaut' do
   use_frameworks!
   
+  add_linked_libs_from_sdks_to_app
+  
   target 'CosmonautTests' do
     inherit! :search_paths
     
   end
-
+  
   target 'CosmonautUITests' do
     # Pods for testing
   end

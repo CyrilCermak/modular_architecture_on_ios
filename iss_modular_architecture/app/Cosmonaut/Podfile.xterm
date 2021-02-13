@@ -1,0 +1,23 @@
+[38;5;66m[m[38;5;32m    1 [m[38;5;66mrequire_relative "../../fastlane/Podfile"[m
+[38;5;32m    2 [m[38;5;66m[m
+[38;5;32m    3 [m[38;5;66mplatform :ios, '13.0'[m
+[38;5;32m    4 [m[38;5;66mworkspace 'Cosmonaut'[m
+[38;5;32m    5 [m[38;5;66m[m
+[38;5;32m    6 [m[38;5;66muicomponents_sdk[m
+[38;5;32m    7 [m[38;5;66m[m
+[38;5;32m    8 [m[38;5;66mtarget 'Cosmonaut' do[m
+[38;5;32m    9 [m[38;5;66m  use_frameworks![m
+[38;5;32m   10 [m[38;5;66m[m  
+[38;5;32m   11 [m[38;5;66m  add_linked_libs_from_sdks_to_app[m
+[38;5;32m   12 [m[38;5;66m[m  
+[38;5;32m   13 [m[38;5;66m  target 'CosmonautTests' do[m
+[38;5;32m   14 [m[38;5;66m    inherit! :search_paths[m
+[38;5;32m   15 [m[38;5;66m[m    
+[38;5;32m   16 [m[38;5;66m  end[m
+[38;5;32m   17 [m[38;5;66m[m  
+[38;5;32m   18 [m[38;5;66m  target 'CosmonautUITests' do[m
+[38;5;32m   19 [m[38;5;66m    # Pods for testing[m
+[38;5;32m   20 [m[38;5;66m  end[m
+[38;5;32m   21 [m[38;5;66m[m
+[38;5;32m   22 [m[38;5;66mend[m
+[m
