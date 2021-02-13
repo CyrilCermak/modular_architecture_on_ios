@@ -1,0 +1,6 @@
+framework module Pods_ISSNetwork {
+  umbrella header "Pods-ISSNetwork-umbrella.h"
+
+  export *
+  module * { export * }
+}

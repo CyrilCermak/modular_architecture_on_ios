@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		856033BE57906D1F9DBBAD30 /* libPods-ISSUIComponents.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F138EE7FED8779A9DC903B4 /* libPods-ISSUIComponents.a */; };
+		2BD7F41EFA8E9877828F0F1E /* Pods_ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E5C9E21EC79C6A9CF925E9 /* Pods_ISSUIComponents.framework */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C73D976168152E2BD4CB9EF8 /* UIComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0471ABD241540AC7B751087 /* UIComponentsTests.swift */; };
@@ -40,12 +40,12 @@
 
 /* Begin PBXFileReference section */
 		2891755EE721AC311174CB56 /* Pods-ISSUIComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.debug.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.debug.xcconfig"; sourceTree = "<group>"; };
-		2F138EE7FED8779A9DC903B4 /* libPods-ISSUIComponents.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ISSUIComponents.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSUIComponents.h; sourceTree = "<group>"; };
 		B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C5E5C9E21EC79C6A9CF925E9 /* Pods_ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0471ABD241540AC7B751087 /* UIComponentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsTests.swift; sourceTree = "<group>"; };
 		DD842186BC1234A08C0A5E18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				856033BE57906D1F9DBBAD30 /* libPods-ISSUIComponents.a in Frameworks */,
+				2BD7F41EFA8E9877828F0F1E /* Pods_ISSUIComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +112,7 @@
 		D7785F7C1D692708A32C1D76 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2F138EE7FED8779A9DC903B4 /* libPods-ISSUIComponents.a */,
+				C5E5C9E21EC79C6A9CF925E9 /* Pods_ISSUIComponents.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -148,7 +148,6 @@
 				6FF78DDEA9D3D1D2890DD190 /* Headers */,
 				75B36429A0E95D7C43E07EB2 /* Sources */,
 				B6BFC2963DF22C1BF6EE21CB /* Frameworks */,
-				ECA0399FC5B1039BB8E80C1C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,23 +212,6 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		ECA0399FC5B1039BB8E80C1C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		ED7AEE793A063DF5223895C2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

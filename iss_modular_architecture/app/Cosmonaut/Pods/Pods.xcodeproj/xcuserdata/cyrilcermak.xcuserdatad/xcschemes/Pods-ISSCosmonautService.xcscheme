@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "897B931764544E75475E84A555092AF5"
-               BuildableName = "libPods-ISSCosmonautService.a"
+               BuildableName = "Pods-ISSCosmonautService.framework"
                BlueprintName = "Pods-ISSCosmonautService"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

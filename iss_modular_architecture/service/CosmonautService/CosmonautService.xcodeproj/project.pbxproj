@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08C7286BDD31873E400F0CAB /* Pods_ISSCosmonautService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9265D9C7307EEA008FC5B120 /* Pods_ISSCosmonautService.framework */; };
 		3AA5A22800E0082AB18A7E97 /* ISSCosmonautService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80C81C545D3C08A6D0A26A37 /* ISSCosmonautService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6272EA9DBC6419CD38F745C1 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572FFB98164BCCED35C725B9 /* ISSNetwork.framework */; };
-		6D809BBBD549C0CC7F771405 /* libPods-ISSCosmonautService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A61ACB593DC7BF08A399E11 /* libPods-ISSCosmonautService.a */; };
 		7B1C71C2B25663DCAF564ED1 /* ISSCosmonautService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C81C545D3C08A6D0A26A37 /* ISSCosmonautService.framework */; };
 		7C28E72572B48732B251E2E9 /* ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C918B39804A62DEB2684B3C0 /* ISSPersistence.framework */; };
 		9527451C1F0D7884ABBBB5D0 /* ISSCosmonautService.h in Headers */ = {isa = PBXBuildFile; fileRef = D8A07DCACEBA940B2894D381 /* ISSCosmonautService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,13 +42,13 @@
 
 /* Begin PBXFileReference section */
 		0F3B8825773971965AA13A5C /* CosmonautServiceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A61ACB593DC7BF08A399E11 /* libPods-ISSCosmonautService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ISSCosmonautService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F86568D3DA3F922DBFD259F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3F79A52F26E24BE87B105B4A /* Pods-ISSCosmonautService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSCosmonautService.debug.xcconfig"; path = "Target Support Files/Pods-ISSCosmonautService/Pods-ISSCosmonautService.debug.xcconfig"; sourceTree = "<group>"; };
 		46991C422820F34BB1F677AF /* Pods-ISSCosmonautService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSCosmonautService.release.xcconfig"; path = "Target Support Files/Pods-ISSCosmonautService/Pods-ISSCosmonautService.release.xcconfig"; sourceTree = "<group>"; };
 		572FFB98164BCCED35C725B9 /* ISSNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59D53BE35C7F8C30A847833C /* CosmonautServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautServiceTests.swift; sourceTree = "<group>"; };
 		80C81C545D3C08A6D0A26A37 /* ISSCosmonautService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSCosmonautService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9265D9C7307EEA008FC5B120 /* Pods_ISSCosmonautService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSCosmonautService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92BFCB3E0C8B7DBF2F60EF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C918B39804A62DEB2684B3C0 /* ISSPersistence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8A07DCACEBA940B2894D381 /* ISSCosmonautService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSCosmonautService.h; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 			files = (
 				7C28E72572B48732B251E2E9 /* ISSPersistence.framework in Frameworks */,
 				6272EA9DBC6419CD38F745C1 /* ISSNetwork.framework in Frameworks */,
-				6D809BBBD549C0CC7F771405 /* libPods-ISSCosmonautService.a in Frameworks */,
+				08C7286BDD31873E400F0CAB /* Pods_ISSCosmonautService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,7 +81,7 @@
 			children = (
 				572FFB98164BCCED35C725B9 /* ISSNetwork.framework */,
 				C918B39804A62DEB2684B3C0 /* ISSPersistence.framework */,
-				1A61ACB593DC7BF08A399E11 /* libPods-ISSCosmonautService.a */,
+				9265D9C7307EEA008FC5B120 /* Pods_ISSCosmonautService.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

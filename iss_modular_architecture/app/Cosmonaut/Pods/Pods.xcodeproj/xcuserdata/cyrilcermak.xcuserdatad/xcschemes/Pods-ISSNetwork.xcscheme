@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0090E38D5BE9D6854B5B44A7A636529"
-               BuildableName = "libPods-ISSNetwork.a"
+               BuildableName = "Pods-ISSNetwork.framework"
                BlueprintName = "Pods-ISSNetwork"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>

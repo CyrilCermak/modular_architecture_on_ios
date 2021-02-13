@@ -1,4 +1,4 @@
-module Pods_ISSUIComponents {
+framework module Pods_ISSUIComponents {
   umbrella header "Pods-ISSUIComponents-umbrella.h"
 
   export *

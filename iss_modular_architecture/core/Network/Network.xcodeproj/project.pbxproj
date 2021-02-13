@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3395968AFF0356BB3D43CECB /* libPods-ISSNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DAC17069C9078754877A1EE /* libPods-ISSNetwork.a */; };
 		4A613B7CD7700F0D025CD080 /* ISSNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; };
+		89BA8172F5FEA36C0C98E6A4 /* Pods_ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD49676E8B930B1A7AE0963 /* Pods_ISSNetwork.framework */; };
 		D3E1F43411BF58BB40B2117B /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E778F92E918BD126BAA989AF /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F812B411A786CECE70EE3 /* NetworkTests.swift */; };
 /* End PBXBuildFile section */
@@ -41,10 +41,10 @@
 /* Begin PBXFileReference section */
 		0223A82975333FAAA7476EEE /* ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DDFC2A6DB8F386229EAA3DF /* Pods-ISSNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.debug.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.debug.xcconfig"; sourceTree = "<group>"; };
-		1DAC17069C9078754877A1EE /* libPods-ISSNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ISSNetwork.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0F812B411A786CECE70EE3 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		A96B8F878FAAE41B2DD2DF82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D31D00108B0A681EE3FC2CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DAD49676E8B930B1A7AE0963 /* Pods_ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSNetwork.h; sourceTree = "<group>"; };
 		F41BD618F19CEE10F0289308 /* NetworkTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1357416CD0DB77F7A99796 /* Pods-ISSNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.release.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.release.xcconfig"; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3395968AFF0356BB3D43CECB /* libPods-ISSNetwork.a in Frameworks */,
+				89BA8172F5FEA36C0C98E6A4 /* Pods_ISSNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +121,7 @@
 		E03F1E8C8E0DB73EBDBF1EA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1DAC17069C9078754877A1EE /* libPods-ISSNetwork.a */,
+				DAD49676E8B930B1A7AE0963 /* Pods_ISSNetwork.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

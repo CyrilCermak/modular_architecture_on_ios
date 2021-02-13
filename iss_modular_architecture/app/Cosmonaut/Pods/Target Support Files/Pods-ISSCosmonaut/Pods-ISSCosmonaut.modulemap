@@ -1,0 +1,6 @@
+framework module Pods_ISSCosmonaut {
+  umbrella header "Pods-ISSCosmonaut-umbrella.h"
+
+  export *
+  module * { export * }
+}

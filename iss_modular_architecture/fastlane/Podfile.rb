@@ -1,30 +1,76 @@
 require 'cocoapods'
 require 'set'
 
+Lib = Struct.new(:name, :version, :is_static)
 $linkedPods = Set.new
 
-Lib = Struct.new(:name, :version, :is_static)
 
+### available libraries within the whole Application Framework
 $snapKit = Lib.new("SnapKit", "5.0.0")
 $siren = Lib.new("Siren", "5.8.1")
 $lottie = Lib.new("lottie-ios", "3.1.2")
 $trustKit = Lib.new("TrustKit", "1.7.0")
 
-### Required libraries
+### Project paths with required libraries
+
+# Domains
+$scaffold_project_path = '../../domain/Scaffold/Scaffold.xcodeproj'
+$spacesuit_project_path = '../../domain/Spacesuit/Spacesuit.xcodeproj'
+$cosmonaut_project_path = '../../domain/Cosmonaut/Cosmonaut.xcodeproj'
+# Service
+$cosmonautservic_project_path = '../../service/CosmonautService/CosmonautService.xcodeproj'
+$spacesuitservic_project_path = '../../service/SpacesuitService/SpacesuitService.xcodeproj'
+# Core
+$uicomponents_project_path = '../../core/UIComponents/UIComponents.xcodeproj'
 $uicomponents_libs = $snapKit, $siren, $lottie
+
+$network_project_path = '../../core/Network/Network.xcodeproj'
 $network_libs = [$trustKit]
 
-### Project paths
-$cosmonautservic_project_path = '../../service/CosmonautService/CosmonautService.xcodeproj'
-$uicomponents_project_path = '../../core/UIComponents/UIComponents.xcodeproj'
-$network_project_path = '../../core/Network/Network.xcodeproj'
+$radio_project_path = '../../core/Radio/Radio.xcodeproj'
+$persistence_project_path = '../../core/Persistence/Persistence.xcodeproj'
 
+# Helper variable for scripting to determine target's project
 $projects = [
+  $scaffold_project_path,
+  $spacesuit_project_path,
+  $cosmonaut_project_path,
+  
   $cosmonautservic_project_path,
+  $spacesuitservic_project_path,
+  
   $uicomponents_project_path,
   $network_project_path,
+  $radio_project_path,
+  $persistence_project_path,
 ]
+
+### Domain
+def scaffold_sdk
+  target_name = 'ISSScaffold'
+  install target_name, $scaffold_project_path, []
+  install_subdependencies $scaffold_project_path, target_name, []
+end
+
+def spacesuit_sdk
+  target_name = 'ISSSpacesuit'
+  install target_name, $spacesuit_project_path, []
+  install_subdependencies $spacesuit_project_path, target_name, []
+end
+
+def cosmonaut_sdk
+  target_name = 'ISSCosmonaut'
+  install target_name, $cosmonaut_project_path, []
+  install_subdependencies $cosmonaut_project_path, target_name, []
+end
+
 ### Service
+def spacesuitservice_sdk
+  target_name = 'ISSSpacesuitService'
+  install target_name, $spacesuitservic_project_path, []
+  install_subdependencies $spacesuitservic_project_path, target_name, []
+end
+
 def cosmonautservice_sdk
   target_name = 'ISSCosmonautService'
   install target_name, $cosmonautservic_project_path, []
@@ -33,16 +79,33 @@ end
 
 ### Core
 def uicomponents_sdk
-  install 'ISSUIComponents', $uicomponents_project_path, $uicomponents_libs
+  target_name = 'ISSUIComponents'
+  install target_name, $uicomponents_project_path, $uicomponents_libs
+  install_subdependencies $uicomponents_project_path, target_name, []
 end
 
 def network_sdk
-  install "ISSNetwork", $network_project_path, $network_libs
+  target_name = 'ISSNetwork'
+  install target_name, $network_project_path, $network_libs
+  install_subdependencies $network_project_path, target_name, []
+end
+
+def radio_sdk
+  target_name = 'ISSRadio'
+  install target_name, $radio_project_path, []
+  install_subdependencies $radio_project_path, target_name, []
+end
+
+def persistence_sdk
+  target_name = 'ISSPersistence'
+  install target_name, $persistence_project_path, []
+  install_subdependencies $persistence_project_path, target_name, []
 end
 
 # Helper wrapper around Cocoapods installation
 def install target_name, project_path, linked_libs
   target target_name do 
+    use_frameworks!
     project project_path
     
     link linked_libs
