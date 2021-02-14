@@ -10,6 +10,8 @@
 		2BD7F41EFA8E9877828F0F1E /* Pods_ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E5C9E21EC79C6A9CF925E9 /* Pods_ISSUIComponents.framework */; };
 		58AF1B2F25D930AD00DFA60A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF1B2E25D930AD00DFA60A /* Coordinator.swift */; };
 		58AF1B7925D94F0800DFA60A /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF1B7825D94F0800DFA60A /* AnimationView.swift */; };
+		58AF1BC625D978F500DFA60A /* ISSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF1BC525D978F500DFA60A /* ISSButton.swift */; };
+		58AF1BC925D97A5D00DFA60A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF1BC825D97A5D00DFA60A /* Color.swift */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C73D976168152E2BD4CB9EF8 /* UIComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0471ABD241540AC7B751087 /* UIComponentsTests.swift */; };
@@ -45,6 +47,8 @@
 		4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
 		58AF1B2E25D930AD00DFA60A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		58AF1B7825D94F0800DFA60A /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		58AF1BC525D978F500DFA60A /* ISSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSButton.swift; sourceTree = "<group>"; };
+		58AF1BC825D97A5D00DFA60A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSUIComponents.h; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 			children = (
 				58AF1B2E25D930AD00DFA60A /* Coordinator.swift */,
 				58AF1B7825D94F0800DFA60A /* AnimationView.swift */,
+				58AF1BC525D978F500DFA60A /* ISSButton.swift */,
+				58AF1BC825D97A5D00DFA60A /* Color.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -265,6 +271,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				58AF1B2F25D930AD00DFA60A /* Coordinator.swift in Sources */,
+				58AF1BC925D97A5D00DFA60A /* Color.swift in Sources */,
+				58AF1BC625D978F500DFA60A /* ISSButton.swift in Sources */,
 				58AF1B7925D94F0800DFA60A /* AnimationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
