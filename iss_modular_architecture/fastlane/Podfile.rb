@@ -60,7 +60,7 @@ end
 
 def cosmonaut_sdk
   target_name = 'ISSCosmonaut'
-  install target_name, $cosmonaut_project_path, []
+  install target_name, $cosmonaut_project_path, [$snapKit]
   install_subdependencies $cosmonaut_project_path, target_name, []
 end
 
