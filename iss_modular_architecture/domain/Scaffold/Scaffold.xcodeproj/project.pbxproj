@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41285548E6B403775F597BA7 /* ISSScaffold.h in Headers */ = {isa = PBXBuildFile; fileRef = 418BB27485317D7E383CE57D /* ISSScaffold.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58AF1B3325D9358200DFA60A /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF1B3225D9358200DFA60A /* AppCoordinator.swift */; };
 		AC61FFF38B421E56FC14C7D4 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6D470BA7C8492F45BB89CD6 /* ISSUIComponents.framework */; };
 		CAAE17823BBEA3D7C9495D8B /* Pods_ISSScaffold.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8DE6AA56DA625FC3518914 /* Pods_ISSScaffold.framework */; };
 		CBB2C23773B160A8144B625C /* ScaffoldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3674C74769D562EBB87B0971 /* ScaffoldTests.swift */; };
@@ -44,8 +45,9 @@
 		418BB27485317D7E383CE57D /* ISSScaffold.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSScaffold.h; sourceTree = "<group>"; };
 		4892E33B413337FA061E4A5B /* ISSScaffold.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSScaffold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E8DE6AA56DA625FC3518914 /* Pods_ISSScaffold.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSScaffold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58AF1B3225D9358200DFA60A /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		58DAF7B66598699808651EB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		77164D759CA13A8BED72EEE4 /* ScaffoldTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ScaffoldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		77164D759CA13A8BED72EEE4 /* ScaffoldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScaffoldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B28F6115063F9B576099CFD0 /* Pods-ISSScaffold.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSScaffold.debug.xcconfig"; path = "Target Support Files/Pods-ISSScaffold/Pods-ISSScaffold.debug.xcconfig"; sourceTree = "<group>"; };
 		BB9FC678F01FFCE8ED63C61F /* Pods-ISSScaffold.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSScaffold.release.xcconfig"; path = "Target Support Files/Pods-ISSScaffold/Pods-ISSScaffold.release.xcconfig"; sourceTree = "<group>"; };
 		C6D470BA7C8492F45BB89CD6 /* ISSUIComponents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +102,14 @@
 			path = ScaffoldTests;
 			sourceTree = "<group>";
 		};
+		58AF1B3125D9357900DFA60A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				58AF1B3225D9358200DFA60A /* AppCoordinator.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		AB19E7214485E85C0FC105FB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +123,7 @@
 		B2334FAA618CFAC187343F8C /* Scaffold */ = {
 			isa = PBXGroup;
 			children = (
+				58AF1B3125D9357900DFA60A /* Source */,
 				58DAF7B66598699808651EB7 /* Info.plist */,
 				418BB27485317D7E383CE57D /* ISSScaffold.h */,
 			);
@@ -189,6 +200,7 @@
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					8CF467BB9080CFADE745A2C1 = {
+						LastSwiftMigration = 1240;
 						ProvisioningStyle = Manual;
 					};
 					BDA67E53931F053DDCFB4982 = {
@@ -245,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58AF1B3325D9358200DFA60A /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B28F6115063F9B576099CFD0 /* Pods-ISSScaffold.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -365,6 +379,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSScaffold;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -373,6 +389,7 @@
 		8A03391F9E50E2C7D554BB56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ScaffoldTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -478,6 +495,7 @@
 		A7A75D420BB4C989B85E1A77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = ScaffoldTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -495,6 +513,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BB9FC678F01FFCE8ED63C61F /* Pods-ISSScaffold.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -510,6 +529,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSScaffold;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

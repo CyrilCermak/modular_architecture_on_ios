@@ -27,11 +27,9 @@
 		AF80578FC4E5F1389BAD03FE /* ISSCosmonaut.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22C33DFF1660AC1EABFC7687 /* ISSCosmonaut.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA9870FB882EA37259E88729 /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8C9173EE79D59729A9F106C /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C33F51FE8D61EED0A4058DE2 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8C9173EE79D59729A9F106C /* ISSNetwork.framework */; };
-		CCB0CAA96AFFBC0534886A08 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */; };
 		CD647EFA073B9F55D676C2D9 /* ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */; };
 		CFB27BF88A9B6936C206D9D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD24CE164CBAD1E7B608C00 /* LaunchScreen.storyboard */; };
 		CFC7382B91E25797039EF57D /* ISSCosmonaut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C33DFF1660AC1EABFC7687 /* ISSCosmonaut.framework */; };
-		D3F3764AB3765E3D7FD1C0F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5CCC01EAA21988C3EE9F9B7 /* Main.storyboard */; };
 		E055A0ABE9B3DA23CC3185E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6ABA8D15B4199DB537CD396 /* AppDelegate.swift */; };
 		E90AEB30E1DFC06539D96399 /* ISSRadio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC089C3AA1910EF1940C78D8 /* ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8077076CBEE95F3F690C02B /* ISSSpacesuitService.framework */; };
@@ -90,7 +88,6 @@
 		7C60E16E0760116DBAEAEC56 /* CosmonautUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautUITests.swift; sourceTree = "<group>"; };
 		837510F40804997E05D71FF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		89A013AC10990B9FFBA43070 /* Pods_Cosmonaut_CosmonautUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmonaut_CosmonautUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8F9035BAD1DD5BCD4FD1B561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		90081B1FB5BF02E4068ACD00 /* Pods_CosmonautTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CosmonautTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E5BD13576BB12D7554656F /* Pods-Cosmonaut.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmonaut.release.xcconfig"; path = "Target Support Files/Pods-Cosmonaut/Pods-Cosmonaut.release.xcconfig"; sourceTree = "<group>"; };
 		A681F6FB8BC71214F6356034 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,7 +95,6 @@
 		AA3E6F89E7876E81AEEEA87D /* ISSRadio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8230536CFB8F5555A64B36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C473017F5BDC7F19D8BC7F5F /* Pods-Cosmonaut-CosmonautUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmonaut-CosmonautUITests.debug.xcconfig"; path = "Target Support Files/Pods-Cosmonaut-CosmonautUITests/Pods-Cosmonaut-CosmonautUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C7C0442ACA0FC4138FF8D536 /* Pods_Cosmonaut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmonaut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8077076CBEE95F3F690C02B /* ISSSpacesuitService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB9BA22488AE6EC4AC8F248 /* CosmonautUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,8 +150,6 @@
 				A681F6FB8BC71214F6356034 /* Assets.xcassets */,
 				837510F40804997E05D71FF1 /* Info.plist */,
 				2FD24CE164CBAD1E7B608C00 /* LaunchScreen.storyboard */,
-				A5CCC01EAA21988C3EE9F9B7 /* Main.storyboard */,
-				C5D2A443B3D085FBAD87DD16 /* SceneDelegate.swift */,
 			);
 			path = Cosmonaut;
 			sourceTree = "<group>";
@@ -229,7 +223,6 @@
 				0580DFCEF5E002FA7303755A /* Pods-CosmonautTests.debug.xcconfig */,
 				E2DB1B9EABC12607AEB4DA56 /* Pods-CosmonautTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -340,7 +333,6 @@
 			files = (
 				7ADF6ED74A93BAEC53B99D2B /* Assets.xcassets in Resources */,
 				CFB27BF88A9B6936C206D9D7 /* LaunchScreen.storyboard in Resources */,
-				D3F3764AB3765E3D7FD1C0F1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,7 +463,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E055A0ABE9B3DA23CC3185E5 /* AppDelegate.swift in Sources */,
-				CCB0CAA96AFFBC0534886A08 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,14 +488,6 @@
 				AF8230536CFB8F5555A64B36 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		A5CCC01EAA21988C3EE9F9B7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8F9035BAD1DD5BCD4FD1B561 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

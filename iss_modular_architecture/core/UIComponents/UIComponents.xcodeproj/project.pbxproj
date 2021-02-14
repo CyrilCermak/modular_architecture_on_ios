@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2BD7F41EFA8E9877828F0F1E /* Pods_ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5E5C9E21EC79C6A9CF925E9 /* Pods_ISSUIComponents.framework */; };
+		58AF1B2F25D930AD00DFA60A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AF1B2E25D930AD00DFA60A /* Coordinator.swift */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C73D976168152E2BD4CB9EF8 /* UIComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0471ABD241540AC7B751087 /* UIComponentsTests.swift */; };
@@ -41,8 +42,9 @@
 /* Begin PBXFileReference section */
 		2891755EE721AC311174CB56 /* Pods-ISSUIComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.debug.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.debug.xcconfig"; sourceTree = "<group>"; };
 		4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
+		58AF1B2E25D930AD00DFA60A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSUIComponents.h; sourceTree = "<group>"; };
 		B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E5C9E21EC79C6A9CF925E9 /* Pods_ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +75,7 @@
 		0B23238E3B6CEDD4ADC7CB9A /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				58AF1B2D25D930A200DFA60A /* Source */,
 				DD842186BC1234A08C0A5E18 /* Info.plist */,
 				9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */,
 			);
@@ -87,6 +90,14 @@
 			);
 			name = Pods;
 			path = ../../app/Cosmonaut/Pods;
+			sourceTree = "<group>";
+		};
+		58AF1B2D25D930A200DFA60A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				58AF1B2E25D930AD00DFA60A /* Coordinator.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		A3AF73A7E1A5280A591BB443 /* Products */ = {
@@ -185,6 +196,7 @@
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					CB0E33768853A1F608066528 = {
+						LastSwiftMigration = 1240;
 						ProvisioningStyle = Manual;
 					};
 					F0BBEFAA1B67C9723C873993 = {
@@ -249,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58AF1B2F25D930AD00DFA60A /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +359,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4110EDDFE6BC4603520401EF /* Pods-ISSUIComponents.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -361,6 +375,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSUIComponents;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -458,6 +473,7 @@
 		2623314A936926611E487274 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UIComponentsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -474,6 +490,7 @@
 		49F6CC11E4A5D678D1B668AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = UIComponentsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -491,6 +508,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2891755EE721AC311174CB56 /* Pods-ISSUIComponents.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -506,6 +524,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSUIComponents;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
