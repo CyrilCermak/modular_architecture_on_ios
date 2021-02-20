@@ -1006,15 +1006,146 @@ The way third party libraries are managed and linked to the project matters a lo
 
 The most used and well known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrate a new library so as to remove it. Cocoapods manage everything for the developer under the hood, therefore, there is no further work required in order to start using the library. When cocoapods are installed, with `pod install`, they are attached to the workspace as Xcode project that contains all libraries that are specified in the Podfile. During the compile of the project dependencies are compiled as they are needed. This is really good for small projects or even big ones but the libraries must be linked carefully as every library takes some compile time and further maintenance, like mentioned before. 
 
-Quite often Cocoapods are also used for in-house framework development which is very convenient, however, all the fun stops when the project grows and the internal dependencies are using some of big libraries, like Alamofire. Then the whole project depends on the in-house developed pods who are internally linking the 3rd party pods. This scenario can easily result in huge compile time as there is no legit way of replacing the linked 3rd party frameworks via their compiled version. No need to say, cocoapods also will not let you integrate a static library to more than one framework because of transitive dependencies mentioned before, therefore, some dynamic library wrappers might need to be introduced to avoid it.
+Quite often Cocoapods are also used for in-house framework development which is very convenient, however, all the fun stops when the project grows and the internal dependencies are using any of the big libraries, like Alamofire. Then the whole project depends on the in-house developed pods who are internally linking the 3rd party pods. This scenario can easily result in a huge compile time as there is no legit way of replacing the linked 3rd party frameworks via their compiled version. No need to say, cocoapods also will not let you integrate a static library to more than one framework because of transitive dependencies mentioned before, therefore, some dynamic library wrappers might need to be introduced to avoid it.
 
-In such cases might be necessary to move away from Cocoapods and integrate similar approach like described in this book. This could lead to weeks of work, depends on how the project is big, structured etc. Nevertheless, moving away from such design will improve everyday compile-time of each developer when it comes to that point. Like mentioned before, for small projects it could really be the way to go but it definitely has its limits.   
+In such cases might be necessary to move away from Cocoapods and integrate similar approach like described in this book. This could lead to days or even weeks of work, depends on how the project is big, structured etc. Nevertheless, moving away from such design will improve everyday compile-time of each developer when it comes to that point. Like mentioned before, for small projects it could really be the way to go but it definitely has its limits.   
 
-To integrate Cocoapods in the whole application framework might also not be as easy as you can imagine. Cocoapods must keep the same versions of libraries across all frameworks so as each app developed on the framework. This will require a little bit of Ruby programming. Essentially, the application framework will have one common Podfile that will define Pods for each framework, thereafter, every app can easily reuse it. Each app will have its own Podfile that will just specify what Pods should be installed for which framework to avoid unnecessary linking for frameworks the app will not need.
+### Integration with the application framework
 
-Last but not least, the Fastfile for each app also needs to be created. The app's Fastfile will link the shared Fastfile defined on the root of the project. In the app Fastlane's `generate` script we will add the `cocoapods` action and Fastlane will execute pod install for us after all the projects were generated. 
+To integrate Cocoapods in the whole application framework might also not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks so as each app developed on top of it. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared Podfile that will define Pods for each framework, thereafter, every app can easily reuse it. Each app has its own Podfile that specifies what Pods must be installed for which framework to avoid unnecessary linking for frameworks the app will not need.
 
-// TODO: Code it
+Let us have a look now how App's Podfile could look like.
+`app/Cosmonaut/Podifle`
+```ruby
+# Including the shared podfile
+require_relative "../../fastlane/Podfile"
+
+platform :ios, '13.0'
+workspace 'CosmonautApp'
+
+# Linking pods for desired frameworks from the shared Podfile
+# Domain
+spacesuit_sdk
+cosmonaut_sdk
+scaffold_sdk
+# Service
+spacesuitservice_sdk
+cosmonautservice_sdk
+# Core
+network_sdk
+radio_sdk
+uicomponents_sdk
+persistence_sdk
+
+
+# Installing pods for the Application target
+target 'CosmonautApp' do
+  use_frameworks!
+  
+  pod $snapKit.name, $snapKit.version
+  
+  # Linking all dynamic libraries required from any used framework towards the main app target
+  # as only app can copy frameworks to the target
+  add_linked_libs_from_sdks_to_app
+  
+  # Dedicated tests for the application
+  target 'CosmonautAppTests' do
+    inherit! :search_paths
+  end
+  
+  target 'CosmonautAppUITests' do
+    # Pods for testing
+  end
+end
+```
+
+On top of the file the shared Podfile that defines the pods for all frameworks is included. After setting the platform and workspace, the installation for all linked frameworks takes place. Last but not least, the classic app target is defined, potentially with some extra pods. Special attention here goes to the `add_linked_libs_from_sdks_to_app` function defined on the shared Podfile which will be explained in a second.
+
+To fully understand what is happening inside of the app's Podfile we have to have a look at the shared Podfile.
+`fastlane/Podifle.rb`
+```ruby
+require 'cocoapods'
+require 'set'
+
+Lib = Struct.new(:name, :version, :is_static)
+$linkedPods = Set.new
+
+### available libraries within the whole Application Framework
+$snapKit = Lib.new("SnapKit", "5.0.0")
+$siren = Lib.new("Siren", "5.8.1")
+...
+
+### Project paths with required libraries
+# Domains
+$scaffold_project_path = '../../domain/Scaffold/Scaffold.xcodeproj'
+$spacesuit_project_path = '../../domain/Spacesuit/Spacesuit.xcodeproj'
+...
+
+# Linked libraries
+$network_libs = [$trustKit]
+$cosmonaut_libs = [$snapKit]
+...
+
+### Domain
+def spacesuit_sdk
+  target_name = 'ISSSpacesuit'
+  install target_name, $spacesuit_project_path, []
+end
+
+def cosmonaut_sdk
+  target_name = 'ISSCosmonaut'
+  test_target_name = 'CosmonautTests'
+  install target_name, $cosmonaut_project_path, $cosmonaut_libs
+  
+  install_test_subdependencies $cosmonaut_project_path, target_name, test_target_name, []
+end
+...
+
+# Helper wrapper around Cocoapods installation
+def install target_name, project_path, linked_libs
+  target target_name do 
+    use_frameworks!
+    project project_path
+    
+    link linked_libs
+  end
+end
+
+# Helper method to install Pods that 
+# track the overall linked pods in the linkedPods set 
+def link libs
+  libs.each do |lib|
+    pod lib.name, lib.version
+    $linkedPods << lib
+  end
+end
+
+# Helper method called from the App target to install 
+# dynamic libraries, as they must be copied to the target
+# without that the app would be crashing on start
+def add_linked_libs_from_sdks_to_app
+  $linkedPods.each do |lib|
+    next if lib.is_static
+    pod lib.name, lib.version
+  end
+end
+
+# Maps the list of dependencies from YAML files to the global variables defined on top of the File
+# e.g ISSUIComponents.framework found in subdependencies will get mapped to the uicomponents_libs.
+# From all dependencies found a Set of desired libraries is taken and installed
+def install_test_subdependencies project_path, target_name, test_target_name, found_subdependencies
+  ...
+end
+```
+
+On top of the file, the struct `Lib` represents a Cocoapod library. On next lines, it is used to describe the libraries that can be used within the whole framework and apps. Then, each framework is defined by a function, e.g. `spacesuit_sdk`, that is then called from the main app Podfile to install the libraries for those required frameworks. Furthermore, a helper functions are defined to simplify the whole workflow. 
+
+Two functions requires some explanation, first the `add_linked_libs_from_sdks_to_app`. This is must be called from within the app's target to add all the dependencies of the linked frameworks. Else we would end up in the so called dependency hell. The app would be crashing with e.g `TrustKit library not loaded... referenced from: ISSNetwork`, because the libraries were linked towards the frameworks, however, frameworks do not copy linked libraries into target. Therefore, the App must do it for us.
+
+The second function is `install_test_subdependencies`, this the same scenario as for the previous function, however, in this case for tests. In order to launch tests, they also have to link all dependencies of the linked frameworks towards it. Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared Podfile then use the defined pods for those frameworks.
+
+In the source code everything is well commented so it should be easy to grasp.  
+
 ## Carthage
 
 While Cocoapods is true 3rd party dependency manager that does everything for the developer under the hood, [Carthage](https://github.com/Carthage/Carthage) leaves developers with free hands. Carthage pre-build libraries described in the Cartfile and produces compiled binaries for pre-defined architectures. Executing Carthage's build command with `carthage update` will fetch all the dependencies and produces the compiled versions. Such task can be really time consuming, especially, when 3rd party libraries are one of the big ones. Nevertheless, such command is usually executed only ones. Compiled libraries can then be stored in some cloud storage where each developer or CI will pull them from into the pre-defined git ignored project's folder or possibly update them if it is necessary. That being said, some dependency maintenance and sharing strategy needs to be in place. 
