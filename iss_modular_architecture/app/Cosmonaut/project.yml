@@ -3,7 +3,7 @@ include:
   - ../../fastlane/build_settings.yml
 
 # Definition of the project
-name: Cosmonaut
+name: CosmonautApp
 settings:
   groups:
     - BuildSettings
@@ -12,10 +12,13 @@ settings:
 targets:
   
   # The main application
-  Cosmonaut:
+  CosmonautApp:
     type: application
     platform: iOS
-    sources: Cosmonaut
+    sources: CosmonautApp
+    settings:
+      groups:
+        - BuildSettings
     dependencies:
       # Domains
       - framework: ISSCosmonaut.framework
@@ -40,19 +43,25 @@ targets:
         implicit: true
   
   # Tests for the main application
-  CosmonautTests:
+  CosmonautAppTests:
     type: bundle.unit-test
     platform: iOS
-    sources: CosmonautTests
+    sources: CosmonautAppTests
+    settings:
+      groups:
+        - BuildSettings
     dependencies:
-      - target: Cosmonaut
+      - target: CosmonautApp
     settings:
       TEST_HOST: $(BUILT_PRODUCTS_DIR)/Cosmonaut.app/Cosmonaut
 
   # UITests for the main application
-  CosmonautUITests:
+  CosmonautAppUITests:
     type: bundle.ui-testing
     platform: iOS
-    sources: CosmonautUITests
+    sources: CosmonautAppUITests
+    settings:
+      groups:
+        - BuildSettings
     dependencies:
-      - target: Cosmonaut
+      - target: CosmonautApp

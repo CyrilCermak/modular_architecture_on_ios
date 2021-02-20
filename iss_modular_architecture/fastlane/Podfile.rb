@@ -22,13 +22,16 @@ $cosmonautservic_project_path = '../../service/CosmonautService/CosmonautService
 $spacesuitservic_project_path = '../../service/SpacesuitService/SpacesuitService.xcodeproj'
 # Core
 $uicomponents_project_path = '../../core/UIComponents/UIComponents.xcodeproj'
-$uicomponents_libs = $snapKit, $siren, $lottie
 
 $network_project_path = '../../core/Network/Network.xcodeproj'
-$network_libs = [$trustKit]
 
 $radio_project_path = '../../core/Radio/Radio.xcodeproj'
 $persistence_project_path = '../../core/Persistence/Persistence.xcodeproj'
+
+# Linked libraries
+$uicomponents_libs = [$snapKit, $siren, $lottie]
+$network_libs = [$trustKit]
+$cosmonaut_libs = [$snapKit]
 
 # Helper variable for scripting to determine target's project
 $projects = [
@@ -49,57 +52,51 @@ $projects = [
 def scaffold_sdk
   target_name = 'ISSScaffold'
   install target_name, $scaffold_project_path, []
-  install_subdependencies $scaffold_project_path, target_name, []
 end
 
 def spacesuit_sdk
   target_name = 'ISSSpacesuit'
   install target_name, $spacesuit_project_path, []
-  install_subdependencies $spacesuit_project_path, target_name, []
 end
 
 def cosmonaut_sdk
   target_name = 'ISSCosmonaut'
-  install target_name, $cosmonaut_project_path, [$snapKit]
-  install_subdependencies $cosmonaut_project_path, target_name, []
+  test_target_name = 'CosmonautTests'
+  install target_name, $cosmonaut_project_path, $cosmonaut_libs
+  
+  install_test_subdependencies $cosmonaut_project_path, target_name, test_target_name, []
 end
 
 ### Service
 def spacesuitservice_sdk
   target_name = 'ISSSpacesuitService'
   install target_name, $spacesuitservic_project_path, []
-  install_subdependencies $spacesuitservic_project_path, target_name, []
 end
 
 def cosmonautservice_sdk
   target_name = 'ISSCosmonautService'
   install target_name, $cosmonautservic_project_path, []
-  install_subdependencies $cosmonautservic_project_path, target_name, []
 end
 
 ### Core
 def uicomponents_sdk
   target_name = 'ISSUIComponents'
   install target_name, $uicomponents_project_path, $uicomponents_libs
-  install_subdependencies $uicomponents_project_path, target_name, []
 end
 
 def network_sdk
   target_name = 'ISSNetwork'
   install target_name, $network_project_path, $network_libs
-  install_subdependencies $network_project_path, target_name, []
 end
 
 def radio_sdk
   target_name = 'ISSRadio'
   install target_name, $radio_project_path, []
-  install_subdependencies $radio_project_path, target_name, []
 end
 
 def persistence_sdk
   target_name = 'ISSPersistence'
   install target_name, $persistence_project_path, []
-  install_subdependencies $persistence_project_path, target_name, []
 end
 
 # Helper wrapper around Cocoapods installation
@@ -135,12 +132,19 @@ end
 # Maps the list of dependencies from YAML files to the global variables defined on top of the File
 # e.g ISSUIComponents.framework found in subdependencies will get mapped to the uicomponents_libs.
 # From all dependencies found a Set of desired libraries is taken and installed
-def install_subdependencies project_path, target_name, found_subdependencies
+def install_test_subdependencies project_path, target_name, test_target_name, found_subdependencies
   subdependencies = find_subdependencies project_path, target_name, found_subdependencies
   list = subdependencies.map { |name| "#{name.gsub(".framework", "").gsub("ISS", "")}_libs".downcase }
-  list_variables = list.filter_map { |name| eval("$#{name}") }
+  list_variables = list.filter_map { |name| eval("$#{name}") }.flatten
   
-  p list_variables
+  # Installing test pods found within all subdependencies of the main testing target
+  target test_target_name do 
+    use_frameworks!
+    
+    project project_path
+  
+    link list_variables
+  end
 end
 
 # Finds recursively the dependencies of a project defined in the project.yml File
@@ -155,7 +159,7 @@ def find_subdependencies project_path, target_name, found_subdependencies
   # End of Recursion
   return found_subdependencies unless dependencies
   
-  linked_frameworks = dependencies.map { |t| t["framework"]}.filter { |f| f.start_with? "ISS" }
+  linked_frameworks = dependencies.map { |t| t["framework"]}.compact.filter { |f| f.start_with? "ISS" }
   linked_frameworks.each do |framework|
     name = framework.gsub(".framework", "").gsub("ISS", "")
     dependency_path = $projects.detect { |project| project.include? name }

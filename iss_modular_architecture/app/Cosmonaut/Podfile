@@ -1,7 +1,7 @@
 require_relative "../../fastlane/Podfile"
 
 platform :ios, '13.0'
-workspace 'Cosmonaut'
+workspace 'CosmonautApp'
 
 # Linking pods for desired frameworks
 # Domain
@@ -18,19 +18,19 @@ uicomponents_sdk
 persistence_sdk
 
 
-target 'Cosmonaut' do
+target 'CosmonautApp' do
   use_frameworks!
   
   # Linking all dynamic libraries towards the main app target
   # as only app can copy frameworks
   add_linked_libs_from_sdks_to_app
   
-  target 'CosmonautTests' do
+  target 'CosmonautAppTests' do
     inherit! :search_paths
     
   end
   
-  target 'CosmonautUITests' do
+  target 'CosmonautAppUITests' do
     # Pods for testing
   end
 
