@@ -1324,11 +1324,17 @@ public class AppCoordinator: Coordinator {
 }
 ```
 
+## Decoupling
 
+It can surely happen that at some point a different implementation of some protocol must be used, however, that might be much harder than you think. Imagine a scenario where a CosmonautService (protocol) is used all over our ComsonautApp, however it was decided that this app will have two different flavours, one for US cosmonaut and one for Russian cosmonaut. The cosmonaut service logic can be really huge, 3rd party libraries that are used might also differ and surely we do not want to include unused libraries with our US ComsonautApp or vice versa, that would be shipping a dead code! In that case we have to decouple those two frameworks and provide a common interface in a separate framework.
 
+In this case we would have to make one exception to our Application Framework linking law. For example, CosmonautServiceInterface framework would be representing the public interface for the higher layers, it would contain protocols and necessary objects that needs to be exposed out of the framework to the outer world. `USCosmonautService` and `RUCosmonautService` would then link the `CosmonautServiceInterface` on the same hierarchy level and would provide the implementations of protocols defined there. The higher level framework or even better the main App itself, in our example `CosmonautApp` would then based on the availability of the linked framework instantiated the objects represented in the `CosmonautServiceInterface` from the framework that was linked to it. Which would be either `USCosmonautService` or `RUCosmonautService`.
 
+This example is not part of the source code demo, however, such scenario can happen so it is important to keep the solution for such problem in mind.
 
-- Design Patterns
+ 
+
+- Design Patterns & Practices
   - Coordinators
   - Configurations
   - Decoupling
