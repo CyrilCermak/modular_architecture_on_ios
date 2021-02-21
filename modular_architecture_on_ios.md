@@ -88,6 +88,13 @@ Joerg Nestele
   - Conclusion
 
 
+- Dependency Managers
+  - Cocopods
+    - Integration with the application framework
+  - Carthage
+  - SwiftPM
+    
+    
 - Design Patterns
   - Configurations
   - Coordinators
@@ -95,12 +102,6 @@ Joerg Nestele
   - MVVM
   - Clean Architecture
   - Protocols
-    
-    
-- Dependency Managers
-  - Cocopods
-  - Carthage
-  - SwiftPM
     
     
 - Distribution
@@ -1196,5 +1197,123 @@ One of the example projects using the SwiftPM for cross-platform development is 
 ## Conclusion
 
 This chapter gave an introduction into the most common package managers that could be used for managing 3rd party frameworks with an ease. Choosing the right one might, unfortunately, not be as obvious as we would wish for. There are trade-offs for each one of them, however, choosing Cocopods or SwiftPM at start and then potentially replacing some of the big libraries with Carthage, such that the compile time can be decreased might be a good way to go. That being said, with the hybrid approach, project benefits from both which could speed up the everyday development dramatically.
+
+
+# Design Patterns
+
+Design patterns help developers to solve complex problems in a known, organised and structural way. Furthermore, when new developers are onboarded, they might already know the patterns used for solving such problem which helps them to gain the speed and confidence for development in the new codebase.
+
+Purpose of this book is not to focus on design patterns in detail as there are plenty of books about them already. However, some patterns that are particularly useful when developing on such modular architecture are highlighted here.
+
+
+## Coordinator 
+
+First of all, let us have a look at Coordinator pattern. One of the well known navigation pattern of all times when it comes to iOS development. Coordinator as it's name says takes care of coordinating the user's flow through the app. In our Application Framework, each domain framework can be represented by its coordinator, as an entry point to that domain. Coordinator can then internally instantiate view controllers so as their models and coordinate the presentation flow for them. For the client, who is using it, all the necessary complexity is abstracted and held at one place. Coordinator's usually needs to be triggered to take the charge with `start` method. Such method could also provide an option for some `link` or a `route` which is a deep link whose the coordinator can handle.  
+
+While there are many different implementations of such pattern, for the sake of the example and our CosmonautApp I chose the simplest implementation.
+
+First, let us design some protocols:
+File: `core/UIComponents/UIComponents/Source/Coordinator.swift`
+```swift
+// DeepLink represents a linking within the coordinator
+public protocol DeepLink {}
+
+public protocol Coordinator: AnyObject {
+    
+    var childCoordinators: [Coordinator] { get set }
+    var finish: ((DeepLink?) -> Void)? { get set }
+    
+    func start()
+    func start(link: DeepLink) -> Bool
+}
+
+// Representation of a coordinator who is using navigationController
+public protocol NavigationCoordinator: Coordinator {
+    var navigationController: UINavigationController { get set }
+}
+
+// Representation of a coordinator who is using tabBarController
+public protocol TabBarCoordinator: Coordinator {
+    var tabBarController: UITabBarController { get set }
+    var tabViewController: TabBarViewController { get }
+}
+
+public protocol TabBarViewController: UIViewController {
+    var tabBarImage: UIImage { get }
+    var tabBarName: String { get }
+}
+```
+
+To see how those protocols are used in action we can have a look at the CosmonautCoordinator.
+File: `domain/Cosmonaut/Cosmonaut/Source/CosmonautCoordinator.swift`
+```swift
+public class CosmonautCoordinator: NavigationCoordinator {
+    public enum CosmonautLink {
+      case info
+    }
+    
+    public lazy var navigationController: UINavigationController = UINavigationController()
+    
+    public var childCoordinators: [Coordinator] = []
+    
+    public init() {}
+    
+    public func start() {
+        navigationController.setViewControllers([
+            makeCosmonautViewController()
+        ], animated: false)
+    }
+    
+    public func start(link: DeepLink) -> Bool {
+        guard let link = link as? CosmonautLink else { return false }
+        
+        // TODO: handle rute
+        return true
+    }
+    
+    private func makeCosmonautViewController() -> UIViewController {
+        return ComsonautViewController()
+    }
+}
+
+```
+
+After hooking up the coordinator into the App window, with for example the main `AppCoordinator` defined in the `Scaffold` module, simply calling `start()` or `start(link: CosmonautLink.info)` will take over the flow of the particular domain or user's flow.
+
+
+
+
+
+
+
+
+
+
+
+
+- Design Patterns
+  - Coordinators
+  - Configurations
+  - Decoupling
+  - MVVM
+  - Clean Architecture
+  - Protocols
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
