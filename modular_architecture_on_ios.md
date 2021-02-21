@@ -1203,12 +1203,12 @@ This chapter gave an introduction into the most common package managers that cou
 
 Design patterns help developers to solve complex problems in a known, organised and structural way. Furthermore, when new developers are onboarded, they might already know the patterns used for solving such problem which helps them to gain the speed and confidence for development in the new codebase.
 
-Purpose of this book is not to focus on design patterns in detail as there are plenty of books about them already. However, some patterns that are particularly useful when developing on such modular architecture are highlighted here.
+Purpose of this book is not to focus on design patterns in detail as there are plenty of books about them already. However, some patterns that are particularly useful when developing on such modular architecture are highlighted in here.
 
 
 ## Coordinator 
 
-First of all, let us have a look at Coordinator pattern. One of the well known navigation pattern of all times when it comes to iOS development. Coordinator as it's name says takes care of coordinating the user's flow through the app. In our Application Framework, each domain framework can be represented by its coordinator, as an entry point to that domain. Coordinator can then internally instantiate view controllers so as their models and coordinate the presentation flow for them. For the client, who is using it, all the necessary complexity is abstracted and held at one place. Coordinator's usually needs to be triggered to take the charge with `start` method. Such method could also provide an option for some `link` or a `route` which is a deep link whose the coordinator can handle.  
+First of all, let us have a look at Coordinator pattern. One of the well known navigation pattern of all times when it comes to iOS development. Coordinator as it's name says takes care of coordinating the user's flow through out the app. In our Application Framework, each domain framework can be represented by its coordinator as an entry point to that domain. Coordinator can then internally instantiate view controllers so as their view models and coordinate the presentation flow. For the client, who is using it, all the necessary complexity is abstracted and held at one place. Coordinator's usually needs to be triggered to take the charge with `start` method. Such method could also provide an option for a `link` or a `route` which is a deep link whose the coordinator can decide to handle or not.  
 
 While there are many different implementations of such pattern, for the sake of the example and our CosmonautApp I chose the simplest implementation.
 
@@ -1280,12 +1280,49 @@ public class CosmonautCoordinator: NavigationCoordinator {
 
 After hooking up the coordinator into the App window, with for example the main `AppCoordinator` defined in the `Scaffold` module, simply calling `start()` or `start(link: CosmonautLink.info)` will take over the flow of the particular domain or user's flow.
 
+## Strategy
 
+One of my favourite pattern is Strategy, even though I create it in a slightly different way than it was originally meant to. Strategy pattern is particularly helpful when developing reusable components, like for example views. Such view can be initialised with a certain `strategy` or a `type`. In traditional book examples, strategy pattern is often described and defined via protocols and the ability to exchange the protocol with a different implementation that conforms to it. However, there is much more Swiftier way to achieve the same goal with an ease, `enum`. Enum, can simply represent strategy for each case for the object and via enum functions the necessary logic can be implemented. 
 
+// TODO
 
+## Configuration
 
+Configuration is great for all the services and components that serve more than one purpose which will highly likely happen as we are developing many apps on top of the same reusable services. Configuration, is a simple object that describes how an instance of the desired object should look like or behave. That could be as simple as setting SSLPinning for network service or setting a name to a CoreData context and so on.
 
+An an example in the Application Framework we can have a look at the `AppCoordinator`.
+File: `domain/Scaffold/Scaffold/Source/AppCoordinator.swift`
+```swift
+extension AppCoordinator {
+    public struct Configuration {
+        public enum PresentatinStyle {
+            case tabBar, navigation
+        }
+        
+        public var style: PresentatinStyle
+        public var menuCoordinator: Coordinator?
+        
+        public init(style: PresentatinStyle, menuCoordinator: Coordinator?) {
+            self.style = style
+            self.menuCoordinator = menuCoordinator
+        }
+    }
+}
+```
 
+AppCoordinator takes the configuration object and based on it's values performs necessary actions to provide desired behaviour.
+
+File: `domain/Scaffold/Scaffold/Source/AppCoordinator.swift`
+```swift
+public class AppCoordinator: Coordinator {
+  ...
+    public init(window: UIWindow, configuration: Configuration) {
+        self.configuration = configuration
+        self.window = window
+    }
+  ...    
+}
+```
 
 
 
