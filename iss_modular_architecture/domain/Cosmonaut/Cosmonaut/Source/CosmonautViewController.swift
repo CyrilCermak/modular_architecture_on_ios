@@ -25,6 +25,7 @@ class ComsonautViewController: UIViewController, Outputable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Cosmonaut"
         bindView()
     }
     

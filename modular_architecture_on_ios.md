@@ -1332,10 +1332,15 @@ In such case we have to make one exception to our Application Framework linking 
 
 This example is not part of the source code demo, however, such scenario can happen so it is important to keep the solution for such problem in mind.
 
- 
+## MVVM + C 
+
+Probably no need much of explanation for Model, View, ViewModel with Coordinator pattern, however, there are many different approaches and implementations. First of all, sometimes it's not necessary to use MVVM as the plain old classic MVC do the trick as well without the necessity of having an extra object. Second of all, the way how objects are binded together matters.
+
+
 
 - Design Patterns & Practices
-  - Coordinators
+  - Coordinator
+  - Strategy
   - Configurations
   - Decoupling
   - MVVM

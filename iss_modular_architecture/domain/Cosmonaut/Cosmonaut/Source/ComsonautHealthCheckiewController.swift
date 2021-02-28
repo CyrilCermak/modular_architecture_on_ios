@@ -14,6 +14,7 @@ import ISSNetwork
 class ComsonautHealthCheckViewModel {
     
     @Published var models: [ISSTableCellModel] = []
+    
     private let service: CosmonautHealthServicing
     private var subscriptions = Set<AnyCancellable>()
     init(service: CosmonautHealthServicing) {
@@ -31,22 +32,41 @@ class ComsonautHealthCheckViewModel {
     }
     
     private func makeModels() {
-        let bloodPressure = ISSDetailTableModel(title: "Blood pressure",
-                                                subtitle: "Optimal",
-                                                detail: "120/80")
+        let bloodPressure = ISSDetailTableModel(title: "Blood pressure")
+        let bloodOxygen = ISSDetailTableModel(title: "Blood Oxygen")
+        let heartRate = ISSDetailTableModel(title: "Heart Rate")
+        let bodyTemperature = ISSDetailTableModel(title: "Body Temperature")
         
         service.health.$bloodPressure
             .sink(receiveValue: { [weak bloodPressure] (measure) in
-                print(measure)
+                bloodPressure?.subtitle = measure?.type
                 bloodPressure?.detail = measure?.level
             }).store(in: &subscriptions)
         
-        models = [bloodPressure]
+        service.health.$bloodOxygen
+            .sink(receiveValue: { [weak bloodOxygen] (measure) in
+                bloodOxygen?.subtitle = measure?.type
+                bloodOxygen?.detail = measure?.level
+            }).store(in: &subscriptions)
+        
+        service.health.$heartRate
+            .sink(receiveValue: { [weak heartRate] (measure) in
+                heartRate?.subtitle = measure?.type
+                heartRate?.detail = measure?.level
+            }).store(in: &subscriptions)
+        
+        service.health.$bodyTemperature
+            .sink(receiveValue: { [weak bodyTemperature] (measure) in
+                bodyTemperature?.subtitle = measure?.type
+                bodyTemperature?.detail = measure?.level
+            }).store(in: &subscriptions)
+        
+        models = [bloodPressure, bloodOxygen, heartRate, bodyTemperature]
     }
 }
 
 class ComsonautHealthCheckViewController: UIViewController, Outputable {
-    enum Action { case close }
+    enum Action { case close, heartBeat }
     
     /// Outputable protocol fullfilment
     lazy var output: AnyPublisher<Action, Never> = {
@@ -66,7 +86,12 @@ class ComsonautHealthCheckViewController: UIViewController, Outputable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Health Check"
         bindView()
+        
+        // Close button in Navigation
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
+        navigationItem.rightBarButtonItem = barButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,12 +114,31 @@ class ComsonautHealthCheckViewController: UIViewController, Outputable {
                 cosmonautView?.bind(models: models)
             }
             .store(in: &subscriptions)
+        
+        cosmonautView.healthCheckTapped
+            .sink { [weak outputAction] in
+                outputAction?.send(.heartBeat)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    @objc
+    func didTapClose() {
+        outputAction.send(.close)
     }
 }
 
 class CosmonautHealthCheckView: UIView {
     
+    var healthCheckTapped: AnyPublisher<Void, Never> {
+        return heartBeat.tapped.eraseToAnyPublisher()
+    }
+    
     private let tableView = ISSTableView()
+    
+    private let heartBeat: ISSButton = {
+        return ISSButton(title: "Heart Beat", style: .pink)
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,10 +152,18 @@ class CosmonautHealthCheckView: UIView {
     }
     
     private func setConstraints() {
-        [tableView].forEach({ addSubview($0) })
+        [tableView, heartBeat].forEach({ addSubview($0) })
         
         tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.left.right.top.equalToSuperview()
+            make.bottom.equalTo(heartBeat.snp.top)
+        }
+        
+        heartBeat.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-10)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.height.equalTo(46)
         }
     }
     

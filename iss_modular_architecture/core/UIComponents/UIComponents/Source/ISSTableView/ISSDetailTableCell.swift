@@ -15,7 +15,7 @@ public class ISSDetailTableModel: ISSTableCellModel {
     @Published public var subtitle: String?
     @Published public var detail: String?
     
-    public init(title: String, subtitle: String, detail: String) {
+    public init(title: String = "", subtitle: String = "", detail: String = "") {
         self.title = title
         self.subtitle = subtitle
         self.detail = detail
@@ -56,11 +56,11 @@ public class ISSDetailTableCell: UITableViewCell, ISSTableCellModelBindable {
         [titleLabel, subtitleLabel, detailLabel].forEach({ contentView.addSubview($0) })
         
         titleLabel.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(10)
+            make.left.top.equalToSuperview().offset(15)
         }
         
         subtitleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleLabel).offset(10)
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
             make.left.equalTo(self.titleLabel)
         }
         
@@ -68,6 +68,8 @@ public class ISSDetailTableCell: UITableViewCell, ISSTableCellModelBindable {
             make.right.equalToSuperview().offset(-10)
             make.centerY.equalToSuperview()
         }
+        
+        contentView.heightAnchor.constraint(equalToConstant: 65).isActive = true
     }
     
     public func bind(model: ISSTableCellModel) {

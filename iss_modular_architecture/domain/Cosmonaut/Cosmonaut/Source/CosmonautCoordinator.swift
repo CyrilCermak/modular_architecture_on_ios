@@ -57,7 +57,25 @@ public class CosmonautCoordinator: NavigationCoordinator {
     private func presentHealthCheck() {
         let healtModel = ComsonautHealthCheckViewModel(service: cosmonautHealthService)
         let healthVC = ComsonautHealthCheckViewController(viewModel: healtModel)
+        healthVC.output
+            .sink { [weak healthVC, weak self] (action) in
+                switch action {
+                case .close: healthVC?.dismiss(animated: true, completion: nil)
+                case .heartBeat: self?.pushHeartBeat()
+                }
+            }
+            .store(in: &subscriptions)
         
-        navigationController.present(healthVC, animated: true)
+        navigationController.present(UINavigationController(rootViewController: healthVC), animated: true)
+    }
+    
+    private func pushHeartBeat() {
+        let heartBeatVC = CosmonautHeartBeatViewController()
+        if let healthNavigation = navigationController.presentedViewController as? UINavigationController {
+            healthNavigation.pushViewController(heartBeatVC, animated: true)
+            return
+        }
+        
+        navigationController.pushViewController(heartBeatVC, animated: true)
     }
 }
