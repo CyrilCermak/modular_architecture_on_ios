@@ -4,33 +4,45 @@
    <FileRef
       location = "group:CosmonautApp.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:../../core/Network/Network.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../core/Persistence/Persistence.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../core/Radio/Radio.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../core/UIComponents/UIComponents.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../domain/Cosmonaut/Cosmonaut.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../domain/Scaffold/Scaffold.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../domain/Spacesuit/Spacesuit.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../service/CosmonautService/CosmonautService.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../../service/SpacesuitService/SpacesuitService.xcodeproj">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "Domain">
+      <FileRef
+         location = "group:../../domain/Scaffold/Scaffold.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../domain/Spacesuit/Spacesuit.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../domain/Cosmonaut/Cosmonaut.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Service">
+      <FileRef
+         location = "group:../../service/SpacesuitService/SpacesuitService.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../service/CosmonautService/CosmonautService.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Core">
+      <FileRef
+         location = "group:../../core/Persistence/Persistence.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../core/UIComponents/UIComponents.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../core/Radio/Radio.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../core/Network/Network.xcodeproj">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

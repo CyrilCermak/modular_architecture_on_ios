@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4B48A8B68A11D4C4542F89F6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DED54AD13AA6DD63D53434 /* Color.swift */; };
-		6BFE6F5A00247A06F5C63B34 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58779AF3251D2C7DCFC0DD90 /* AnimationView.swift */; };
+		5899C10725EACC89003B44F5 /* ISSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C10625EACC89003B44F5 /* ISSTableView.swift */; };
+		5899C12F25EADFA9003B44F5 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C12E25EADFA9003B44F5 /* Outputable.swift */; };
+		5899C13525EB9713003B44F5 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C13425EB9713003B44F5 /* Font.swift */; };
+		5899C13825EBAC0F003B44F5 /* ISSDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C13725EBAC0F003B44F5 /* ISSDetailTableCell.swift */; };
+		6BFE6F5A00247A06F5C63B34 /* ISSAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58779AF3251D2C7DCFC0DD90 /* ISSAnimationView.swift */; };
 		83E861A7E382E3544734D253 /* ISSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD5927C6E8251EE716A402C /* ISSButton.swift */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -45,7 +49,11 @@
 /* Begin PBXFileReference section */
 		1EC425049DF9C6DC96DA7E0D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		3FD5927C6E8251EE716A402C /* ISSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSButton.swift; sourceTree = "<group>"; };
-		58779AF3251D2C7DCFC0DD90 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		58779AF3251D2C7DCFC0DD90 /* ISSAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSAnimationView.swift; sourceTree = "<group>"; };
+		5899C10625EACC89003B44F5 /* ISSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSTableView.swift; sourceTree = "<group>"; };
+		5899C12E25EADFA9003B44F5 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
+		5899C13425EB9713003B44F5 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		5899C13725EBAC0F003B44F5 /* ISSDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSDetailTableCell.swift; sourceTree = "<group>"; };
 		745FB7D4ACEADDFD8308F1E6 /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,13 +106,25 @@
 			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
+		5899C13A25EBAC23003B44F5 /* ISSTableView */ = {
+			isa = PBXGroup;
+			children = (
+				5899C10625EACC89003B44F5 /* ISSTableView.swift */,
+				5899C13725EBAC0F003B44F5 /* ISSDetailTableCell.swift */,
+			);
+			path = ISSTableView;
+			sourceTree = "<group>";
+		};
 		796926C35BA09957B1B3D95B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				58779AF3251D2C7DCFC0DD90 /* AnimationView.swift */,
+				5899C13A25EBAC23003B44F5 /* ISSTableView */,
+				58779AF3251D2C7DCFC0DD90 /* ISSAnimationView.swift */,
 				D4DED54AD13AA6DD63D53434 /* Color.swift */,
 				1EC425049DF9C6DC96DA7E0D /* Coordinator.swift */,
 				3FD5927C6E8251EE716A402C /* ISSButton.swift */,
+				5899C12E25EADFA9003B44F5 /* Outputable.swift */,
+				5899C13425EB9713003B44F5 /* Font.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -269,8 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BFE6F5A00247A06F5C63B34 /* AnimationView.swift in Sources */,
+				5899C12F25EADFA9003B44F5 /* Outputable.swift in Sources */,
+				6BFE6F5A00247A06F5C63B34 /* ISSAnimationView.swift in Sources */,
+				5899C13525EB9713003B44F5 /* Font.swift in Sources */,
 				4B48A8B68A11D4C4542F89F6 /* Color.swift in Sources */,
+				5899C10725EACC89003B44F5 /* ISSTableView.swift in Sources */,
+				5899C13825EBAC0F003B44F5 /* ISSDetailTableCell.swift in Sources */,
 				D2EA2B49EF370C04820BB0AE /* Coordinator.swift in Sources */,
 				83E861A7E382E3544734D253 /* ISSButton.swift in Sources */,
 			);

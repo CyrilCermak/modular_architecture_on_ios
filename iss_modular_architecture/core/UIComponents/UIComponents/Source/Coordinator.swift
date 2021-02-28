@@ -16,10 +16,14 @@ public protocol DeepLink {}
 public protocol Coordinator: AnyObject {
     
     var childCoordinators: [Coordinator] { get set }
-    var finish: ((DeepLink?) -> Void)? { get set }
+    var finish: ((DeepLink?) -> Void)? { get }
     
     func start()
     func start(link: DeepLink) -> Bool
+}
+
+public extension Coordinator {
+    var finish: ((DeepLink?) -> Void)? { return nil }
 }
 
 // Representation of a coordinator who is using navigationController

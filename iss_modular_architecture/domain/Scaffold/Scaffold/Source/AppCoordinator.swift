@@ -9,6 +9,8 @@ import UIKit
 import ISSUIComponents
 
 public class AppCoordinator: Coordinator {
+    public var finish: ((DeepLink?) -> Void)?
+    
     
     public lazy var tabBarController: UITabBarController = {
        return UITabBarController()
@@ -29,10 +31,15 @@ public class AppCoordinator: Coordinator {
         switch configuration.style {
         case .navigation:
             if let navigationCoordinator = childCoordinators.first as? NavigationCoordinator {
-                window.rootViewController = navigationCoordinator.navigationController
+                let sharedNavigationController = navigationCoordinator.navigationController
+                window.rootViewController = sharedNavigationController
+                
+                // By default sharing the same navigation stack
+                childCoordinators.forEach({ ($0 as? NavigationCoordinator)?.navigationController = sharedNavigationController })
             } else {
                 fatalError("No NavigationCoordinator found for initial screen")
             }
+            
         case .tabBar:
             childCoordinators.forEach { (coordinator) in
                 // Setting up the tab bar with root tab view controllers

@@ -8,6 +8,7 @@
 import Foundation
 import Lottie
 import SnapKit
+
 public protocol AnimationLoadable {
     var name: String { get }
     var bundle: Bundle { get }

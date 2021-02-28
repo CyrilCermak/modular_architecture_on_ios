@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3AA5A22800E0082AB18A7E97 /* ISSCosmonautService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 80C81C545D3C08A6D0A26A37 /* ISSCosmonautService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5899C14225EBD12D003B44F5 /* CosmonautService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C13C25EBC290003B44F5 /* CosmonautService.swift */; };
 		6272EA9DBC6419CD38F745C1 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 572FFB98164BCCED35C725B9 /* ISSNetwork.framework */; };
 		7B1C71C2B25663DCAF564ED1 /* ISSCosmonautService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C81C545D3C08A6D0A26A37 /* ISSCosmonautService.framework */; };
 		7C28E72572B48732B251E2E9 /* ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C918B39804A62DEB2684B3C0 /* ISSPersistence.framework */; };
@@ -42,11 +43,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0F3B8825773971965AA13A5C /* CosmonautServiceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F3B8825773971965AA13A5C /* CosmonautServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CosmonautServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1828C7F7EFC2578C31D71052 /* Pods-ISSCosmonautService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSCosmonautService.debug.xcconfig"; path = "Target Support Files/Pods-ISSCosmonautService/Pods-ISSCosmonautService.debug.xcconfig"; sourceTree = "<group>"; };
 		1F86568D3DA3F922DBFD259F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		48260165E7AB5504EF3FEDAF /* ISSUIComponents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		572FFB98164BCCED35C725B9 /* ISSNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5899C13C25EBC290003B44F5 /* CosmonautService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautService.swift; sourceTree = "<group>"; };
 		59D53BE35C7F8C30A847833C /* CosmonautServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautServiceTests.swift; sourceTree = "<group>"; };
 		80C81C545D3C08A6D0A26A37 /* ISSCosmonautService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSCosmonautService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		903316B12EB3F0CA20E21934 /* Pods_ISSCosmonautService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSCosmonautService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +97,7 @@
 			children = (
 				1F86568D3DA3F922DBFD259F /* Info.plist */,
 				D8A07DCACEBA940B2894D381 /* ISSCosmonautService.h */,
+				5899C13C25EBC290003B44F5 /* CosmonautService.swift */,
 			);
 			path = CosmonautService;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5899C14225EBD12D003B44F5 /* CosmonautService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +395,7 @@
 		A031D813B5866E76DF1AEF08 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CosmonautServiceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,6 +436,7 @@
 		DF45EE3D852BE58034A58F2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CosmonautServiceTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -10,8 +10,15 @@ import SnapKit
 import Combine
 import ISSUIComponents
 
-class ComsonautViewController: UIViewController {
+class ComsonautViewController: UIViewController, Outputable {
+    enum Action { case healtCheck, spaceSuit }
     
+    /// Outputable protocol fullfilment
+    lazy var output: AnyPublisher<Action, Never> = {
+        return outputAction.eraseToAnyPublisher()
+    }()
+    
+    private lazy var outputAction = PassthroughSubject<T, Never>()
     private let cosmonautView = CosmonautView(frame: .zero)
     private var subscriptions = Set<AnyCancellable>()
     
@@ -27,14 +34,16 @@ class ComsonautViewController: UIViewController {
     
     private func bindView() {
         cosmonautView.healthCheckTapped
-            .sink { (tapped) in
-                print("Health check Tapped")
-            }.store(in: &subscriptions)
+            .sink(receiveValue: { [weak self] in
+                self?.outputAction.send(.healtCheck)
+            })
+            .store(in: &subscriptions)
         
         cosmonautView.spacesuitTapped
-            .sink { (tapped) in
-                print("Spacesuit Tapped")
-            }.store(in: &subscriptions)
+            .sink(receiveValue: { [weak self] in
+                self?.outputAction.send(.spaceSuit)
+            })
+            .store(in: &subscriptions)
     }
 }
 

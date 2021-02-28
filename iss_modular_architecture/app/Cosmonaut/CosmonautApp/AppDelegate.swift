@@ -8,6 +8,8 @@
 import UIKit
 import ISSScaffold
 import ISSCosmonaut
+import ISSCosmonautService
+import ISSRadio
 
 struct CosmonautConfiguration {
     lazy var appCoordinator: AppCoordinator.Configuration = {
@@ -28,7 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                               configuration: configuration.appCoordinator)
     }()
     
-    private lazy var cosmonautCoordinator = CosmonautCoordinator()
+    private lazy var radioService = RadioService()
+    
+    private lazy var cosmonautService: CosmonautHealthServicing = {
+        return CosmonautService(radio: radioService)
+    }()
+    
+    private lazy var cosmonautCoordinator: CosmonautCoordinator = {
+        return CosmonautCoordinator(cosmonautHealthService: cosmonautService)
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
