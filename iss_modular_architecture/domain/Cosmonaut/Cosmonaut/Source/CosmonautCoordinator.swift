@@ -12,7 +12,7 @@ import ISSUIComponents
 import ISSCosmonautService
 
 public class CosmonautCoordinator: NavigationCoordinator {
-    public enum CosmonautLink {
+    public enum CosmonautLink: DeepLink {
         case none
     }
     
