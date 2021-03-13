@@ -1,28 +1,14 @@
-require_relative "scripts/ProjectFactory/project_factory"
+require 'SharedFastfile'
+require_relative 'scripts/ProjectFactory/project_factory'
 
 lane :make_new_project do |options|
   type = options[:type] # Project type can be either app or framework 
   project_name = options[:project_name]
   destination_path = options[:destination_path]
   
-  UI.error "💥app_name and destination_path must be provided.💥" unless project_name || destination_path
+  UI.error "💥app_name and destination_path must be provided.💥" unless project_name && destination_path
   
   factory = ProjectFactory.new project_name, destination_path
   
-  if type == "app"
-    factory.make_new_app  
-  else 
-    factory.make_new_framework  
-  end
-end
-
-lane :generate do
-  # Finding all projects within directories
-  Dir["../**/project.yml"].each do |project_path|
-    # Skipping the template files
-    next if project_path.include? "fastlane"
-    
-    UI.success "Generating project: #{project_path}"
-    `xcodegen -s #{project_path}`
-  end 
+  type == "app" ? factory.make_new_app : factory.make_new_framework  
 end

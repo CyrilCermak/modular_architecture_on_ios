@@ -1,0 +1,13 @@
+import '../../../fastlane/SharedFastfile.rb'
+
+default_platform(:ios)
+
+desc "Deploy Cosmonaut To TestFlight"
+lane :deploy_beta do
+  generate
+  
+  build_app(scheme: "CosmonautApp",
+            workspace: "CosmonautApp.xcworkspace",
+            include_bitcode: true)
+  upload_to_testflight
+end

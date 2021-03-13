@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17E8E7AD3EE0EE6922028136 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B7CBD4E230A0BCE1EBFA9 /* Outputable.swift */; };
 		4B48A8B68A11D4C4542F89F6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DED54AD13AA6DD63D53434 /* Color.swift */; };
-		5899C10725EACC89003B44F5 /* ISSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C10625EACC89003B44F5 /* ISSTableView.swift */; };
-		5899C12F25EADFA9003B44F5 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C12E25EADFA9003B44F5 /* Outputable.swift */; };
-		5899C13525EB9713003B44F5 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C13425EB9713003B44F5 /* Font.swift */; };
-		5899C13825EBAC0F003B44F5 /* ISSDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C13725EBAC0F003B44F5 /* ISSDetailTableCell.swift */; };
-		6BFE6F5A00247A06F5C63B34 /* ISSAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58779AF3251D2C7DCFC0DD90 /* ISSAnimationView.swift */; };
+		6F773A62ABE02548FBB1B9FA /* ISSAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B58F4D7A5D5340FE135FBA /* ISSAnimationView.swift */; };
+		776BABCF18B40A5AA4D72EBD /* ISSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723090ECC3891DE7438242F2 /* ISSTableView.swift */; };
 		83E861A7E382E3544734D253 /* ISSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD5927C6E8251EE716A402C /* ISSButton.swift */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B17839F0BCB92F69F83AFB4B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39684D4CAD6930A3A6BEBE0 /* Font.swift */; };
 		C73D976168152E2BD4CB9EF8 /* UIComponentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0471ABD241540AC7B751087 /* UIComponentsTests.swift */; };
 		D2EA2B49EF370C04820BB0AE /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC425049DF9C6DC96DA7E0D /* Coordinator.swift */; };
-		DACF62ECC252333E588867D3 /* Pods_ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA189AA7FC2B1DABC8F6B63D /* Pods_ISSUIComponents.framework */; };
+		D97E6DE1DBB63C279888390B /* ISSDetailTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7FD69AD387CE4402D39F8 /* ISSDetailTableCell.swift */; };
 		E9D6C76DEA1D6764FE511DF7 /* ISSUIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -49,32 +48,21 @@
 /* Begin PBXFileReference section */
 		1EC425049DF9C6DC96DA7E0D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		3FD5927C6E8251EE716A402C /* ISSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSButton.swift; sourceTree = "<group>"; };
-		58779AF3251D2C7DCFC0DD90 /* ISSAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSAnimationView.swift; sourceTree = "<group>"; };
-		5899C10625EACC89003B44F5 /* ISSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSTableView.swift; sourceTree = "<group>"; };
-		5899C12E25EADFA9003B44F5 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
-		5899C13425EB9713003B44F5 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		5899C13725EBAC0F003B44F5 /* ISSDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSDetailTableCell.swift; sourceTree = "<group>"; };
-		745FB7D4ACEADDFD8308F1E6 /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
+		40C7FD69AD387CE4402D39F8 /* ISSDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSDetailTableCell.swift; sourceTree = "<group>"; };
+		4D1B7CBD4E230A0BCE1EBFA9 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
+		723090ECC3891DE7438242F2 /* ISSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSTableView.swift; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSUIComponents.h; sourceTree = "<group>"; };
+		A7B58F4D7A5D5340FE135FBA /* ISSAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSAnimationView.swift; sourceTree = "<group>"; };
 		B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA189AA7FC2B1DABC8F6B63D /* Pods_ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0471ABD241540AC7B751087 /* UIComponentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsTests.swift; sourceTree = "<group>"; };
 		D4DED54AD13AA6DD63D53434 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DD842186BC1234A08C0A5E18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F5535916127CF5C103B569AB /* Pods-ISSUIComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.debug.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.debug.xcconfig"; sourceTree = "<group>"; };
+		F39684D4CAD6930A3A6BEBE0 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C25A081876DB40DDC86424CC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DACF62ECC252333E588867D3 /* Pods_ISSUIComponents.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D72DCCFF297A73FC0B1A1112 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -96,45 +84,18 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
-		4C885661D1332C24ABCC1286 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F5535916127CF5C103B569AB /* Pods-ISSUIComponents.debug.xcconfig */,
-				745FB7D4ACEADDFD8308F1E6 /* Pods-ISSUIComponents.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
-			sourceTree = "<group>";
-		};
-		5899C13A25EBAC23003B44F5 /* ISSTableView */ = {
-			isa = PBXGroup;
-			children = (
-				5899C10625EACC89003B44F5 /* ISSTableView.swift */,
-				5899C13725EBAC0F003B44F5 /* ISSDetailTableCell.swift */,
-			);
-			path = ISSTableView;
-			sourceTree = "<group>";
-		};
 		796926C35BA09957B1B3D95B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				5899C13A25EBAC23003B44F5 /* ISSTableView */,
-				58779AF3251D2C7DCFC0DD90 /* ISSAnimationView.swift */,
 				D4DED54AD13AA6DD63D53434 /* Color.swift */,
 				1EC425049DF9C6DC96DA7E0D /* Coordinator.swift */,
+				F39684D4CAD6930A3A6BEBE0 /* Font.swift */,
+				A7B58F4D7A5D5340FE135FBA /* ISSAnimationView.swift */,
 				3FD5927C6E8251EE716A402C /* ISSButton.swift */,
-				5899C12E25EADFA9003B44F5 /* Outputable.swift */,
-				5899C13425EB9713003B44F5 /* Font.swift */,
+				4D1B7CBD4E230A0BCE1EBFA9 /* Outputable.swift */,
+				AE12C867AB2E83EECC7E02C3 /* ISSTableView */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		90F0CBE703E905EBF3500787 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BA189AA7FC2B1DABC8F6B63D /* Pods_ISSUIComponents.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A3AF73A7E1A5280A591BB443 /* Products */ = {
@@ -146,14 +107,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		AE12C867AB2E83EECC7E02C3 /* ISSTableView */ = {
+			isa = PBXGroup;
+			children = (
+				40C7FD69AD387CE4402D39F8 /* ISSDetailTableCell.swift */,
+				723090ECC3891DE7438242F2 /* ISSTableView.swift */,
+			);
+			path = ISSTableView;
+			sourceTree = "<group>";
+		};
 		CB17CC7A66071F8C2CE73EB3 = {
 			isa = PBXGroup;
 			children = (
 				0B23238E3B6CEDD4ADC7CB9A /* UIComponents */,
 				EEBF5FB3201C009D7B5868A6 /* UIComponentsTests */,
 				A3AF73A7E1A5280A591BB443 /* Products */,
-				4C885661D1332C24ABCC1286 /* Pods */,
-				90F0CBE703E905EBF3500787 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -184,10 +152,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0A2557C1E089E82D00E4D5B /* Build configuration list for PBXNativeTarget "ISSUIComponents" */;
 			buildPhases = (
-				8F9B198CF6BF572B2571F9AD /* [CP] Check Pods Manifest.lock */,
 				6FF78DDEA9D3D1D2890DD190 /* Headers */,
 				75B36429A0E95D7C43E07EB2 /* Sources */,
-				C25A081876DB40DDC86424CC /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -241,7 +207,6 @@
 				en,
 			);
 			mainGroup = CB17CC7A66071F8C2CE73EB3;
-			productRefGroup = A3AF73A7E1A5280A591BB443 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -250,31 +215,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		8F9B198CF6BF572B2571F9AD /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ISSUIComponents-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5AE26BAFC723D4EF2342AC2E /* Sources */ = {
@@ -289,14 +229,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5899C12F25EADFA9003B44F5 /* Outputable.swift in Sources */,
-				6BFE6F5A00247A06F5C63B34 /* ISSAnimationView.swift in Sources */,
-				5899C13525EB9713003B44F5 /* Font.swift in Sources */,
 				4B48A8B68A11D4C4542F89F6 /* Color.swift in Sources */,
-				5899C10725EACC89003B44F5 /* ISSTableView.swift in Sources */,
-				5899C13825EBAC0F003B44F5 /* ISSDetailTableCell.swift in Sources */,
 				D2EA2B49EF370C04820BB0AE /* Coordinator.swift in Sources */,
+				B17839F0BCB92F69F83AFB4B /* Font.swift in Sources */,
+				6F773A62ABE02548FBB1B9FA /* ISSAnimationView.swift in Sources */,
 				83E861A7E382E3544734D253 /* ISSButton.swift in Sources */,
+				D97E6DE1DBB63C279888390B /* ISSDetailTableCell.swift in Sources */,
+				776BABCF18B40A5AA4D72EBD /* ISSTableView.swift in Sources */,
+				17E8E7AD3EE0EE6922028136 /* Outputable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,10 +309,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -392,7 +329,6 @@
 		};
 		1314541D635C003A0BA3AAA6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 745FB7D4ACEADDFD8308F1E6 /* Pods-ISSUIComponents.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -477,21 +413,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lz",
-				);
+				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -537,7 +466,6 @@
 		};
 		7F9A0A6311522F099BF10F04 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5535916127CF5C103B569AB /* Pods-ISSUIComponents.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

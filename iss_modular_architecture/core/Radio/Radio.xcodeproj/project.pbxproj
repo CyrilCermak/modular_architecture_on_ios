@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		1ECB9CE297886DDE8B518173 /* RadioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495DEFF622ABFCFCAE011C8D /* RadioTests.swift */; };
 		209435C8FC19548AE9B91670 /* ISSRadio.h in Headers */ = {isa = PBXBuildFile; fileRef = F00E47BBF49121F1BAE60E8F /* ISSRadio.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34DEFD8C552E9E5E25A29A95 /* Pods_ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEEBA093CDAE1A3945B2D73B /* Pods_ISSRadio.framework */; };
-		5899C14025EBC609003B44F5 /* RadioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5899C13F25EBC609003B44F5 /* RadioService.swift */; };
 		609ADBA98F985D32CFEA146A /* ISSRadio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B38A40184972F35E17113A58 /* ISSRadio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9EB1AE0174FD203F46CE146D /* ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B38A40184972F35E17113A58 /* ISSRadio.framework */; };
+		B0D21CEF5D699E50F0916264 /* RadioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA702993C348B822A89C38A /* RadioService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,15 +39,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1B63177C3922092965F027FD /* Pods-ISSRadio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSRadio.debug.xcconfig"; path = "Target Support Files/Pods-ISSRadio/Pods-ISSRadio.debug.xcconfig"; sourceTree = "<group>"; };
 		495DEFF622ABFCFCAE011C8D /* RadioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioTests.swift; sourceTree = "<group>"; };
-		5899C13F25EBC609003B44F5 /* RadioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioService.swift; sourceTree = "<group>"; };
-		A46B1CCE6C103BBAF1A1342F /* Pods-ISSRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSRadio.release.xcconfig"; path = "Target Support Files/Pods-ISSRadio/Pods-ISSRadio.release.xcconfig"; sourceTree = "<group>"; };
+		4BA702993C348B822A89C38A /* RadioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioService.swift; sourceTree = "<group>"; };
 		A88A9F4D6D114C8D76572F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		AAD561C99FFD3E29BC31393F /* RadioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAD561C99FFD3E29BC31393F /* RadioTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = RadioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B38A40184972F35E17113A58 /* ISSRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5CA872F26A581721D883C13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		EEEBA093CDAE1A3945B2D73B /* Pods_ISSRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00E47BBF49121F1BAE60E8F /* ISSRadio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSRadio.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,14 +57,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C924BBBE7A19227E361572D3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				34DEFD8C552E9E5E25A29A95 /* Pods_ISSRadio.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,8 +66,6 @@
 				B190F9DD9BD8E6C9681CB524 /* Radio */,
 				4E73B44FB6B6011D06A9DDEA /* RadioTests */,
 				4EF3F828190695C047D3B043 /* Products */,
-				DD1198772FB494A30D000A8E /* Pods */,
-				F96BFBF29E6789FE2E090B75 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,27 +92,9 @@
 			children = (
 				A88A9F4D6D114C8D76572F9B /* Info.plist */,
 				F00E47BBF49121F1BAE60E8F /* ISSRadio.h */,
-				5899C13F25EBC609003B44F5 /* RadioService.swift */,
+				4BA702993C348B822A89C38A /* RadioService.swift */,
 			);
 			path = Radio;
-			sourceTree = "<group>";
-		};
-		DD1198772FB494A30D000A8E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1B63177C3922092965F027FD /* Pods-ISSRadio.debug.xcconfig */,
-				A46B1CCE6C103BBAF1A1342F /* Pods-ISSRadio.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
-			sourceTree = "<group>";
-		};
-		F96BFBF29E6789FE2E090B75 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				EEEBA093CDAE1A3945B2D73B /* Pods_ISSRadio.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,10 +133,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54BBCF4E6C9E4FC9439FB3BC /* Build configuration list for PBXNativeTarget "ISSRadio" */;
 			buildPhases = (
-				6CD6865561FC7CF393C21F1E /* [CP] Check Pods Manifest.lock */,
 				250460CAAA07DFBAA926F431 /* Headers */,
 				B9AE0D67409522FFDDCC32F0 /* Sources */,
-				C924BBBE7A19227E361572D3 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,7 +157,6 @@
 						ProvisioningStyle = Manual;
 					};
 					8A864DB006D1D0DC5F7B7813 = {
-						LastSwiftMigration = 1240;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -205,7 +170,6 @@
 				en,
 			);
 			mainGroup = 2E6B7245B88FB25073950B4B;
-			productRefGroup = 4EF3F828190695C047D3B043 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -214,31 +178,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6CD6865561FC7CF393C21F1E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ISSRadio-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A70E3F444B1326860136B917 /* Sources */ = {
@@ -253,7 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5899C14025EBC609003B44F5 /* RadioService.swift in Sources */,
+				B0D21CEF5D699E50F0916264 /* RadioService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +209,7 @@
 /* Begin XCBuildConfiguration section */
 		0E6363692D4ED26E1312C6BB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B63177C3922092965F027FD /* Pods-ISSRadio.debug.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -288,8 +225,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSRadio;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -298,7 +233,6 @@
 		3CADF7B348A70E0D08E5831B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = RadioTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -370,10 +304,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -454,21 +385,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lz",
-				);
+				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -483,7 +407,6 @@
 		7D27A172464F31E5EF968B3D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = RadioTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -499,9 +422,7 @@
 		};
 		FBF5E1F54EA27046F96E4703 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A46B1CCE6C103BBAF1A1342F /* Pods-ISSRadio.release.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -517,7 +438,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.ISSRadio;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

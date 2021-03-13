@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BAF9D54CB5FC54ACB330CFA /* Pods_ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3207A169D66ED25AF8CFD567 /* Pods_ISSNetwork.framework */; };
 		4A613B7CD7700F0D025CD080 /* ISSNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; };
 		D3E1F43411BF58BB40B2117B /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -40,25 +39,14 @@
 
 /* Begin PBXFileReference section */
 		0223A82975333FAAA7476EEE /* ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3207A169D66ED25AF8CFD567 /* Pods_ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0F812B411A786CECE70EE3 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		A96B8F878FAAE41B2DD2DF82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D31D00108B0A681EE3FC2CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSNetwork.h; sourceTree = "<group>"; };
-		E5FC55BA9E96A9C40FB4CB40 /* Pods-ISSNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.release.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		F41BD618F19CEE10F0289308 /* NetworkTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFD29BF07FE6AA09998127CF /* Pods-ISSNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.debug.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3747631B91880916A9AA559A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3BAF9D54CB5FC54ACB330CFA /* Pods_ISSNetwork.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4E73BBAFF38C9F70CF753D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,8 +64,6 @@
 				9166151E42F735C5010F5460 /* Network */,
 				4C5A1FFBB1E33A6E0CA3A32E /* NetworkTests */,
 				B02A4899222D2A1DA3F4A4FA /* Products */,
-				AF7836DAD42EAC8DAE42E781 /* Pods */,
-				856CF6D1A5D03A240CAD4F31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,14 +76,6 @@
 			path = NetworkTests;
 			sourceTree = "<group>";
 		};
-		856CF6D1A5D03A240CAD4F31 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3207A169D66ED25AF8CFD567 /* Pods_ISSNetwork.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		9166151E42F735C5010F5460 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,16 +83,6 @@
 				E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		AF7836DAD42EAC8DAE42E781 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FFD29BF07FE6AA09998127CF /* Pods-ISSNetwork.debug.xcconfig */,
-				E5FC55BA9E96A9C40FB4CB40 /* Pods-ISSNetwork.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		B02A4899222D2A1DA3F4A4FA /* Products */ = {
@@ -144,10 +112,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00500DF359729D36DDC8883A /* Build configuration list for PBXNativeTarget "ISSNetwork" */;
 			buildPhases = (
-				7FDC5ED9A94F01789BF7E0CA /* [CP] Check Pods Manifest.lock */,
 				09939F63682BF52A64515657 /* Headers */,
 				4B8C23063178FA348869FF8D /* Sources */,
-				3747631B91880916A9AA559A /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -201,7 +167,6 @@
 				en,
 			);
 			mainGroup = 45136B8DDE2D542E43FEAB3B;
-			productRefGroup = B02A4899222D2A1DA3F4A4FA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -210,31 +175,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7FDC5ED9A94F01789BF7E0CA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ISSNetwork-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4B8C23063178FA348869FF8D /* Sources */ = {
@@ -281,7 +221,6 @@
 		};
 		63C3D388EFA9CB324D00120E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5FC55BA9E96A9C40FB4CB40 /* Pods-ISSNetwork.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -305,7 +244,6 @@
 		};
 		72ADF54385C9883FC0A8A576 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFD29BF07FE6AA09998127CF /* Pods-ISSNetwork.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -406,21 +344,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lz",
-				);
+				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -490,10 +421,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;

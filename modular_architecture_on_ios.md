@@ -6,7 +6,7 @@ Building Large Scale Modular iOS Apps And Frameworks
 
 &&
 
-"To all my non-tech friends whom I am fixing problems with not enough disk space, printers, forgotten passcodes etc."
+"To all my non-tech friends whom I am fixing problems with not enough disk space, printers, forgotten passcodes etc. who will never read this line"
 
 &&
 
@@ -25,6 +25,7 @@ Joerg Nestele
 
 <div style="page-break-after: always;"></div>
 # Table Of Contents
+
 - Introduction 
   - What you need 
   - What is this book about 
@@ -98,26 +99,21 @@ Joerg Nestele
   - Coordinators
   - Decoupling
   - MVVM
-  - Clean Architecture
   - Protocols
-    
+  - ???
   
-- Distribution
-  - Frameworks
-  - XCFrameworks
-  - Static Library
-  - Open sourcing
   
 - Project Automation
   - Motivation
   - Fastlane
+  - CI/CD
   - Translations, Stages, Configurations etc.
-  - Ruby
-
-
-- CI/CD
-  - Scripts execution
-
+  - Distribution
+    - Frameworks
+    - XCFrameworks
+    - Static Library
+  - Ruby, programmer's best friend
+  
 
 - Profesional Experience
   - Joerg Nestele: iOS Tech Lead - Porsche AG
@@ -1354,28 +1350,59 @@ This example is not part of the source code demo, however, such scenario can hap
 Probably no need much of explanation for Model, View, ViewModel with Coordinator pattern, however, there are many different approaches and implementations. First of all, sometimes it's not necessary to use MVVM as the plain old classic MVC do the trick as well without the necessity of having an extra object. Second of all, the way how objects are binded together matters.
 
 
+## Protocol Oriented Programming (POP)
 
-- Design Patterns & Practices
-  - Coordinator
-  - Strategy
-  - Configurations
-  - Decoupling
-  - MVVM
-  - Clean Architecture
-  - Protocols
+The most beautiful way of extending any kind of functionality of an object is probably via protocols and their extensions. In some cases, like for structs or enums it is also the only way. In Swift, structs and enums cannot use inheritance. On the other hand, protocols can use inheritance so as composition for defining the desired behaviour which gives the developer the freedom to design fine granular components with all OOP features. 
 
+# ??????
+
+## Conclusion
+//TODO: 
 
 
 
 
 
 
+# Project Automation
+
+When it comes to a project where many developers are contributing to simultaneously automation will become a crucial part of it. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be simply generating the `xcodeproj` projects by XcodeGen like in our example to avoid conflicts, pulling new translation strings, generating entitlements on the fly, up to building the app on the CI and publishing it to the AppStore or other distribution centre.   
+
+## Fastlane
+First and foremost, iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains countless amount of plugins that can be used to support the project automation. With Fastlane it is also easy to create your own plugins that will be project specific only. Fastlane is developed in ruby so as it's plugins are. However, since all is built with ruby fastlane gives the freedom to import any other ruby projects or classes developed in ruby and directly call them from the Fastlane's recognisable function so called `lane`. 
+
+As an example we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning where in this case the so called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile and then used as a normal ruby program.
+
+`/fastlane/Fastfile`
+```ruby
+require_relative "scripts/ProjectFactory/project_factory"
+
+lane :make_new_project do |options|
+  type = options[:type] # Project type can be either app or framework 
+  project_name = options[:project_name]
+  destination_path = options[:destination_path]
+  
+  UI.error "💥app_name and destination_path must be provided.💥" unless project_name && destination_path
+  
+  factory = ProjectFactory.new project_name, destination_path
+  
+  type == "app" ? factory.make_new_app : factory.make_new_framework  
+end
+
+```
+
+Another option would be to create a proper Fastlane's plugin out of it which could be easily done following this [documentation](https://docs.fastlane.tools/plugins/create-plugin/).
+
+Fastlane gives the ultimate home for the whole project automation which will prevent script duplications and help with organising and finding necessary actions. To check what is available available alredy in the house of automation, fastlane can be executed out of the command line and it will give you option to choose from the publicly available `lanes` that are already implemented.
 
 
-
-
-
-
+  - CI/CD
+  - Translations, Stages, Configurations etc.
+  - Distribution
+    - Frameworks
+    - XCFrameworks
+    - Static Library
+  - Ruby, programmer's best friend
 
 
 
