@@ -1,5 +1,6 @@
-# Modular Architecture on iOS
-Building Large Scale Modular iOS Apps And Frameworks
+# Modular Architecture on iOS/macOS
+
+Building large scalable iOS apps and frameworks with Domain Driven Design
 
 # Dedication 
 "To my Mom and Dad, because they really tried."
@@ -125,30 +126,28 @@ Joerg Nestele
 <div style="page-break-after: always;"></div>
 # Introduction
 
-In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise up, that are limiting the way how iOS projects are built itself or even on the organisational level. 
+In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise up, that are limiting the way how iOS projects are built or managed on the organisational level. 
 
-Scaling up the monolithic approach to a team of e.g 7+ developers will most likely result in hell. By hell, I mean, resolving xcodeproj issues, where in the worst case both parties renamed or edited and deleted the same file, touched the same {storyboard|xib} file, or typically both worked on the same file which would resolve in classic merge conflicts. Somehow, those issues we all got used to live with...
+Scaling up the monolithic approach to a team of e.g 10+ developers will most likely result in hell. By hell, I mean, resolving xcodeproj issues, where in the worst case both parties renamed or edited and deleted the same file, touched the same {storyboard|xib} file, or typically both worked on the same file which would resolve in classic merge conflicts. Somehow, those issues we all got used to live with...
 
-The deal breaker will come when your PO/PM/CTO will come to the team to announce that they are planning to release a new flavour of the app or to divide the current app into two separate parts. Afterwards, the engineering decision needs to be made. Either, to continue with this monolithic approach, create different targets, assign files towards the new flavour of the app and continue living in multiplied hell and hoping that some requirement such as shipping core components of the app to a subsidiary or open-sourcing it as a framework will not come. 
+The deal breaker comes when your PO/PM/CTO/CEO basically anybody higher on the company's food-chain than you are will come to the team to announce that they are planning to release a new flavour of the app or to divide the current app into two separate parts. Afterwards, the engineering decision needs to be made. Either, to continue with this monolithic approach, create different targets, assign files towards the new flavour of the app and continue living in multiplied hell and hoping that some requirement such as shipping core components of the app to a subsidiary or open-sourcing it as a framework will not come into play. 
 
-Not surprisingly, a better approach would be to start refactoring the app into a modular approach, where each team can be responsible for particular frameworks (parts of the app) that are then linked towards those apps. That will take time as it will not be easy to transform but the future of company's mobile engineering will be faster, scalable, maintainable and even ready to distribute or open source some parts of it to the outer world.  
+Not surprisingly, a better approach would be to start refactoring the app into a modular approach, where each team can be responsible for particular frameworks (parts of the app) that are then linked towards final customer facing apps. That will most certainly take time as it will not be easy to transform it but the future of company's mobile engineering will be faster, scalable, maintainable and even ready to distribute or open source some SDKs of it to the outer world.  
 
 Another scenario could be, that you are already working on an app which is done in a modular way but your app takes at around 20 mins to compile. As it is a huge legacy codebase that was in development past 8 or so years and linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean you can take double shot of espresso. I had been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process of such project [here](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
 
-Nowadays, as an iOS tech lead, I am often getting asked some questions all over again from new teams or new colleagues regards those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. I hope it will help developers working on such architectures to gain the speed, knowledge and understanding faster.
+Nowadays, as an iOS tech lead, I am often getting asked some questions all over again from new teams or new colleagues regards those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. The purpose of it is to help developers working on such architectures to gain the speed, knowledge, ideas and understanding faster.
 
-I hope this introduction gave enough motivation to deep dive further into this book.
+Hopefully, this introduction gave enough motivation to deep dive further into this book.
 
 ## What you Need
 
-The latest version of Xcode for compiling the demo examples, brew to install some mandatory dependencies, Ruby and Bundler for running scripts and downloading some Ruby gems. 
-
-//TODO: Provide a tutorials for installing those softwares 
+The latest version of [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) for compiling the demo examples, [brew](https://brew.sh/) to install some mandatory dependencies, [Ruby](https://www.ruby-lang.org/en/) and [bundler](https://bundler.io/) for running scripts and downloading some ruby gems. 
 
 ## What is this book about
 This book describes essentials about building modular architecture on iOS. You will find examples of different approaches, framework types, pros and cons, common problems and so on. By the end of this book you should have a very good understanding of what benefits will bring such architecture to your project, whether it is necessary at all or which would be the best way for modularising the project.
 
-At the end of this book, you can read experiences from the top notch iOS engineers working across numerous different projects from different countries and continents.
+At the end of this book, you can read experience from the top notch iOS engineers working across numerous different projects from different countries and continents.
 
 ## What is this book NOT about
 SwiftUI.
@@ -163,7 +162,7 @@ SwiftUI.
 
  To be fair, maintaining such software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD, old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to date with the latest development tools and so on. No need to say, that on a very large project, this could be a work of one standalone team.
 
- This book describes different approaches of building such large scalable project by an example: The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
+ This book describes building such large scalable architecture with domain driven design by example; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
 ## Design
 In this book, I chose to use the architecture that I think is the most evolved. It is a five layer architecture that consists of those layers:
@@ -176,19 +175,20 @@ In this book, I chose to use the architecture that I think is the most evolved. 
 
 Each layer is explained in the following chapter.
 
-Nevertheless, the same principles can be applied for example for feature oriented architecture, where the layers could be defined as: 
+Nevertheless, the same principles can be applied for other architectural types as well for example; feature oriented architecture, where the layers could be defined as: 
 
 - Application
 - Feature
 - Core
 - Shared
 
-Now let us have a look on what those layers will consist of.
+Now to the specific layers.
+
 ## Layers
-Let us have a look now on each layer and its purpose. Modules within the layers are then demonstrated with the example in the following chapter.
+Let us have a look now on each layer and its purpose. Modules within layers are then demonstrated with the example in the following chapter.
 
 ### Application Layer
-Application layer consists of the final customer facing products; applications. Applications are linking domains and via configurations and Scaffold module glueing all the different parts together. In such architecture, the App is basically a container that puts pieces together. 
+Application layer consists of the final customer facing products; applications. Applications are linking domains and via configurations and Scaffold module glueing all different parts together. In such architecture, the App is basically a container that puts pieces together. 
 
 Nevertheless, App might also contain some necessary Application implementations like receiving push notifications, handling deep linking, permissions and so on.
 
@@ -207,20 +207,20 @@ Services are modules supporting domains. Each domain, can link several services 
 For example a service in an e-commerce app could be a `Checkout Service` which will handle all the necessary communication with the backend so as proceeding with the credit card payments etc.
 
 ### Core Layer
-Core layer is the enabler for the whole app. Services will link the necessary modules out of it for e.g communicating with the backend or persisting the data. Domains will link e.g ui components for easier implementation o  screens and so on.
+Core layer is the enabler for the whole app. Services will link the necessary modules out of it for e.g communicating with the backend or providing general abstraction of persisting the data. Domains will link e.g uicomponents for easier implementation of screens and so on.
 
 For example a core module in an e-commerce app could be `Network` or `UIComponents`
 
 ### Shared Layer
-Shared layer is a supporting layer for the whole framework. It can happen that this layer might not need to exist. However, a perfect example for the shared layer is logging. Where even core layer modules will want to log some output. That would potentially lead to duplicates, which could be solved by the shared layer. 
+Shared layer is a supporting layer for the whole framework. It can happen that this layer might not need to exist, therefore, it is not considered in all diagrams. However, a perfect example for the shared layer is some logging mechanism. Where even core layer modules will want to log some output. That would potentially lead to duplicates, which could be solved by the shared layer. 
 
 For example a shared module in an e-commerce app could be `Logging` or `AppAnalytics`
 
 ## Example: International Space Station
 
-Now in this example, let us have a look at how such architecture could really look like for [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). Diagram below shows the four layer architecture with the modules and linking. 
+Now in this example, we will have a look at how such architecture could really look like for [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). Diagram below shows the four layer architecture with the modules and linking. 
 
-While this chapter is rather theoretical, in the following chapter everything will be explained and showcased in practice.  
+While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.  
 
 ![Overview](assets/ISS.svg) 
 
@@ -258,11 +258,11 @@ I will leave this one for the reader to figure it out.
 
 As you can probably imagine, scaling of the architecture described above should not be a problem. When it comes to extending for example the ISS Overview app for another ISS periphery, a new domain module can be easily added with some service modules etc. 
 
-When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield tested Cosmonaut domain module with other necessary modules that are required. Development of the new app will become way more easier due to that.
+When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested Cosmonaut domain module with other necessary modules that are required. Development of the new app will become way more easier due to that.
 
-The knowledge of the software remains in one repository or one project where developers have access to and can learn from is also very beneficial.         
+The knowledge of the software remains in one repository where developers have access to and can learn from is also very beneficial.         
 
-There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play. So as, proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
+There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play so as proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
 
 
 # Libraries on Apple's ecosystem
@@ -1402,7 +1402,9 @@ Fastlane gives the ultimate home for the whole project automation which will pre
     - Frameworks
     - XCFrameworks
     - Static Library
-  - Ruby, programmer's best friend
+
+## Ruby, programmer's best friend
+If you have not learnt it yet, do so, it's great.
 
 
 
