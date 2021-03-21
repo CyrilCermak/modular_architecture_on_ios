@@ -647,24 +647,24 @@ Realm: https://realm.io/docs/swift/latest
 
 The necessary theory about Apple's libraries and some essentials were explained. Finally, it is time to deep dive into the building phase. 
 
-First, let us do it manually and automate the process of creating libraries later on so that new comers do not have to copy paste much of the boilerplate code when starting a new team or part of the framework. 
+First, let us do it manually and automate the process of creating libraries later on so that the new comers do not have to copy-paste much of the boilerplate code when starting a new team or new part of the framework. 
 
-First of all let us create the folders structure and the first app in it. For the first app, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies for all other apps within our future iOS/macOS ISS foundational framework. 
+For the demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies for all other apps within our future iOS/macOS ISS foundational framework. 
 
-You can either follow the steps described here and build it from scratch or download the pre-build repository [here](TODO://).  
+You can download the pre-build repository [here](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until certain point.
 
 As a reminder the following schema showcases the Cosmonaut app with its dependencies.  
 ![Cosmonaut App](assets/Cosmonaut.svg) 
 
 ## Creating workspace structure
 
-First let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes project is not optimal. We will be working in a workspace which will contain multiple projects(apps and frameworks). 
+First let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes the project structure is not optimal. We will be working in a workspace which will contain multiple projects(apps and frameworks). 
 
 ![Create New App](assets/xcode_create_app.png) 
 
 Since we do not have `Cocopods` yet which would convert the project to the workspace we have to do it manually. In Xcode under `File` select the option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
 
-Going top down through the diagram, first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory. 
+Going top down through the diagram, first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon, name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory. 
 
 ![Create New Framework](assets/xcode_create_framework.png)
 
@@ -672,9 +672,9 @@ Going top down through the diagram, first comes the `Domain` layer where `Spaces
 
 While creating new frameworks and apps is not a daily business the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app in order to create a new one with the same patterns. Now is good time to create first script that will support the development of the application framework.
 
-If you are building the application framework from scratch please copy the `fastlane` directory from the repository into your `iss_application_framework` directory. 
+If you are building the application framework from scratch please copy the `{PROJECT_ROOT}/fastlane` directory from the repository into your `root` directory. 
 
-The scripting around the framework with `Fastlane` is explained later on in the book. However, all you need to know now is that Fastlane contains lane `make_new_project` that takes three arguments; `type` {app|framework}, `project_name` and `destination_path`. The lane in Fastlane simple uses the instance of the `ProjectFactory` class located in the `scripts/ProjectFactory/project_factory.rb` file. 
+The scripting around the framework with `Fastlane` is explained later on in the book. However, all you need to know now is that Fastlane contains lane `make_new_project` that takes three arguments; `type` {app|framework}, `project_name` and `destination_path`. The lane in Fastlane simple uses the instance of the `ProjectFactory` class located in the `{PROJECT_ROOT}/fastlane/scripts/ProjectFactory/project_factory.rb` file. 
 
 The `ProjectFactory` creates new framework or app based on the `type` parameter that is passed to it from the command line. As an example of creating the Spacesuit domain framework the following command can be used. 
 
@@ -710,7 +710,7 @@ Conflicts in the `project.pbxproj` files are very common when more than one deve
 Since programmers are lazy creatures, very often also happens that the file that was removed from the Xcode's project still remains in the repository as it was not moved to the trash. That could lead to a git tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
 
 ### Hello XcodeGen
-Fortunately, in the Apple ecosystem we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the pbxproj file for us based on the well-arranged yaml file. In order to use it we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
+Fortunately, in the Apple ecosystem we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the `pbxproj` file for us based on the well-arranged yaml file. In order to use it we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
 
 As an example let us have a look at the Cosmonaut app project.yml. 
 `app/Cosmonaut/project.yml`
@@ -859,7 +859,7 @@ Simply executing the `fastlane generate` command in the root directory of the ap
 
 Looking at the ISS architecture, there are two very important patterns that are being followed. 
 
-First of all, any framework does NOT allow to link modules on the same layer. That is a prevention for creating cross linking cycles in between frameworks. For example, if Network module would link Radio module and Radio module would link Network module we would be in a serious trouble. Surprisingly, not every time Xcode build fails in such set up, however, it will have a really hard time with compiling and linking up until one day it starts failing. 
+First of all, any framework does NOT allow to link modules on the same layer. That is a prevention for creating cross linking cycles in between frameworks. For example, if Network module would link Radio module and Radio module would link Network module we would be in a serious trouble. Surprisingly, not every time Xcode build fails in such set up, however, it will have a really hard time with compiling and linking, up until one day it starts failing. 
 
 Second of all, each layer can link frameworks only from its sublayer. This ensures the vertical linking pattern. That being said, the cross linking dependencies will also not happen on the the vertical level. 
 
@@ -867,7 +867,7 @@ Let us have a look at some examples of cross-linking dependencies.
 
 ### Cross linking dependencies
 
-Let us say, the build system will jump on compiling the Network module where the Radio is being linked to. When the compiler comes to the point where the Radio needs to be linked it jumps to compile Radio module without finish the compilation of the Network. The Radio module now requires Network module in order to continue compiling, however, the Network module has not finished compiling yet, therefore, no swiftmodule and other files were yet created. The compiler will continue compiling up until one file will be referencing some part(e.g a class in a file) of the other module and the other module will be referencing the caller. 
+Let us say, the build system will jump on compiling the Network module where the Radio is being linked to. When it comes to the point where the Radio needs to be linked it jumps to compile Radio module without finishing the compilation of the Network. The Radio module now requires Network module in order to continue compiling, however, the Network module has not finished compiling yet, therefore, no `swiftmodule` and other files were yet created. The compiler will continue compiling up until one file will be referencing some part(e.g a class in a file) of the other module and the other module will be referencing the caller. 
 
 That's where the compiler will stop.
 
@@ -881,7 +881,7 @@ Same as the horizontal layer linking, the vertical linking is also very importan
 
 Unlike in the cross linking dependencies scenario, in this case the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer that will contain mostly some shared functionality for the Core layer so as some protocols that would allow passing references from the top down. 
 
-Another solution would be to separate the core public protocols and models out the framework so that it can be exposed and linked towards more frameworks on the same layer. On the higher level the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, have the downside of having an extra framework that needs to be linked and maintaind. However, with this approach the so called `Clean Architecture` would be followed. More about that later.
+Another solution would be to separate the core public protocols and models out the framework so that it can be exposed and linked towards more frameworks on the same layer. On the higher level the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, have the downside of having an extra framework that needs to be linked and maintained. However, with this approach the so called `Clean Architecture` would be followed. More about that later.
 
 No need to say, any higher level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app, can link anything from the Core or the newly defined Shared layer.
 
@@ -891,7 +891,7 @@ Considering, many developers are working in the same repository on the same proj
 
 The app ideally should decrypt encrypted secret in its runtime. Even though, on the jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network, considering the SSLPinning was in place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
 
-In about two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets which solves this problem in a swiftly way.
+In about two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets which solves this problem in a swifty way.
 
 Now, let us have a look how to handle secrets in the project.
 
@@ -900,7 +900,7 @@ First thing first, as mentioned above any secret must be obfuscated, without a d
 
 Unfortunately, obfuscating strings or files and committing them to the repository might not be enough. What if there is a colleague who has access to the source repository or someone who might want to steal these secrets and hand it out? Simply downloading the repository and printing the de-obfuscated string into a console would do it.
 
-Essentially, the secret should be visible only for the right developer in any circumstances. Especially, for mono-repository projects where many teams are contributing to simultaneously. That is where the GPG comes into play. 
+Essentially, the secret should be visible only for the right developer in any circumstances. Especially, for mono-repository projects where many teams are contributing to simultaneously. That is where GPG comes into play. 
 
 ### The GnuPG (GPG)
 
@@ -923,7 +923,7 @@ The `MobileSecrets.yml` file contains the hash key used for obfuscation of secre
 
 Finally, we can run: `mobile-secrets --export ./Output/Path/` to export the swift file with obfuscated secrets.
 
-Mobile Secrets exported Swift source code will look like similar to the example below. Last but not least, that path to this file must be added to the `gitignore`. The secrets source code must be generated locally alongside with generating the projects.
+Mobile Secrets exported Swift source code will look like to the example below. Last but not least, that path to this file must be added to the `gitignore`. The secrets source code must be generated locally alongside with generating the projects.
 
 ![Exported Swift secrets source file](assets/mobile_secrets_final.png)
 
@@ -944,7 +944,7 @@ Cross-functional team usually consists of a product owner or a product manager, 
 
 The team goal can be for example developing some specific business domain, the team then becomes the domain expert and is further responsible for developing, improving and integrating that domain into the final customer facing application. 
 
-It could also be that the team develops a standalone application on top of the framework. If the team followed the same patterns defined in the framework, usually, by technical leads it can also be easily later on integrated as a part of some bigger application that for example groups those functionalities in one app. 
+It could also be that the team develops a standalone application on top of the framework. If the team followed the same patterns defined in the framework, usually by technical leads, it can also be easily later on integrated as a part of some bigger application that for example groups those functionalities in one app. Or the other way around, splits one big app into multiple smaller ones. Like for example Facebook did with their Messenger app.
 
 ### Teams
 Teams and their management plays crucial role in the success of the project. The modular architecture by any means helps to find boundaries of teams. From the developers POV, each developer is responsible for developing the frameworks belonging to the team. In our Cosmonaut example, it could be Cosmonaut domain along side with Cosmonaut service. While Spacesuit domain and Spacesuit service would be developed by another team.
@@ -991,7 +991,7 @@ In case of the maintenance, particularly hard could be maintaining apps or frame
 
 ### Code style
 
-Since there are many different developers working, following the same code style, principles and patterns can be a challenge. Everybody has a different preferences, different experience and getting sometimes people on the same board is quite challenging. 
+Since there are many different developers working, following the same code style, principles and patterns can be a challenge. Everybody has a different preferences, different experience and getting sometimes people on the same board is quite difficult. 
 
 Nevertheless, following the ground rules and overall framework patterns is what matters the most. In this case what really helps is well documented code, framework documentations so as proper onboarding that ideally consists of pair programming, code reviews and ad-hoc one on one sessions. Changes in the code-style, importing new libraries, new patterns and so on can be discussed in developers guild meetings where everybody can vote for what seams to be the best option. In guilds, everybody can make suggestions for improvements and vote for changes he or she likes.  
 
@@ -999,7 +999,7 @@ Nevertheless, following the ground rules and overall framework patterns is what 
 
 In theory, each team should have its autonomy. Nevertheless, in practice it is slightly different, in some cases, teams might depend on each other which, furthermore, brings more teams communication, and worst case failing the teams goal because of the unfulfilled promises of the dependent team. 
 
-More teams are dependent on each other, more meetings and alignements are needed which, furthermore, slows down the teams.
+More teams are dependent on each other, more meetings and alignments are needed which unfortunately, slows down the teams.
 
 ### Conclusion
 
@@ -1361,6 +1361,7 @@ Probably no need much of explanation for Model, View, ViewModel with Coordinator
 The most beautiful way of extending any kind of functionality of an object is probably via protocols and their extensions. In some cases, like for structs or enums it is also the only way. In Swift, structs and enums cannot use inheritance. On the other hand, protocols can use inheritance so as composition for defining the desired behaviour which gives the developer the freedom to design fine granular components with all OOP features. 
 
 # ??????
+//TODO: ?
 
 ## Conclusion
 //TODO: 
@@ -1415,5 +1416,5 @@ If you have not learnt it yet, do so, it's great.
 
 
 
-
+//TODO: ?
 
