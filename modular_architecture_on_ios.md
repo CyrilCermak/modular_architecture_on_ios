@@ -269,7 +269,7 @@ There are of course some disadvantages as well. For example, onboarding new deve
 
 Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such project and its behaviour.
 
-In Apple's ecosystem as of today we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Dynamic library previously known as `Cocoa Touch Framework`,  nowadays simplified to `Framework` and the statically linked, the `Static Library`.
+In Apple's ecosystem as of today we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Dynamic library previously known as `Cocoa Touch Framework`, nowadays simplified to `Framework` and the statically linked, the `Static Library`.
 
 ![Xcode Framework Types](assets/FrameworksType.png) 
 
@@ -304,7 +304,7 @@ As mentioned above, the way dynamic framework code execution works is slightly d
 
 A dynamic framework does not support any Bridging-Header file; instead there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is basically one big interface for the dynamic framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
-On the other hand, static library is attached directly to the main executable during linking as a library contains already pre-compiled archive of the source files with symbols. That being said, there is no need for umbrella file so as IoC like in dynamic framework.
+On the other hand, a statically linked library is attached directly to the main executable during linking as the library contains already pre-compiled archive of the source files with symbols. That being said, there is no need for umbrella file so as IoC like in dynamic framework.
 
 No need to say, classes and other structures must be marked as public to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
 
@@ -314,43 +314,41 @@ Now let's have a look at some pros & cons of both.
 **Dynamic:**
 
   - **PROS**
-    - Faster app start time as library is linked during app launch time or runtime, therefore the main executable has lesser memory footprint to load
-    - Can be opened on demand, therefore, might not get opened at all if user do not open specific part of the app (`dlopen`)
-    - Can be linked transitively to other dynamic libraries without any difficulty
-    - Can be exchanged without the recompile of the main executable just by replacing the framework with a new version
-    - Is loaded into a different memory space than the main executable 
-    - Can be shared in between applications especially useful for system libraries
-    - Can be loaded partially, only the needed symbols can be loaded into the memory (`dlsym`)
-    - Can be loaded lazily, only objects that are referenced will be loaded
-    - Library can perform some cleanup tasks when it is closed (`dlclose`)
+    - Faster app start time as library is linked during app launch time or runtime, therefore the main executable has lesser memory footprint to load.
+    - Can be opened on demand, therefore, might not get opened at all if user do not open specific part of the app (`dlopen`).
+    - Can be linked transitively to other dynamic libraries without any difficulty.
+    - Can be exchanged without the recompile of the main executable just by replacing the framework with a new version.
+    - Is loaded into a different memory space than the main executable.
+    - Can be shared in between applications especially useful for system libraries.
+    - Can be loaded partially, only the needed symbols can be loaded into the memory (`dlsym`).
+    - Can be loaded lazily, only objects that are referenced will be loaded.
+    - Library can perform some cleanup tasks when it is closed (`dlclose`).
   
   - **CONS**
-    - The target must copy all dynamic libraries else the app crashes on the start or during runtime with `dyld library not found`
-    - The overall size of the binary is bigger than the static one as compiler can strip of symbols from the static library during the compile time while in dynamic library the symbols at least the public ones must remain 
-    - Potential replace of a dynamic library with a new version with different interfaces can break the main executable
-    - Slower library API calls as it is loaded into a different memory space and called via library interface
-    - App's executable can be linked against incompatible library version
-    - Launch time of the app might take longer if all dynamic libraries are opened during the launch time
+    - The target must copy all dynamic libraries else the app crashes on the start or during runtime with `dyld library not found`.
+    - The overall size of the binary is bigger than the static one as compiler can strip of symbols from the static library during the compile time while in dynamic library the symbols at least the public ones must remain.
+    - Potential replacement of a dynamic library with a new version with different interfaces can break the main executable.
+    - Slower library API calls as it is loaded into a different memory space and called via library interface.
+    - Launch time of the app might take longer if all dynamic libraries are opened during the launch time.
 
 **Static:**
 
   - **PROS**
-    - Is part of the main executable therefore, the app cannot crash during launch or runtime due to a missing library
-    - Overall smaller size of the final executable as the symbols can be stripped of
-    - In terms of calls speed there is no difference in between the main executable and the library as the library is part of the main executable
-    - Compiler can provide some extra optimisation during the build time of the main executable   
+    - Is part of the main executable therefore, the app cannot crash during launch or runtime due to a missing library.
+    - Overall smaller size of the final executable as the symbols can be stripped of.
+    - In terms of calls speed there is no difference in between the main executable and the library as the library is part of the main executable.
+    - Compiler can provide some extra optimisation during the build time of the main executable.   
 
   - **CONS**  
-  
-    - The library must NOT be linked transitively, the library must be present only once in the memory either in the main executable or one of its dependencies
-    - The main executable must be recompiled when the library has an update even though the library's interface remains the same
-    - Memory footprint of the main executable is bigger which implies the load time is slower
+    - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies else the app on the start needs to decide which library is going to be used.
+    - The main executable must be recompiled when the library has an update even though the library's interface remains the same.
+    - Memory footprint of the main executable is bigger which implies the load time of the App is slower.
 
 ## Essentials
 
 When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes much slower app start as the app needs to decide which of those classes will be used. So as, in the worst case when two different versions of the same static library are used the app will use them interchangeably. The debugging will become a horror if that case happens that being said, it is very important to be sure that the linking was done right and no warnings appears.   
 
-All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is unfortunately inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subsets of those SDKs are linked statically. 
+All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is, unfortunately, inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subsets of those SDKs are linked statically. 
 
 When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App or Framework) it would fail the installation with `target has transitive dependencies that include static binaries`. Therefore, it takes an extra effort to link static binaries into multiple frameworks.
 
@@ -363,7 +361,7 @@ As mentioned above, it takes an extra effort to link a static library or static 
 As an example of such umbrella file exposing GoogleMaps library that was linked to it could be:
 
 ```ObjC
-// Framework.h - Umbrella file
+// MyFramework.h - Umbrella file
 #import <UIKit/UIKit.h>
 #import "GoogleMaps/GoogleMaps.h"
 ```
@@ -378,7 +376,15 @@ The import of the header file of `GoogleMaps` into the frameworks umbrella file 
 ...
 ```
 
-From now on it is sufficient to link and import the dynamic framework which allows then direct access to the static GoogleMaps framework. In case of the static GoogleMaps framework, it is necessary to copy its bundle towards the app as there the GoogleMaps binary is looking for its resources like translations, images and so on. 
+The library becomes available as soon as the MyFramework import precedes the GoogleMaps one.
+```Swift
+// MyFileInApp.swift
+import MyFramework
+import GoogleMaps
+...
+```
+
+In case of the static GoogleMaps framework, it is necessary to copy its bundle towards the app as there the GoogleMaps binary is looking for its resources like translations, images and so on. 
 
 ## Examining library
 
@@ -388,7 +394,7 @@ Apple ships various different tools for exploring compiled libraries and framewo
 
 ### Mach-O file format
 
-Before we start, it is essential to know what we are going to be exploring. In Apple ecosystem, file format of any binary is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands and so on.  
+Before we start, it is crucial to know what we are going to be exploring. In Apple ecosystem, file format of any binary is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands and so on.  
 
 Since you are surely a curious reader, you are now having tons of questions about where it all comes from. The answer to that is quite simple. Since it is all part of the system you can open up Xcode and look for a file in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file for example the Mach-O header struct is defined.
 
@@ -422,7 +428,7 @@ First, let's have a look on what Architectures the binary can be linked on (fat 
 ```shell
 otool -fv ./UIKit
 ```
-Not surprisingly, the output produces two architectures. One that runs on the Intel mac (`x86_64`) when deploying to simulator and one that runs on iPhones so as on recently introduced M1 mac (`arm64`). 
+Not surprisingly, the output produces two architectures. One that runs on the Intel mac (`x86_64`) when deploying to simulator and one that runs on iPhones so as on recently introduced M1 Mac (`arm64`). 
 ```
 Fat headers
 fat_magic FAT_MAGIC
@@ -588,7 +594,7 @@ Let's have a quick look at what Xcode does when the build is triggered.
 
 1. **Preprocessing**
 
-  Preprocessing resolves macros, removes comments, imports files and so on. In a nutshell it prepares the code for the compiler. Preprocessor also decides which compiler will be used for which source code file. Not surprisingly, swift source code file will be compiled by swiftc and other C like files will use clang.
+  Preprocessing resolves macros, removes comments, imports files and so on. In a nutshell it prepares the code for the compiler. Preprocessor also decides which compiler will be used for which source code file. Not surprisingly, swift source code file will be compiled by `swiftc` and other C like files will use `clang`.
 
 2. **Compiler** (`swiftc`, `clang`)
 
