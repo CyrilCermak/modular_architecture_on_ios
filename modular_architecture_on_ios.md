@@ -1,7 +1,25 @@
+---
+title: "Modular Architecture on iOS/macOS"
+author: [Cyril Cermak]
+date: "23.3.2021"
+subject: "Domain driven design development"
+keywords: [Markdown, Example]
+subtitle: "Building large scalable iOS apps and frameworks with Domain Driven Design"
+lang: "en"
+titlepage: true,
+titlepage-rule-heigh: 0
+toc-own-page: true
+disable-header: true
+footer-left: Modular Architecture on iOS/macOS
+titlepage-background: "assets/cover.png"
+...
+
+\newpage
 # Modular Architecture on iOS/macOS
 
 Building large scalable iOS apps and frameworks with Domain Driven Design
 
+\newpage
 # Dedication 
 "To my Mom and Dad, because they really tried."
 
@@ -16,6 +34,8 @@ Building large scalable iOS apps and frameworks with Domain Driven Design
 &&
 
 "Finally, to whoever my current girlfriend is..."
+
+\newpage
 
 # About the author
 Cyril Cermak is a software engineer by heart and author of this book. Most of his professional career was spent by building iOS apps or iOS frameworks. Beginning by Skoda Auto Connect App in Prague, continuing building iOS platform for Freelancer Ltd in Sydney, numerous start-ups on the side, and as of now being an iOS TechLead in Stuttgart for Porsche AG. In this book, Cyril describes different approaches for building modular iOS architecture so as some mechanisms and essential knowledge that should help you, the reader, to decide which approach would fit in the best or should be considered on your project.
@@ -74,7 +94,7 @@ Joerg Nestele
   - App secrets
     - How to handle secrets
     - The GnuPG (GPG)
-    - GEM: Mobile Secrets 📱
+    - GEM: Mobile Secrets
     - The ugly and brilliant part of the Secrets source code
   - Workflow
     - Teams
@@ -222,7 +242,7 @@ Now in this example, we will have a look at how such architecture could really l
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.  
 
-![Overview](assets/ISS.svg) 
+<!-- ![Overview](assets/ISS.svg)  -->
 
 The example has three applications. 
 - `ISS Overview`: app that shows astronauts the overall status of the space station
@@ -238,7 +258,7 @@ The `Peripheries` domain links `Heat Radiator`, `Solar Array` and `Docking Port`
 
 Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator. Diagram below describes the concrete linking of modules for the app.
 
-![ISS Overview](assets/ISSOverview.svg) 
+<!-- ![ISS Overview](assets/ISSOverview.svg)  -->
 
 
 ### Cosmonaut
@@ -249,7 +269,7 @@ Linked services are using `Network` and `Radio` core modules which are providing
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or other type of radio technology. `Cosmonaut` service is using `Network` for updating Huston about the current state of the `Cosmonaut` so as `Persistence` for storing the data of the cosmonaut for offline usage. 
 
-![Cosmonaut App](assets/Cosmonaut.svg) 
+<!-- ![Cosmonaut App](assets/Cosmonaut.svg)  -->
 ### Laboratory
 
 I will leave this one for the reader to figure it out. 
@@ -654,7 +674,7 @@ For the demonstration purposes, I chose the Cosmonaut app with all its necessary
 You can download the pre-build repository [here](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until certain point.
 
 As a reminder the following schema showcases the Cosmonaut app with its dependencies.  
-![Cosmonaut App](assets/Cosmonaut.svg) 
+<!-- ![Cosmonaut App](assets/Cosmonaut.svg)  -->
 
 ## Creating workspace structure
 
@@ -910,10 +930,10 @@ In order to add a developer into the authorised group, the developer needs to pr
 
 The encrypted file by GPG containing all project secrets can be then thoughtfully committed to the repository, since only authorised developers who posses the private key can decrypt it. 
 
-### GEM: Mobile Secrets 📱
+### GEM: Mobile Secrets
 Mobile Secrets gem is using XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
 
-Mobile Secrets itself can then initialise the GPG for the current project if it has not been done yet by running: `mobile-secrets —-init-gpg .`.
+Mobile Secrets itself can then initialise the GPG for the current project if it has not been done yet by running: `mobile-secrets --init-gpg .`.
 
 When the GPG is initialised a template yaml file can be created by running: `mobile-secrets --create-template`
 
