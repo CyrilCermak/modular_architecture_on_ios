@@ -25,7 +25,7 @@ Building large scalable iOS apps and frameworks with Domain Driven Design
 
 &&
 
-"To all my non-tech friends whom I am fixing problems with not enough disk space, printers, forgotten passcodes etc. who will never read this line"
+"To all my non-tech friends whom I am fixing problems with not enough disk space, printers, forgotten passcodes etc. who will never read this line."
 
 &&
 
@@ -43,107 +43,10 @@ Cyril Cermak is a software engineer by heart and author of this book. Most of hi
 ## Reviewers
 Joerg Nestele 
 ... Ask Joerg whether he wants be the reviewer. 
+\newpage
+\tableofcontents
+\newpage
 
-<div style="page-break-after: always;"></div>
-# Table Of Contents
-
-- Introduction 
-  - What you need 
-  - What is this book about 
-  - What is this book NOT about 
-  
-- Modular Architecture 
-  - Design 
-  - Layers 
-    - App Layer 
-    - Domain Layer 
-    - Service Layer 
-    - Core Layer 
-    - Shared Layer 
-  - Example: International Space Station 
-    - ISS Overview 
-    - Cosmonaut 
-    - Laboratory 
-  - Conclusion 
-
-- Libraries on Apple's ecosystem
-  - Dynamic vs static library
-    - Pros & Cons
-  - Essentials
-  - Exposing static 3rd party library
-  - Examining dynamic library
-    - Mach-O file format
-    - Fat headers
-    - Executable type
-    - Dependencies
-    - Symbols table
-    - Strings
-  - Compiler and Linker
-    - (Step by step compiler process) // Topic for extension
-  - Conclusion 
-
-- Development of the modular architecture
-  - Creating workspace structure
-    - Automating the process
-    - Xcode's workspace
-  - Generating projects
-    - Hello XcodeGen
-  - Ground Rules
-    - Cross linking dependencies
-    - Vertical linking
-  - App secrets
-    - How to handle secrets
-    - The GnuPG (GPG)
-    - GEM: Mobile Secrets
-    - The ugly and brilliant part of the Secrets source code
-  - Workflow
-    - Teams
-    - Git
-    - Scalability
-    - Application Framework & Distribution 
-  - Common Problems
-    - Maintenance
-    - Code style
-    - Not fully autonomous teams
-  - Conclusion
-
-
-- Dependency Managers
-  - Cocopods
-    - Integration with the application framework
-  - Carthage
-  - SwiftPM
-    
-  
-- Design Patterns
-  - Configurations
-  - Coordinators
-  - Decoupling
-  - MVVM
-  - Protocols
-  - ???
-  
-  
-- Project Automation
-  - Motivation
-  - Fastlane
-  - CI/CD
-  - Translations, Stages, Configurations etc.
-  - Distribution
-    - Frameworks
-    - XCFrameworks
-    - Static Library
-  - Ruby, programmer's best friend
-  
-
-- Profesional Experience
-  - Joerg Nestele: iOS Tech Lead - Porsche AG
-  - Majd Alfhailly: Senior iOS Engineer - Blinkst
-  - Daniel Williams: Senior iOS Engineer - Canva
-  - Aldrich Co: iOS Tech Lead - Freelancer Ltd.
-  - Gleb Arkhipov: iOS Tech Lead - STRV
-  
-<div style="page-break-after: always;"></div>
 # Introduction
 
 In the software engineering field, people are going from project to project, gaining different kind of experience out of it. Especially, on iOS mostly the monolithic approaches are used. In some cases it makes totally sense, so nothing against it. However, scaling up the team, or even better, team of teams on monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise up, that are limiting the way how iOS projects are built or managed on the organisational level. 
@@ -242,7 +145,7 @@ Now in this example, we will have a look at how such architecture could really l
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.  
 
-<!-- ![Overview](assets/ISS.svg)  -->
+![Overview](assets/ISS.png) 
 
 The example has three applications. 
 - `ISS Overview`: app that shows astronauts the overall status of the space station
@@ -258,7 +161,7 @@ The `Peripheries` domain links `Heat Radiator`, `Solar Array` and `Docking Port`
 
 Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator. Diagram below describes the concrete linking of modules for the app.
 
-<!-- ![ISS Overview](assets/ISSOverview.svg)  -->
+![ISS Overview](assets/ISSOverview.png) 
 
 
 ### Cosmonaut
@@ -269,7 +172,7 @@ Linked services are using `Network` and `Radio` core modules which are providing
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or other type of radio technology. `Cosmonaut` service is using `Network` for updating Huston about the current state of the `Cosmonaut` so as `Persistence` for storing the data of the cosmonaut for offline usage. 
 
-<!-- ![Cosmonaut App](assets/Cosmonaut.svg)  -->
+![Cosmonaut App](assets/Cosmonaut.png) 
 ### Laboratory
 
 I will leave this one for the reader to figure it out. 
@@ -674,7 +577,7 @@ For the demonstration purposes, I chose the Cosmonaut app with all its necessary
 You can download the pre-build repository [here](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until certain point.
 
 As a reminder the following schema showcases the Cosmonaut app with its dependencies.  
-<!-- ![Cosmonaut App](assets/Cosmonaut.svg)  -->
+![Cosmonaut App](assets/Cosmonaut.png) 
 
 ## Creating workspace structure
 
