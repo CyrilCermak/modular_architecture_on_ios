@@ -77,7 +77,7 @@ SwiftUI.
 
 
 # Modular Architecture
-<b>Modular</b>
+  `- Modular -`
 
    <i>`adjective - employing or involving a module or modules as the basis of design or construction: "modular housing units"`</i>
       
@@ -145,7 +145,8 @@ Now in this example, we will have a look at how such architecture could really l
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.  
 
-![Overview](assets/ISS.png) 
+![Overview](assets/ISS.png)
+
 
 The example has three applications. 
 - `ISS Overview`: app that shows astronauts the overall status of the space station
@@ -161,7 +162,7 @@ The `Peripheries` domain links `Heat Radiator`, `Solar Array` and `Docking Port`
 
 Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator. Diagram below describes the concrete linking of modules for the app.
 
-![ISS Overview](assets/ISSOverview.png) 
+![ISS Overview](assets/ISSOverview.png)
 
 
 ### Cosmonaut
@@ -172,7 +173,8 @@ Linked services are using `Network` and `Radio` core modules which are providing
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or other type of radio technology. `Cosmonaut` service is using `Network` for updating Huston about the current state of the `Cosmonaut` so as `Persistence` for storing the data of the cosmonaut for offline usage. 
 
-![Cosmonaut App](assets/Cosmonaut.png) 
+![Cosmonaut App](assets/Cosmonaut.png)
+
 ### Laboratory
 
 I will leave this one for the reader to figure it out. 
@@ -188,6 +190,7 @@ The knowledge of the software remains in one repository where developers have ac
 There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play so as proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
 
 
+\newpage
 # Libraries on Apple's ecosystem
 
 Before we deep dive into the development of previously described architecture there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such project and its behaviour.
@@ -204,6 +207,7 @@ To quote Apple:
 What are symbols?
 *Symbols reference to chunks of code or data within binary.*
 
+\newpage
 **Types of libraries:**
 
 1) Dynamicaly linked
@@ -543,29 +547,51 @@ I hope this chapter gave the essentials of what is the difference in between sta
 I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend; 
 
 How does the executable structure looks like:
+
 https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103
 
 Static and dynamic libraries and manual compile examples:
+
 https://pewpewthespells.com/blog/static_and_dynamic_libraries.html
 
 Difference in between static and dynamic library from our beloved StackOverflow:
+
 https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
 
 The official Apple documentation about dynamic libraries:
+
 https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
 
 To know more about the Xcode build system:
 https://medium.com/flawless-app-stories/xcode-build-system-know-it-better-96936e7f52a
+
 https://www.objc.io/issues/6-build-tools/mach-o-executables/
+
 https://llvm.org/
+
 https://developer.apple.com/videos/play/wwdc2018/415/
+
 https://developer.apple.com/videos/play/wwdc2018/408/
 
-Used binaries: 
+
+Used binaries:
+
 GoogleMaps: https://developers.google.com/maps/documentation/ios-sdk/v3-client-migration#install-manually
+
 Alamofire: https://github.com/Alamofire/Alamofire
+
 Realm: https://realm.io/docs/swift/latest
 
+\newpage
+# Build process (optional)
+//TODO: Explain how swift/clang compiler works, what are intermediate files, what is bitcode and what is the output
+// Inspiration:
+// https://medium.com/flawless-app-stories/swift-compiler-what-we-can-learn-96872ea4b1b8
+// Probably short chapter
+
+\newpage
+
+\newpage
 # Development of the modular architecture
 
 The necessary theory about Apple's libraries and some essentials were explained. Finally, it is time to deep dive into the building phase. 
@@ -577,20 +603,27 @@ For the demonstration purposes, I chose the Cosmonaut app with all its necessary
 You can download the pre-build repository [here](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until certain point.
 
 As a reminder the following schema showcases the Cosmonaut app with its dependencies.  
-![Cosmonaut App](assets/Cosmonaut.png) 
+
+<div style="float:center" markdown="1">
+![Cosmonaut App](assets/Cosmonaut.png){ width=70% }
+</div>
+
 
 ## Creating workspace structure
 
 First let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes the project structure is not optimal. We will be working in a workspace which will contain multiple projects(apps and frameworks). 
 
-![Create New App](assets/xcode_create_app.png) 
+<div style="float:center" markdown="1">
+![Create New App](assets/xcode_create_app.png){ width=80% } 
+</div>
 
 Since we do not have `Cocopods` yet which would convert the project to the workspace we have to do it manually. In Xcode under `File` select the option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
 
 Going top down through the diagram, first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon, name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory. 
 
-![Create New Framework](assets/xcode_create_framework.png)
-
+<div style="float:center" markdown="1">
+![Create New Framework](assets/xcode_create_framework.png){ width=80% }
+</div>
 ### Automating the process
 
 While creating new frameworks and apps is not a daily business the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app in order to create a new one with the same patterns. Now is good time to create first script that will support the development of the application framework.
@@ -611,7 +644,7 @@ Furthermore, we can continue creating all dependencies via the script up until t
 
 The overall ISS Application Framework should look as follows:
 
-![Structure](assets/tree_framework.png)
+![Tree structre](assets/tree_framework.png){ width=50% }
 
 Each directory contains Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer should use the script to create a framework or an app that will be developed.
 
@@ -776,6 +809,7 @@ end
 ```
 
 Simply executing the `fastlane generate` command in the root directory of the application framework generates all projects and we can open the workspace and press run. The output of the command should look as follows:
+
 ![fastlane generate output](assets/fastlane_generate.png)
 
 ## Ground Rules
@@ -930,7 +964,7 @@ In this chapter we had a look, how in practice development of modular architectu
 
 I hope it all gave a good understanding of how to work in such setup. 
 
-
+\newpage
 # Dependency Managers
 
 Generally, good practice when working on large codebases is not to import many 3rd party libraries. Especially the huge ones, for example, RxSwift, Alamofire, Moja etc. Those libraries are extraordinarily big and highly likely some of their functionality will never be used. This will resolve in having a dead code attached to the project. No need to say, the binary size, compile time and most importantly the maintenance will increase heavily. With each API change of the library every part of the codebase will have to be adapted. Obviously, essential vendor SDKs, like GoogleMaps, Firebase, AmazonSDK and so on will still have to be linked to the project, however, using libraries to provide wrappers around the native iOS code should be avoided and developed specifically to the project needs.
@@ -1136,7 +1170,7 @@ One of the example projects using the SwiftPM for cross-platform development is 
 
 This chapter gave an introduction into the most common package managers that could be used for managing 3rd party frameworks with an ease. Choosing the right one might, unfortunately, not be as obvious as we would wish for. There are trade-offs for each one of them, however, choosing Cocopods or SwiftPM at start and then potentially replacing some of the big libraries with Carthage, such that the compile time can be decreased might be a good way to go. That being said, with the hybrid approach, project benefits from both which could speed up the everyday development dramatically.
 
-
+\newpage
 # Design Patterns
 
 Design patterns help developers to solve complex problems in a known, organised and structural way. Furthermore, when new developers are onboarded, they might already know the patterns used for solving such problem which helps them to gain the speed and confidence for development in the new codebase.
@@ -1283,8 +1317,8 @@ Probably no need much of explanation for Model, View, ViewModel with Coordinator
 
 The most beautiful way of extending any kind of functionality of an object is probably via protocols and their extensions. In some cases, like for structs or enums it is also the only way. In Swift, structs and enums cannot use inheritance. On the other hand, protocols can use inheritance so as composition for defining the desired behaviour which gives the developer the freedom to design fine granular components with all OOP features. 
 
-# ??????
-//TODO: ?
+
+//TODO: Think of more helpful related paterns
 
 ## Conclusion
 //TODO: 
@@ -1293,7 +1327,7 @@ The most beautiful way of extending any kind of functionality of an object is pr
 
 
 
-
+\newpage
 # Project Automation
 
 When it comes to a project where many developers are contributing to simultaneously automation will become a crucial part of it. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be simply generating the `xcodeproj` projects by XcodeGen like in our example to avoid conflicts, pulling new translation strings, generating entitlements on the fly, up to building the app on the CI and publishing it to the AppStore or other distribution centre.   
