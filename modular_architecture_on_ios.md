@@ -9,7 +9,7 @@ lang: "en"
 titlepage: true,
 titlepage-rule-heigh: 0
 toc-own-page: true
-disable-header: true
+disable-header-and-footer: true
 footer-left: Modular Architecture on iOS/macOS
 titlepage-background: "assets/cover.png"
 ...
@@ -583,11 +583,117 @@ Alamofire: https://github.com/Alamofire/Alamofire
 Realm: https://realm.io/docs/swift/latest
 
 \newpage
-# Build process (optional)
-//TODO: Explain how swift/clang compiler works, what are intermediate files, what is bitcode and what is the output
-// Inspiration:
-// https://medium.com/flawless-app-stories/swift-compiler-what-we-can-learn-96872ea4b1b8
-// Probably short chapter
+# Swift Compiler (optional)
+Since we touched the Xcode's build system in the previous chapter it would be totally unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not a mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human readable code till running it on a bare metal.
+
+While other chapters are quite essential for having good understanding for the development of the modular architecture, this chapter is rather optional.
+
+## Compiler Architecture
+
+To fully understand the swift's compiler architecture and it's process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and some experimental examples. 
+
+The following image describes the Swiftc architecture. It consists of 7 setps. We are going to explore each one of it.
+
+![Swiftc Architecture](assets/swiftc_arch.png)
+
+### Preparation
+For the demonstration I prepared two simple swift source code files. First, Employee.swift and main.swift. Employee source code will be used as a library that the main file consumes and uses.
+
+`Employee.swift`
+```swift
+import Foundation
+
+public protocol Address {
+    var houseNo: Int { get }
+    var street: String { get }
+    var city: String { get }
+    var state: String { get }
+}
+
+public protocol Person {
+    var firstName: String { get }
+    var lastName: String { get }
+    var address: Address { get }
+}
+
+public class Employee: Person {
+    public let firstName: String
+    public let lastName: String
+    public let address: Address
+    
+    public init(firstName: String, lastName: String, address: Address) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.address = address
+    }
+    
+    public func printEmployeeInfo() {
+        print("\(firstName) \(lastName)")
+        print("\(address.houseNo). \(address.street), \(address.city), \(address.state)")
+    }
+}
+
+public class EmployeeAddress: Address {
+    public let houseNo: Int
+    public let street: String
+    public let city: String
+    public let state: String
+    
+    public init(houseNo: Int, street: String, city: String, state: String) {
+        self.houseNo = houseNo
+        self.street = street
+        self.city = city
+        self.state = state
+    }
+}
+```
+
+`main.swift`
+```swift
+import Foundation
+import Employee
+
+let employee = Employee(firstName: "Cyril",
+                       lastName: "Cermak",
+                       address: EmployeeAddress(houseNo: 1, street: "PorschePlatz", city: "Stuttgart", state: "Germany"))
+
+employee.printEmployeeInfo()
+```
+
+
+### Parsing
+> The parser is a simple, recursive-descent parser (implemented in lib/Parse) with an integrated, hand-coded lexer. The parser is responsible for generating an Abstract Syntax Tree (AST) without any semantic or type information, and emit warnings or errors for grammatical problems with the input source. 
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+
+
+
+
+```
+Semantic analysis: Semantic analysis (implemented in lib/Sema) is responsible for taking the parsed AST and transforming it into a well-formed, fully-type-checked form of the AST, emitting warnings or errors for semantic problems in the source code. Semantic analysis includes type inference and, on success, indicates that it is safe to generate code from the resulting, type-checked AST.
+```
+
+```
+Clang importer: The Clang importer (implemented in lib/ClangImporter) imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
+```
+
+```
+SIL generation: The Swift Intermediate Language (SIL) is a high-level, Swift-specific intermediate language suitable for further analysis and optimization of Swift code. The SIL generation phase (implemented in lib/SILGen) lowers the type-checked AST into so-called “raw” SIL. The design of SIL is described in docs/SIL.rst.
+```
+
+```
+SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
+```
+
+```
+SIL Optimizations: The SIL optimizations (implemented in lib/Analysis, lib/ARC, lib/LoopTransforms, and lib/Transforms) perform additional high-level, Swift-specific optimizations to the program, including (for example) Automatic Reference Counting optimizations, devirtualization, and generic specialization.
+```
+
+```
+LLVM IR Generation: IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at which point LLVM can continue to optimize it and generate machine code.
+```
+
 
 \newpage
 

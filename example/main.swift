@@ -1,5 +1,5 @@
 import Foundation
-import employee
+import Employee
 
 let employee = Employee(firstName: "Cyril",
                        lastName: "Cermak",
