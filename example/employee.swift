@@ -30,7 +30,7 @@ public class Employee: Person {
     }
 }
 
-public class EmployeeAddress: Address {
+public struct EmployeeAddress: Address {
     public let houseNo: Int
     public let street: String
     public let city: String

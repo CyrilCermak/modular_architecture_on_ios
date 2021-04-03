@@ -596,8 +596,7 @@ The following image describes the Swiftc architecture. It consists of 7 setps. W
 
 ![Swiftc Architecture](assets/swiftc_arch.png)
 
-### Preparation
-For the demonstration I prepared two simple swift source code files. First, Employee.swift and main.swift. Employee source code will be used as a library that the main file consumes and uses.
+For the demonstration I prepared two simple swift source code files. First, Employee.swift and second main.swift. In the end the employee source code will be used as a library that the main file consumes and uses.
 
 `Employee.swift`
 ```swift
@@ -633,7 +632,7 @@ public class Employee: Person {
     }
 }
 
-public class EmployeeAddress: Address {
+public struct EmployeeAddress: Address {
     public let houseNo: Int
     public let street: String
     public let city: String
@@ -666,33 +665,236 @@ employee.printEmployeeInfo()
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
+As the definition saying, parser is responsible for lexical syntax check without any type check. The following command prints the parsed AST.
 
-
-
-
-```
-Semantic analysis: Semantic analysis (implemented in lib/Sema) is responsible for taking the parsed AST and transforming it into a well-formed, fully-type-checked form of the AST, emitting warnings or errors for semantic problems in the source code. Semantic analysis includes type inference and, on success, indicates that it is safe to generate code from the resulting, type-checked AST.
+```bash
+swiftc ./employee.swift -dump-parse
 ```
 
+In the output you can notice that the types are not resolved and are ending with errors.
 ```
-Clang importer: The Clang importer (implemented in lib/ClangImporter) imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
+(source_file "./employee.swift"
+// Importing Foundation
+  (import_decl range=[./employee.swift:1:1 - line:1:8] 'Foundation')
+// Address protocol declaration
+  (protocol range=[./employee.swift:3:8 - line:8:1] "Address" <Self : Address> requirement signature=<null>
+    (pattern_binding_decl range=[./employee.swift:4:5 - line:4:28]
+      (pattern_typed
+        (pattern_named 'houseNo')
+        (type_ident
+          (component id='Int' bind=none))))
+// houseNo variable declaration
+    (var_decl range=[./employee.swift:4:9 - line:4:9] "houseNo" type='<null type>' readImpl=getter immutable
+      (accessor_decl range=[./employee.swift:4:24 - line:4:24] 'anonname=0x7fc1e408db80' get_for=houseNo      
+// Not recognized Int type
+        (parameter "self"./employee.swift:4:18: error: cannot find type 'Int' in scope
+    var houseNo: Int { get }
+                 ^~~
+)
+...
+// Employee class declaration
+(class_decl range=[./employee.swift:16:8 - line:31:1] "Employee" inherits: <null>
+    (pattern_binding_decl range=[./employee.swift:17:12 - line:17:27]
+      (pattern_typed
+        (pattern_named 'firstName')
+        (type_ident
+          (component id='String' bind=none))))
+// Employee class vars declaration
+    (var_decl range=[./employee.swift:17:16 - line:17:16] "firstName" type='<null type>' let readImpl=stored immutable)
+    (pattern_binding_decl range=[./employee.swift:18:12 - line:18:26]
+      (pattern_typed
+        (pattern_named 'lastName')
+        (type_ident
+          (component id='String' bind=none))))
+...
+```
+
+From the parsed AST you can see that it is really descriptive. The source code of Employee.swift has 47 lines of code while its parsed AST without type check has 270. 
+
+Out of curiosity, let us have a look at how the tree would look like with syntax error. In order to do so, I added the winner of all times in hide and seek `;` to the protocol declaration.
+
+```swift
+public protocol Address {
+    var houseNo: Int; { get }
+```
+
+After running the same command we can see a syntax error at the declaration of houseNo variable. That's the error Xcode would show as soon as it type checks the source file.
+
+```
+...
+(var_decl range=[./employee.swift:4:9 - line:4:9] "houseNo" type='<null type>'./employee.swift:4:9: error: property in protocol must have explicit { get } or { get set } specifier
+    var houseNo: Int; { get }
+...
+```
+
+
+### Semantic analysis
+> Semantic analysis (implemented in lib/Sema) is responsible for taking the parsed AST and transforming it into a well-formed, fully-type-checked form of the AST, emitting warnings or errors for semantic problems in the source code. Semantic analysis includes type inference and, on success, indicates that it is safe to generate code from the resulting, type-checked AST.
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+From the definition of semantic analysis, we should see fully type checked parsed AST. Executing the following command will print it out.
+
+```bash
+swiftc ./employee.swift -dump-ast
+```
+```
+// Address protocol with resolved types
+(protocol range=[./employee.swift:3:8 - line:8:1] "Address" <Self : Address> interface type='Address.Protocol' access=public non-resilient requirement signature=<Self>
+   (pattern_binding_decl range=[./employee.swift:4:5 - line:4:18] trailing_semi
+     (pattern_typed type='Int'
+       (pattern_named type='Int' 'houseNo')
+       (type_ident
+         (component id='Int' bind=Swift.(file).Int))))
+...
+// EmployeeAddress conforming to the Address protocol
+(struct_decl range=[./employee.swift:33:8 - line:45:1] "EmployeeAddress" interface type='EmployeeAddress.Type' access=public non-resilient inherits: Address
+   (pattern_binding_decl range=[./employee.swift:34:12 - line:34:25]
+     (pattern_typed type='Int'
+       (pattern_named type='Int' 'houseNo')
+       (type_ident
+         (component id='Int' bind=Swift.(file).Int))))
+// Variable declaration on EmployeeAddress
+   (var_decl range=[./employee.swift:34:16 - line:34:16] "houseNo" type='Int' interface type='Int' access=public let readImpl=stored immutable
+     (accessor_decl implicit range=[./employee.swift:34:16 - line:34:16] 'anonname=0x7fd2821409e8' interface type='(EmployeeAddress) -> () -> Int' access=public get_for=houseNo
+       (parameter "self" type='EmployeeAddress' interface type='EmployeeAddress')
+       (parameter_list)
+       (brace_stmt implicit range=[./employee.swift:34:16 - line:34:16]
+         (return_stmt implicit
+           (member_ref_expr implicit type='Int' decl=employee.(file).EmployeeAddress.houseNo@./employee.swift:34:16 direct_to_storage
+             (declref_expr implicit type='EmployeeAddress' decl=employee.(file).EmployeeAddress.<anonymous>.self@./employee.swift:34:16 function_ref=unapplied))))))
+```
+
+Not surprisingly, when modifying the types for some unknown ones the command results in error.
+
+```swift
+public protocol Address {
+    var houseNo: Foo { get }
 ```
 
 ```
-SIL generation: The Swift Intermediate Language (SIL) is a high-level, Swift-specific intermediate language suitable for further analysis and optimization of Swift code. The SIL generation phase (implemented in lib/SILGen) lowers the type-checked AST into so-called “raw” SIL. The design of SIL is described in docs/SIL.rst.
+/employee.swift:4:18: error: cannot find type 'Foo' in scope
+    var houseNo: Foo { get }
+                 ^~~
+(source_file "./employee.swift"
+  (import_decl range=[./employee.swift:1:1 - line:1:8] 'Foundation')
+  (protocol range=[./employee.swift:3:8 - line:8:1] "Address" <Self : Address> interface type='Address.Protocol' access=public non-resilient requirement signature=<Self>
+    (pattern_binding_decl range=[./employee.swift:4:5 - line:4:28]
+      (pattern_typed type='<<error type>>'
+```
+
+### Clang importer
+
+> The Clang importer (implemented in lib/ClangImporter) imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+This is the well-known bridging of C/ObjC languages to the Swift API's.
+
+// TODO: ?
+
+\newpage
+### SIL generation
+>The Swift Intermediate Language (SIL) is a high-level, Swift-specific intermediate language suitable for further analysis and optimization of Swift code. The SIL generation phase (implemented in lib/SILGen) lowers the type-checked AST into so-called “raw” SIL. The design of SIL is described in docs/SIL.rst.
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+Curious about how the SIL looks like?
+
+```bash
+swiftc ./employee.swift -emit-sil
 ```
 
 ```
-SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
+...
+// protocol witness for Address.state.getter in conformance EmployeeAddress
+sil shared [transparent] [serialized] [thunk] @$s8employee15EmployeeAddressVAA0C0A2aDP5stateSSvgTW : $@convention(witness_method: Address) (@in_guaranteed EmployeeAddress) -> @owned String {
+// %0                                             // user: %1
+bb0(%0 : $*EmployeeAddress):
+  %1 = load %0 : $*EmployeeAddress                // user: %3
+  // function_ref EmployeeAddress.state.getter
+  %2 = function_ref @$s8employee15EmployeeAddressV5stateSSvg : $@convention(method) (@guaranteed EmployeeAddress) -> @owned String // user: %3
+  %3 = apply %2(%1) : $@convention(method) (@guaranteed EmployeeAddress) -> @owned String // user: %4
+  return %3 : $String                             // id: %4
+} // end sil function '$s8employee15EmployeeAddressVAA0C0A2aDP5stateSSvgTW'
+
+sil_vtable [serialized] Employee {
+  #Employee.init!allocator: (Employee.Type) -> (String, String, Address) -> Employee : @$s8employee8EmployeeC9firstName04lastD07addressACSS_SSAA7Address_ptcfC	// Employee.__allocating_init(firstName:lastName:address:)
+  #Employee.printEmployeeInfo: (Employee) -> () -> () : @$s8employee8EmployeeC05printB4InfoyyF	// Employee.printEmployeeInfo()
+  #Employee.deinit!deallocator: @$s8employee8EmployeeCfD	// Employee.__deallocating_deinit
+}
+
+sil_witness_table [serialized] Employee: Person module employee {
+  method #Person.firstName!getter: <Self where Self : Person> (Self) -> () -> String : @$s8employee8EmployeeCAA6PersonA2aDP9firstNameSSvgTW	// protocol witness for Person.firstName.getter in conformance Employee
+  method #Person.lastName!getter: <Self where Self : Person> (Self) -> () -> String : @$s8employee8EmployeeCAA6PersonA2aDP8lastNameSSvgTW	// protocol witness for Person.lastName.getter in conformance Employee
+  method #Person.address!getter: <Self where Self : Person> (Self) -> () -> Address : @$s8employee8EmployeeCAA6PersonA2aDP7addressAA7Address_pvgTW	// protocol witness for Person.address.getter in conformance Employee
+}
+
+sil_witness_table [serialized] EmployeeAddress: Address module employee {
+  method #Address.houseNo!getter: <Self where Self : Address> (Self) -> () -> Int : @$s8employee15EmployeeAddressVAA0C0A2aDP7houseNoSivgTW	// protocol witness for Address.houseNo.getter in conformance EmployeeAddress
+  method #Address.street!getter: <Self where Self : Address> (Self) -> () -> String : @$s8employee15EmployeeAddressVAA0C0A2aDP6streetSSvgTW	// protocol witness for Address.street.getter in conformance EmployeeAddress
+  method #Address.city!getter: <Self where Self : Address> (Self) -> () -> String : @$s8employee15EmployeeAddressVAA0C0A2aDP4citySSvgTW	// protocol witness for Address.city.getter in conformance EmployeeAddress
+  method #Address.state!getter: <Self where Self : Address> (Self) -> () -> String : @$s8employee15EmployeeAddressVAA0C0A2aDP5stateSSvgTW	// protocol witness for Address.state.getter in conformance EmployeeAddress
+}
+...
 ```
 
+In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables along side with other intermediate declarations. Unfortunately, explanation of this is out of scope of this book. More about these topics can be obtained [here](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
+
+Furthermore the SIL gets through next two phases; guaranteed transformation and optimisation. 
+
+> SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+> SIL Optimizations: The SIL optimizations (implemented in lib/Analysis, lib/ARC, lib/LoopTransforms, and lib/Transforms) perform additional high-level, Swift-specific optimizations to the program, including (for example) Automatic Reference Counting optimizations, devirtualization, and generic specialization.
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+### LLVM IR (Intermediate Representation) Generation
+
+>IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at which point LLVM can continue to optimize it and generate machine code.
+
+Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
+
+To get the IR from the swiftc we can use the following command:
+
+```bash
+swiftc ./employee.swift -emit-ir | more
 ```
-SIL Optimizations: The SIL optimizations (implemented in lib/Analysis, lib/ARC, lib/LoopTransforms, and lib/Transforms) perform additional high-level, Swift-specific optimizations to the program, including (for example) Automatic Reference Counting optimizations, devirtualization, and generic specialization.
+Here we can see the LLVM's familiar declaration which in the next step would be transformed into machine code.
+
+```asm
+...
+entry:
+   %1 = getelementptr inbounds %__opaque_existential_type_1, %__opaque_existential_type_1* %0, i32 0, i32 1
+   %2 = load %swift.type*, %swift.type** %1, align 8
+   %3 = getelementptr inbounds %__opaque_existential_type_1, %__opaque_existential_type_1* %0, i32 0, i32 0
+   %4 = bitcast %swift.type* %2 to i8***
+   %5 = getelementptr inbounds i8**, i8*** %4, i64 -1
+   %.valueWitnesses = load i8**, i8*** %5, align 8, !invariant.load !64, !dereferenceable !65
+   %6 = bitcast i8** %.valueWitnesses to %swift.vwtable*
+   %7 = getelementptr inbounds %swift.vwtable, %swift.vwtable* %6, i32 0, i32 10
+   %flags = load i32, i32* %7, align 8, !invariant.load !64
+   %8 = and i32 %flags, 131072
+   %flags.isInline = icmp eq i32 %8, 0
+   br i1 %flags.isInline, label %inline, label %outline
+...   
 ```
 
-```
-LLVM IR Generation: IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at which point LLVM can continue to optimize it and generate machine code.
-```
+## Conclusion
+
+In this chapter the basics of swift compiler architecture were explored. I hope this (optional) chapter gave a high level overview and brought more curiosity into the topic of how compilers work. For more study I would refer to the following sources:
+
+[Swift Compiler](https://swift.org/swift-compiler/#compiler-architecture)
+
+[Understanding Swift Performance](https://developer.apple.com/videos/play/wwdc2016/416/)
+
+[Understanding method dispatch in Swift](https://heartbeat.fritz.ai/understanding-method-dispatch-in-swift-684801e718bc)
+
+[Method Dispatch in Swift](https://www.rightpoint.com/rplabs/switch-method-dispatch-table)
+
+[Getting Started with Swift Compiler Development](https://modocache.io/getting-started-with-swift-development)
 
 
 \newpage
