@@ -586,19 +586,19 @@ Realm: https://realm.io/docs/swift/latest
 
 \newpage
 # Swift Compiler (optional)
-Since we touched the Xcode's build system in the previous chapter it would be totally unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not a mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human readable code till running it on a bare metal.
+Since we touched the Xcode's build system in the previous chapter it would be unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human-readable code to running it on bare metal.
 
-While other chapters are rather essential for having good understanding for the development of the modular architecture, this chapter is optional.
+While other chapters are rather essential for having a good understanding of the development of modular architecture, this chapter is optional.
 
 ## Compiler Architecture
 
-To fully understand the swift's compiler architecture and it's process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples out of it. 
+To fully understand the swift's compiler architecture and its process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples out of it. 
 
 The following image describes the swiftc architecture. It consists of 7 steps, which are explained in subchapters. 
 
 ![Swiftc Architecture](assets/swiftc_arch.png)
 
-For the demonstration purposes, I prepared two simple swift source code files. First, employee.swift and second main.swift. employee.swift is a standalone source code while main.swift requires the Employee being linked to it as a library. All compiler steps are explained on the employee.swift but in the end the employee source code will be created as a library that the main file will consume and use.
+For demonstration purposes, I prepared two simple swift source code files. First, employee.swift and second main.swift. employee.swift is a standalone source code while main.swift requires the Employee being linked to it as a library. All compiler steps are explained on the employee.swift but in the end, the employee source code will be created as a library that the main file will consume and use.
 
 `employee.swift`
 ```swift
@@ -667,13 +667,13 @@ employee.printEmployeeInfo()
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-First of all comes the parsing. As the definition says, parser is responsible for lexical syntax check without any type check. The following command prints the parsed AST.
+First of all, comes the parsing. As the definition says, the parser is responsible for lexical syntax check without any type check. The following command prints the parsed AST.
 
 ```bash
 swiftc ./employee.swift -dump-parse
 ```
 
-In the output you can notice that the types are not resolved and are ending with errors.
+In the output, you can notice that the types are not resolved and are ending with errors.
 ```
 (source_file "./employee.swift"
 // Importing Foundation
@@ -713,7 +713,7 @@ In the output you can notice that the types are not resolved and are ending with
 
 From the parsed AST we can see that it is really descriptive. The source code of Employee.swift has 47 lines of code while its parsed AST without type check has 270. 
 
-Out of curiosity, let us have a look at how the tree would look like with syntax error. In order to do so, I added the winner of all times in hide and seek `;` to the protocol declaration.
+Out of curiosity, let us have a look at how the tree would look like with syntax error. To do so, I added the winner of all times in hide and seek `;` to the protocol declaration.
 
 ```swift
 public protocol Address {
@@ -735,7 +735,7 @@ After running the same command we can see a syntax error at the declaration of h
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Second comes the semantic analysis, from the definition of it, we should see fully type checked parsed AST. Executing the following command will give us the answer.
+Second comes the semantic analysis, from the definition of it, we should see fully type-checked parsed AST. Executing the following command will give us the answer.
 
 ```bash
 swiftc ./employee.swift -dump-ast
@@ -770,7 +770,7 @@ In the output all types are resolved and recognised by the compiler, errors no l
              (declref_expr implicit type='EmployeeAddress' decl=employee.(file).EmployeeAddress.<anonymous>.self@./employee.swift:34:16 function_ref=unapplied))))))
 ```
 
-Not surprisingly, when modifying a type for some unknown one the command results in error.
+Not surprisingly, when modifying a type for some unknown one the command results in an error.
 
 ```swift
 public protocol Address {
@@ -794,20 +794,20 @@ public protocol Address {
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Third is the clang importer. This is the well-known bridging of C/ObjC languages to the Swift API's and wise versa. 
+The third is the clang importer. This is the well-known bridging of C/ObjC languages to the Swift API's and wise versa. 
 
 ### SIL generation
 >The Swift Intermediate Language (SIL) is a high-level, Swift-specific intermediate language suitable for further analysis and optimization of Swift code. The SIL generation phase (implemented in lib/SILGen) lowers the type-checked AST into so-called “raw” SIL. The design of SIL is described in docs/SIL.rst.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Fourth comes the Swift Intermediate Language. Are you curious about how it looks like? In order to print it we can use the following command.
+Fourth comes the Swift Intermediate Language. Are you curious about how it looks like? To print it we can use the following command.
 
 ```bash
 swiftc ./employee.swift -emit-sil
 ```
 
-In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables along side with other intermediate declarations. Unfortunately, explanation of this is out of the scope of this book. More about these topics can be obtained [here](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
+In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained [here](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
 
 ```
 ...
@@ -843,7 +843,7 @@ sil_witness_table [serialized] EmployeeAddress: Address module employee {
 ...
 ```
 
-Furthermore the SIL gets through next two phases; guaranteed transformation and optimisation. 
+Furthermore, the SIL gets through next two phases; guaranteed transformation and optimisation. 
 
 > SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
 
@@ -895,7 +895,7 @@ The following command will export the employee.swift file as an Employee.dylib w
 swiftc ./employee.swift -emit-library -emit-module -parse-as-library -module-name Employee
 ```
 
-After executing the command, following files should be created.
+After executing the command, the following files should be created.
 
 ```bash
 380B Apr  2 13:36 Employee.swiftdoc
@@ -954,7 +954,7 @@ Cyril Cermak
 \newpage
 ## Conclusion
 
-In this chapter the basics of swift compiler architecture were explored. I hope this (optional) chapter gave a high level overview and brought more curiosity into the topic of how compilers work. For more study I would refer to the following sources:
+In this chapter, the basics of Swift compiler architecture were explored. I hope this (optional) chapter gave a high-level overview and brought more curiosity into the topic of how compilers work. For more study I would refer to the following sources:
 
 [Swift Compiler](https://swift.org/swift-compiler/#compiler-architecture)
 
