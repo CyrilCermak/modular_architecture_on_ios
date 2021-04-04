@@ -12,6 +12,9 @@ toc-own-page: true
 disable-header-and-footer: true
 footer-left: Modular Architecture on iOS/macOS
 titlepage-background: "assets/cover.png"
+linkcolor: black
+toccolor: black
+urlcolor: cyan
 ...
 
 \newpage
@@ -596,9 +599,9 @@ The following image describes the swiftc architecture. It consists of 7 steps, w
 
 ![Swiftc Architecture](assets/swiftc_arch.png)
 
-For the demonstration purposes, I prepared two simple swift source code files. First, Employee.swift and second main.swift. Employee.swift is a standalone source code while main.swift requires the Employee being linked to it as a library. All compiler steps are explained on the Employee.swift but in the end the employee source code will be created as a library that the main file will consume and use.
+For the demonstration purposes, I prepared two simple swift source code files. First, employee.swift and second main.swift. employee.swift is a standalone source code while main.swift requires the Employee being linked to it as a library. All compiler steps are explained on the employee.swift but in the end the employee source code will be created as a library that the main file will consume and use.
 
-`Employee.swift`
+`employee.swift`
 ```swift
 import Foundation
 
@@ -671,7 +674,7 @@ First of all comes the parsing. As the definition says, parser is responsible fo
 swiftc ./employee.swift -dump-parse
 ```
 
-In the output you can notice that the types are not resolved and are resolved with errors.
+In the output you can notice that the types are not resolved and are ending with errors.
 ```
 (source_file "./employee.swift"
 // Importing Foundation
@@ -863,7 +866,7 @@ Last comes the IR for LLVM. To get the IR from the swiftc we can use the followi
 ```bash
 swiftc ./employee.swift -emit-ir | more
 ```
-Here we can see a snippet of the LLVM's familiar declaration which in the next step would be transformed by it into machine code.
+Here we can see a snippet of the LLVM's familiar declaration which in the next step would be transformed by it into the machine code.
 
 ```asm
 ...
@@ -964,7 +967,7 @@ In this chapter the basics of swift compiler architecture were explored. I hope 
 
 [Getting Started with Swift Compiler Development](https://modocache.io/getting-started-with-swift-development)
 
-[@executable path, @load path and @rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
+[executable path, load path and rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
 
 \newpage
 # Development of the modular architecture
