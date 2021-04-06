@@ -41,7 +41,7 @@ Building large scalable iOS apps and frameworks with Domain-Driven Design
 \newpage
 
 # About the author
-Cyril Cermak is a software engineer by heart and the author of this book. Most of his professional career was spent building iOS apps or iOS frameworks. Beginning by Skoda Auto Connect App in Prague, continuing building iOS platform for Freelancer Ltd in Sydney, numerous start-ups on the side, and as of now being an iOS TechLead in Stuttgart for Porsche AG. In this book, Cyril describes different approaches for building modular iOS architecture so as some mechanisms and essential knowledge that should help you, the reader, to decide which approach would fit in the best or should be considered on your project.
+Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent by building iOS apps or iOS frameworks. Beginning by Skoda Auto Connect App in Prague, continuing building iOS platform for Freelancer Ltd in Sydney, numerous start-ups on the side, and as of now being an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architecture so as some mechanisms and essential knowledge that should help to decide which approach would fit in the best or should be considered on a project.
 
 ## Reviewers
 Joerg Nestele 
@@ -346,8 +346,6 @@ struct mach_header_64 {
 
 When the compiler produces the final executable the Mach-O header is placed at a concrete byte position in it. Therefore, tools that are working with the executables knows exactly where to look for desired information. The same principle applies to all other parts of Mach-O as well.  
 
-`// TODO: Redirect to an article or explain here?`
-
 For further exploration of Mach-O file, I would recommend reading the following [article](https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103.).
 
 ### Fat headers
@@ -386,8 +384,11 @@ otool -hv ./UIKit
 From the output of the Mach-O header we can see that the `cputype` is `X86_64` so as some extra information like which `flags` the library was compiled with, `filetype` and so on.
 ```
 Mach header
-      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds
+MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400
+
+      flags
+NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 ```
 
 ### Executable type
@@ -396,15 +397,21 @@ Second, let us determine what type of library we are dealing with. For that, we 
 
 ```
 Mach header
-      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400   NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds 
+MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400 
+
+      flags
+NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 ```
 From the output's `filetype` we can see that it is a dynamically linked library. From its extension, we can say it is a dynamically linked framework. As described before, a framework can be dynamically or statically linked. The perfect example of a statically linked framework is `GoogleMaps.framework`. When running the same command on the binary of `GoogleMaps` from the output we can see that the binary is NOT dynamically linked as its type is `OBJECT` aka object files which means that the library is static and linked to the attached executable at the compile time.
 
 ```
 Mach header
-      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-MH_MAGIC_64  X86_64        ALL  0x00      OBJECT     4       2688 SUBSECTIONS_VIA_SYMBOLS
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds
+MH_MAGIC_64  X86_64        ALL  0x00      OBJECT     4       2688
+
+      flags
+SUBSECTIONS_VIA_SYMBOLS
 ```
 The reason for wrapping the static library into a framework was the necessary include of `GoogleMaps.bundle` which needs to be copied to the target in order the library to work correctly with its resources.
 
@@ -413,11 +420,18 @@ Now, let's try to run the same command on the static library archive. As an exam
 ```
 Archive : ./libswiftCompatibility50.a (architecture armv7)
 Mach header
-      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-   MH_MAGIC     ARM         V7  0x00      OBJECT     4        588 SUBSECTIONS_VIA_SYMBOLS
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds
+   MH_MAGIC     ARM         V7  0x00      OBJECT     4        588
+
+     flags
+SUBSECTIONS_VIA_SYMBOLS
+   
 Mach header
-      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-   MH_MAGIC     ARM         V7  0x00      OBJECT     5        736 SUBSECTIONS_VIA_SYMBOLS
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds
+   MH_MAGIC     ARM         V7  0x00      OBJECT     5        736
+   
+      flags
+SUBSECTIONS_VIA_SYMBOLS
 ...
 ```
 
@@ -432,14 +446,14 @@ The output lists all dependencies of UIKit framework. For example, here you can 
 
 ```
 ./UIKit:
-	/System/Library/Frameworks/UIKit.framework/UIKit (compatibility version 1.0.0, current version 3987.0.109)
-	/System/Library/Frameworks/FileProvider.framework/FileProvider (compatibility version 1.0.0, current version 1.0.0, reexport)
-  /System/Library/Frameworks/Foundation.framework/Foundation (compatibility version 300.0.0, current version 1751.108.0)
-  /System/Library/PrivateFrameworks/DocumentManager.framework/DocumentManager (compatibility version 1.0.0, current version 200.0.0, reexport)
-	/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore (compatibility version 1.0.0, current version 3987.0.109, reexport)
-	/System/Library/PrivateFrameworks/ShareSheet.framework/ShareSheet (compatibility version 1.0.0, current version 1564.6.0, reexport)
-	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)
-	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1292.0.0)
+/System/Library/Frameworks/UIKit.framework/UIKit ...
+/System/Library/Frameworks/FileProvider.framework/FileProvider ...
+/System/Library/Frameworks/Foundation.framework/Foundation ...
+/System/Library/PrivateFrameworks/DocumentManager.framework/DocumentManager ...
+/System/Library/PrivateFrameworks/UIKitCore.framework/UIKitCore ...
+/System/Library/PrivateFrameworks/ShareSheet.framework/ShareSheet ...
+/usr/lib/libobjc.A.dylib ...
+/usr/lib/libSystem.B.dylib ...
 ```
 
 ### Symbols table
@@ -458,28 +472,27 @@ Unfortunately, the output here is very limited as those symbols listed are the o
 Just to give an example of how the symbols would look like I printed out compiled realm framework by running `nm -Ca ./Realm`. 
 ```
 ...
-00000000002c4650 T realm::Table::do_move_row(unsigned long, unsigned long)
-00000000002cb1e8 T realm::Table::do_set_link(unsigned long, unsigned long, unsigned long)
-00000000004305e0 S realm::Table::max_integer
-00000000004305e8 S realm::Table::min_integer
-00000000002c44b4 T realm::Table::do_swap_rows(unsigned long, unsigned long)
-00000000002ce9bc T realm::Table::find_all_int(unsigned long, long long)
-00000000002cb3ac T realm::Table::get_linklist(unsigned long, unsigned long)
-00000000002c4d64 T realm::Table::set_subtable(unsigned long, unsigned long, realm::Table const*)
-00000000002ba4f0 T realm::Table::add_subcolumn(std::__1::vector<unsigned long, std::__1::allocator<unsigned long> > const&, realm::DataType, realm::StringData)
-00000000002bd9f8 T realm::Table::create_column(realm::ColumnType, unsigned long, bool, realm::Allocator&)
-00000000002bf3fc T realm::Table::discard_views()
+2c4650 T realm::Table::do_move_row(unsigned long, unsigned long)
+2cb1e8 T realm::Table::do_set_link(unsigned long, unsigned long, unsigned long)
+4305e0 S realm::Table::max_integer
+4305e8 S realm::Table::min_integer
+2c44b4 T realm::Table::do_swap_rows(unsigned long, unsigned long)
+2ce9bc T realm::Table::find_all_int(unsigned long, long long)
+2cb3ac T realm::Table::get_linklist(unsigned long, unsigned long)
+2c4d64 T realm::Table::set_subtable(unsigned long, unsigned long, realm::Table const*)
+2bd9f8 T realm::Table::create_column(realm::ColumnType, unsigned long, bool, realm::Allocator&)
+2bf3fc T realm::Table::discard_views()
 ...
 ```
 It seems like Realm was developed in C++ but it can be clearly seen what kind of symbols are available within the binary. One more example for Swift with Alamofire. There we can, unfortunately, see that the `nm` was not able to demangle the symbols.  
 ```
 ...
-0000000000034d00 T _$s9Alamofire7RequestC8delegateAA12TaskDelegateCvM
-0000000000034dc0 T _$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg
-0000000000034e20 T _$s9Alamofire7RequestC7sessionSo12NSURLSessionCvg
-0000000000034e50 T _$s9Alamofire7RequestC7request10Foundation10URLRequestVSgvg
-00000000000350c0 T _$s9Alamofire7RequestC8responseSo17NSHTTPURLResponseCSgvg
-00000000000351e0 T _$s9Alamofire7RequestC10retryCountSuvpfi
+34d00 T _$s9Alamofire7RequestC8delegateAA12TaskDelegateCvM
+34dc0 T _$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg
+34e20 T _$s9Alamofire7RequestC7sessionSo12NSURLSessionCvg
+34e50 T _$s9Alamofire7RequestC7request10Foundation10URLRequestVSgvg
+350c0 T _$s9Alamofire7RequestC8responseSo17NSHTTPURLResponseCSgvg
+351e0 T _$s9Alamofire7RequestC10retryCountSuvpfi
 ...
 ```
 To demangle swift manually following command can be used.
@@ -489,9 +502,12 @@ nm -a ./Alamofire | awk '{ print $3 }' | xargs swift demangle {} \;
 Which produces the mangled symbol name with the demangled explanation.
 ```
 ...
-_$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg ---> Alamofire.Request.task.getter : __C.NSURLSessionTask?
-_$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvgTq ---> method descriptor for Alamofire.Request.task.getter : __C.NSURLSessionTask?
-_$s9Alamofire7RequestC10retryCountSuvpfi ---> variable initialization expression of Alamofire.Request.retryCount : Swift.UInt
+_$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvg
+  ---> Alamofire.Request.task.getter : __C.NSURLSessionTask?
+_$s9Alamofire7RequestC4taskSo16NSURLSessionTaskCSgvgTq
+  ---> method descriptor for Alamofire.Request.task.getter : __C.NSURLSessionTask?
+_$s9Alamofire7RequestC10retryCountSuvpfi
+  ---> variable initialization expression of Alamofire.Request.retryCount : Swift.UInt
 ...
 ```
 
@@ -548,41 +564,33 @@ I hope this chapter gave the essentials of what is the difference in between sta
 
 I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend; 
 
-How does the executable structure looks like:
+[Exploring iOS-es Mach-O Executable Structure](https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103)
 
-https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103
+[Static and Dynamic Libraries](https://pewpewthespells.com/blog/static_and_dynamic_libraries.html)
 
-Static and dynamic libraries and manual compile examples:
+[Difference in between static and dynamic library from our beloved StackOverflow](https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project)
 
-https://pewpewthespells.com/blog/static_and_dynamic_libraries.html
+[Dynamic Library Programming Topics](https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1)
 
-Difference in between static and dynamic library from our beloved StackOverflow:
+[Xcode Build System : Know it better](https://medium.com/flawless-app-stories/xcode-build-system-know-it-better-96936e7f52a)
 
-https://stackoverflow.com/questions/15331056/library-static-dynamic-or-framework-project-inside-another-project
+[Mach-O Executables](https://www.objc.io/issues/6-build-tools/mach-o-executables/)
 
-The official Apple documentation about dynamic libraries:
+[LLVM website](https://llvm.org/)
 
-https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/DynamicLibraries/000-Introduction/Introduction.html#//apple_ref/doc/uid/TP40001908-SW1
+[Behind the Scenes of the Xcode Build Process](https://developer.apple.com/videos/play/wwdc2018/415/)
 
-To know more about the Xcode build system:
-https://medium.com/flawless-app-stories/xcode-build-system-know-it-better-96936e7f52a
+[Building Faster in Xcode](https://developer.apple.com/videos/play/wwdc2018/408/)
 
-https://www.objc.io/issues/6-build-tools/mach-o-executables/
-
-https://llvm.org/
-
-https://developer.apple.com/videos/play/wwdc2018/415/
-
-https://developer.apple.com/videos/play/wwdc2018/408/
 
 
 Used binaries:
 
-GoogleMaps: https://developers.google.com/maps/documentation/ios-sdk/v3-client-migration#install-manually
+[GoogleMaps](https://developers.google.com/maps/documentation/ios-sdk/v3-client-migration#install-manually)
 
-Alamofire: https://github.com/Alamofire/Alamofire
+[Alamofire](https://github.com/Alamofire/Alamofire)
 
-Realm: https://realm.io/docs/swift/latest
+[Realm](https://realm.io/docs/swift/latest)
 
 \newpage
 # Swift Compiler (optional)
@@ -1245,7 +1253,7 @@ To add a developer into the authorised group, the developer needs to provide a p
 The encrypted file by GPG containing all project secrets can be then thoughtfully committed to the repository since only authorised developers who possess the private key can decrypt it. 
 
 ### GEM: Mobile Secrets
-Mobile Secrets gem is using XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
+[Mobile Secrets](https://github.com/CyrilCermak/mobile-secrets) gem is using XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
 
 Mobile Secrets itself can then initialise the GPG for the current project if it has not been done yet by running: `mobile-secrets --init-gpg .`.
 
