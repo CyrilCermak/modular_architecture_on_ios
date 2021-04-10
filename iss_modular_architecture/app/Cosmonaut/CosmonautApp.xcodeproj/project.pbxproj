@@ -10,6 +10,7 @@
 		017A2D0AFD4865FC138E3C71 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C63E64C51C7FE95EC2DFF7C /* ISSUIComponents.framework */; };
 		033AB2A8945724B6888614B1 /* ISSSpacesuitService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961A3CA8564AD44B2407659F /* ISSSpacesuitService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		17759BCF0B186492620EBCC9 /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 90F139269B7890A99DE11B98 /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B161029469373F97D7983D5 /* Pods_CosmonautApp_CosmonautAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02596DE26531E1CB5B2CB017 /* Pods_CosmonautApp_CosmonautAppUITests.framework */; };
 		2F593270A4B9DFFAF2FEABC4 /* CosmonautTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B51CA7ED7BBE5903F8BA53 /* CosmonautTests.swift */; };
 		3968AABA31297792A1BFA185 /* ISSCosmonautService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F518FB14E58E4E9FAF345E54 /* ISSCosmonautService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BF0EB8AA33ED6D538D1217B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 955041E135B3229E51BD8DED /* LaunchScreen.storyboard */; };
@@ -20,12 +21,14 @@
 		7A90963B57E836A22C838F86 /* ISSScaffold.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0C7DE05B53DF8B92DBB24F /* ISSScaffold.framework */; };
 		7F6BE9BE060C93BA18CCCB1D /* CosmonautUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38259F4709C80503445F4D37 /* CosmonautUITests.swift */; };
 		8BAAADC1D8FC78E4928435DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9DEFBB7369034D1F7AB5C166 /* Assets.xcassets */; };
+		8C49CDFA43FD7AF53BAF6E80 /* Pods_CosmonautAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8495C3678D2E02DB54304652 /* Pods_CosmonautAppTests.framework */; };
 		8FBF9C4DA23EAC22D15E033E /* ISSRadio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 40A707BDCFB6E193CB5A9517 /* ISSRadio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A1BC05FA7CE9DF655BB1E90 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F139269B7890A99DE11B98 /* ISSNetwork.framework */; };
 		B930846C445F10A1C0DB89A8 /* ISSScaffold.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A0C7DE05B53DF8B92DBB24F /* ISSScaffold.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B93391AEE475097669DBEFDD /* ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A8AD551936E2F19C0BC0C3F /* ISSPersistence.framework */; };
 		C7C7A5ABEC3B4F65CF821850 /* ISSCosmonautService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F518FB14E58E4E9FAF345E54 /* ISSCosmonautService.framework */; };
 		D0B61591F2964EB647BAEC13 /* ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961A3CA8564AD44B2407659F /* ISSSpacesuitService.framework */; };
+		E85B6A72D1D6103964AB43C0 /* Pods_CosmonautApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B97204EAF57FD24309A2AF12 /* Pods_CosmonautApp.framework */; };
 		E942DE60F07A58F6CA9B3379 /* ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A707BDCFB6E193CB5A9517 /* ISSRadio.framework */; };
 		EA0F975FEA998FDF370C4BD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90B709BF009AC8A1364CE04 /* AppDelegate.swift */; };
 		FF4949DCED9154E90CEBC4F8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5C63E64C51C7FE95EC2DFF7C /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -72,10 +75,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		02596DE26531E1CB5B2CB017 /* Pods_CosmonautApp_CosmonautAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CosmonautApp_CosmonautAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		134A613180FC3BAB71EA94A4 /* CosmonautAppUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		152D1FEB0BCDF95A02213134 /* Pods-CosmonautApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosmonautApp.debug.xcconfig"; path = "Target Support Files/Pods-CosmonautApp/Pods-CosmonautApp.debug.xcconfig"; sourceTree = "<group>"; };
 		1A8AD551936E2F19C0BC0C3F /* ISSPersistence.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BAE7198D5BDE7890A48A3D8 /* CosmonautApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CosmonautApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C45AAAA5B1F141DD9ED8931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3295BDE91E2C4493C196F50F /* Pods-CosmonautAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosmonautAppTests.release.xcconfig"; path = "Target Support Files/Pods-CosmonautAppTests/Pods-CosmonautAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		35096A3D9EA3C7644F9C4FD7 /* Pods-CosmonautApp-CosmonautAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosmonautApp-CosmonautAppUITests.release.xcconfig"; path = "Target Support Files/Pods-CosmonautApp-CosmonautAppUITests/Pods-CosmonautApp-CosmonautAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		38259F4709C80503445F4D37 /* CosmonautUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautUITests.swift; sourceTree = "<group>"; };
 		40A707BDCFB6E193CB5A9517 /* ISSRadio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CBD3193CE64BD9F7A081FBE /* CosmonautAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CosmonautAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,17 +91,38 @@
 		5A0C7DE05B53DF8B92DBB24F /* ISSScaffold.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSScaffold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B1B146B8E4828F7563ADA11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5C63E64C51C7FE95EC2DFF7C /* ISSUIComponents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AE443093543B09BD910B685 /* Pods-CosmonautApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosmonautApp.release.xcconfig"; path = "Target Support Files/Pods-CosmonautApp/Pods-CosmonautApp.release.xcconfig"; sourceTree = "<group>"; };
+		8495C3678D2E02DB54304652 /* Pods_CosmonautAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CosmonautAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90F139269B7890A99DE11B98 /* ISSNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A3CA8564AD44B2407659F /* ISSSpacesuitService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DEFBB7369034D1F7AB5C166 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B97204EAF57FD24309A2AF12 /* Pods_CosmonautApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CosmonautApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B51CA7ED7BBE5903F8BA53 /* CosmonautTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmonautTests.swift; sourceTree = "<group>"; };
 		D90B709BF009AC8A1364CE04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DB3FA7B567C5334F4810D4C6 /* Pods-CosmonautApp-CosmonautAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosmonautApp-CosmonautAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-CosmonautApp-CosmonautAppUITests/Pods-CosmonautApp-CosmonautAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DCFBED01279744697D221950 /* ISSCosmonaut.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSCosmonaut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC9F8E452FE150463859CD60 /* Pods-CosmonautAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CosmonautAppTests.debug.xcconfig"; path = "Target Support Files/Pods-CosmonautAppTests/Pods-CosmonautAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F518FB14E58E4E9FAF345E54 /* ISSCosmonautService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSCosmonautService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE0C9E4EF3312DADA811AB58 /* ISSSpacesuit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSSpacesuit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9309384B7F78B09C2907DEAF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B161029469373F97D7983D5 /* Pods_CosmonautApp_CosmonautAppUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E585487AFA5C0BE55035DA08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C49CDFA43FD7AF53BAF6E80 /* Pods_CosmonautAppTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E8B80B0220F17A9E0D40275D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +136,7 @@
 				E942DE60F07A58F6CA9B3379 /* ISSRadio.framework in Frameworks */,
 				B93391AEE475097669DBEFDD /* ISSPersistence.framework in Frameworks */,
 				017A2D0AFD4865FC138E3C71 /* ISSUIComponents.framework in Frameworks */,
+				E85B6A72D1D6103964AB43C0 /* Pods_CosmonautApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +171,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		66D4E15D8189654E4A198B62 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				152D1FEB0BCDF95A02213134 /* Pods-CosmonautApp.debug.xcconfig */,
+				7AE443093543B09BD910B685 /* Pods-CosmonautApp.release.xcconfig */,
+				DB3FA7B567C5334F4810D4C6 /* Pods-CosmonautApp-CosmonautAppUITests.debug.xcconfig */,
+				35096A3D9EA3C7644F9C4FD7 /* Pods-CosmonautApp-CosmonautAppUITests.release.xcconfig */,
+				EC9F8E452FE150463859CD60 /* Pods-CosmonautAppTests.debug.xcconfig */,
+				3295BDE91E2C4493C196F50F /* Pods-CosmonautAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		81CB5DF10728B4D1B54263DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +197,9 @@
 				FE0C9E4EF3312DADA811AB58 /* ISSSpacesuit.framework */,
 				961A3CA8564AD44B2407659F /* ISSSpacesuitService.framework */,
 				5C63E64C51C7FE95EC2DFF7C /* ISSUIComponents.framework */,
+				B97204EAF57FD24309A2AF12 /* Pods_CosmonautApp.framework */,
+				02596DE26531E1CB5B2CB017 /* Pods_CosmonautApp_CosmonautAppUITests.framework */,
+				8495C3678D2E02DB54304652 /* Pods_CosmonautAppTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,6 +212,7 @@
 				11239E196FA9B2F94EBAF235 /* CosmonautAppUITests */,
 				81CB5DF10728B4D1B54263DE /* Frameworks */,
 				2DF48D176028CA57B9F65C3F /* Products */,
+				66D4E15D8189654E4A198B62 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -187,10 +234,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 760A86A93368C993CC1E39F1 /* Build configuration list for PBXNativeTarget "CosmonautApp" */;
 			buildPhases = (
+				0CC2F54CB7076508255CF761 /* [CP] Check Pods Manifest.lock */,
 				4C307026C7F619F686B6E3F9 /* Sources */,
 				2740EA324F0E5C0E50F708A9 /* Resources */,
 				E8B80B0220F17A9E0D40275D /* Frameworks */,
 				603F7692A91A094ED0B1F730 /* Embed Frameworks */,
+				F7C81A902C8D0E85F78B76DC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -205,7 +254,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 112B63BBEF320A6F4B9D2D24 /* Build configuration list for PBXNativeTarget "CosmonautAppTests" */;
 			buildPhases = (
+				3D98531A7C52D4454D68B17A /* [CP] Check Pods Manifest.lock */,
 				C9324727BD2350BD4BAC7DA5 /* Sources */,
+				E585487AFA5C0BE55035DA08 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,7 +272,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F51D9C3EC7E57B95C333E8AC /* Build configuration list for PBXNativeTarget "CosmonautAppUITests" */;
 			buildPhases = (
+				13F2F1E1B912AB760F7A961F /* [CP] Check Pods Manifest.lock */,
 				D070118A795277C94C898E92 /* Sources */,
+				9309384B7F78B09C2907DEAF /* Frameworks */,
+				91BB1AA260C02763465658ED /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,6 +316,7 @@
 				en,
 			);
 			mainGroup = A2483B76C978FA8BD02AE097;
+			productRefGroup = 2DF48D176028CA57B9F65C3F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -283,6 +338,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0CC2F54CB7076508255CF761 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CosmonautApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13F2F1E1B912AB760F7A961F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CosmonautApp-CosmonautAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3D98531A7C52D4454D68B17A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CosmonautAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91BB1AA260C02763465658ED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CosmonautApp-CosmonautAppUITests/Pods-CosmonautApp-CosmonautAppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CosmonautApp-CosmonautAppUITests/Pods-CosmonautApp-CosmonautAppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CosmonautApp-CosmonautAppUITests/Pods-CosmonautApp-CosmonautAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7C81A902C8D0E85F78B76DC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CosmonautApp/Pods-CosmonautApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CosmonautApp/Pods-CosmonautApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CosmonautApp/Pods-CosmonautApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C307026C7F619F686B6E3F9 /* Sources */ = {
@@ -338,6 +496,7 @@
 /* Begin XCBuildConfiguration section */
 		1246C03D5D4EC0ED95B3DFA6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB3FA7B567C5334F4810D4C6 /* Pods-CosmonautApp-CosmonautAppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -360,12 +519,19 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CosmonautAppUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.CosmonautAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -436,7 +602,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -456,6 +625,7 @@
 		};
 		470D8CC3BF59D48AF3538AC2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AE443093543B09BD910B685 /* Pods-CosmonautApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -479,7 +649,10 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CosmonautApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				ONLY_ACTIVE_ARCH = YES;
@@ -559,14 +732,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -580,6 +760,7 @@
 		};
 		81D3E991B111E57A82DC10A3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35096A3D9EA3C7644F9C4FD7 /* Pods-CosmonautApp-CosmonautAppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -602,7 +783,10 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CosmonautAppUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				ONLY_ACTIVE_ARCH = YES;
@@ -622,6 +806,7 @@
 		};
 		88DFE918A76CBC343976B56C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 152D1FEB0BCDF95A02213134 /* Pods-CosmonautApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -645,12 +830,19 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CosmonautApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iss.CosmonautApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -664,6 +856,7 @@
 		};
 		98E8C758AF6E98F816333C31 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC9F8E452FE150463859CD60 /* Pods-CosmonautAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CosmonautAppTests/Info.plist;
@@ -681,6 +874,7 @@
 		};
 		E51898D7242884BBACC87294 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3295BDE91E2C4493C196F50F /* Pods-CosmonautAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = CosmonautAppTests/Info.plist;

@@ -11,9 +11,10 @@ import SnapKit
 import ISSUIComponents
 import ISSCosmonautService
 
+/// Main navigation coordinator for the Cosmonaut app
 public class CosmonautCoordinator: NavigationCoordinator {
     public enum CosmonautLink: DeepLink {
-        case none
+        case cosmonautDashboard
     }
     
     public lazy var navigationController: UINavigationController = UINavigationController()
@@ -23,6 +24,8 @@ public class CosmonautCoordinator: NavigationCoordinator {
     
     public init(cosmonautHealthService: CosmonautHealthServicing) {
         self.cosmonautHealthService = cosmonautHealthService
+        
+        addChildCoordinators()
     }
     
     private lazy var subscriptions = Set<AnyCancellable>()
@@ -35,7 +38,15 @@ public class CosmonautCoordinator: NavigationCoordinator {
     
     public func start(link: DeepLink) -> Bool {
         // Handling deep links
-        guard let link = link as? CosmonautLink else { return false }
+        guard let cosmonautLink = link as? CosmonautLink else {
+            // Searching for inner childs whether they can handle the link
+            return childCoordinators.map({ $0.start(link: link) }).contains(false)
+        }
+        
+        switch cosmonautLink {
+        case .cosmonautDashboard:
+            navigationController.popToRootViewController(animated: true)
+        }
         
         return true
     }
@@ -45,8 +56,10 @@ public class CosmonautCoordinator: NavigationCoordinator {
         comsonautVC.output.sink { [weak self] (action) in
             switch action {
             case .spaceSuit: break
+            //Handling inner child coordinators link
             case .healtCheck:
-                self?.presentHealthCheck()
+                _ = self?.childCoordinators
+                    .first(where: { $0.start(link: HealthCheckCoordinator.HealthCheckLink.healthCheck)})
             }
         }
         .store(in: &subscriptions)
@@ -54,28 +67,11 @@ public class CosmonautCoordinator: NavigationCoordinator {
         return comsonautVC
     }
     
-    private func presentHealthCheck() {
-        let healtModel = ComsonautHealthCheckViewModel(service: cosmonautHealthService)
-        let healthVC = ComsonautHealthCheckViewController(viewModel: healtModel)
-        healthVC.output
-            .sink { [weak healthVC, weak self] (action) in
-                switch action {
-                case .close: healthVC?.dismiss(animated: true, completion: nil)
-                case .heartBeat: self?.pushHeartBeat()
-                }
-            }
-            .store(in: &subscriptions)
+    private func addChildCoordinators() {
+        let healthCheck = HealthCheckCoordinator(cosmonautHealthService: cosmonautHealthService)
+        // Sharing the same navigation stack
+        healthCheck.navigationController = navigationController
         
-        navigationController.present(UINavigationController(rootViewController: healthVC), animated: true)
-    }
-    
-    private func pushHeartBeat() {
-        let heartBeatVC = CosmonautHeartBeatViewController()
-        if let healthNavigation = navigationController.presentedViewController as? UINavigationController {
-            healthNavigation.pushViewController(heartBeatVC, animated: true)
-            return
-        }
-        
-        navigationController.pushViewController(heartBeatVC, animated: true)
+        childCoordinators.append(healthCheck)
     }
 }

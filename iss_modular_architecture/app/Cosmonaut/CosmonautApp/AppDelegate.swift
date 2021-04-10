@@ -32,12 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private lazy var radioService = RadioService()
     
-    private lazy var cosmonautService: CosmonautHealthServicing = {
-        return CosmonautService(radio: radioService)
+    private lazy var cosmonautHealtService: CosmonautHealthServicing = {
+        return CosmonautHealthService(radio: radioService)
     }()
     
     private lazy var cosmonautCoordinator: CosmonautCoordinator = {
-        return CosmonautCoordinator(cosmonautHealthService: cosmonautService)
+        return CosmonautCoordinator(cosmonautHealthService: cosmonautHealtService)
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appCoordinator.childCoordinators = [
             cosmonautCoordinator
         ]
+        
         
         appCoordinator.start()
         return true

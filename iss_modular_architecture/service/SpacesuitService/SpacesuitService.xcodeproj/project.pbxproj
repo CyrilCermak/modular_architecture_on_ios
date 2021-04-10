@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		05A7D4F76F81EFE75BBC1253 /* ISSSpacesuitService.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E3B99B5A90E921F96C51650 /* ISSSpacesuitService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		21118D48B2AE5155A88D4396 /* Pods_ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601AFFF70CB5D2AB0CFB2754 /* Pods_ISSSpacesuitService.framework */; };
 		2A9AD428A71BC2ABB09393E9 /* ISSSpacesuitService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7427298F1170A6432A4CC26C /* ISSSpacesuitService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3111807C1FDA52021D0C8F8F /* ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7790C29FDC1A470C7033EEF9 /* ISSRadio.framework */; };
 		ACD3CD876E5D381CE8C0269A /* SpacesuitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40FFF61417C017D963B6FEE /* SpacesuitServiceTests.swift */; };
@@ -40,12 +41,15 @@
 
 /* Begin PBXFileReference section */
 		167B1D63064A423B875AA9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		601AFFF70CB5D2AB0CFB2754 /* Pods_ISSSpacesuitService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7427298F1170A6432A4CC26C /* ISSSpacesuitService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7790C29FDC1A470C7033EEF9 /* ISSRadio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E18D460B935AA55492CA6DD /* Pods-ISSSpacesuitService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSSpacesuitService.release.xcconfig"; path = "Target Support Files/Pods-ISSSpacesuitService/Pods-ISSSpacesuitService.release.xcconfig"; sourceTree = "<group>"; };
 		8E3B99B5A90E921F96C51650 /* ISSSpacesuitService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSSpacesuitService.h; sourceTree = "<group>"; };
 		B40FFF61417C017D963B6FEE /* SpacesuitServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesuitServiceTests.swift; sourceTree = "<group>"; };
 		C2618B44E1F98EF4C18328BB /* SpacesuitServiceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SpacesuitServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93D05246D3EA9BA81DF026D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F21FC927F2A05F19E265A555 /* Pods-ISSSpacesuitService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSSpacesuitService.debug.xcconfig"; path = "Target Support Files/Pods-ISSSpacesuitService/Pods-ISSSpacesuitService.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3111807C1FDA52021D0C8F8F /* ISSRadio.framework in Frameworks */,
+				21118D48B2AE5155A88D4396 /* Pods_ISSSpacesuitService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +89,7 @@
 				0E061D37D5189EDA1E16F792 /* SpacesuitServiceTests */,
 				31D3FCC1FF48DC01DC03959F /* Frameworks */,
 				77A51180D76A72D1438706D0 /* Products */,
+				CF18054226F022385D49C7E9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				7790C29FDC1A470C7033EEF9 /* ISSRadio.framework */,
+				601AFFF70CB5D2AB0CFB2754 /* Pods_ISSSpacesuitService.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,6 +118,16 @@
 				8E3B99B5A90E921F96C51650 /* ISSSpacesuitService.h */,
 			);
 			path = SpacesuitService;
+			sourceTree = "<group>";
+		};
+		CF18054226F022385D49C7E9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F21FC927F2A05F19E265A555 /* Pods-ISSSpacesuitService.debug.xcconfig */,
+				8E18D460B935AA55492CA6DD /* Pods-ISSSpacesuitService.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +166,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7156581C3134AAA2CC88F0C1 /* Build configuration list for PBXNativeTarget "ISSSpacesuitService" */;
 			buildPhases = (
+				D7F8030ACE685EF8F1849853 /* [CP] Check Pods Manifest.lock */,
 				3BFE18E0A029AFF563139FA0 /* Headers */,
 				C0E864B3E3ACECAAF2224B0C /* Sources */,
 				710436F9FB59A44E833D3DEB /* Frameworks */,
@@ -187,6 +205,7 @@
 				en,
 			);
 			mainGroup = 24F459178297E6018306B27A;
+			productRefGroup = 77A51180D76A72D1438706D0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -195,6 +214,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D7F8030ACE685EF8F1849853 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ISSSpacesuitService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C0E864B3E3ACECAAF2224B0C /* Sources */ = {
@@ -241,6 +285,7 @@
 		};
 		AE0016CCB193F0AB9CB6A1FE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E18D460B935AA55492CA6DD /* Pods-ISSSpacesuitService.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -320,7 +365,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -356,6 +404,7 @@
 		};
 		C9DE814B01BD5C2C1E9414E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F21FC927F2A05F19E265A555 /* Pods-ISSSpacesuitService.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -440,14 +489,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

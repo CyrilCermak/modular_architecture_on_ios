@@ -47,6 +47,13 @@ public class AppCoordinator: Coordinator {
                     coordinator.tabBarController = tabBarController
                     tabBarController.addChild(coordinator.tabBarController)
                 }
+                
+                coordinator.finish = { [weak self] deepLink in
+                    if let deepLink = deepLink {
+                        // Starting the search for a link within child coordinators from the top down again
+                        self?.start(link: deepLink)
+                    }
+                }
             }
             
             window.rootViewController = tabBarController
@@ -57,6 +64,7 @@ public class AppCoordinator: Coordinator {
         childCoordinators.first?.start()
     }
     
+    @discardableResult
     public func start(link: DeepLink) -> Bool {
         
         if let link = link as? AppLink {

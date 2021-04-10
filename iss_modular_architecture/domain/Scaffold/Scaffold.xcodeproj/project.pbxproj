@@ -13,6 +13,7 @@
 		CBB2C23773B160A8144B625C /* ScaffoldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3674C74769D562EBB87B0971 /* ScaffoldTests.swift */; };
 		D35DE196614BE3ED30E8FAFE /* ISSScaffold.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4892E33B413337FA061E4A5B /* ISSScaffold.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F753FCC2A6E0838BDF4FBC6B /* ISSScaffold.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4892E33B413337FA061E4A5B /* ISSScaffold.framework */; };
+		FFB330997AC39C56EB1ECFED /* Pods_ISSScaffold.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BF049C23BF7B3854D76183 /* Pods_ISSScaffold.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,14 +41,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1291A698C8615D105127C41F /* Pods-ISSScaffold.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSScaffold.release.xcconfig"; path = "Target Support Files/Pods-ISSScaffold/Pods-ISSScaffold.release.xcconfig"; sourceTree = "<group>"; };
 		1333F8874478EF90F5A7A948 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		3674C74769D562EBB87B0971 /* ScaffoldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaffoldTests.swift; sourceTree = "<group>"; };
 		418BB27485317D7E383CE57D /* ISSScaffold.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSScaffold.h; sourceTree = "<group>"; };
 		4892E33B413337FA061E4A5B /* ISSScaffold.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSScaffold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50BF049C23BF7B3854D76183 /* Pods_ISSScaffold.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSScaffold.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DAF7B66598699808651EB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		77164D759CA13A8BED72EEE4 /* ScaffoldTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ScaffoldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6D470BA7C8492F45BB89CD6 /* ISSUIComponents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6672610A3ECC97C142E3070 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E95F161220F5BED341CC14DD /* Pods-ISSScaffold.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSScaffold.debug.xcconfig"; path = "Target Support Files/Pods-ISSScaffold/Pods-ISSScaffold.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,12 +68,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC61FFF38B421E56FC14C7D4 /* ISSUIComponents.framework in Frameworks */,
+				FFB330997AC39C56EB1ECFED /* Pods_ISSScaffold.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02421A82A6AB48D1E1145FEB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E95F161220F5BED341CC14DD /* Pods-ISSScaffold.debug.xcconfig */,
+				1291A698C8615D105127C41F /* Pods-ISSScaffold.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
+			sourceTree = "<group>";
+		};
 		16004C509FBA82CEE5C867F2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				C6D470BA7C8492F45BB89CD6 /* ISSUIComponents.framework */,
+				50BF049C23BF7B3854D76183 /* Pods_ISSScaffold.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -121,6 +137,7 @@
 				47A457F54B920D8B6666050D /* ScaffoldTests */,
 				386E1F3E64BD32034EA6AC27 /* Frameworks */,
 				16004C509FBA82CEE5C867F2 /* Products */,
+				02421A82A6AB48D1E1145FEB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,6 +159,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C646E89642AB192B934831E9 /* Build configuration list for PBXNativeTarget "ISSScaffold" */;
 			buildPhases = (
+				AD595D48D308D60E6EA52690 /* [CP] Check Pods Manifest.lock */,
 				BB64DDE81013DC62CCEF3FE1 /* Headers */,
 				220D33F98C2059BB03D36F85 /* Sources */,
 				9524457A8F479DCE5809A6B7 /* Frameworks */,
@@ -198,6 +216,7 @@
 				en,
 			);
 			mainGroup = E53B950717DAED30EA796CE3;
+			productRefGroup = 16004C509FBA82CEE5C867F2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -206,6 +225,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AD595D48D308D60E6EA52690 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ISSScaffold-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		220D33F98C2059BB03D36F85 /* Sources */ = {
@@ -293,7 +337,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -313,6 +360,7 @@
 		};
 		7EC1B23FD363F43FDC674242 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E95F161220F5BED341CC14DD /* Pods-ISSScaffold.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -413,14 +461,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -450,6 +505,7 @@
 		};
 		C662CC5CADEE8D1D805C4838 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1291A698C8615D105127C41F /* Pods-ISSScaffold.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

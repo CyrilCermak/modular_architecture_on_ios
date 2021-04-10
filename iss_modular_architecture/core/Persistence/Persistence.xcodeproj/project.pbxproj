@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F3EB9D2B08B8F72D8A52335 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B784DAF4372A05441FEEBEE /* PersistenceTests.swift */; };
 		64684245B71D54DB99E39850 /* ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727B4C5F9AB07EABA374D2D3 /* ISSPersistence.framework */; };
+		8EF44B0D80BDCC961FD156D1 /* Pods_ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0968BFF09E94DED35A5350FE /* Pods_ISSPersistence.framework */; };
 		A162AF249C69269BF54BD971 /* ISSPersistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 727B4C5F9AB07EABA374D2D3 /* ISSPersistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FBEE5C4F5B8AB51A39F856B3 /* ISSPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 62E7DF604D965150D91ACFD4 /* ISSPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -38,15 +39,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0968BFF09E94DED35A5350FE /* Pods_ISSPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23B5EC9DDA17468E08BD3B78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		49AC459FE863C03B77F73B98 /* Pods-ISSPersistence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSPersistence.release.xcconfig"; path = "Target Support Files/Pods-ISSPersistence/Pods-ISSPersistence.release.xcconfig"; sourceTree = "<group>"; };
 		62E7DF604D965150D91ACFD4 /* ISSPersistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSPersistence.h; sourceTree = "<group>"; };
 		727B4C5F9AB07EABA374D2D3 /* ISSPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B784DAF4372A05441FEEBEE /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		A86AD3212600DA6D6CE37C55 /* PersistenceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PersistenceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E033602BD37FFCFCB2AF13E8 /* Pods-ISSPersistence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSPersistence.debug.xcconfig"; path = "Target Support Files/Pods-ISSPersistence/Pods-ISSPersistence.debug.xcconfig"; sourceTree = "<group>"; };
 		EE254E45E86FF0817181F1D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		376D1C61C2AA26DC6D2D62EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EF44B0D80BDCC961FD156D1 /* Pods_ISSPersistence.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		785EB548752597804A9A519D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -73,7 +85,17 @@
 				7A2DDED73057ED5960A9D35A /* Persistence */,
 				023AB64E8BA176EEFD020799 /* PersistenceTests */,
 				C36B7F390DD1DD7C2A175BD4 /* Products */,
+				A1DF68AE107B3D16C0D4E158 /* Pods */,
+				5B64CB4C1236D139D479D6C4 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		5B64CB4C1236D139D479D6C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0968BFF09E94DED35A5350FE /* Pods_ISSPersistence.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7A2DDED73057ED5960A9D35A /* Persistence */ = {
@@ -83,6 +105,16 @@
 				62E7DF604D965150D91ACFD4 /* ISSPersistence.h */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		A1DF68AE107B3D16C0D4E158 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E033602BD37FFCFCB2AF13E8 /* Pods-ISSPersistence.debug.xcconfig */,
+				49AC459FE863C03B77F73B98 /* Pods-ISSPersistence.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		C36B7F390DD1DD7C2A175BD4 /* Products */ = {
@@ -130,8 +162,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F7087933EC75B4101EF926E /* Build configuration list for PBXNativeTarget "ISSPersistence" */;
 			buildPhases = (
+				380BAF0DF0E7FECDF7A1F7A4 /* [CP] Check Pods Manifest.lock */,
 				7B56E6D5C437704764507A72 /* Headers */,
 				1326151DFDD8B71303D4A889 /* Sources */,
+				376D1C61C2AA26DC6D2D62EB /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -167,6 +201,7 @@
 				en,
 			);
 			mainGroup = 11C5AC99004679A7C157B48D;
+			productRefGroup = C36B7F390DD1DD7C2A175BD4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -175,6 +210,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		380BAF0DF0E7FECDF7A1F7A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ISSPersistence-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1326151DFDD8B71303D4A889 /* Sources */ = {
@@ -205,6 +265,7 @@
 /* Begin XCBuildConfiguration section */
 		2B442E94B10B99E4C06967D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49AC459FE863C03B77F73B98 /* Pods-ISSPersistence.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -289,14 +350,21 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited) -ObjC -lz";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lz",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG -Xfrontend -debug-time-function-bodies -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -366,7 +434,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LLVM_LTO = Monolithic;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -418,6 +489,7 @@
 		};
 		EEE09FF5A79BFD7E8E4DD655 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E033602BD37FFCFCB2AF13E8 /* Pods-ISSPersistence.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

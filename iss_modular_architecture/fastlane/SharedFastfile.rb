@@ -15,4 +15,6 @@ lane :generate do
     UI.success "Generating project: #{project_path.gsub(project_root, "")}"
     `xcodegen -s #{project_path}`
   end 
+  
+  cocoapods
 end

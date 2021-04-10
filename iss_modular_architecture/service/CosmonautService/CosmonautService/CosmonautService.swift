@@ -15,7 +15,7 @@ public protocol CosmonautHealthServicing {
     func stopHealthMonitoring()
 }
 
-public class CosmonautService: CosmonautHealthServicing {
+public class CosmonautHealthService: CosmonautHealthServicing {
     public private(set) var health: CosmonautHealth = CosmonautHealth()
     private var healthSubscription: AnyCancellable?
     private let radio: RadioService
