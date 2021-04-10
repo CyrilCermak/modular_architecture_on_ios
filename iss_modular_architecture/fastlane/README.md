@@ -15,14 +15,14 @@ Install _fastlane_ using
 or alternatively using `brew install fastlane`
 
 # Available Actions
-### make_new_project
-```
-fastlane make_new_project
-```
-
 ### generate
 ```
 fastlane generate
+```
+
+### make_new_project
+```
+fastlane make_new_project
 ```
 
 

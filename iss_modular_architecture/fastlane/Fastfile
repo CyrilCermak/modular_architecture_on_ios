@@ -1,4 +1,4 @@
-require 'SharedFastfile'
+import 'SharedFastfile.rb'
 require_relative 'scripts/ProjectFactory/project_factory'
 
 lane :make_new_project do |options|
