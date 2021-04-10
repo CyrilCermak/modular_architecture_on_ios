@@ -12,9 +12,7 @@ import ISSCosmonautService
 
 /// Not publicly exposed coordinator that is used internally from the CosmonautCoordinator
 class HealthCheckCoordinator: NavigationCoordinator {
-    enum HealthCheckLink: DeepLink {
-        case healthCheck, heartBeat
-    }
+    enum HealthCheckLink: DeepLink { case healthCheck, heartBeat }
     
     lazy var navigationController: UINavigationController = UINavigationController()
     

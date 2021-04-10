@@ -13,14 +13,14 @@ import ISSCosmonautService
 
 /// Main navigation coordinator for the Cosmonaut app
 public class CosmonautCoordinator: NavigationCoordinator {
-    public enum CosmonautLink: DeepLink {
-        case cosmonautDashboard
-    }
+    public enum CosmonautLink: DeepLink { case dashboard }
+    public enum CosmonautOutterLink: DeepLink { case spaceSuit }
     
     public lazy var navigationController: UINavigationController = UINavigationController()
     
     public var childCoordinators: [Coordinator] = []
     private let cosmonautHealthService: CosmonautHealthServicing
+    private lazy var registeredLinks = [CosmonautOutterLink: DeepLink]()
     
     public init(cosmonautHealthService: CosmonautHealthServicing) {
         self.cosmonautHealthService = cosmonautHealthService
@@ -44,20 +44,31 @@ public class CosmonautCoordinator: NavigationCoordinator {
         }
         
         switch cosmonautLink {
-        case .cosmonautDashboard:
+        case .dashboard:
             navigationController.popToRootViewController(animated: true)
         }
         
         return true
     }
     
+    public func register(outsideLink: DeepLink, for innerLink: DeepLink) {
+        guard let innerLink = innerLink as? CosmonautOutterLink else {
+            fatalError("Mapping link must be supported by the Coordinator")
+        }
+        
+        registeredLinks[innerLink] = outsideLink
+    }
+    
     private func makeCosmonautViewController() -> UIViewController {
         let comsonautVC = ComsonautViewController()
         comsonautVC.output.sink { [weak self] (action) in
             switch action {
-            case .spaceSuit: break
-            //Handling inner child coordinators link
+            case .spaceSuit:
+                // Handling outter unknown link to this module
+                let outterLink = self?.registeredLinks[CosmonautOutterLink.spaceSuit]
+                self?.finish?(outterLink)
             case .healtCheck:
+                // Handling private inner link to childs
                 _ = self?.childCoordinators
                     .first(where: { $0.start(link: HealthCheckCoordinator.HealthCheckLink.healthCheck)})
             }
@@ -71,7 +82,6 @@ public class CosmonautCoordinator: NavigationCoordinator {
         let healthCheck = HealthCheckCoordinator(cosmonautHealthService: cosmonautHealthService)
         // Sharing the same navigation stack
         healthCheck.navigationController = navigationController
-        
         childCoordinators.append(healthCheck)
     }
 }
