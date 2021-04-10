@@ -6,10 +6,12 @@
 //
 
 import UIKit
-import ISSScaffold
-import ISSCosmonaut
-import ISSCosmonautService
 import ISSRadio
+import ISSScaffold
+import ISSCosmonautService
+import ISSSpacesuitService
+import ISSCosmonaut
+import ISSSpacesuit
 
 struct CosmonautConfiguration {
     lazy var appCoordinator: AppCoordinator.Configuration = {
@@ -36,20 +38,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return CosmonautHealthService(radio: radioService)
     }()
     
+    private lazy var spacesuitService: SpacesuitService = {
+        return SpacesuitService(radio: radioService)
+    }()
+    
+    private lazy var spacesuitCoordinator: SpacesuitCoordinator = {
+        return SpacesuitCoordinator(spacesuitService: spacesuitService)
+    }()
+    
     private lazy var cosmonautCoordinator: CosmonautCoordinator = {
         return CosmonautCoordinator(cosmonautHealthService: cosmonautHealtService)
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
-        cosmonautCoordinator.register(outsideLink: CosmonautCoordinator.CosmonautLink.dashboard,
+        // Mapping outside link for the spacesuit for the Cosmonaut
+        cosmonautCoordinator.register(outsideLink: SpacesuitCoordinator.SpacesuitLink.spacesuit,
                                       for: CosmonautCoordinator.CosmonautOutterLink.spaceSuit)
         
         appCoordinator.childCoordinators = [
-            cosmonautCoordinator
+            cosmonautCoordinator,
+            spacesuitCoordinator
         ]
-        
         
         appCoordinator.start()
         return true

@@ -19,6 +19,7 @@ public class CosmonautCoordinator: NavigationCoordinator {
     public lazy var navigationController: UINavigationController = UINavigationController()
     
     public var childCoordinators: [Coordinator] = []
+    public var finish: ((DeepLink?) -> Void)?
     private let cosmonautHealthService: CosmonautHealthServicing
     private lazy var registeredLinks = [CosmonautOutterLink: DeepLink]()
     
@@ -40,7 +41,7 @@ public class CosmonautCoordinator: NavigationCoordinator {
         // Handling deep links
         guard let cosmonautLink = link as? CosmonautLink else {
             // Searching for inner childs whether they can handle the link
-            return childCoordinators.map({ $0.start(link: link) }).contains(false)
+            return childCoordinators.map({ $0.start(link: link) }).contains(true)
         }
         
         switch cosmonautLink {

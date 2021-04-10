@@ -17,6 +17,7 @@ class HealthCheckCoordinator: NavigationCoordinator {
     lazy var navigationController: UINavigationController = UINavigationController()
     
     var childCoordinators: [Coordinator] = []
+    public var finish: ((DeepLink?) -> Void)?
     private let cosmonautHealthService: CosmonautHealthServicing
     private lazy var subscriptions = Set<AnyCancellable>()
     

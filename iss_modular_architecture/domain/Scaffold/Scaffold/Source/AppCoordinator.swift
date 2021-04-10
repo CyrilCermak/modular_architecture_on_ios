@@ -35,7 +35,16 @@ public class AppCoordinator: Coordinator {
                 window.rootViewController = sharedNavigationController
                 
                 // By default sharing the same navigation stack
-                childCoordinators.forEach({ ($0 as? NavigationCoordinator)?.navigationController = sharedNavigationController })
+                childCoordinators.forEach { coordinator in
+                    (coordinator as? NavigationCoordinator)?.navigationController = sharedNavigationController
+                    
+                    coordinator.finish = { [weak self] deepLink in
+                        if let deepLink = deepLink {
+                            // Starting the search for a link within child coordinators from the top down again
+                            self?.start(link: deepLink)
+                        }
+                    }
+                }
             } else {
                 fatalError("No NavigationCoordinator found for initial screen")
             }

@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		05A7D4F76F81EFE75BBC1253 /* ISSSpacesuitService.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E3B99B5A90E921F96C51650 /* ISSSpacesuitService.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		21118D48B2AE5155A88D4396 /* Pods_ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 601AFFF70CB5D2AB0CFB2754 /* Pods_ISSSpacesuitService.framework */; };
+		073A173406B23EEA40722C9F /* Pods_ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1420BB9C2FD766B807CD9F13 /* Pods_ISSSpacesuitService.framework */; };
 		2A9AD428A71BC2ABB09393E9 /* ISSSpacesuitService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7427298F1170A6432A4CC26C /* ISSSpacesuitService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3111807C1FDA52021D0C8F8F /* ISSRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7790C29FDC1A470C7033EEF9 /* ISSRadio.framework */; };
 		ACD3CD876E5D381CE8C0269A /* SpacesuitServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40FFF61417C017D963B6FEE /* SpacesuitServiceTests.swift */; };
+		E5A6A7A3F6C7C91B14E31498 /* SpacesuitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4550A9DD5E86559DC6046F30 /* SpacesuitService.swift */; };
 		FD7351DA6C6F97EE64D6A954 /* ISSSpacesuitService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7427298F1170A6432A4CC26C /* ISSSpacesuitService.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,16 +41,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1420BB9C2FD766B807CD9F13 /* Pods_ISSSpacesuitService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		167B1D63064A423B875AA9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		601AFFF70CB5D2AB0CFB2754 /* Pods_ISSSpacesuitService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4550A9DD5E86559DC6046F30 /* SpacesuitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesuitService.swift; sourceTree = "<group>"; };
 		7427298F1170A6432A4CC26C /* ISSSpacesuitService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSSpacesuitService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7790C29FDC1A470C7033EEF9 /* ISSRadio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ISSRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E18D460B935AA55492CA6DD /* Pods-ISSSpacesuitService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSSpacesuitService.release.xcconfig"; path = "Target Support Files/Pods-ISSSpacesuitService/Pods-ISSSpacesuitService.release.xcconfig"; sourceTree = "<group>"; };
 		8E3B99B5A90E921F96C51650 /* ISSSpacesuitService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSSpacesuitService.h; sourceTree = "<group>"; };
 		B40FFF61417C017D963B6FEE /* SpacesuitServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesuitServiceTests.swift; sourceTree = "<group>"; };
+		B819CB9179C9DC36C2863048 /* Pods-ISSSpacesuitService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSSpacesuitService.debug.xcconfig"; path = "Target Support Files/Pods-ISSSpacesuitService/Pods-ISSSpacesuitService.debug.xcconfig"; sourceTree = "<group>"; };
 		C2618B44E1F98EF4C18328BB /* SpacesuitServiceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SpacesuitServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D50A95D716D0591825AD37F4 /* Pods-ISSSpacesuitService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSSpacesuitService.release.xcconfig"; path = "Target Support Files/Pods-ISSSpacesuitService/Pods-ISSSpacesuitService.release.xcconfig"; sourceTree = "<group>"; };
 		D93D05246D3EA9BA81DF026D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F21FC927F2A05F19E265A555 /* Pods-ISSSpacesuitService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSSpacesuitService.debug.xcconfig"; path = "Target Support Files/Pods-ISSSpacesuitService/Pods-ISSSpacesuitService.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3111807C1FDA52021D0C8F8F /* ISSRadio.framework in Frameworks */,
-				21118D48B2AE5155A88D4396 /* Pods_ISSSpacesuitService.framework in Frameworks */,
+				073A173406B23EEA40722C9F /* Pods_ISSSpacesuitService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +84,16 @@
 			path = SpacesuitServiceTests;
 			sourceTree = "<group>";
 		};
+		17C0144AA01893AD34426956 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B819CB9179C9DC36C2863048 /* Pods-ISSSpacesuitService.debug.xcconfig */,
+				D50A95D716D0591825AD37F4 /* Pods-ISSSpacesuitService.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
+			sourceTree = "<group>";
+		};
 		24F459178297E6018306B27A = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +101,7 @@
 				0E061D37D5189EDA1E16F792 /* SpacesuitServiceTests */,
 				31D3FCC1FF48DC01DC03959F /* Frameworks */,
 				77A51180D76A72D1438706D0 /* Products */,
-				CF18054226F022385D49C7E9 /* Pods */,
+				17C0144AA01893AD34426956 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				7790C29FDC1A470C7033EEF9 /* ISSRadio.framework */,
-				601AFFF70CB5D2AB0CFB2754 /* Pods_ISSSpacesuitService.framework */,
+				1420BB9C2FD766B807CD9F13 /* Pods_ISSSpacesuitService.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,18 +128,9 @@
 			children = (
 				167B1D63064A423B875AA9CE /* Info.plist */,
 				8E3B99B5A90E921F96C51650 /* ISSSpacesuitService.h */,
+				4550A9DD5E86559DC6046F30 /* SpacesuitService.swift */,
 			);
 			path = SpacesuitService;
-			sourceTree = "<group>";
-		};
-		CF18054226F022385D49C7E9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F21FC927F2A05F19E265A555 /* Pods-ISSSpacesuitService.debug.xcconfig */,
-				8E18D460B935AA55492CA6DD /* Pods-ISSSpacesuitService.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,7 +169,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7156581C3134AAA2CC88F0C1 /* Build configuration list for PBXNativeTarget "ISSSpacesuitService" */;
 			buildPhases = (
-				D7F8030ACE685EF8F1849853 /* [CP] Check Pods Manifest.lock */,
+				55ACCA1B2D413C9B8F103B9F /* [CP] Check Pods Manifest.lock */,
 				3BFE18E0A029AFF563139FA0 /* Headers */,
 				C0E864B3E3ACECAAF2224B0C /* Sources */,
 				710436F9FB59A44E833D3DEB /* Frameworks */,
@@ -216,7 +219,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D7F8030ACE685EF8F1849853 /* [CP] Check Pods Manifest.lock */ = {
+		55ACCA1B2D413C9B8F103B9F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,6 +248,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A6A7A3F6C7C91B14E31498 /* SpacesuitService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +289,7 @@
 		};
 		AE0016CCB193F0AB9CB6A1FE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E18D460B935AA55492CA6DD /* Pods-ISSSpacesuitService.release.xcconfig */;
+			baseConfigurationReference = D50A95D716D0591825AD37F4 /* Pods-ISSSpacesuitService.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -404,7 +408,7 @@
 		};
 		C9DE814B01BD5C2C1E9414E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F21FC927F2A05F19E265A555 /* Pods-ISSSpacesuitService.debug.xcconfig */;
+			baseConfigurationReference = B819CB9179C9DC36C2863048 /* Pods-ISSSpacesuitService.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

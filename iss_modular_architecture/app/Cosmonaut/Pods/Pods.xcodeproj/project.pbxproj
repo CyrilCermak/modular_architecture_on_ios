@@ -79,6 +79,7 @@
 		4187AD4ABE46BF3EEF5057E1EA1A6C7E /* LayerDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A39C01EDC22B852258659F97AD149A /* LayerDebugging.swift */; };
 		4268E348E6D5E9037A640ADC8E065009 /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D0FC5A530CC79EEC45FA4F27244D7C /* ConstraintMakerEditable.swift */; };
 		428BCD8108E22402A27AB9E14B81803B /* AssetLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8EEF2626B68E0948A22A75ABDCEB85E /* AssetLibrary.swift */; };
+		42CB333AA62A7CD09F837EAE93847194 /* Pods-ISSSpacesuit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C8D98EF99782FDE1DFC24740A92326C7 /* Pods-ISSSpacesuit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42CF488349396DFCBB691E408F5ACFDC /* registry_search.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F911CA08C78725D4580B823B697956 /* registry_search.c */; };
 		44CEBA01B3CE2A17FF602676D64147F5 /* Pods-CosmonautApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5307B52EF22F847F161C087AC88D8FF7 /* Pods-CosmonautApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45034319504DFABDB4B054CEE158A0A2 /* InterpolatableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FDF7612221504D68D860F59956E41 /* InterpolatableExtensions.swift */; };
@@ -86,6 +87,7 @@
 		45ADBF1ACAB9E68A7238DF030ACA693E /* PointValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5EC25F30351E24384C8368299E830B /* PointValueProvider.swift */; };
 		45ED899AAF87178689F1A2F9F794BFF0 /* AlertConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD933653BF4695CC56E00DF17FAAF90 /* AlertConstants.swift */; };
 		4602C39C47548F427A42F0A64CF815A6 /* EllipseNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA60F517CD0EDC4AFAFA53DD857CE39 /* EllipseNode.swift */; };
+		476F0C4A2730BCF5A43E31275D1A5BD1 /* Pods-ISSSpacesuit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9E44615A9BCFBF3377937E85FB787C /* Pods-ISSSpacesuit-dummy.m */; };
 		48935295FFB2FF7C4601B10481A793A3 /* RectNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315E80CC6926672B6352606B637DB36F /* RectNode.swift */; };
 		48C3D5613566FD8BAE58DEF4622023F4 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7D2D284E3AB496CEA833B916E11573 /* DateExtension.swift */; };
 		49B6AEE73E657A3A6F84FB1914D0F7BC /* CompositionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721EAF3B84317B320B8AFA7F7D139582 /* CompositionLayer.swift */; };
@@ -120,6 +122,7 @@
 		6309A7F45DFD983A2C470CA095B19DF4 /* AnimatorNodeDebugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF6409EF6F22FF063A3BBBE0B50377B /* AnimatorNodeDebugging.swift */; };
 		66703B151576B784C85C4A9BFC42EC9F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A86E45F80EF1BAC759C2A60A21C3D16 /* Color.swift */; };
 		67614DC4A4156453B70DA8716D3559E6 /* Vectors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ACD2B80841C7565832099E77CEE9A3 /* Vectors.swift */; };
+		67B3D5F731A63AB93A2891BCB39F1C25 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1EB190C93369D5DA351D6BAD8630FE /* Foundation.framework */; };
 		67E7A2DEC871767F37C353078F88072E /* SolidLayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C76DFB79E960EF3BC50234E52B1F6E /* SolidLayerModel.swift */; };
 		67F95E4C8A51592460360F657028B4A5 /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D8998C2854D168952D4CD39F704C17 /* ImageAsset.swift */; };
 		694F1F4846719998FD309A2AAA582E89 /* AnyValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B869BE6228F5B503FD0EFA37F17B595B /* AnyValueProvider.swift */; };
@@ -142,7 +145,6 @@
 		79911B14DF7966BAA0E62A902D51D84C /* LRUAnimationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD5604DDB86F12A135814B84662688F /* LRUAnimationCache.swift */; };
 		799A4317DDF7F610C95328344C2DB7C8 /* Pods-CosmonautApp-CosmonautAppUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EA35CBB6E09C335ABA6C02E7B1418CB1 /* Pods-CosmonautApp-CosmonautAppUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		799ECC1A363A4BCFA5403D1F9A73337D /* ImageLayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA04199F122305E611B3E45C23C4613 /* ImageLayerModel.swift */; };
-		7AA9FF67B9522C27EB18E4B54DA87811 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1EB190C93369D5DA351D6BAD8630FE /* Foundation.framework */; };
 		7C0D9273B9D1186ADED64215D42C52EB /* Pods-ISSCosmonautService-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A156CDF936422400493B70FC5B7F6087 /* Pods-ISSCosmonautService-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7D1B806D3E28D928E8038119EEFC7D83 /* GradientStroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = F690759895B5F46F42EA427AD776E637 /* GradientStroke.swift */; };
 		7D22080D16757D83FBA65439560451F5 /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01086932D97D21B31BE26C652CB6EEE2 /* ShapeNode.swift */; };
@@ -183,7 +185,6 @@
 		9E6240D50599D8306AA78300F26DE364 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C26713CB81EBA571C4041AF8EA40282 /* BundleExtension.swift */; };
 		9EE2D363A721ACFA89B5B899E1987633 /* ConstraintConstantTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55742904C72FBFC0D0B096E997AECFA1 /* ConstraintConstantTarget.swift */; };
 		9F498ADFC4014B9184AE2CC69830597A /* TextCompositionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324A5ACBDFB533FFBD09F855C06B492B /* TextCompositionLayer.swift */; };
-		A04A69393818A6FBBFCB1E172798F58C /* Pods-ISSSpacesuit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C8D98EF99782FDE1DFC24740A92326C7 /* Pods-ISSSpacesuit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A04D46C4C48247D004BAE5C7AD6E05A3 /* ConstraintConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA55A9F7C2E82585B4E859DF12D00B7 /* ConstraintConfig.swift */; };
 		A0FABCD7F69B7F42F2B5B52131D88E65 /* KeyframeGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50172805E680CDB7CF55EC8D4FFC800 /* KeyframeGroup.swift */; };
 		A17091C4234C96104F9050779776D831 /* AnimationTextProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF61B25F041C032DA817FBF750A3376 /* AnimationTextProvider.swift */; };
@@ -242,7 +243,6 @@
 		CFE87605611348B24D19663DFE5FBFC2 /* CompositionLayersInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993D721D05FD2F189D84E3E0EEF125BE /* CompositionLayersInitializer.swift */; };
 		D059BC9A226D5140B8B4DA517B89C898 /* Pods-ISSScaffold-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F3CCE5D3763D09E4D3E56CF19F3B9B /* Pods-ISSScaffold-dummy.m */; };
 		D12D1E5BBD837D7E46C3562C3C3B4649 /* AnimationKeypathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12673707F0BB1146D32B4AB0FF245B /* AnimationKeypathExtension.swift */; };
-		D4B785D0DDCB83E4A5C60679951E37BA /* Pods-ISSSpacesuit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9E44615A9BCFBF3377937E85FB787C /* Pods-ISSSpacesuit-dummy.m */; };
 		D5316091182F14074B24C6AB0E6A54E1 /* FloatValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFCFFACAA1F6FB65D00608F11B00DE4 /* FloatValueProvider.swift */; };
 		D57406506D15AF64AB32F6986A656AF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF1EB190C93369D5DA351D6BAD8630FE /* Foundation.framework */; };
 		D61B5673087E8D92057B7B1B1B122800 /* RulesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3F11180E6104D7C7C894076F575D2E /* RulesManager.swift */; };
@@ -357,6 +357,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6F1FB895CC1291D054E2CDBB81121BA9;
 			remoteInfo = TrustKit;
+		};
+		435652CACF6E2349578D6ED0A081A5D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 19622742EBA51E823D6DAE3F8CDBFAD4;
+			remoteInfo = SnapKit;
 		};
 		6B9A5D8CABFFD31A2818699E28966ADA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -831,6 +838,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0DF3A61A492720BA8396A9F50D034F9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67B3D5F731A63AB93A2891BCB39F1C25 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1DB0C1A7F432CC578190B068A9E46951 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -901,14 +916,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F34B90BD26BAB1CD05A09FE019C8E3C /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		940C3182E028A8FEED6125B2BA5BFE5B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7AA9FF67B9522C27EB18E4B54DA87811 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1672,6 +1679,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9C7AFA0928B2DBFFE381DC060A3A3C6C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42CB333AA62A7CD09F837EAE93847194 /* Pods-ISSSpacesuit-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E356E9CF1AE432BD5E8DFC5A67804B2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1693,14 +1708,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				02D3B12E6500F0AA179EB63A0D47A882 /* Pods-ISSRadio-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C675F1EBB869D7A7A8BB040DA46812C1 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A04A69393818A6FBBFCB1E172798F58C /* Pods-ISSSpacesuit-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1955,16 +1962,17 @@
 		};
 		9D91606CAB697CCBF9B4DCC0F2DE3D7E /* Pods-ISSSpacesuit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83B635E0A37454B65BD84B35A2909A0D /* Build configuration list for PBXNativeTarget "Pods-ISSSpacesuit" */;
+			buildConfigurationList = BC2E9676DDEA0F2E8F78B6203E372A7D /* Build configuration list for PBXNativeTarget "Pods-ISSSpacesuit" */;
 			buildPhases = (
-				C675F1EBB869D7A7A8BB040DA46812C1 /* Headers */,
-				F04CAA63F99EF285207B7CF05EF28B32 /* Sources */,
-				940C3182E028A8FEED6125B2BA5BFE5B /* Frameworks */,
-				FEBE3EBC8A8A6AA8FB0AFC520A087083 /* Resources */,
+				9C7AFA0928B2DBFFE381DC060A3A3C6C /* Headers */,
+				21CFF388E3DC11424C998C28D10C1A11 /* Sources */,
+				0DF3A61A492720BA8396A9F50D034F9C /* Frameworks */,
+				321FF4D4CAD6BBA07BC3F66435978DC8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				448043962CC27AE1261802295F52F1E8 /* PBXTargetDependency */,
 			);
 			name = "Pods-ISSSpacesuit";
 			productName = "Pods-ISSSpacesuit";
@@ -2150,6 +2158,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		321FF4D4CAD6BBA07BC3F66435978DC8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3E5683093FBE0B4684A9005DB38F0990 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2241,13 +2256,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FEBE3EBC8A8A6AA8FB0AFC520A087083 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2264,6 +2272,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				10C4C91F9597BCA1E40B7DDCE23BE05B /* Pods-CosmonautApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21CFF388E3DC11424C998C28D10C1A11 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				476F0C4A2730BCF5A43E31275D1A5BD1 /* Pods-ISSSpacesuit-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2543,14 +2559,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F04CAA63F99EF285207B7CF05EF28B32 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D4B785D0DDCB83E4A5C60679951E37BA /* Pods-ISSSpacesuit-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F6EBC4ABE23F153D600995A1652DC89E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2637,6 +2645,12 @@
 			name = SnapKit;
 			target = 19622742EBA51E823D6DAE3F8CDBFAD4 /* SnapKit */;
 			targetProxy = 1AFD771DF8EEE286B0C98C86A9F63CBF /* PBXContainerItemProxy */;
+		};
+		448043962CC27AE1261802295F52F1E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SnapKit;
+			target = 19622742EBA51E823D6DAE3F8CDBFAD4 /* SnapKit */;
+			targetProxy = 435652CACF6E2349578D6ED0A081A5D6 /* PBXContainerItemProxy */;
 		};
 		5522C736D8029DD6173B024EFBF8C6E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2886,6 +2900,44 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		1CA139CF14F8B2D63CD40432B5C84B6E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17AC6AADD78B65B8DBDAE12CE27E7AAE /* Pods-ISSSpacesuit.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		24C704CC1A8924FE25B5A7BE270AD232 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -3363,6 +3415,43 @@
 			};
 			name = Release;
 		};
+		7C225098CC1044EA2A0F8A16AEA0CB93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45FDF67E74A50C2B587E79CB684631A1 /* Pods-ISSSpacesuit.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		8CDF1813463F15F8E42D5B820080F835 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 09C4EEB65C7AE09FE245A1D72E7D1A4F /* Pods-ISSUIComponents.release.xcconfig */;
@@ -3826,81 +3915,6 @@
 			};
 			name = Debug;
 		};
-		DB5B4D63D9D66C85BF7060C3E9DF7800 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17AC6AADD78B65B8DBDAE12CE27E7AAE /* Pods-ISSSpacesuit.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		E14D8CE613FC206D9B23F2EDC93D6A03 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 45FDF67E74A50C2B587E79CB684631A1 /* Pods-ISSSpacesuit.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-ISSSpacesuit/Pods-ISSSpacesuit.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		EF6ACBBBC174A45E35BED237A5F9A185 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D725202D95A9AD661FEA05CE5279AE08 /* Siren.debug.xcconfig */;
@@ -4150,15 +4164,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83B635E0A37454B65BD84B35A2909A0D /* Build configuration list for PBXNativeTarget "Pods-ISSSpacesuit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E14D8CE613FC206D9B23F2EDC93D6A03 /* Debug */,
-				DB5B4D63D9D66C85BF7060C3E9DF7800 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		83C7F786A34F34ED7E15EDD719A46796 /* Build configuration list for PBXNativeTarget "Pods-CosmonautAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -4191,6 +4196,15 @@
 			buildConfigurations = (
 				CA26522F41E93E019C81319D29C8F1D7 /* Debug */,
 				C9F15CD56DECAEBF36F41E37FE7A72C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC2E9676DDEA0F2E8F78B6203E372A7D /* Build configuration list for PBXNativeTarget "Pods-ISSSpacesuit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C225098CC1044EA2A0F8A16AEA0CB93 /* Debug */,
+				1CA139CF14F8B2D63CD40432B5C84B6E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

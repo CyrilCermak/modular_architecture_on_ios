@@ -32,6 +32,7 @@ $persistence_project_path = '../../core/Persistence/Persistence.xcodeproj'
 $uicomponents_libs = [$snapKit, $siren, $lottie]
 $network_libs = [$trustKit]
 $cosmonaut_libs = [$snapKit]
+$spacesuit_libs = [$snapKit]
 
 # Helper variable for scripting to determine target's project
 $projects = [
@@ -56,7 +57,7 @@ end
 
 def spacesuit_sdk
   target_name = 'ISSSpacesuit'
-  install target_name, $spacesuit_project_path, []
+  install target_name, $spacesuit_project_path, $spacesuit_libs
 end
 
 def cosmonaut_sdk

@@ -24,8 +24,18 @@ private struct DataFactory {
 }
 """
     }
+    
+    static var spacesuitJson: String { """
+{
+"outsideTemperature": \(Double.random(in: 270.1...270.45)),
+"charge": "\(Int.random(in: 90...100))%",
+"pressure": \(Double.random(in: 0...0.5)),
+}
+"""
+    }
 }
 
+/// Handling known sets of Bluetooth connectable peripheries
 public class RadioService: RadioServicing {
     public enum Connectable {
         case spacesuit, cosmonautHealthCheck
@@ -44,7 +54,7 @@ public class RadioService: RadioServicing {
             observeHealthValues()
             return healthPublisher.eraseToAnyPublisher()
         case .spacesuit:
-            // TODO: Observe spacesuit values
+            observeSpacesuitValues()
             return spacesuitPublisher.eraseToAnyPublisher()
         }
     }
@@ -64,6 +74,17 @@ public class RadioService: RadioServicing {
                 guard let data = DataFactory.healthJson.data(using: .utf8) else { return }
                 
                 healthPublisher?.send(data)
+            })
+    }
+    
+    /// Mocking the real radio
+    private func observeSpacesuitValues() {
+        healthTimer = Timer.publish(every: 1, on: .main, in: .default)
+            .autoconnect()
+            .sink(receiveValue: { [weak spacesuitPublisher](_) in
+                guard let data = DataFactory.spacesuitJson.data(using: .utf8) else { return }
+                
+                spacesuitPublisher?.send(data)
             })
     }
 }
