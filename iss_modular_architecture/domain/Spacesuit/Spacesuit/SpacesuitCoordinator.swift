@@ -14,17 +14,16 @@ import ISSSpacesuitService
 public class SpacesuitCoordinator: NavigationCoordinator {
     public enum SpacesuitLink: DeepLink { case spacesuit }
     
-    public lazy var navigationController: UINavigationController = UINavigationController()
-    
-    public var childCoordinators: [Coordinator] = []
     private let spacesuitService: SpacesuitServicing
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    public lazy var navigationController: UINavigationController = UINavigationController()
+    public var childCoordinators: [Coordinator] = []
     public var finish: ((DeepLink?) -> Void)?
     
     public init(spacesuitService: SpacesuitServicing) {
         self.spacesuitService = spacesuitService
     }
-    
-    private lazy var subscriptions = Set<AnyCancellable>()
     
     public func start() {
         presentSpacesuit()
@@ -47,6 +46,12 @@ public class SpacesuitCoordinator: NavigationCoordinator {
     private func presentSpacesuit() {
         let spacesuitVM = SpacesuitViewModel(service: spacesuitService)
         let spacesuitVC = SpacesuitViewController(viewModel: spacesuitVM)
+        spacesuitVC.output
+            .sink { [weak spacesuitVC] (action) in
+                switch action {
+                case .close: spacesuitVC?.dismiss(animated: true, completion: nil)
+                }
+            }.store(in: &subscriptions)
         
         navigationController.present(UINavigationController(rootViewController: spacesuitVC),
                                      animated: true,
