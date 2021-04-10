@@ -9,15 +9,21 @@ import Foundation
 import Combine
 
 
-public enum Method: String { case get, post, update, delete }
+public enum HTTPMethod: String { case get, post, update, delete }
 public protocol Request {
     typealias Headers = [String: String]
     
     var url: URL { get }
-    var method: Method { get }
+    var method: HTTPMethod { get }
     var queryParams: [URLQueryItem]? { get }
     var headers: Headers { get }
     var body: Data? { get }
+}
+
+public extension Request {
+    var queryParams: [URLQueryItem]? { return [] }
+    var headers: Headers { return [:] }
+    var body: Data? { return nil }
 }
 
 public protocol URLRequestBuilding {
@@ -40,6 +46,8 @@ public protocol NetworkServicing: AnyObject {
 }
 
 public class NetworkService: NetworkServicing {
+    
+    public init() {}
     
     public func send<T>(request: Request, type: T.Type) -> AnyPublisher<T, Error> where T: Decodable {
         let urlRequest = URLRequestBuilder().build(request: request)

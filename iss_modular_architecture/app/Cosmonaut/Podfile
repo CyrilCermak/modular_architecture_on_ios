@@ -11,6 +11,7 @@ scaffold_sdk
 # Service
 spacesuitservice_sdk
 cosmonautservice_sdk
+overviewservice_sdk
 # Core
 network_sdk
 radio_sdk

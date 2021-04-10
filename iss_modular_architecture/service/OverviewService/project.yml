@@ -1,0 +1,29 @@
+# Import of the main build_settings file
+include:
+  - ../../fastlane/build_settings.yml
+
+# Definition of the project
+name: OverviewService
+settings:
+  groups:
+    - BuildSettings
+
+# Definition of the targets that exists within the project
+targets:
+  
+  # The main application
+  ISSOverviewService:
+    type: framework
+    platform: iOS
+    sources: OverviewService
+    dependencies:
+    - framework: ISSNetwork.framework
+      implicit: true
+  
+  # Tests for the main application
+  OverviewServiceTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: OverviewServiceTests
+    dependencies:
+      - target: ISSOverviewService

@@ -18,9 +18,9 @@ public protocol CosmonautHealthServicing {
 public class CosmonautHealthService: CosmonautHealthServicing {
     public private(set) var health: CosmonautHealth = CosmonautHealth()
     private var healthSubscription: AnyCancellable?
-    private let radio: RadioService
+    private let radio: RadioServicing
     
-    public init(radio: RadioService) {
+    public init(radio: RadioServicing) {
         self.radio = radio
     }
     

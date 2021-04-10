@@ -7,9 +7,11 @@
 
 import UIKit
 import ISSRadio
+import ISSNetwork
 import ISSScaffold
 import ISSCosmonautService
 import ISSSpacesuitService
+import ISSOverviewService
 import ISSCosmonaut
 import ISSSpacesuit
 
@@ -32,14 +34,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                               configuration: configuration.appCoordinator)
     }()
     
-    private lazy var radioService = RadioService()
+    private lazy var radioService: RadioServicing = RadioService()
+    private lazy var networkService: NetworkServicing = NetworkService()
     
     private lazy var cosmonautHealtService: CosmonautHealthServicing = {
         return CosmonautHealthService(radio: radioService)
     }()
     
-    private lazy var spacesuitService: SpacesuitService = {
+    private lazy var spacesuitService: SpacesuitServicing = {
         return SpacesuitService(radio: radioService)
+    }()
+    
+    private lazy var stationOverviewService: StationOverviewService = {
+        return StationOverviewService(networkService: networkService)
     }()
     
     private lazy var spacesuitCoordinator: SpacesuitCoordinator = {
@@ -47,7 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
     
     private lazy var cosmonautCoordinator: CosmonautCoordinator = {
-        return CosmonautCoordinator(cosmonautHealthService: cosmonautHealtService)
+        return CosmonautCoordinator(cosmonautHealthService: cosmonautHealtService,
+                                    stationOverviewService: stationOverviewService)
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

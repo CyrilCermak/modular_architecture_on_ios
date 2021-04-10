@@ -23,6 +23,8 @@ targets:
       # Core dependencu of ISSSpacesuitService
       - framework: ISSRadio.framework
         implicit: true
+      - framework: ISSUIComponents.framework
+        implicit: true
   
   # Tests for the main application
   SpacesuitTests:

@@ -9,6 +9,25 @@ import UIKit
 import SnapKit
 import Combine
 import ISSUIComponents
+import ISSOverviewService
+
+class ComsonautViewModel {
+    private let overviewService: StationOverviewServicing
+    
+    lazy var stationLive: AnyPublisher<String, Error> = {
+        return overviewService.currentStationPosition()
+            .map { (station) -> String in
+                return "lon: \(station.iss_position.longitude), lat: \(station.iss_position.latitude) "
+            }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+
+    }()
+    
+    init(overviewService: StationOverviewServicing) {
+        self.overviewService = overviewService
+    }
+}
 
 class ComsonautViewController: UIViewController, Outputable {
     enum Action { case healtCheck, spaceSuit }
@@ -19,8 +38,18 @@ class ComsonautViewController: UIViewController, Outputable {
     }()
     
     private lazy var outputAction = PassthroughSubject<T, Never>()
-    private let cosmonautView = CosmonautView(frame: .zero)
+    private let cosmonautView = CosmonautView(frame: UIScreen.main.bounds)
+    private let viewModel: ComsonautViewModel
     private var subscriptions = Set<AnyCancellable>()
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    init(viewModel: ComsonautViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +63,14 @@ class ComsonautViewController: UIViewController, Outputable {
     }
     
     private func bindView() {
+        
+        viewModel.stationLive
+            .sink { (error) in
+                print(error)
+            } receiveValue: { [weak self] (position) in
+                self?.cosmonautView.set(position: position)
+            }.store(in: &subscriptions)
+        
         cosmonautView.healthCheckTapped
             .sink(receiveValue: { [weak self] in
                 self?.outputAction.send(.healtCheck)
@@ -70,6 +107,13 @@ class CosmonautView: UIView {
         return btn
     }()
     
+    private let currentPositionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.issSubtitle
+        label.textColor = UIColor.gray
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -82,7 +126,12 @@ class CosmonautView: UIView {
     }
     
     private func setConstraints() {
-        [animationView, spaceSuitButton, healthCheckButton].forEach({ addSubview($0) })
+        [currentPositionLabel, animationView, spaceSuitButton, healthCheckButton].forEach({ addSubview($0) })
+        
+        currentPositionLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(self.safeAreaInsets.right).offset(-10)
+            make.top.equalTo(self.safeAreaInsets.top).offset(100)
+        }
         
         animationView.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
@@ -101,6 +150,10 @@ class CosmonautView: UIView {
             make.right.equalToSuperview().offset(-16)
             make.height.equalTo(46)
         }
+    }
+    
+    func set(position: String) {
+        currentPositionLabel.text = position
     }
 }
 

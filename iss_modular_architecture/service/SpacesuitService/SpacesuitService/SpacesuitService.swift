@@ -39,9 +39,9 @@ public protocol SpacesuitServicing {
 public class SpacesuitService: SpacesuitServicing {
     public private(set) var spacesuit: Spacesuit = Spacesuit()
     private var spacesuitDataSubscription: AnyCancellable?
-    private let radio: RadioService
+    private let radio: RadioServicing
     
-    public init(radio: RadioService) {
+    public init(radio: RadioServicing) {
         self.radio = radio
     }
     

@@ -32,6 +32,8 @@ targets:
         implicit: true
       - framework: ISSCosmonautService.framework
         implicit: true
+      - framework: ISSOverviewService.framework
+        implicit: true
       # Core
       - framework: ISSNetwork.framework
         implicit: true

@@ -10,6 +10,7 @@ import Combine
 import SnapKit
 import ISSUIComponents
 import ISSCosmonautService
+import ISSOverviewService
 
 /// Main navigation coordinator for the Cosmonaut app
 public class CosmonautCoordinator: NavigationCoordinator {
@@ -21,10 +22,12 @@ public class CosmonautCoordinator: NavigationCoordinator {
     public var childCoordinators: [Coordinator] = []
     public var finish: ((DeepLink?) -> Void)?
     private let cosmonautHealthService: CosmonautHealthServicing
+    private let stationOverviewService: StationOverviewServicing
     private lazy var registeredLinks = [CosmonautOutterLink: DeepLink]()
     
-    public init(cosmonautHealthService: CosmonautHealthServicing) {
+    public init(cosmonautHealthService: CosmonautHealthServicing, stationOverviewService: StationOverviewServicing) {
         self.cosmonautHealthService = cosmonautHealthService
+        self.stationOverviewService = stationOverviewService
         
         addChildCoordinators()
     }
@@ -61,7 +64,8 @@ public class CosmonautCoordinator: NavigationCoordinator {
     }
     
     private func makeCosmonautViewController() -> UIViewController {
-        let comsonautVC = ComsonautViewController()
+        let cosmonautVM = ComsonautViewModel(overviewService: stationOverviewService)
+        let comsonautVC = ComsonautViewController(viewModel: cosmonautVM)
         comsonautVC.output.sink { [weak self] (action) in
             switch action {
             case .spaceSuit:

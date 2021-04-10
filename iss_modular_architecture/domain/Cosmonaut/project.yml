@@ -20,6 +20,8 @@ targets:
       # Service
       - framework: ISSCosmonautService.framework
         implicit: true
+      - framework: ISSOverviewService.framework
+        implicit: true
       # Core
       - framework: ISSUIComponents.framework
         implicit: true

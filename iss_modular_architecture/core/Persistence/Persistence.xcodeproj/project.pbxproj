@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		0F3EB9D2B08B8F72D8A52335 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B784DAF4372A05441FEEBEE /* PersistenceTests.swift */; };
 		64684245B71D54DB99E39850 /* ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 727B4C5F9AB07EABA374D2D3 /* ISSPersistence.framework */; };
-		8BC9B7B2DB080E8EB1EB19BF /* Pods_ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDED7D8E90C55F43975B5D9B /* Pods_ISSPersistence.framework */; };
 		A162AF249C69269BF54BD971 /* ISSPersistence.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 727B4C5F9AB07EABA374D2D3 /* ISSPersistence.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B16AF0005DD77B9768252F79 /* Pods_ISSPersistence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F257354F4DCD8D38C9919668 /* Pods_ISSPersistence.framework */; };
 		FBEE5C4F5B8AB51A39F856B3 /* ISSPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 62E7DF604D965150D91ACFD4 /* ISSPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -40,30 +40,30 @@
 
 /* Begin PBXFileReference section */
 		23B5EC9DDA17468E08BD3B78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		592884FE98B1204F9BB3CDD7 /* Pods-ISSPersistence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSPersistence.debug.xcconfig"; path = "Target Support Files/Pods-ISSPersistence/Pods-ISSPersistence.debug.xcconfig"; sourceTree = "<group>"; };
 		62E7DF604D965150D91ACFD4 /* ISSPersistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSPersistence.h; sourceTree = "<group>"; };
 		727B4C5F9AB07EABA374D2D3 /* ISSPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B784DAF4372A05441FEEBEE /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		A86AD3212600DA6D6CE37C55 /* PersistenceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PersistenceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4A2BEACC71511BBD7CF872B /* Pods-ISSPersistence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSPersistence.debug.xcconfig"; path = "Target Support Files/Pods-ISSPersistence/Pods-ISSPersistence.debug.xcconfig"; sourceTree = "<group>"; };
-		CDED7D8E90C55F43975B5D9B /* Pods_ISSPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3CBF7E5D8AA36B744921367 /* Pods-ISSPersistence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSPersistence.release.xcconfig"; path = "Target Support Files/Pods-ISSPersistence/Pods-ISSPersistence.release.xcconfig"; sourceTree = "<group>"; };
 		EE254E45E86FF0817181F1D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F211FAA0CEA6CEF0F6A2F21F /* Pods-ISSPersistence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSPersistence.release.xcconfig"; path = "Target Support Files/Pods-ISSPersistence/Pods-ISSPersistence.release.xcconfig"; sourceTree = "<group>"; };
+		F257354F4DCD8D38C9919668 /* Pods_ISSPersistence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSPersistence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5A159B400AE0F2A8DC6DABC7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8BC9B7B2DB080E8EB1EB19BF /* Pods_ISSPersistence.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		785EB548752597804A9A519D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				64684245B71D54DB99E39850 /* ISSPersistence.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1BE638816707F3DDAC2FF57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B16AF0005DD77B9768252F79 /* Pods_ISSPersistence.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,27 +85,17 @@
 				7A2DDED73057ED5960A9D35A /* Persistence */,
 				023AB64E8BA176EEFD020799 /* PersistenceTests */,
 				C36B7F390DD1DD7C2A175BD4 /* Products */,
-				6E22AC99F160FB43266D2F35 /* Pods */,
-				3B9C35966E8E6B6EE78E96D7 /* Frameworks */,
+				96821EC1F595DAAF2F665F2C /* Pods */,
+				1BC80683ED413DE883F4E499 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		3B9C35966E8E6B6EE78E96D7 /* Frameworks */ = {
+		1BC80683ED413DE883F4E499 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CDED7D8E90C55F43975B5D9B /* Pods_ISSPersistence.framework */,
+				F257354F4DCD8D38C9919668 /* Pods_ISSPersistence.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6E22AC99F160FB43266D2F35 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C4A2BEACC71511BBD7CF872B /* Pods-ISSPersistence.debug.xcconfig */,
-				D3CBF7E5D8AA36B744921367 /* Pods-ISSPersistence.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		7A2DDED73057ED5960A9D35A /* Persistence */ = {
@@ -115,6 +105,16 @@
 				62E7DF604D965150D91ACFD4 /* ISSPersistence.h */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		96821EC1F595DAAF2F665F2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				592884FE98B1204F9BB3CDD7 /* Pods-ISSPersistence.debug.xcconfig */,
+				F211FAA0CEA6CEF0F6A2F21F /* Pods-ISSPersistence.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		C36B7F390DD1DD7C2A175BD4 /* Products */ = {
@@ -162,10 +162,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F7087933EC75B4101EF926E /* Build configuration list for PBXNativeTarget "ISSPersistence" */;
 			buildPhases = (
-				29A6C4CD6345D8BAE8E6A211 /* [CP] Check Pods Manifest.lock */,
+				5F0D0B0026F0F1638636A2DC /* [CP] Check Pods Manifest.lock */,
 				7B56E6D5C437704764507A72 /* Headers */,
 				1326151DFDD8B71303D4A889 /* Sources */,
-				5A159B400AE0F2A8DC6DABC7 /* Frameworks */,
+				E1BE638816707F3DDAC2FF57 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -212,7 +212,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		29A6C4CD6345D8BAE8E6A211 /* [CP] Check Pods Manifest.lock */ = {
+		5F0D0B0026F0F1638636A2DC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -265,7 +265,7 @@
 /* Begin XCBuildConfiguration section */
 		2B442E94B10B99E4C06967D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3CBF7E5D8AA36B744921367 /* Pods-ISSPersistence.release.xcconfig */;
+			baseConfigurationReference = F211FAA0CEA6CEF0F6A2F21F /* Pods-ISSPersistence.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -489,7 +489,7 @@
 		};
 		EEE09FF5A79BFD7E8E4DD655 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4A2BEACC71511BBD7CF872B /* Pods-ISSPersistence.debug.xcconfig */;
+			baseConfigurationReference = 592884FE98B1204F9BB3CDD7 /* Pods-ISSPersistence.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

@@ -20,6 +20,7 @@ $cosmonaut_project_path = '../../domain/Cosmonaut/Cosmonaut.xcodeproj'
 # Service
 $cosmonautservic_project_path = '../../service/CosmonautService/CosmonautService.xcodeproj'
 $spacesuitservic_project_path = '../../service/SpacesuitService/SpacesuitService.xcodeproj'
+$overviewservic_project_path = '../../service/OverviewService/OverviewService.xcodeproj'
 # Core
 $uicomponents_project_path = '../../core/UIComponents/UIComponents.xcodeproj'
 
@@ -77,6 +78,11 @@ end
 def cosmonautservice_sdk
   target_name = 'ISSCosmonautService'
   install target_name, $cosmonautservic_project_path, []
+end
+
+def overviewservice_sdk
+  target_name = 'ISSOverviewService'
+  install target_name, $overviewservic_project_path, []
 end
 
 ### Core

@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIFont {
+public extension UIFont {
     static let issTitle = UIFont.systemFont(ofSize: 18, weight: .bold)
     static let issSubtitle = UIFont.systemFont(ofSize: 14)
 }

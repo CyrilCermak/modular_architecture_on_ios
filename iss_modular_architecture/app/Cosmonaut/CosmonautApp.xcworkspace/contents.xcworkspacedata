@@ -21,6 +21,9 @@
       location = "container:"
       name = "Service">
       <FileRef
+         location = "group:../../service/OverviewService/OverviewService.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:../../service/SpacesuitService/SpacesuitService.xcodeproj">
       </FileRef>
       <FileRef
