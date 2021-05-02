@@ -26,7 +26,6 @@ public protocol Coordinator: AnyObject {
 }
 
 public extension Coordinator {
-//    var finish: ((DeepLink?) -> Void)? = nil
     
     // Implement if the coordinator must call route outside of its module.
     // On the higher level register the coordinator's link to a link of

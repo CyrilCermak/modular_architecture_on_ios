@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1B91FDAAF6F044E186435C26 /* ISSOverviewService.h in Headers */ = {isa = PBXBuildFile; fileRef = F3D11F012C5430F76B437F54 /* ISSOverviewService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3CCCF25FF620AF68E1505D5B /* Pods_ISSOverviewService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7165E36D9FC4E500956581 /* Pods_ISSOverviewService.framework */; };
 		512C7B818277E6AE1CF5307A /* OverviewServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE1C6497A1047BFDF82419 /* OverviewServiceTests.swift */; };
 		5E8A15CEEE1AE001FADF35BF /* ISSOverviewService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 229C761FDF7809C2B0911EA2 /* ISSOverviewService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9663722CBEEDFC95DDC27D43 /* StationOverviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C280694F6DC4A5F00AA01365 /* StationOverviewService.swift */; };
-		9D275B01A13B07C3329EFC0D /* Pods_ISSOverviewService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B6DE3BF50EA8545B36F4EA /* Pods_ISSOverviewService.framework */; };
 		C779D71F2BB4015092C82E3D /* ISSOverviewService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229C761FDF7809C2B0911EA2 /* ISSOverviewService.framework */; };
 		FD23AB4C2EC74678F197B8F3 /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFAE9C27DCC1B9B970EBDC1B /* ISSNetwork.framework */; };
 /* End PBXBuildFile section */
@@ -41,12 +41,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		167287C1CA9BECF86958DCC5 /* Pods-ISSOverviewService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSOverviewService.debug.xcconfig"; path = "Target Support Files/Pods-ISSOverviewService/Pods-ISSOverviewService.debug.xcconfig"; sourceTree = "<group>"; };
+		06A155477636980C03C645A3 /* Pods-ISSOverviewService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSOverviewService.release.xcconfig"; path = "Target Support Files/Pods-ISSOverviewService/Pods-ISSOverviewService.release.xcconfig"; sourceTree = "<group>"; };
+		0B7165E36D9FC4E500956581 /* Pods_ISSOverviewService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSOverviewService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		229C761FDF7809C2B0911EA2 /* ISSOverviewService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSOverviewService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39B6DE3BF50EA8545B36F4EA /* Pods_ISSOverviewService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSOverviewService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BA10ADFB4278DA55F294B53 /* Pods-ISSOverviewService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSOverviewService.debug.xcconfig"; path = "Target Support Files/Pods-ISSOverviewService/Pods-ISSOverviewService.debug.xcconfig"; sourceTree = "<group>"; };
 		5BFDECC7134CB90B389E4599 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5CBFBDAFBCC8F2917DD2E004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		6155F4C79ADC0503659B24B1 /* Pods-ISSOverviewService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSOverviewService.release.xcconfig"; path = "Target Support Files/Pods-ISSOverviewService/Pods-ISSOverviewService.release.xcconfig"; sourceTree = "<group>"; };
 		A3FE1C6497A1047BFDF82419 /* OverviewServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewServiceTests.swift; sourceTree = "<group>"; };
 		C280694F6DC4A5F00AA01365 /* StationOverviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationOverviewService.swift; sourceTree = "<group>"; };
 		CC1D1435AAD0DCEF1D7FC3A0 /* OverviewServiceTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = OverviewServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +68,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD23AB4C2EC74678F197B8F3 /* ISSNetwork.framework in Frameworks */,
-				9D275B01A13B07C3329EFC0D /* Pods_ISSOverviewService.framework in Frameworks */,
+				3CCCF25FF620AF68E1505D5B /* Pods_ISSOverviewService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAE9C27DCC1B9B970EBDC1B /* ISSNetwork.framework */,
-				39B6DE3BF50EA8545B36F4EA /* Pods_ISSOverviewService.framework */,
+				0B7165E36D9FC4E500956581 /* Pods_ISSOverviewService.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -91,18 +91,8 @@
 				C128D2913BFD9EBBF600F7DA /* OverviewServiceTests */,
 				19D574139F3ABC0266B15559 /* Frameworks */,
 				A0BD6A98297B61EC4E8D83B3 /* Products */,
-				963428F85148CFE6428CF7D3 /* Pods */,
+				AA62B30DE8F70045FB81CD70 /* Pods */,
 			);
-			sourceTree = "<group>";
-		};
-		963428F85148CFE6428CF7D3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				167287C1CA9BECF86958DCC5 /* Pods-ISSOverviewService.debug.xcconfig */,
-				6155F4C79ADC0503659B24B1 /* Pods-ISSOverviewService.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		A0BD6A98297B61EC4E8D83B3 /* Products */ = {
@@ -112,6 +102,16 @@
 				CC1D1435AAD0DCEF1D7FC3A0 /* OverviewServiceTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA62B30DE8F70045FB81CD70 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3BA10ADFB4278DA55F294B53 /* Pods-ISSOverviewService.debug.xcconfig */,
+				06A155477636980C03C645A3 /* Pods-ISSOverviewService.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		C128D2913BFD9EBBF600F7DA /* OverviewServiceTests */ = {
@@ -151,7 +151,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD37C79649E86279A7D59035 /* Build configuration list for PBXNativeTarget "ISSOverviewService" */;
 			buildPhases = (
-				BBA5683CC98D21F2FCC859B8 /* [CP] Check Pods Manifest.lock */,
+				D5BCC3DEA81660B11EB2DDB6 /* [CP] Check Pods Manifest.lock */,
 				3EA4AB3D8C431D76B282FF3F /* Headers */,
 				AB83B8748DE4FC21570AF1C9 /* Sources */,
 				B0A566614698EED06C53CD16 /* Frameworks */,
@@ -219,7 +219,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BBA5683CC98D21F2FCC859B8 /* [CP] Check Pods Manifest.lock */ = {
+		D5BCC3DEA81660B11EB2DDB6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -441,7 +441,7 @@
 		};
 		DEC528708B6C8226F3995DED /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 167287C1CA9BECF86958DCC5 /* Pods-ISSOverviewService.debug.xcconfig */;
+			baseConfigurationReference = 3BA10ADFB4278DA55F294B53 /* Pods-ISSOverviewService.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -465,7 +465,7 @@
 		};
 		F11A45EFBFA61E790BEB382D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6155F4C79ADC0503659B24B1 /* Pods-ISSOverviewService.release.xcconfig */;
+			baseConfigurationReference = 06A155477636980C03C645A3 /* Pods-ISSOverviewService.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

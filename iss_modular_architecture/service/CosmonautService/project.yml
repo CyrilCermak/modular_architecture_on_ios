@@ -24,6 +24,8 @@ targets:
         implicit: true
       - framework: ISSUIComponents.framework
         implicit: true
+      - framework: ISSRadio.framework
+        implicit: true
   # Tests for the main application
   CosmonautServiceTests:
     type: bundle.unit-test

@@ -14,6 +14,7 @@ public protocol RadioServicing {
     func disconnect(connectable: RadioService.Connectable)
 }
 
+/// Mocked responses
 private struct DataFactory {
     static var healthJson: String { """
 {

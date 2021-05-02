@@ -1,7 +1,6 @@
-
 //
-//  SpacesuitViewController.swift
-//  ISSSpacesuit
+//  ComsonautHealthCheckViewController.swift
+//  ISSCosmonaut
 //
 //  Created by Cyril Cermak on 27.02.21.
 //
@@ -10,8 +9,8 @@ import UIKit
 import Combine
 import ISSUIComponents
 
-class SpacesuitViewController: UIViewController, Outputable {
-    enum Action { case close }
+class ComsonautHealthCheckViewController: UIViewController, Outputable {
+    enum Action { case close, heartBeat }
     
     /// Outputable protocol fullfilment
     lazy var output: AnyPublisher<Action, Never> = {
@@ -19,11 +18,11 @@ class SpacesuitViewController: UIViewController, Outputable {
     }()
     
     private lazy var outputAction = PassthroughSubject<T, Never>()
-    private let spacesuitView = SpacesuitView(frame: .zero)
-    private var model: SpacesuitViewModel!
+    private let cosmonautView = CosmonautHealthCheckView(frame: .zero)
+    private var model: ComsonautHealthCheckViewModel!
     private var subscriptions = Set<AnyCancellable>()
     
-    convenience init(viewModel: SpacesuitViewModel) {
+    convenience init(viewModel: ComsonautHealthCheckViewModel) {
         self.init()
         self.model = viewModel
     }
@@ -31,7 +30,7 @@ class SpacesuitViewController: UIViewController, Outputable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Spacesuit"
+        title = "Health Check"
         bindView()
         
         // Close button in Navigation
@@ -41,7 +40,6 @@ class SpacesuitViewController: UIViewController, Outputable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         model.start()
     }
     
@@ -51,13 +49,19 @@ class SpacesuitViewController: UIViewController, Outputable {
     }
     
     override func loadView() {
-        self.view = spacesuitView
+        self.view = cosmonautView
     }
     
     private func bindView() {
         model.$models
-            .sink { [weak spacesuitView] (models) in
-                spacesuitView?.bind(models: models)
+            .sink { [weak cosmonautView] (models) in
+                cosmonautView?.bind(models: models)
+            }
+            .store(in: &subscriptions)
+        
+        cosmonautView.healthCheckTapped
+            .sink { [weak outputAction] in
+                outputAction?.send(.heartBeat)
             }
             .store(in: &subscriptions)
     }
