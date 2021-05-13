@@ -1781,7 +1781,9 @@ https://codemagic.io/ci-cd-ebook/
 \newpage
 # THE END
 
-When everything goes well, those containers will get shipped on the boat to the end customers and life of all is great. However, if it gets stuck at Suez same as the Evergreen ferry, do not panic. It's software, everything is fixable (unless you ran bad code on top of the production database with Schrodinger's backup policy, then may all the network bandwidth be with you) it just takes time, lots of work but in the end, the ferry with its containers will depart and leave towards the customers.  
+When everything goes well, containers will get shipped on the boat to the end customers and life of all is great. However, if it gets stuck at Suez same as the Evergreen ferry, do not panic. It is a software, everything is fixable (unless you ran bad code on top of the production database with Schrödinger's backup policy, then may all the network bandwidth be with you) it just takes time and lots of work but in the end, the ferry with its containers will depart and leave towards the customers.  
+
+![Libraries ready to be dispatched](assets/port.jpg)
 
 If you have reached this page then I would like to thank you very much for reading this book and I hope it enlightened you at least at some parts of the development of modular architecture. 
 
