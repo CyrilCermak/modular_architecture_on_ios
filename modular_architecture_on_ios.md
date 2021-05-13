@@ -1759,6 +1759,11 @@ If everything goes well and all tests are passing, the merge request gets merged
 
 ## Continuous Delivery (CD)
 
+As soon as the merge is done continuous delivery can start. To fail fast if something goes wrong when for example the pipeline has not detected a breaking change or due to any other reason, alpha builds are created. Alpha build reflects the latest development state of the codebase. Ideally, developers should work in a way where the development state of the codebase is always production ready. Such that, if some hot-fixes in production are needed the production build can be triggered from the development state immediately. This approach avoids any bug-fixing by cherry-picking and forces developers to commit high quality atomic commits onto the codebase.
+
+Based on the project, different build configurations can be produced. Build configuration could be for example different environment, different identifiers or secrets to service providers and so on.
+
+![CD Pipeline Example](assets/CD-pipeline.png)
 
 ## Ruby, programmer's best friend
 If you have not learned it yet, do so, it's great.
