@@ -1712,9 +1712,9 @@ The purpose of this chapter was only to mention the most important patterns that
 When it comes to a project where many developers are contributing simultaneously automation will become a crucial part of it. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be simply generating the `xcodeproj` projects by XcodeGen like in our example to avoid conflicts, pulling new translation strings, generating entitlements on the fly, up to building the app on the CI and publishing it to the AppStore or other distribution centre (CD).   
 
 ## Fastlane
-First and foremost, iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains countless amount of plugins that can be used to support project automation. With Fastlane, it is also easy to create your own plugins that will be project-specific only. Fastlane is developed in Ruby so as its plugins are. However, since all is built with Ruby, Fastlane gives the freedom to import any other ruby projects or classes developed in plain Ruby and directly call them from the Fastlane's recognisable function so-called `lane`. 
+First and foremost, iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains a countless amount of plugins that can be used to support project automation. With Fastlane, it is also easy to create your own plugins that will be project-specific only. Fastlane is developed in Ruby so as its plugins are. However, since all is built with Ruby, Fastlane gives the freedom to import any other ruby projects or classes developed in plain Ruby and directly call them from the Fastlane's recognisable function so-called `lane`. 
 
-As an example, we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning where in this case the so-called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile and then used as a normal Ruby program. In this case, it is NOT purposely developed as a Fastlane's action. The reason being that it is much more easier to develop pure Ruby program as it unlike Fastlane's action does not require the whole Fastlane's ecosystem to be launched which takes couple of seconds at its best. No need to say, Fastlane's action surely comes with its advantages as well, like Fastlane's action listings, direct execution and so on.
+As an example, we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning where in this case the so-called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile and then used as a normal Ruby program. In this case, it is NOT purposely developed as a Fastlane's action. The reason being that it is much easier to develop a pure Ruby program as it unlike Fastlane's action does not require the whole Fastlane's ecosystem to be launched which takes a couple of seconds at its best. No need to say, Fastlane's action surely comes with its advantages as well, like Fastlane's action listings, direct execution and so on.
 
 `/fastlane/Fastfile`
 ```ruby
@@ -1734,21 +1734,21 @@ end
 
 ```
 
-To create a proper Fastlane's plugin out of the Ruby program could be easily done by following this [documentation](https://docs.fastlane.tools/plugins/create-plugin/).
+Creating a proper Fastlane's plugin out of the Ruby program could be easily done by following this [documentation](https://docs.fastlane.tools/plugins/create-plugin/).
 
 Fastlane gives the ultimate home for the whole project automation which will prevent script duplications and help with organising and finding necessary actions. To check what is available already in the house of automation, Fastlane can be executed out of the command line and it will give you the option to choose from the publicly available `lanes` that are already implemented.
 
-Furthermore, we will need a central place where we can execute those scripts to free the developers resources. There are many different CI/CD providers that offers pretty much the same solution with very similar setups and problems.    
+Furthermore, we will need a central place where we can execute those scripts to free the developers' resources. There are many different CI/CD providers that offers pretty much the same solution with very similar setups and problems.    
 
 ## Continuous Integration (CI)
 
-To grow a codebase that scales fast, it is crucial to maintain and ensure its quality. In order to achieve that developers are writing following tests and checks that are then executed by CI pipeline before the merge can proceed;
+To grow a codebase that scales fast, it is crucial to maintain and ensure its quality. In order to achieve that developers are writing the following tests and checks that are then executed by the CI pipeline before the merge can proceed;
 
   - *Unit tests*, ensure that the logic of the code remained the same 
   - *UI tests*, ensure that the UI looks the same after the change
   - *Integration tests*, ensure that the app as a whole has all the libraries, launches fine, does not crash on start or at some parts
   - *Acceptance tests*, ensure that the business level remains the same, meaning, the app provides the business defined value and even though the app might have some minor issues the business value is maintained
-  - *Others*, there might be other kind of tests implemented within the tests, like for example test that all languages have 100% translations strings, latest app documents are attached, offline database is updated and so on    
+  - *Others*, there might be other kinds of tests implemented within the tests, like for example test that all languages have 100% translations strings, latest app documents are attached, an offline database is updated and so on
 
 ![CI Pipeline Success Example](assets/CI-pipeline.png)
 
@@ -1759,7 +1759,7 @@ If everything goes well and all tests are passing, the merge request gets merged
 
 ## Continuous Delivery (CD)
 
-As soon as the merge is done continuous delivery can start. To fail fast if something goes wrong when for example the pipeline has not detected a breaking change or due to any other reason, alpha builds are created. Alpha build reflects the latest development state of the codebase. Ideally, developers should work in a way where the development state of the codebase is always production ready. Such that, if some hot-fixes in production are needed the production build can be triggered from the development state immediately. This approach avoids any bug-fixing by cherry-picking and forces developers to commit high quality atomic commits onto the codebase.
+As soon as the merge is done continuous delivery can start. To fail fast if something goes wrong when for example the pipeline has not detected a breaking change or due to any other reason, alpha builds are created. Alpha build reflects the latest development state of the codebase. Ideally, developers should work in a way where the development state of the codebase is always production-ready. Such that, if some hot-fixes in production are needed the production build can be triggered from the development state immediately. This approach avoids any bug-fixing by cherry-picking and forces developers to commit high-quality atomic commits onto the codebase.
 
 Based on the project, different build configurations can be produced. Build configuration could be for example different environment, different identifiers or secrets to service providers and so on.
 
@@ -1771,9 +1771,9 @@ If you have not learned it yet, do so, it's great.
 
 ## Conclusion
 
-CI/CD is a crucial part of every bigger project, unfortunately, as of today maintaining pipelines is really difficult especially in fast paced projects. There are many things that can go wrong, 3rd party dependencies CDN might go down for some time, something works locally but not on the CI, different versioning of tools, especially Xcode can cause lots of headaches so as the configuration of the CI/CD itself. Purpose of this chapter was to introduce the concept on the higher level. To deep dive into CI/CD, the documentation of the provider is the best read. 
+CI/CD is a crucial part of every bigger project unfortunately as of today maintaining pipelines is difficult especially in fast-paced projects. Many things can go wrong, 3rd party dependencies CDN might go down for some time, something works locally but not on the CI, different versioning of tools, especially Xcode can cause lots of headaches so as the configuration of the CI/CD itself. The purpose of this chapter was to introduce the concept on a higher level. To deep dive into CI/CD, the documentation of the provider is the best read. 
 
-Furthemore, to deep dive more into this topic, I would recommend this article and free ebook.
+Furthermore, to deep dive more into this topic, I would recommend this article and free ebook.
 
 https://blog.codemagic.io/the-complete-guide-to-ci-cd/
 https://codemagic.io/ci-cd-ebook/
@@ -1781,11 +1781,10 @@ https://codemagic.io/ci-cd-ebook/
 \newpage
 # THE END
 
-If you have reached this page then I would like to thank you very much for reading this book and I hope it enlighten you at least at some parts of the development of the modular architecture. Do not hesitate at all to shoot me a an [email](mailto:info@cyrilcermak.com) if you have any questions, suggestions, or just want to drop a few lines.  
+When everything goes well, those containers will get shipped on the boat to the end customers and life of all is great. However, if it gets stuck at Suez same as the Evergreen ferry, do not panic. It's software, everything is fixable (unless you ran bad code on top of the production database with Schrodinger's backup policy, then may all the network bandwidth be with you) it just takes time, lots of work but in the end, the ferry with its containers will depart and leave towards the customers.  
+
+If you have reached this page then I would like to thank you very much for reading this book and I hope it enlightened you at least at some parts of the development of modular architecture. 
+
+Do not hesitate at all to shoot me an [email](mailto:info@cyrilcermak.com) if you have any questions, suggestions or just want to drop a few lines.  
 
 Thanks!
-
-
-
-
-
