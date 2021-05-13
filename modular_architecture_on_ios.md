@@ -20,7 +20,7 @@ urlcolor: cyan
 \newpage
 # Modular Architecture on iOS/macOS
 
-Building large scalable iOS apps and frameworks with Domain-Driven Design
+Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 \newpage
 # Dedication 
