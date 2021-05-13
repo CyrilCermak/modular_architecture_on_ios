@@ -1770,3 +1770,22 @@ If you have not learned it yet, do so, it's great.
 
 
 ## Conclusion
+
+CI/CD is a crucial part of every bigger project, unfortunately, as of today maintaining pipelines is really difficult especially in fast paced projects. There are many things that can go wrong, 3rd party dependencies CDN might go down for some time, something works locally but not on the CI, different versioning of tools, especially Xcode can cause lots of headaches so as the configuration of the CI/CD itself. Purpose of this chapter was to introduce the concept on the higher level. To deep dive into CI/CD, the documentation of the provider is the best read. 
+
+Furthemore, to deep dive more into this topic, I would recommend this article and free ebook.
+
+https://blog.codemagic.io/the-complete-guide-to-ci-cd/
+https://codemagic.io/ci-cd-ebook/
+    
+\newpage
+# THE END
+
+If you have reached this page then I would like to thank you very much for reading this book and I hope it enlighten you at least at some parts of the development of the modular architecture. Do not hesitate at all to shoot me a an [email](mailto:info@cyrilcermak.com) if you have any questions, suggestions, or just want to drop a few lines.  
+
+Thanks!
+
+
+
+
+
