@@ -44,8 +44,8 @@ Building large scalable iOS apps and frameworks with Domain-Driven Design
 Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent by building iOS apps or iOS frameworks. Beginning by Skoda Auto Connect App in Prague, continuing building iOS platform for Freelancer Ltd in Sydney, numerous start-ups on the side, and as of now being an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architecture so as some mechanisms and essential knowledge that should help to decide which approach would fit in the best or should be considered on a project.
 
 ## Reviewers
-Joerg Nestele 
-... Ask Joerg whether he wants be the reviewer. 
+?
+
 \newpage
 \tableofcontents
 \newpage
@@ -77,15 +77,13 @@ At the end of this book, you can read about the experience from the top-notch iO
 ## What is this book NOT about
 SwiftUI.
 
-
+\newpage
 # Modular Architecture
-  `- Modular -`
-
-   <i>`adjective - employing or involving a module or modules as the basis of design or construction: "modular housing units"`</i>
+  **Modular**, *adjective - employing or involving a module or modules as the basis of design or construction: "modular housing units"*
       
 In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. Such as, building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers and so on. With the already existing mobile foundation, it will be done way faster and cleaner.  
 
-To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD, old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. No need to say, that on a very large project, this could be the work of one standalone team.
+To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD, maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. No need to say, that on a very large project, this could be the work of one standalone team.
 
 This book describes building such large scalable architecture with domain-driven design by example; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
@@ -143,7 +141,7 @@ For example a shared module in an e-commerce app could be `Logging` or `AppAnaly
 
 ## Example: International Space Station
 
-Now in this example, we will have a look at how such architecture could look like for [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). The diagram below shows the four-layer architecture with the modules and links. 
+Now in this example, we will have a look at how such architecture could look like for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). The diagram below shows the four-layer architecture with the modules and links. 
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.  
 
@@ -151,23 +149,29 @@ While this chapter is rather theoretical, in the following chapters everything w
 
 
 The example has three applications. 
+
 - `ISS Overview`: app that shows astronauts the overall status of the space station
 - `Cosmonaut`: app where Cosmonaut can control his spacesuit so as his supplies and personal information
 - `Laboratory`: app from which the laboratories on the space station can be controlled 
 
-As described above, all apps are linking Scaffold module which provides the bootstrapping for the app as the app itself is the container.
+As described above, all apps are linking Scaffold module which provides the bootstrapping for the app as the app itself is behaving like a container.
 
 ### ISS Overview
+
+![ISS Overview](assets/ISSOverview.png)
+
+The diagram above describes the concrete linking of modules for the app, let us have a closer look at it.
+
 `ISS Overview` app links `Peripheries` domain which implements logic and screens for peripheries of the station.  
 
 The `Peripheries` domain links `Heat Radiator`, `Solar Array` and `Docking Port` services from whom the data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development. 
 
-Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator. The diagram below describes the concrete linking of modules for the app.
-
-![ISS Overview](assets/ISSOverview.png)
-
+Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator.
 
 ### Cosmonaut
+
+![Cosmonaut App](assets/Cosmonaut.png)
+
 `Cosmonaut` app links `Spacesuit` and `Cosmonaut` domains. Same as for every other domain, each module is responsible for screens and users flow through the part of the app.
 
 `Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that are providing data for domain defined screens so as `UIComponents` who are providing the UI parts.
@@ -175,7 +179,6 @@ Linked services are using `Network` and `Radio` core modules which are providing
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service is using `Network` for updating Huston about the current state of the `Cosmonaut` so as `Persistence` for storing the data of the cosmonaut for offline usage. 
 
-![Cosmonaut App](assets/Cosmonaut.png)
 
 ### Laboratory
 
@@ -216,7 +219,7 @@ What are symbols?
   - **Dylib**: Library that has its own Mach-O (explained later) binary. (`.dylib`)
   - **Framework**: Framework is a bundle that contains the binary and other resources the binary might need during the run time. (`.framework`)
   - **TBDs**: Text Based Dynamic Library Stubs is a text stubbed library (symbols only) around a binary without including it as the binary resides on the target system, used by Apple to ship lightweight SDKs for development. (`.tbd`)
-  - **XCFramework**: From Xcode 11 the XCFramework was introduced which allows to group a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`,`watchOS` etc. (`.xcframework`)
+  - **XCFramework**: From Xcode 11 the XCFramework was introduced which allows to group a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`, `watchOS` etc. (`.xcframework`)
 
 2) Statically linked
   - **Archive**: Archive of a compiler produced object files with object code. (`.a`)
@@ -227,9 +230,9 @@ We can look at a framework as some bundle that is standalone and can be attached
 
 ## Dynamic vs static library?
 
-The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as a framework is dynamically linked on the app start to the executables process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
+The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as a framework is dynamically linked on the app start to the executable's process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
 
-As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a frameworks interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.   
+As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a framework's interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.   
 
 A dynamic framework does not support any Bridging-Header file; instead, there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is one big interface for the dynamic framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
@@ -323,7 +326,7 @@ Apple ships various different tools for exploring compiled libraries and framewo
 
 ### Mach-O file format
 
-Before we start, it is crucial to know what we are going to be exploring. In the Apple ecosystem, the file format of any binary is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header following by segments, sections, load commands and so on.  
+Before we start, it is crucial to know what we are going to be exploring. In the Apple ecosystem, the file format of any binary is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header, following by segments, sections, load commands and so on.  
 
 Since you are surely a curious reader, you are now having tons of questions about where it all comes from. The answer to that is quite simple. Since it is all part of the system you can open up Xcode and look for a file in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file for example the Mach-O header struct is defined.
 
@@ -1321,7 +1324,7 @@ Architecture-wise, the whole application framework can be used as the software f
 
 Nevertheless, there are much more use cases where such architecture would be helpful. Due to modularisation, standalone frameworks can be exported and used for development without affecting the current development workflow. This could be particularly helpful when, for example, a subsidiary would be developing another software product. With already pre-built core components, most importantly the UI part facing the customers, new product in the subsidiary can be built much faster and without gaining the confidential parts held in service or domain layers. However, in such case the team responsible for developing the distributed components or let us say the SDK is becoming the support team for the customers of the SDK. In that case, a new process and workflow must be established. The responsible team could be opened to submitting bug reports and distributing the new versions of the SDK bi-weekly, or whenever it is suitable.
 
-### Common Problems
+## Common Problems
 
 While praising such architecture pretty much all the time, like everything, it comes with its disadvantages as well. 
 
@@ -1360,7 +1363,7 @@ Cocopods libraries are compiled every time the project is cleaned while Carthage
 
 The way third party libraries are managed and linked to the project matters a lot, especially, when the project is big or is aiming to be big. Now let us have a look at the three most commonly used dependency managers on iOS and how to use them in modular architecture. By the most common, I mean Cocopods, Carthage and the new Apple's SwiftPM.
 
-## Cocopods
+## Cocoapods
 
 The most used and well-known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrate a new library so as to remove it. Cocoapods manage everything for the developer under the hood, therefore, there is no further work required to start using the library. When Cocoapods are installed, with `pod install`, they are attached to the workspace as an Xcode project that contains all libraries that are specified in the Podfile. During the compilation of the project, dependencies are compiled as they are needed. This is good for small projects or even big ones but the libraries must be linked carefully as every library takes some compile-time and further maintenance, like mentioned before. 
 
@@ -1640,9 +1643,7 @@ After hooking up the coordinator into the App window, with for example the main 
 
 ## Strategy
 
-One of my favourite patterns is Strategy, even though I create it in a slightly different way than it was originally meant to. Strategy pattern is particularly helpful when developing reusable components, like for example views. Such a view can be initialised with a certain `strategy` or a `type`. In traditional book examples, strategy pattern is often described and defined via protocols and the ability to exchange the protocol with a different implementation that conforms to it. However, there is a much more Swiftier way to achieve the same goal with ease, `enum`. Enum can simply represent a strategy for each case for the object and via enum functions, the necessary logic can be implemented. 
-
-// TODO implement example with one of the views
+One of my favourite patterns is Strategy, even though I create it in a slightly different way than it was originally meant to. Strategy pattern is particularly helpful when developing reusable components, like for example views. Such a view can be initialised with a certain `strategy` or a `type`. In traditional book examples, strategy pattern is often described and defined via protocols and the ability to exchange the protocol with a different implementation that conforms to it. However, there is a much more Swiftier way to achieve the same goal with ease, `enum`. Enum can simply represent a strategy for each case for the object and via enum functions, the necessary logic can be implemented. Surely, the enum can be abstracted by some protocol.
 
 ## Configuration
 
@@ -1702,25 +1703,18 @@ Probably no need for much explanation for Model, View, ViewModel with Coordinato
 
 The most beautiful way of extending any kind of functionality of an object is probably via protocols and their extensions. In some cases, like for structs or enums, it is also the only way. In Swift, structs and enums cannot use inheritance. On the other hand, protocols can use inheritance so as a composition for defining the desired behaviour which gives the developer the freedom to design fine granular components with all OOP features. 
 
-
-//TODO: Think of more helpful related paterns
-
 ## Conclusion
-//TODO: 
-
-
-
-
+The purpose of this chapter was only to mention the most important patterns that helps when developing modular architecture. I would highly recommend deep diving more into this topic via books that are specially focused on such topic.
 
 \newpage
 # Project Automation
 
-When it comes to a project where many developers are contributing simultaneously automation will become a crucial part of it. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be simply generating the `xcodeproj` projects by XcodeGen like in our example to avoid conflicts, pulling new translation strings, generating entitlements on the fly, up to building the app on the CI and publishing it to the AppStore or other distribution centre.   
+When it comes to a project where many developers are contributing simultaneously automation will become a crucial part of it. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be simply generating the `xcodeproj` projects by XcodeGen like in our example to avoid conflicts, pulling new translation strings, generating entitlements on the fly, up to building the app on the CI and publishing it to the AppStore or other distribution centre (CD).   
 
 ## Fastlane
-First and foremost, iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains countless amount of plugins that can be used to support project automation. With Fastlane, it is also easy to create your own plugins that will be project-specific only. Fastlane is developed in ruby so as its plugins are. However, since all is built with ruby Fastlane gives the freedom to import any other ruby projects or classes developed in ruby and directly call them from the Fastlane's recognisable function so-called `lane`. 
+First and foremost, iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains countless amount of plugins that can be used to support project automation. With Fastlane, it is also easy to create your own plugins that will be project-specific only. Fastlane is developed in Ruby so as its plugins are. However, since all is built with Ruby, Fastlane gives the freedom to import any other ruby projects or classes developed in plain Ruby and directly call them from the Fastlane's recognisable function so-called `lane`. 
 
-As an example, we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning where in this case the so-called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile and then used as a normal ruby program.
+As an example, we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning where in this case the so-called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile and then used as a normal Ruby program. In this case, it is NOT purposely developed as a Fastlane's action. The reason being that it is much more easier to develop pure Ruby program as it unlike Fastlane's action does not require the whole Fastlane's ecosystem to be launched which takes couple of seconds at its best. No need to say, Fastlane's action surely comes with its advantages as well, like Fastlane's action listings, direct execution and so on.
 
 `/fastlane/Fastfile`
 ```ruby
@@ -1740,23 +1734,34 @@ end
 
 ```
 
-Another option would be to create a proper Fastlane's plugin out of it which could be easily done following this [documentation](https://docs.fastlane.tools/plugins/create-plugin/).
+To create a proper Fastlane's plugin out of the Ruby program could be easily done by following this [documentation](https://docs.fastlane.tools/plugins/create-plugin/).
 
 Fastlane gives the ultimate home for the whole project automation which will prevent script duplications and help with organising and finding necessary actions. To check what is available already in the house of automation, Fastlane can be executed out of the command line and it will give you the option to choose from the publicly available `lanes` that are already implemented.
 
+Furthermore, we will need a central place where we can execute those scripts to free the developers resources. There are many different CI/CD providers that offers pretty much the same solution with very similar setups and problems.    
 
-  - CI/CD
-  - Translations, Stages, Configurations etc.
-  - Distribution
-    - Frameworks
-    - XCFrameworks
-    - Static Library
+## Continuous Integration (CI)
+
+To grow a codebase that scales fast, it is crucial to maintain and ensure its quality. In order to achieve that developers are writing following tests and checks that are then executed by CI pipeline before the merge can proceed;
+
+  - *Unit tests*, ensure that the logic of the code remained the same 
+  - *UI tests*, ensure that the UI looks the same after the change
+  - *Integration tests*, ensure that the app as a whole has all the libraries, launches fine, does not crash on start or at some parts
+  - *Acceptance tests*, ensure that the business level remains the same, meaning, the app provides the business defined value and even though the app might have some minor issues the business value is maintained
+  - *Others*, there might be other kind of tests implemented within the tests, like for example test that all languages have 100% translations strings, latest app documents are attached, offline database is updated and so on    
+
+![CI Pipeline Success Example](assets/CI-pipeline.png)
+
+If everything goes well and all tests are passing, the merge request gets merged by the CI and CD takes it over. On the other hand, if something breaks, developers then need to provide fixes on their changes or adjustment to those tests to reflect their latest changes.
+
+![CI Pipeline Failure Example](assets/CI-pipeline-failure.png)
+
+
+## Continuous Delivery (CD)
+
 
 ## Ruby, programmer's best friend
-If you have not learnt it yet, do so, it's great.
+If you have not learned it yet, do so, it's great.
 
 
-
-
-//TODO: ?
-
+## Conclusion
