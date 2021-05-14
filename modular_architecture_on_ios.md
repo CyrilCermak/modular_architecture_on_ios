@@ -154,33 +154,33 @@ While this chapter is rather theoretical, in the following chapters everything w
 The example has three applications.
 
 - `ISS Overview`: app that shows astronauts the overall status of the space station
-- `Cosmonaut`: app where Cosmonaut can control his spacesuit so as his supplies and personal information
+- `Cosmonaut`: app where a Cosmonaut can control his spacesuit as well as his supplies and personal information
 - `Laboratory`: app from which the laboratories on the space station can be controlled
 
-As described above, all apps are linking Scaffold module which provides the bootstrapping for the app as the app itself is behaving like a container.
+As described above, all apps link the Scaffold module which provides the bootstrapping for the app while the app itself behaves like a container.
 
 ### ISS Overview
 
 ![ISS Overview](assets/ISSOverview.png)
 
-The diagram above describes the concrete linking of modules for the app, let us have a closer look at it.
+The diagram above(TODO: will it always be above? from my LaTeX days, I learned to reference the images by reference number, allowing clicking on the link to be taken to the image) describes the concrete linking of modules for the app. Let us have a closer look at it.
 
-`ISS Overview` app links `Peripheries` domain which implements logic and screens for peripheries of the station.
+`ISS Overview` app links the domain `Peripheries`, which implements logic and screens for peripheries of the station.
 
-The `Peripheries` domain links `Heat Radiator`, `Solar Array` and `Docking Port` services from whom the data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
+The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and `Docking Port` services from which data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
+(TODO: what is this about UIcomponents? Should I see an arrow from peripheries to uicomponents? or uicomponents component is pulled in via scaffold?)
 
-Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator.
+The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (TODO: spell it out? refer to a glossary?) or other technology which would connect to the solar array or heat radiator.
 
 ### Cosmonaut
 
 ![Cosmonaut App](assets/Cosmonaut.png)
 
-`Cosmonaut` app links `Spacesuit` and `Cosmonaut` domains. Same as for every other domain, each module is responsible for screens and users flow through the part of the app.
+The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each module is responsible for screens and users flow through the part of the app. (TODO: what is the same? each module=domain? handles its own UX flow?)
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that are providing data for domain defined screens so as `UIComponents` who are providing the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that provide data for domain-specifc screens as `UIComponents` provides the UI parts.
 
-
-`Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service is using `Network` for updating Huston about the current state of the `Cosmonaut` so as `Persistence` for storing the data of the cosmonaut for offline usage.
+`Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service uses `Network` for updating Houston about the current state of the `Cosmonaut` and uses `Persistence` for storing the data of the cosmonaut for offline usage.
 
 
 ### Laboratory
@@ -189,21 +189,21 @@ I will leave this one for the reader to figure out.
 
 ## Conclusion
 
-As you can probably imagine, scaling of the architecture described above should not be a problem. When it comes to extending for example the ISS Overview app for another ISS periphery, a new domain module can be easily added with some service modules etc.
+As you can probably imagine, scaling the architecture as described above should not be a problem. When it comes to extending the ISS Overview app for another ISS periphery, for example, a new domain module can be easily added with some service modules etc.
 
-When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested Cosmonaut domain module with other necessary modules that are required. Development of the new app will become way easier due to that.
+When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested Cosmonaut (TODO: did you want to use `Cosmonaut` formatting on these?) domain module with other necessary modules that are required. Development of the new app will thus become much easier.
 
 The knowledge of the software that remains in one repository where developers have access to and can learn from is also very beneficial.
 
-There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play so as proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
+There are of course some disadvantages as well. For example, onboarding new developers on such an architecture might take a while, especially when there is already a huge existing codebase. In such a case, pair programming comes into play so as to provide proper project onboarding, software architecture documents and the overall documentation of modules and the whole project. (TODO: what about documents and overall documentation? those are things that help new developers? have to do with peer programming?)
 
 
 \newpage
 # Libraries on Apple's ecosystem
 
-Before we deep dive into the development of previously described architecture, there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such a project and its behaviour.
+Before we deep dive into the development of previously described architecture, there is some essential knowledge that needs to be explained. In particular, we will need some background in the type of library that is going to be used for building such a project and its behaviour.
 
-In Apple's ecosystem as of today, we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. The dynamic library, previously known as `Cocoa Touch Framework`, nowadays simplified to `Framework` and the statically linked, the `Static Library`.
+In Apple's ecosystem as of today, we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Previously known as `Cocoa Touch Framework`, the dynamically linked library is nowadays referred to simply as `Framework`. The statically linked library is known as the `Static Library`.
 
 ![Xcode Framework Types](assets/FrameworksType.png)
 
@@ -220,9 +220,9 @@ What are symbols?
 
 1) Dynamicaly linked
   - **Dylib**: Library that has its own Mach-O (explained later) binary. (`.dylib`)
-  - **Framework**: Framework is a bundle that contains the binary and other resources the binary might need during the run time. (`.framework`)
+  - **Framework**: Framework is a bundle that contains the binary and other resources the binary might need during the runtime. (`.framework`)
   - **TBDs**: Text Based Dynamic Library Stubs is a text stubbed library (symbols only) around a binary without including it as the binary resides on the target system, used by Apple to ship lightweight SDKs for development. (`.tbd`)
-  - **XCFramework**: From Xcode 11 the XCFramework was introduced which allows to group a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`, `watchOS` etc. (`.xcframework`)
+  - **XCFramework**: From Xcode 11, the XCFramework was introduced which allows grouping a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`, `watchOS` etc. (`.xcframework`)
 
 2) Statically linked
   - **Archive**: Archive of a compiler produced object files with object code. (`.a`)
@@ -233,15 +233,15 @@ We can look at a framework as some bundle that is standalone and can be attached
 
 ## Dynamic vs static library?
 
-The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as a framework is dynamically linked on the app start to the executable's process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
+The main difference between a static and dynamic library is in the Inversion Of Control (IoC) (TODO: well done, spelled it out - when introducing a new acronym that you later use) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as the framework is dynamically linked to the executable's process on app start. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
 
-As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a framework's interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.
+As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a framework's interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being made, you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.
 
-A dynamic framework does not support any Bridging-Header file; instead, there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is one big interface for the dynamic framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
+A dynamic framework does not support any Bridging-Header file; instead, there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is one big interface for the dynamic framework and it is usually named after the framework name e.g `myframework.h`. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the `ClassName-Swift.h` into the umbrella file and exposes the publicly available Swift interfaces via the swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
-On the other hand, a statically linked library is attached directly to the main executable during linking as the library contains already a pre-compiled archive of the source files with symbols. That being said, there is no need for an umbrella file so as IoC as in dynamic framework.
+On the other hand, a statically linked library is attached directly to the main executable during linking as the library contains already a pre-compiled archive of the source files with symbols. That being said, there is no need for an umbrella file as is the case with IoC in a dynamic framework.
 
-No need to say, classes and other structures must be marked as public to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
+It goes without saying that classes and other structures must be marked as public in order to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
 
 ### PROS & CONS
 Now let's have a look at some pros & cons of both.
@@ -254,7 +254,7 @@ Now let's have a look at some pros & cons of both.
     - Can be linked transitively to other dynamic libraries without any difficulty.
     - Can be exchanged without the recompile of the main executable just by replacing the framework with a new version.
     - Is loaded into a different memory space than the main executable.
-    - Can be shared in between applications especially useful for system libraries.
+    - Can be shared in (TODO: in between?) between applications especially useful for system libraries.
     - Can be loaded partially, only the needed symbols can be loaded into the memory (`dlsym`).
     - Can be loaded lazily, only objects that are referenced will be loaded.
     - Library can perform some cleanup tasks when it is closed (`dlclose`).
@@ -269,23 +269,23 @@ Now let's have a look at some pros & cons of both.
 **Static:**
 
   - **PROS**
-    - Is part of the main executable therefore, the app cannot crash during launch or runtime due to a missing library.
-    - Overall smaller size of the final executable as the symbols can be stripped of.
-    - In terms of calls speed there is no difference in between the main executable and the library as the library is part of the main executable.
+    - Is part of the main executable and therefore the app cannot crash during launch or runtime due to a missing library.
+    - Overall smaller size of the final executable as the unused symbols can be stripped.
+    - In terms of call speed, there is no difference between the main executable and the library as the library is part of the main executable.
     - Compiler can provide some extra optimisation during the build time of the main executable.
 
   - **CONS**
-    - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies else the app on the start needs to decide which library is going to be used.
+    - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies otherwise the app will need to decide on startup which library is going to be used.
     - The main executable must be recompiled when the library has an update even though the library's interface remains the same.
-    - Memory footprint of the main executable is bigger which implies the load time of the App is slower.
+    - Memory footprint of the main executable is bigger which implies the load time of the App (TODO: App? app? case) is slower.
 
 ## Essentials
 
-When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while a dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes a much slower app starts as the app needs to decide which of those classes will be used. So as in the worst case when two different versions of the same static library are used the app will use them interchangeably. The debugging will become a horror if that case happens that being said, it is very important to be sure that the linking was done right and no warnings appear.
+When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while a dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes a much slower app starts as the app needs to decide which of those classes will be used. Furthermore, when two different versions of the same static library are used the app will use them interchangeably. Debugging will become a horror in that case. That being said, it is very important to be sure that the linking was done right and no warnings appear.
 
 All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is, unfortunately, inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subsets of those SDKs are linked statically.
 
-When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App or Framework) it would fail the installation with `target has transitive dependencies that include static binaries`. Therefore, it takes an extra effort to link static binaries into multiple frameworks.
+When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App or Framework) it would fail the installation with `target has transitive dependencies that include static binaries`. Therefore, it takes extra effort to link static binaries into multiple frameworks.
 
 Let's have a look at how to link such a static library into a dynamically linked SDK.
 
