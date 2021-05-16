@@ -566,7 +566,7 @@ Let's have a quick look at what Xcode does when the build is triggered.
 Now you should have a high-level overview of what phases the Xcode build system goes through when the build is started.
 
 ## Conclusion
-I hope this chapter provided a clear understanding of the essential differences between static and dynamic libraries as well as some examples of how to examine them. It was quite a lot to grasp, so now it's time for a double shot of espresso or any kind of preferable refreshment.
+I hope this chapter provided a clear understanding of the essential differences between static and dynamic libraries as well as provided some clear examples showing to examine them. It was quite a lot to grasp, so now it's time for a double shot of espresso or any kind of preferable refreshment.
 
 I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend;
 
@@ -606,15 +606,16 @@ While other chapters are rather essential for having a good understanding of the
 
 ## Compiler Architecture
 
-To fully understand the swift's compiler architecture and its process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples out of it.
+To fully understand the swift's compiler architecture and its process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples out of it. (TODO: reword out of it)
 
-The following image describes the swiftc architecture. It consists of 7 steps, which are explained in subchapters.
+The following image describes the `swiftc` architecture. It consists of seven steps, which are explained in subchapters.
 
 ![Swiftc Architecture](assets/swiftc_arch.png)
 
-For demonstration purposes, I prepared two simple swift source code files. First, employee.swift and second main.swift. employee.swift is a standalone source code while main.swift requires the Employee being linked to it as a library. All compiler steps are explained on the employee.swift but in the end, the employee source code will be created as a library that the main file will consume and use.
+For demonstration purposes, I prepared two simple swift source code files. First, `employee.swift` and second `main.swift`. The file `employee.swift` is standalone source code while `main.swift` requires the Employee being linked to it as a library. All compiler steps are explained on the `employee.swift` but in the end, the employee source code will be created as a library that the main file will consume and use.
 
 `employee.swift`
+
 ```swift
 import Foundation
 
@@ -664,6 +665,7 @@ public struct EmployeeAddress: Address {
 ```
 
 `main.swift`
+
 ```swift
 import Foundation
 import Employee
@@ -681,13 +683,14 @@ employee.printEmployeeInfo()
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-First of all, comes the parsing. As the definition says, the parser is responsible for lexical syntax check without any type check. The following command prints the parsed AST.
+First of all comes the parsing. As the definition says, the parser is responsible for the lexical syntax check without any type check. The following command prints the parsed AST.
 
 ```bash
 swiftc ./employee.swift -dump-parse
 ```
 
-In the output, you can notice that the types are not resolved and are ending with errors.
+In the output, you can notice that the types are not resolved and end with errors.
+
 ```
 (source_file "./employee.swift"
 // Importing Foundation
@@ -725,16 +728,16 @@ In the output, you can notice that the types are not resolved and are ending wit
 ...
 ```
 
-From the parsed AST we can see that it is really descriptive. The source code of Employee.swift has 47 lines of code while its parsed AST without type check has 270.
+From the parsed AST we can see that it is really descriptive. The source code of `Employee.swift` (TODO: I added the ticks \`\` but this one has an uppercase E. The previous ones did not. Be consistent.) has 47 lines of code while its parsed AST without type check has 270.
 
-Out of curiosity, let us have a look at how the tree would look like with syntax error. To do so, I added the winner of all times in hide and seek `;` to the protocol declaration.
+Out of curiosity, let us have a look at how the tree would look with a syntax error. To do so, I added the winner of all times in hide and seek, a semi-colon `;`, to the protocol declaration.
 
 ```swift
 public protocol Address {
     var houseNo: Int; { get }
 ```
 
-After running the same command we can see a syntax error at the declaration of houseNo variable. That is the error Xcode would show as soon as it type checks the source file.
+After running the same command we can see a syntax error at the declaration of `houseNo` variable. That is the error Xcode would show as soon as it type checks the source file.
 
 ```
 ...
