@@ -81,12 +81,10 @@ SwiftUI.
 # Modular Architecture
   **Modular**, *adjective - employing or involving a module or modules as the basis of design or construction: "modular housing units"*
 
-In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. These include building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers, and so on. With the already existing mobile foundation, it will be done way faster and cleaner.
+In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. These include building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers, and so on. With the already existing mobile foundation, the whole development process will be done way faster and cleaner.
 [//]: # (TODO: what will be done way faster and cleaner)
 
-To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD
-[//]: # (TODO: spell these out the first time they are used)
-, maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
+To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD (Continous Integration / Continous Delivery), maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
 
 This book describes building such a large scalable architecture with domain-driven design and does so by using examples; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
@@ -114,7 +112,7 @@ Now to the specific layers.
 Let us have a look now at each layer and its purpose. Modules within layers are then demonstrated with the example in the following chapter.
 
 ### Application Layer
-The application layer consists of the final customer-facing products: applications. Applications glue all  the different parts together, linking domains via configurations and a Scaffold module. In such architecture, the App is a container that puts pieces together.
+The application layer consists of the final customer-facing products: applications. Applications glue all the different parts together, linking domains via configurations and a Scaffold module. In such architecture, the App is a container that puts pieces together.
 
 Nevertheless, the App might also contain some necessary Application implementations like receiving push notifications, handling deep linking, requesting permissions, and so on.
 
@@ -123,7 +121,7 @@ Patterns that will help achieve such goals will be described later.
 For example, an app in an e-commerce business could be `The Shop` for online customer and `Cashier` for the employees of that company.
 
 ### Domain Layer
-Domain layer links services and other modules from layers below and uses them to implement the business domain needs of the company or the project. Domains will contain, for example, the user flow within the particular domain part of the app. So as, the necessary components for it like; view controllers, views, models and view models (TODO: reword this sentence). Obviously it depends on the team's preferences and technical experience which pattern will be used for creating screens. Personally, the reactive MVVM+C is my favourite but more on that later.
+Domain layer links services and other modules from layers below and uses them to implement the business domain needs of the company or the project. Domains will contain, for example, the user flow within the particular domain part of the app. Furthermore, the domain will have the necessary components for the flow like; view controllers, views, models and view models. Obviously it depends on the team's preferences and technical experience which pattern will be used for creating screens. Personally, the reactive MVVM+C is my favourite but more on that later.
 
 Continuing with our example of an e-commerce app, a domain could be `Checkout` or `Store Items`.
 
