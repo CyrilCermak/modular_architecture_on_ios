@@ -1330,22 +1330,31 @@ Luckily, there is one simple solution supported by many CI/CD platforms for it: 
 
 ### Git & Contribution
 
-While there are many different approaches how to contribute to the repository via git in our modular architecture I find out one particular the most helpful. The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
+While there are many different approaches on how to contribute to the repository via git in our modular architecture, I find one particular the most helpful: The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
+// TODO: do you mean this https://nvie.com/posts/a-successful-git-branching-model/ ? 
+// I had not seen GitFlow written like that when discussing this branching model
+// plus ... as an aside, it is curious to me how git flow and "github flow" conflict
 
-Most likely, on projects developed by a single team, it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of a team of teams, contributing to mono-repository with GitFlow alongside with four eyes principle is the way to go.
+Most likely, on projects developed by a single team, it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of a team of teams, contributing to a mono-repository with GitFlow, coupled with the four eyes principle, is the way to go.
+// TODO: what is the it in "it heavily depends on"
 
-Four eyes principles simply mean that in order to merge a pull request it needs to be reviewed first. That being said, in the team, each platform must have at least two developers so that the team can gain autonomy and work independently.
+The four eyes principle simply means that in order to merge a pull request, the pull request must first be reviewed by another set of eyes, another person. That being said, in the team, each platform must have at least two developers so that the team can develop autonomy and work independently.
 
-In case of making changes in another team's code, a dedicated code-owner from the team must approve the changes. Only with that, the team can stay ahead and have the ultimate overview of their part of the codebase and domain knowledge. Without defining the code-owners soon everyone would be working everywhere and it would all turn into chaos.
+When making changes in another team's code, a dedicated code-owner from the team must approve the changes. Once approved, the team can stay ahead and maintain the ultimate overview of its part of the codebase and domain knowledge. Without defining the code-owners early on in the project's lifetime, everyone would be working everywhere and it could all turn into chaos.
+// TODO: inconsistent formatting of code owner (code owner, code-owner)
+// another word for ultimate?
 
-Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that's very difficult to maintain and takes the most effort. That part will be the core layer. While the core layer could be developed by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays a crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer, if we don't count the utils layer, it will be highly likely used by many frameworks on the higher layer.
+Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that is very difficult to maintain and takes the most effort. That part will be the core layer. While the core layer could be developed by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays a crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer (since we are not counting the utils layer), it will be highly likely that it will be used by many frameworks in the higher layers.
 
-The core layer, after all the desired functionality was implemented and bugs were fixed will not need much of a focus. However, teams might need to extend the functionality on that layer, which could lead as mentioned above towards opening a PR with their suggestions for the extension. In this case, the core ownership should be made of tech leads who are having the overall vision of the project.
+The core layer, after all the desired functionality was implemented and bugs were fixed, will not need much of a focus. However, teams might need to extend the functionality on that layer, which could lead as mentioned above towards opening a PR with their suggestions for the extension. In this case, the core ownership should be made of tech leads who are having the overall vision of the project.
+// TODO: reword "could lead as mentioned above towards opening a PR"
 
 ### Scalability
-As mentioned already in the book, modular architecture is designed to be highly scalable. With the pre-defined scripts, the new team can simply create a new framework or an app and start the implementation. Nevertheless, the onboarding of a new colleague or the whole team plays a significant time that needs to be taken into account.
+As mentioned already in the book, modular architecture is designed to be highly scalable. With the pre-defined scripts, the new team can simply create a new framework or app and start the implementation right away. Nevertheless, the onboarding of a new colleague or the whole team plays a significant time that needs to be taken into account.
+// TODO: reword "plays a significant time that needs to be taken into account"; if nothing else, just turn it into two sentences
 
-Most likely, scaling for example to a 6th team working on the framework will require quite an extensive onboarding session. Due to a large amount of code, design patterns, CI/CD, code style etc. will take a lot of time for newcomers to get the speed. In such case, usually, platform technical leads are doing pair programming, code reviews and further onboarding up until the newcomers are familiar with the development concept, patterns and so on.
+Most likely, scaling to a 6th team working on the framework will require quite an extensive onboarding session. Due to the amount of code, design patterns, CI/CD, code style etc. will take a lot of time for newcomers to get the speed. In such a case, platform technical leads bring new members up to speed via pair programming, code reviews, and further onboarding up until the newcomers are familiar with the development concept, patterns, and so on.
+// TODO: reword "due to the amount of .... will take a lot"
 
 
 ### Application Framework & Distribution
