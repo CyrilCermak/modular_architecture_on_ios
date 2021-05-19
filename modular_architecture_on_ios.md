@@ -807,7 +807,7 @@ public protocol Address {
 
 ### Clang importer
 
-> The Clang importer (implemented in lib/ClangImporter (TODO: guess you could set these in `` as well, for the formatting)) imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
+> The Clang importer (implemented in lib/ClangImporter imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
@@ -819,14 +819,12 @@ The third in the compilation process is the **clang importer**. This is the well
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
 The fourth step in the compilation process is the **Swift Intermediate Language**. Are you curious about how it looks? To print it, we can use the following command.
-(FYI: "how it looks" (just how) OR "what it looks like" (like+what); never how+like as in "how it looks like")
 
 ```bash
 swiftc ./employee.swift -emit-sil
 ```
 
-In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained [here](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
-(TODO: something more description for the text of the link that "here" - "rightpoint's detailed explanation of the dispatch table")
+In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained in the article about [method dispatch](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
 
 ```
 ...
@@ -862,8 +860,7 @@ sil_witness_table [serialized] EmployeeAddress: Address module employee {
 ...
 ```
 
-Furthermore, the SIL gets through next two phases; guaranteed transformation and optimisation.
-(TODO: gets through? goes through? must go through? passes through?)
+Furthermore, the SIL must go through next two phases; guaranteed transformation and optimisation.
 
 > SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
 
@@ -874,19 +871,18 @@ Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
 \newpage
-### LLVM IR (Intermediate Representation) Generation
-(TODO: or FYI: here the words for the acroynm IR are presented in the header whereas just SIL appeared in the previous header with the words it represents appearing in the first paragraph; maybe do the same here?)
+### LLVM IR Generation
 
 >IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at which point LLVM can continue to optimize it and generate machine code.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-The final step in the compilation process is that of the IR for LLVM. To get the IR from the swiftc we can use the following command:
+The final step in the compilation process is that of the IR (Intermediate Representation) for LLVM. To get the IR from the swiftc we can use the following command:
 
 ```bash
 swiftc ./employee.swift -emit-ir | more
 ```
-Here we can see a snippet of the LLVM's familiar declaration which in the next step would be transformed by it into the machine code. (TODO: by it, it here is? LLVM? I might break these into two sentences. "Here we can see ... declaration. In the nex step this ...")
+Here we can see a snippet of the LLVM's familiar declaration. In the next step it would be transformed by LLVM into the machine code.
 
 ```asm
 ...
@@ -951,7 +947,6 @@ dyld: Library not loaded: libEmployee.dylib
   Reason: image not found
 [1]    92481 abort      ./main
 ```
-(TODO: I suppose you are OK having your name appear here in /Users/yourName/...; Maybe you even constructed the directory structure or example like this on purpose, for this purpose :D )
 
 Using the knowledge from the previous chapter we can check where the binary expects the library to be with the command `otool -l ./main`.
 
@@ -1004,8 +999,7 @@ First, let us do it manually and automate the process of creating libraries late
 
 For demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies to all other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the [pre-build repository](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
-(TODO: would that be more descriptive? rather than a link with text "here")
+You can download the [pre-build repository](TODO://GITHUB LINK) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its dependencies.
 
@@ -1234,9 +1228,7 @@ Second of all, each layer can link frameworks only from its sublayer. This ensur
 
 Let us have a look at some examples of cross-linking dependencies.
 
-### Cross linking dependencies
-
-(TODO: in this header cross linking; in the line just before it cross-linking; be consistent)
+### Cross-linking dependencies
 
 Let us say that the build system will jump on compiling the Network module where the Radio is being linked to. When it comes to the point where the Radio needs to be linked it jumps to compile the Radio module without finishing the compilation of the Network. The Radio module now requires a Network module to continue compiling, however, the Network module has not finished compiling yet, therefore, no `swiftmodule` and other files were yet created. The compiler will continue compiling up until one file will be referencing some part (e.g a class in a file) of the other module and the other module will be referencing the caller.
 
@@ -1252,7 +1244,7 @@ As with horizontal layer linking, vertical linking is also very important and mu
 
 Unlike in the cross-linking dependencies scenario, in this case, the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer will contain mostly some shared functionality for the Core layer as well as some protocols that would allow passing references from the top down.
 
-Another solution would be to separate the core public protocols and models of the framework so that it (TOD: what is the it?) can be exposed and linked towards more frameworks on the same layer. On the higher level, the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, has the downside of having an extra framework that needs to be linked and maintained. However, with this approach, the so-called `Clean Architecture` would be followed. More about that later.
+Another solution would be to separate the core public protocols and models of the framework such that the framework can be exposed and linked towards more frameworks on the same layer. On the higher level, the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, has the downside of having an extra framework that needs to be linked and maintained. However, with this approach, the so-called `Clean Architecture` would be followed. More about that later.
 
 Needless to say, any higher-level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app can link anything from the Core or the newly defined Shared layer.
 
