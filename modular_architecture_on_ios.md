@@ -444,7 +444,7 @@ SUBSECTIONS_VIA_SYMBOLS
 While static library archive ending with `.a` is a clearly static one with a framework to be sure that the library is dynamically linked it is necessary to check the binary for its `filetype` in the Mach-O header.
 
 ### Dependencies
-Third, let's have a look at what the library is linking. For that the `otool` provides `-l` flag. (TODO: here you mention `-l` but in the line of code we see `-L`)
+Third, let's have a look at what the library is linking. For that the `otool` provides `-L` flag.
 ```shell
 otool -L ./UIKit
 ```
@@ -549,7 +549,7 @@ Let's have a quick look at what Xcode does when the build is triggered.
 
 2. **Compiler** (`swiftc`, `clang`)
 
-  As mentioned above, the Xcode build system uses two compilers; clang and swiftc. The compiler consists of two parts, front-end and back-end. Both compilers use the same back-end, LLVM (Low-Level Virtual Machine) and language-specific front-end. The job of a compiler is to compile the preprocessed (TODO: seems it would be dealing at this point with postprocessed (aka after preprocessed) files) source code files into object files that contain object code. Object code is simply human-readable assembly instructions that can be understood by the CPU.
+  As mentioned above, the Xcode build system uses two compilers; clang and swiftc. The compiler consists of two parts, front-end and back-end. Both compilers use the same back-end, LLVM (Low-Level Virtual Machine) and language-specific front-end. The job of a compiler is to compile the post-processed source code files into object files that contain object code. Object code is simply human-readable assembly instructions that can be understood by the CPU.
 
 3. **Assembler** (`asm`)
 
