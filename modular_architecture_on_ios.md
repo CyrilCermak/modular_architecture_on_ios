@@ -163,20 +163,19 @@ As described above, all apps link the Scaffold module which provides the bootstr
 
 ![ISS Overview](assets/ISSOverview.png)
 
-The diagram above(TODO: will it always be above? from my LaTeX days, I learned to reference the images by reference number, allowing clicking on the link to be taken to the image) describes the concrete linking of modules for the app. Let us have a closer look at it.
+The diagram above describes the concrete linking of modules for the app. Let us have a closer look at it.
 
 `ISS Overview` app links the domain `Peripheries`, which implements logic and screens for peripheries of the station.
 
 The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and `Docking Port` services from which data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
-(TODO: what is this about UIcomponents? Should I see an arrow from peripheries to uicomponents? or uicomponents component is pulled in via scaffold?)
 
-The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (TODO: spell it out? refer to a glossary?) or other technology which would connect to the solar array or heat radiator.
+The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (Bluetooth Low Energy) or other technology which would connect to the solar array or heat radiator.
 
 ### Cosmonaut
 
 ![Cosmonaut App](assets/Cosmonaut.png)
 
-The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each module is responsible for screens and users flow through the part of the app. (TODO: what is the same? each module=domain? handles its own UX flow?)
+The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each domain is responsible for screens and users flow through the part of the app.
 
 `Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that provide data for domain-specifc screens as `UIComponents` provides the UI parts.
 
@@ -191,7 +190,7 @@ I will leave this one for the reader to figure out.
 
 As you can probably imagine, scaling the architecture as described above should not be a problem. When it comes to extending the ISS Overview app for another ISS periphery, for example, a new domain module can be easily added with some service modules etc.
 
-When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested Cosmonaut (TODO: did you want to use `Cosmonaut` formatting on these?) domain module with other necessary modules that are required. Development of the new app will thus become much easier.
+When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested `Cosmonaut` domain module with other necessary modules that are required. Development of the new app will thus become much easier.
 
 The knowledge of the software that remains in one repository where developers have access to and can learn from is also very beneficial.
 
@@ -233,7 +232,7 @@ We can look at a framework as some bundle that is standalone and can be attached
 
 ## Dynamic vs static library?
 
-The main difference between a static and dynamic library is in the Inversion Of Control (IoC) (TODO: well done, spelled it out - when introducing a new acronym that you later use) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as the framework is dynamically linked to the executable's process on app start. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
+The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as the framework is dynamically linked to the executable's process on app start. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
 
 As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a framework's interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being made, you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.
 
@@ -277,7 +276,7 @@ Now let's have a look at some pros & cons of both.
   - **CONS**
     - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies otherwise the app will need to decide on startup which library is going to be used.
     - The main executable must be recompiled when the library has an update even though the library's interface remains the same.
-    - Memory footprint of the main executable is bigger which implies the load time of the App (TODO: App? app? case) is slower.
+    - Memory footprint of the main executable is bigger which implies the load time of the app is slower.
 
 ## Essentials
 
