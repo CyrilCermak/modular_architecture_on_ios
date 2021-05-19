@@ -606,7 +606,7 @@ While other chapters are rather essential for having a good understanding of the
 
 ## Compiler Architecture
 
-To fully understand the swift's compiler architecture and its process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples out of it. (TODO: reword out of it)
+To fully understand swift's compiler architecture and its process, let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples based on it.
 
 The following image describes the `swiftc` architecture. It consists of seven steps, which are explained in subchapters.
 
@@ -728,7 +728,7 @@ In the output, you can notice that the types are not resolved and end with error
 ...
 ```
 
-From the parsed AST we can see that it is really descriptive. The source code of `Employee.swift` (TODO: I added the ticks \`\` but this one has an uppercase E. The previous ones did not. Be consistent.) has 47 lines of code while its parsed AST without type check has 270.
+From the parsed AST we can see that it is really descriptive. The source code of `employee.swift` has 47 lines of code while its parsed AST without type check has 270.
 
 Out of curiosity, let us have a look at how the tree would look with a syntax error. To do so, I added the winner of all times in hide and seek, a semi-colon `;`, to the protocol declaration.
 
