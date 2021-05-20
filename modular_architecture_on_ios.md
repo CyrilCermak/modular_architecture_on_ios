@@ -36,12 +36,12 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
-"Finally, to my current girlfriend … whoever you might be"
+"Finally, to my current girlfriend ... whoever she is"
 
 \newpage
 
 # About the author
-Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform (TODO: building an iOS platform / build iOS platforms), included numerous start-ups along the way, and, currently, has me as an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
+Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
 
 ## Reviewers
 ?
@@ -53,15 +53,15 @@ Hi, I am Cyril, a software engineer by heart and the author of this book. Most o
 # Introduction
 In the software engineering field, people are going from project to project, gaining a different kind of experience out of it. In particular, on iOS, mostly the monolithic approaches are used. In some cases it makes total sense, so nothing against it. However, scaling up the team, or even better, the team of teams on a monolithically built app is horrifying and nearly impossible without some major time impacts on a daily basis. Numerous problems will rise, that limit the way iOS projects are built or managed at the organisational level.
 
-Scaling up the monolithic approach to a team of e.g 10+ developers will most likely result in hell. By hell, I mean, resolving xcodeproj issues, where in the worst case, both parties renamed, edited, or deleted the same source code file or touched the same {storyboard|xib} file. That is, both worked on the same file which would resolve in classic merge conflicts. Somehow, we all become accustomed to those issues and have learned we will just need to live with them.
+Scaling up the monolithic approach to a team of e.g 10+ developers will most likely result in hell. By hell, I mean, resolving `xcodeproj` issues, where in the worst case, both parties renamed, edited, or deleted the same source code file or touched the same {storyboard|xib} file. That is, both worked on the same file which would resolve in classic merge conflicts. Somehow, we all become accustomed to those issues and have learned we will just need to live with them.
 
-The deal-breaker comes when your PO/PM/CTO/CEO or anybody higher on the company's food chain than you are will come to the team to announce that they (TODO: he/she is) are planning to release a new flavour of the app or to divide the current app into two separate parts. Afterwards, the engineering decision needs to be made to either continue with the monolithic approach or implement something different. Continuing with the monolithic approach, likely would result in creating different targets, assigning files towards the new flavour of the app and continuing on living in multiplied hell all the while hoping that some requirement such as shipping core components of the app to a subsidiary or open-sourcing it as a framework will not come into play.
+The deal-breaker comes when your PO/PM/CTO/CEO or anybody higher on the company's food chain than you are will come to the team to announce that he or she is planning to release a new flavour of the app or to divide the current app into two separate parts. Afterwards, the engineering decision needs to be made to either continue with the monolithic approach or implement something different. Continuing with the monolithic approach, likely would result in creating different targets, assigning files towards the new flavour of the app and continuing on living in multiplied hell all the while hoping that some requirement such as shipping core components of the app to a subsidiary or open-sourcing it as a framework will not come into play.
 
 Not surprisingly, a better approach would be to start refactoring the app using a modular approach, where each team can be responsible for particular frameworks (parts of the app) that are then linked towards final customer-facing apps. That will most certainly take time as it will not be easy to transform it but the future of the company's mobile engineering will be faster, scalable, maintainable and even ready to distribute or open-source some SDKs of it to the outer world.
 
 Another scenario could be that you are already working on an app that is set up in a modular way but your app takes around 20 mins to compile because it is a huge legacy codebase that has been in development for the past eight or so years and has linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean means you can take a double shot of espresso. I have been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process of such a project [in an article on Medium in 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
 
-Nowadays, as an iOS tech lead (TODO: previous mention of iOS TechLead used a different formatting), I am often getting asked some questions all over again from new teams or new colleagues with regards to those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. The purpose of it is to help developers working on such architectures to gain the speed, knowledge, ideas and understanding faster (TODO: reword the end of this sentence; to gain the background knowledge and experience in order to more quickly and correctly implement these ideas).
+Nowadays, as an iOS TechLead, I am often getting asked some questions all over again from new teams or new colleagues with regards to those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. The purpose of it is to help developers working on such architectures to gain the background knowledge and experience in order to more quickly and correctly implement these ideas.
 
 Hopefully, this introduction provided enough motivation that you will want to dive further into this book.
 
@@ -81,12 +81,9 @@ SwiftUI.
 # Modular Architecture
   **Modular**, *adjective - employing or involving a module or modules as the basis of design or construction: "modular housing units"*
 
-In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. These include building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers, and so on. With the already existing mobile foundation, it will be done way faster and cleaner.
-[//]: # (TODO: what will be done way faster and cleaner)
+In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. These include building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers, and so on. With the already existing mobile foundation, the whole development process will be done way faster and cleaner.
 
-To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD
-[//]: # (TODO: spell these out the first time they are used)
-, maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
+To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD (Continous Integration / Continous Delivery), maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
 
 This book describes building such a large scalable architecture with domain-driven design and does so by using examples; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
@@ -114,7 +111,7 @@ Now to the specific layers.
 Let us have a look now at each layer and its purpose. Modules within layers are then demonstrated with the example in the following chapter.
 
 ### Application Layer
-The application layer consists of the final customer-facing products: applications. Applications glue all  the different parts together, linking domains via configurations and a Scaffold module. In such architecture, the App is a container that puts pieces together.
+The application layer consists of the final customer-facing products: applications. Applications glue all the different parts together, linking domains via configurations and a Scaffold module. In such architecture, the App is a container that puts pieces together.
 
 Nevertheless, the App might also contain some necessary Application implementations like receiving push notifications, handling deep linking, requesting permissions, and so on.
 
@@ -123,7 +120,7 @@ Patterns that will help achieve such goals will be described later.
 For example, an app in an e-commerce business could be `The Shop` for online customer and `Cashier` for the employees of that company.
 
 ### Domain Layer
-Domain layer links services and other modules from layers below and uses them to implement the business domain needs of the company or the project. Domains will contain, for example, the user flow within the particular domain part of the app. So as, the necessary components for it like; view controllers, views, models and view models (TODO: reword this sentence). Obviously it depends on the team's preferences and technical experience which pattern will be used for creating screens. Personally, the reactive MVVM+C is my favourite but more on that later.
+Domain layer links services and other modules from layers below and uses them to implement the business domain needs of the company or the project. Domains will contain, for example, the user flow within the particular domain part of the app. Furthermore, the domain will have the necessary components for the flow like; view controllers, views, models and view models. Obviously it depends on the team's preferences and technical experience which pattern will be used for creating screens. Personally, the reactive MVVM+C is my favourite but more on that later.
 
 Continuing with our example of an e-commerce app, a domain could be `Checkout` or `Store Items`.
 
