@@ -882,7 +882,7 @@ The final step in the compilation process is that of the IR (Intermediate Repres
 ```bash
 swiftc ./employee.swift -emit-ir | more
 ```
-Here we can see a snippet of the LLVM's familiar declaration. In the next step it would be transformed by LLVM into the machine code.
+Here we can see a snippet of the LLVM's familiar code declaration. In the next step, the code would be transformed by LLVM into the machine code.
 
 ```asm
 ...
