@@ -1260,7 +1260,7 @@ Needless to say, any higher-level layer framework can link any framework from an
 
 Considering many developers are working in the same repository on the same project, securely handling project secrets is inevitable (TODO: lot of devs ... securely handling secrets ... inevitiable; seems this could use a rewording as well; I agree: handling such app secrets and credentials securely is enough of a challenge itself and even more of one with such a big team; I guess the motivation "we want the secrets to stay secret" might be missing with the sentence as is). Project secrets could be API keys, SDK keys, encryption keys, as well as configuration files or certificates containing sensitive information that could cause potential harm to the app. Essentially, any piece of sensitive information should not be exposed to anyone not working directly on the project. By any means, secrets should NOT be stored in the repository and should not be part of the compiled binary as plain strings.
 
-The app ideally should decrypt encrypted secret during its runtime. Even though, on a jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network, considering the SSLPinning was in a place like it should (TODO: reword this - make it two/multiple sentences?). In any case, it will take much more effort than just dumping binary strings that contain secrets.
+The app ideally should decrypt encrypted secret during its runtime. Even though, on a jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network. Considering, the SSLPinning was in a place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
 
 About two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets which solves this problem in a Swifty way.
 
@@ -1278,7 +1278,9 @@ Essentially, the secret should be visible only for the right developer in any ci
 
 GPG is an asymmetric key management system that creates a hash for encryption from the public keys of all participants. In the initialisation process, GPG will generate a private and public key. The public key is saved in the `.gpg` folder under the user's email visible to everyone. The private key is saved in `~/.gnupg` and is protected by a password chosen by the user.
 
-To add a developer into the authorised group, the developer needs to provide a public key from his machine, simply executing `dotgpg key` (TODO: other places you mntioned installing software and here as far as I can recall, you just dive in without mentioning which tool dotgpg is or how to obtain it; similarly you could also mention gpg is likely already installed on one's machine) will print the key. This key must then be added by the already authorised person `via dotgpg add`.
+To instal GPG on the mac, following command can be used: `brew install gnupg` and `gem install dotgpg` to install `dotgpg`, Ruby program that simplifies the usage of GPG.
+
+To add a developer into the authorised group, the developer needs to provide a public key from his machine, simply executing `dotgpg key` will print the key. This key must then be added by the already authorised person `via dotgpg add`.
 
 The file encrypted by GPG containing all project secrets can be then thoughtfully committed to the repository since only authorised developers who possess the private key can decrypt it.
 
@@ -1302,7 +1304,7 @@ Mobile Secrets exported Swift source code will look like the example below. Last
 
 ### The ugly and brilliant part of the Secrets source code
 
-What happened under the hood (TODO: under the hood, behind the curtain/scenes)? Out of the YAML configuration, secrets were obfuscated with the specified hash key via XOR and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
+What happened under the hood of the mobile-secrets? Out of the YAML configuration, secrets were obfuscated with the specified hash key via XOR and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
 
 The first item in the bytes array is the hash key. The second item is the key for a secret, the third item contains the obfuscated secret, the fourth is again the key and fifth is the value, and so forth.
 
