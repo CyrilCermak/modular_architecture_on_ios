@@ -194,7 +194,7 @@ When a requirement comes for creating a new app for e.g. cosmonauts, the new app
 
 The knowledge of the software that remains in one repository where developers have access to and can learn from is also very beneficial.
 
-There are of course some disadvantages as well. For example, onboarding new developers on such an architecture might take a while, especially when there is already a huge existing codebase. In such a case, pair programming comes into play so as to provide proper project onboarding, software architecture documents and the overall documentation of modules and the whole project. (TODO: what about documents and overall documentation? those are things that help new developers? have to do with peer programming?)
+There are of course some disadvantages as well. For example, onboarding new developers on such an architecture might take a while, especially when there is already a huge existing codebase. In such a case, pair programming comes into play so as a proper project onboarding, software architecture document and the overall documentation of modules which helps newcomers to get on the right track.
 
 
 \newpage
@@ -253,7 +253,7 @@ Now let's have a look at some pros & cons of both.
     - Can be linked transitively to other dynamic libraries without any difficulty.
     - Can be exchanged without the recompile of the main executable just by replacing the framework with a new version.
     - Is loaded into a different memory space than the main executable.
-    - Can be shared in (TODO: in between?) between applications especially useful for system libraries.
+    - Can be shared between applications especially useful for system libraries.
     - Can be loaded partially, only the needed symbols can be loaded into the memory (`dlsym`).
     - Can be loaded lazily, only objects that are referenced will be loaded.
     - Library can perform some cleanup tasks when it is closed (`dlclose`).
