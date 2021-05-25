@@ -1330,19 +1330,13 @@ Luckily, there is one simple solution supported by many CI/CD platforms for it: 
 
 ### Git & Contribution
 
-While there are many different approaches on how to contribute to the repository via git in our modular architecture, I find one particular the most helpful: The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
-// TODO: do you mean this https://nvie.com/posts/a-successful-git-branching-model/ ? 
-// I had not seen GitFlow written like that when discussing this branching model
-// plus ... as an aside, it is curious to me how git flow and "github flow" conflict
+While there are many different approaches on how to contribute to the repository via git in our modular architecture, I find one particular the most helpful: The [GitHub flow](https://guides.github.com/introduction/flow/). I am sure you have heard of it at some point or if you have not you could be using it without knowing.
 
-Most likely, on projects developed by a single team, it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of a team of teams, contributing to a mono-repository with GitFlow, coupled with the four eyes principle, is the way to go.
-// TODO: what is the it in "it heavily depends on"
+Most likely, on projects developed by a single team, the whole workflow heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of a team of teams, contributing to a mono-repository with the GitHub flow, coupled with the four eyes principle, is the way to go.
 
 The four eyes principle simply means that in order to merge a pull request, the pull request must first be reviewed by another set of eyes, another person. That being said, in the team, each platform must have at least two developers so that the team can develop autonomy and work independently.
 
-When making changes in another team's code, a dedicated code-owner from the team must approve the changes. Once approved, the team can stay ahead and maintain the ultimate overview of its part of the codebase and domain knowledge. Without defining the code-owners early on in the project's lifetime, everyone would be working everywhere and it could all turn into chaos.
-// TODO: inconsistent formatting of code owner (code owner, code-owner)
-// another word for ultimate?
+When making changes in another team's code, a dedicated code owner from the team must approve the changes. Once approved, the team can stay ahead and maintain the overview of its part of the codebase and domain knowledge. Without defining the code owners early on in the project's lifetime, everyone would be working everywhere and it could all turn into chaos.
 
 Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that is very difficult to maintain and takes the most effort. That part will be the core layer. While the core layer could be developed by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays a crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer (since we are not counting the utils layer), it will be highly likely that it will be used by many frameworks in the higher layers.
 
