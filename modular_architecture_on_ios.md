@@ -1340,16 +1340,12 @@ When making changes in another team's code, a dedicated code owner from the team
 
 Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that is very difficult to maintain and takes the most effort. That part will be the core layer. While the core layer could be developed by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays a crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer (since we are not counting the utils layer), it will be highly likely that it will be used by many frameworks in the higher layers.
 
-The core layer, after all the desired functionality was implemented and bugs were fixed, will not need much of a focus. However, teams might need to extend the functionality on that layer, which could lead as mentioned above towards opening a PR with their suggestions for the extension. In this case, the core ownership should be made of tech leads who are having the overall vision of the project.
-// TODO: reword "could lead as mentioned above towards opening a PR"
+After all the desired functionality has been implemented and known bugs have been fixed, the core layer will not need much of a focus. However, teams may still need to extend the functionality on that layer. This could result in those teams opening a PR with their needed functionality or with suggestions of improvements. In this case, the tech leads should be seen as being code owners of the code in question since they are the ones with the duty of maintaining the overall vision of the project.
 
 ### Scalability
-As mentioned already in the book, modular architecture is designed to be highly scalable. With the pre-defined scripts, the new team can simply create a new framework or app and start the implementation right away. Nevertheless, the onboarding of a new colleague or the whole team plays a significant time that needs to be taken into account.
-// TODO: reword "plays a significant time that needs to be taken into account"; if nothing else, just turn it into two sentences
+As mentioned already in the book, modular architecture is designed to be highly scalable. With the pre-defined scripts, the new team can simply create a new framework or app and start the implementation right away. Nevertheless, the onboarding of a new colleague or the whole team takes time which needs to be considered by the project management.
 
-Most likely, scaling to a 6th team working on the framework will require quite an extensive onboarding session. Due to the amount of code, design patterns, CI/CD, code style etc. will take a lot of time for newcomers to get the speed. In such a case, platform technical leads bring new members up to speed via pair programming, code reviews, and further onboarding up until the newcomers are familiar with the development concept, patterns, and so on.
-// TODO: reword "due to the amount of .... will take a lot"
-
+Most likely, scaling to a 6th team working on the framework will require quite an extensive onboarding session. Due to the amount of code, design patterns, CI/CD, code style and so on, it may take a lot of time for newcomers to get the speed. In such a case, platform technical leads bring new members up to speed via pair programming, code reviews, and further onboarding up until the newcomers are familiar with the development concept, patterns, and so on.
 
 ### Application Framework & Distribution
 
