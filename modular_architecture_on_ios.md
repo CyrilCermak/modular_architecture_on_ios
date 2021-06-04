@@ -1264,7 +1264,9 @@ When the GPG is initialised a template YAML file can be created by running: `mob
 
 ![MobileSecrets.yml](assets/mobile_secrets_yaml.png)
 
-The `MobileSecrets.yml` file contains the hash key used for obfuscation of secrets with the key-value dictionary of secrets that must be adjusted to the project needs. All secrets of the project including the initial hashing key are then being organised in this structure encrypted by GPG. When everything was edited simply import the configuration file by running the command. <br>`mobile-secrets --import ./MobileSecrets.yml` and it will be stored under `secrets.gpg`.
+The `MobileSecrets.yml` file contains the hash key used for obfuscation of secrets with the key-value dictionary of secrets that must be adjusted to the project needs. All secrets of the project including the initial hashing key are then being organised in this structure encrypted by GPG. When everything was edited simply import the configuration file by running the command.
+
+`mobile-secrets --import ./MobileSecrets.yml` and it will be stored under `secrets.gpg`.
 
 Finally, we can run: `mobile-secrets --export ./Output/Path/` to export the swift file with obfuscated secrets.
 
