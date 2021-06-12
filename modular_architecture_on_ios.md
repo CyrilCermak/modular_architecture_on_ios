@@ -1383,9 +1383,9 @@ In case of the maintenance, a particular difficulty (challenge) could be maintai
 
 ### Code style
 
-Since many different developers are working, following the same code style, principles and patterns can be a challenge. Everybody has different preferences, different experience and getting sometimes people on the same board is quite difficult.
+Since many different developers are working together, collaborating on the same code base, following the same code style, principles and patterns can be a challenge. Everybody has different preferences and different experiences. Getting people on the same board can sometimes be quite difficult.
 
-Nevertheless, following the ground rules and overall framework patterns is what matters the most. In this case what helps is well-documented code, framework documentation so as proper onboarding that ideally consists of pair programming, code reviews and ad-hoc one on one sessions. Changes in the code style, importing new libraries, new patterns and so on can be discussed in developers guild meetings where everybody can vote for what seems to be the best option. In guilds, everybody can make suggestions for improvements and vote for changes he or she likes.
+Nevertheless, following the ground rules and overall framework patterns is what matters the most. In this case, what helps is having the code itself and framework being well documented. Good documentation should be complemented by a proper onboarding process that ideally consists of pair programming, code reviews, and ad-hoc one on one sessions. Changes in the code style, importing new libraries, introducing new patterns and so on can be discussed in developers guild meetings where everybody can vote for what seems to be the best option. In guilds, everybody can make suggestions for improvements and vote for changes he or she likes.
 
 ### Not fully autonomous teams
 
