@@ -1422,9 +1422,9 @@ In such cases, it might be necessary to move away from internally developed Coco
 
 ### Integration with the application framework
 
-Surprisingly, to integrate Cocoapods in the whole application framework might also not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks so as each app developed on top of it. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared Podfile that will define Pods for each framework, thereafter, every app can easily reuse it. Furthermore, each app has its own Podfile that specifies what Pods must be installed for which framework to avoid unnecessary linking for frameworks the app will not need.
+Surprisingly, integrating Cocoapods in the whole application framework might not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks and on each app developed upon those frameworks. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared `Podfile` that will define Pods for each framework. Thereafter, every app can easily reuse it. Furthermore, each app has its own `Podfile` that specifies which Pods must be installed for which framework to avoid unnecessarily linking frameworks the app will not need.
 
-Let us have a look now how App's Podfile could look like for the Cosmonaut example.
+Let us have a look now how the App's `Podfile` could look for the Cosmonaut example.
 `app/Cosmonaut/Podifle`
 ```ruby
 # Including the shared podfile
@@ -1469,9 +1469,11 @@ target 'CosmonautApp' do
 end
 ```
 
-Firstly, the shared Podfile that defines pods for all frameworks is included. After setting the platform and workspace, the installation for all linked frameworks takes place. Last but not least, the well known app target is defined, potentially with some extra pods. Here, a special attention goes to the `add_linked_libs_from_sdks_to_app` function which will be explained in a second.
+Firstly, the shared `Podfile` that defines pods for all frameworks is included. After setting the platform and workspace, the installation for all linked frameworks takes place. Last but not least, the well known app target is defined, potentially with some extra pods. Here, special attention goes to the `add_linked_libs_from_sdks_to_app` function which will be explained in a second.
+// TODO: sometimes you write Pods and other times pods. 
 
-To fully understand what is happening inside of the app's Podfile we have to have a look at the shared Podfile.
+// TODO: and previously you had App and here now app.
+To fully understand what is happening inside of the app's `Podfile` we have to have a look at the shared `Podfile`.
 `fastlane/Podifle.rb`
 ```ruby
 require 'cocoapods'
@@ -1548,11 +1550,11 @@ def install_test_subdependencies project_path, target_name, test_target_name, fo
 end
 ```
 
-Here we can see, on top of the file, the struct `Lib` that represents a Cocoapod library. In the next lines, it is used to describe the libraries that can be used within the whole framework and apps. Furthermore, each framework is defined by a function, e.g. `spacesuit_sdk`, which is then called from the main app Podfile to install the libraries for those required frameworks. Finally, helper functions are defined to simplify the whole workflow.
+Here we can see, at the top of the file, the struct `Lib` that represents a Cocoapod library. In the next lines, `Lib` is used to describe the libraries that can be used within the whole framework and apps. Furthermore, each framework is defined by a function, e.g. `spacesuit_sdk`, which is then called from the main app `Podfile` to install the libraries for those required frameworks. Finally, helper functions are defined to simplify the whole workflow.
 
-Those two functions require some explanation, first the `add_linked_libs_from_sdks_to_app` mentioned in the app's Podfile. The function must be called from within the app's target to add all the dependencies of the linked frameworks. Without it, we would end up in the so-called dependency hell. The app would be crashing with e.g `TrustKit library not loaded... referenced from: ISSNetwork`, because the libraries were linked towards the frameworks, however, frameworks do not copy linked libraries into the target. Therefore, the App must do it for us. Frameworks then can find their libraries at the `@rpath`(Runpath Search Paths).
+Those two functions require some explanation. First, the `add_linked_libs_from_sdks_to_app` mentioned in the app's `Podfile` must be called from within the app's target to add all the dependencies of the linked frameworks. Without it, we would end up in the so-called dependency hell. The app would be crashing with e.g `TrustKit library not loaded... referenced from: ISSNetwork`, because the libraries were linked towards the frameworks, however, frameworks do not copy linked libraries into the target. Therefore, the App must do it for us. Frameworks then can find their libraries at the `@rpath`(Runpath Search Paths).
 
-The second function is `install_test_subdependencies`, this the same scenario as for the previous function, however, in this case for tests. In order to launch tests, they also have to link all dependencies of the linked frameworks towards it. Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared Podfile then use the defined pods for those frameworks.
+The second function is `install_test_subdependencies`. This is the same scenario as for the previous function but for the tests. In order to launch tests, they (//TODO: who/what is they? tests?) also have to link all dependencies of the linked frameworks towards it (//TODO: what/who is it? tests?)). Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared `Podfile` then use the defined pods for those frameworks.
 
 In the source code everything is well commented so it should be easy to understand.
 
