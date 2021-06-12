@@ -1389,9 +1389,9 @@ Nevertheless, following the ground rules and overall framework patterns is what 
 
 ### Not fully autonomous teams
 
-In theory, each team should have its autonomy. Nevertheless, in practice it is slightly different, in some cases, teams might depend on each other which, furthermore, brings more teams communication and worst-case failing the teams goal because of the unfulfilled promises of the dependent team.
+In theory, each team should have its own autonomy. Nevertheless, in practice it can be slightly more complicated. In some cases, teams might depend upon each other. If so, challenges of increased inter team collaboration and increased team communication may need to be addressed. Without adequately dealing with these circumstances, a worst case may be teams failing to meet their goals due to unfulfilled promises of the dependent team.
 
-More teams are dependent on each other, more meetings and alignments are needed which, unfortunately, slows down the teams.
+As more teams become increasingly dependent on one another, more meetings and alignments are needed. The increase in these syncs can, unfortunately, slows down the teams.
 
 ### Conclusion
 
