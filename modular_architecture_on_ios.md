@@ -1422,7 +1422,7 @@ In such cases, it might be necessary to move away from internally developed Coco
 
 ### Integration with the application framework
 
-Surprisingly, integrating Cocoapods in the whole application framework might not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks and on each app developed upon those frameworks. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared `Podfile` that will define pods for each framework. Thereafter, every app can easily reuse it. Furthermore, each app has its own `Podfile` that specifies whichpPods must be installed for which framework to avoid unnecessarily linking frameworks the app will not need.
+Surprisingly, integrating Cocoapods in the whole application framework might not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks and on each app developed upon those frameworks. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared `Podfile` that will define pods for each framework. Thereafter, every app can easily reuse it. Furthermore, each app has its own `Podfile` that specifies which pods must be installed for which framework to avoid unnecessarily linking frameworks the app will not need.
 
 Let us have a look now how the App's `Podfile` could look for the Cosmonaut example.
 `app/Cosmonaut/Podifle`
