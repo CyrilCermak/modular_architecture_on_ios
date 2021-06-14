@@ -1422,7 +1422,7 @@ In such cases, it might be necessary to move away from internally developed Coco
 
 ### Integration with the application framework
 
-Surprisingly, integrating Cocoapods in the whole application framework might not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks and on each app developed upon those frameworks. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared `Podfile` that will define Pods for each framework. Thereafter, every app can easily reuse it. Furthermore, each app has its own `Podfile` that specifies which Pods must be installed for which framework to avoid unnecessarily linking frameworks the app will not need.
+Surprisingly, integrating Cocoapods in the whole application framework might not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks and on each app developed upon those frameworks. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared `Podfile` that will define pods for each framework. Thereafter, every app can easily reuse it. Furthermore, each app has its own `Podfile` that specifies whichpPods must be installed for which framework to avoid unnecessarily linking frameworks the app will not need.
 
 Let us have a look now how the App's `Podfile` could look for the Cosmonaut example.
 `app/Cosmonaut/Podifle`
@@ -1470,7 +1470,7 @@ end
 ```
 
 Firstly, the shared `Podfile` that defines pods for all frameworks is included. After setting the platform and workspace, the installation for all linked frameworks takes place. Last but not least, the well known app target is defined, potentially with some extra pods. Here, special attention goes to the `add_linked_libs_from_sdks_to_app` function which will be explained in a second.
-// TODO: sometimes you write Pods and other times pods. 
+// TODO: sometimes you write pods and other times pods. 
 
 // TODO: and previously you had App and here now app.
 To fully understand what is happening inside of the app's `Podfile` we have to have a look at the shared `Podfile`.
@@ -1523,7 +1523,7 @@ def install target_name, project_path, linked_libs
   end
 end
 
-# Helper method to install Pods that
+# Helper method to install pods that
 # track the overall linked pods in the linkedPods set
 def link libs
   libs.each do |lib|
