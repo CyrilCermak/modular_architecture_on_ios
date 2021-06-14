@@ -1552,7 +1552,7 @@ Here we can see, at the top of the file, the struct `Lib` that represents a Coco
 
 Those two functions require some explanation. First, the `add_linked_libs_from_sdks_to_app` mentioned in the app's `Podfile` must be called from within the app's target to add all the dependencies of the linked frameworks. Without it, we would end up in the so-called dependency hell. The app would be crashing with e.g `TrustKit library not loaded... referenced from: ISSNetwork`, because the libraries were linked towards the frameworks, however, frameworks do not copy linked libraries into the target. Therefore, the App must do it for us. Frameworks then can find their libraries at the `@rpath`(Runpath Search Paths).
 
-The second function is `install_test_subdependencies`. This is the same scenario as for the previous function but for the tests. In order to launch tests, they (//TODO: who/what is they? tests?) also have to link all dependencies of the linked frameworks towards it (//TODO: what/who is it? tests?)). Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared `Podfile` then use the defined pods for those frameworks.
+The second function is `install_test_subdependencies`. This is the same scenario as for the previous function but for the tests. In order to launch tests, tests have to link all dependencies of the linked frameworks towards the XCTests. Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared `Podfile` then use the defined pods for those frameworks.
 
 In the source code everything is well commented so it should be easy to understand.
 
