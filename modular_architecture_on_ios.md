@@ -679,7 +679,7 @@ employee.printEmployeeInfo()
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-First of all comes the parsing. As the definition says, the parser is responsible for the lexical syntax check without any type check. The following command prints the parsed AST.
+First in the compilation process is **parsing**. As the definition says, the parser is responsible for the lexical syntax check without any type check. The following command prints the parsed AST.
 
 ```bash
 swiftc ./employee.swift -dump-parse
@@ -748,13 +748,13 @@ After running the same command we can see a syntax error at the declaration of `
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Second comes the semantic analysis, from the definition of it, we should see fully type-checked parsed AST. Executing the following command will give us the answer.
+After parsing, comes the **semantic analysis**. From its definition, we should see fully type-checked parsed AST. Executing the following command will give us the answer.
 
 ```bash
 swiftc ./employee.swift -dump-ast
 ```
 
-In the output all types are resolved and recognised by the compiler, errors no longer appear.
+In the output all types are resolved and recognised by the compiler and the errors no longer appear.
 
 ```
 // Address protocol with resolved types
@@ -783,7 +783,7 @@ In the output all types are resolved and recognised by the compiler, errors no l
              (declref_expr implicit type='EmployeeAddress' decl=employee.(file).EmployeeAddress.<anonymous>.self@./employee.swift:34:16 function_ref=unapplied))))))
 ```
 
-Not surprisingly, when modifying a type for some unknown one the command results in an error.
+Not surprisingly, when using an unknown type, the command results in an error.
 
 ```swift
 public protocol Address {
@@ -803,24 +803,24 @@ public protocol Address {
 
 ### Clang importer
 
-> The Clang importer (implemented in lib/ClangImporter) imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
+> The Clang importer (implemented in lib/ClangImporter imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-The third is the clang importer. This is the well-known bridging of C/ObjC languages to the Swift API's and wise versa.
+The third in the compilation process is the **clang importer**. This is the well-known bridging of C/ObjC languages to the Swift API's and wise versa.
 
 ### SIL generation
 >The Swift Intermediate Language (SIL) is a high-level, Swift-specific intermediate language suitable for further analysis and optimization of Swift code. The SIL generation phase (implemented in lib/SILGen) lowers the type-checked AST into so-called “raw” SIL. The design of SIL is described in docs/SIL.rst.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Fourth comes the Swift Intermediate Language. Are you curious about how it looks like? To print it we can use the following command.
+The fourth step in the compilation process is the **Swift Intermediate Language**. Are you curious about how it looks? To print it, we can use the following command.
 
 ```bash
 swiftc ./employee.swift -emit-sil
 ```
 
-In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained [here](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
+In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained in the article about [method dispatch](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
 
 ```
 ...
@@ -856,7 +856,7 @@ sil_witness_table [serialized] EmployeeAddress: Address module employee {
 ...
 ```
 
-Furthermore, the SIL gets through next two phases; guaranteed transformation and optimisation.
+Furthermore, the SIL must go through next two phases; guaranteed transformation and optimisation.
 
 > SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
 
@@ -867,18 +867,18 @@ Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
 \newpage
-### LLVM IR (Intermediate Representation) Generation
+### LLVM IR Generation
 
 >IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at which point LLVM can continue to optimize it and generate machine code.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Last comes the IR for LLVM. To get the IR from the swiftc we can use the following command:
+The final step in the compilation process is that of the IR (Intermediate Representation) for LLVM. To get the IR from the swiftc we can use the following command:
 
 ```bash
 swiftc ./employee.swift -emit-ir | more
 ```
-Here we can see a snippet of the LLVM's familiar declaration which in the next step would be transformed by it into the machine code.
+Here we can see a snippet of the LLVM's familiar code declaration. In the next step, the code would be transformed by LLVM into the machine code.
 
 ```asm
 ...
@@ -902,7 +902,7 @@ entry:
 
 Finally, we can explore how to manually create a library out of the source code and link it towards the executable.
 
-The following command will export the employee.swift file as an Employee.dylib with it's module definition. Instead of using `-emit-module` we could use `-emit-object` parameter to get a statically linked library.
+The following command will export the `employee.swift` file as an `Employee.dylib` with its module definition. Instead of using the parameter `-emit-module` we could use `-emit-object` to obtain a statically linked library.
 
 ```bash
 swiftc ./employee.swift -emit-library -emit-module -parse-as-library -module-name Employee
@@ -918,12 +918,14 @@ After executing the command, the following files should be created.
  57K Apr  3 20:52 libEmployee.dylib
 ```
 
-Now we can import the Employee library into the main.swift file and proceed with the compile. However, here we have to tell the compiler and linker where to find the Employee library. In this example, I placed the library into Frameworks directory which is on the same level as the main.swift.
+Now we can import the Employee library into the `main.swift` file and proceed with the compile. However, here we have to tell the compiler and linker where to find the Employee library. In this example, I placed the library into a directory named *Frameworks* which resides on the same level as the `main.swift`.
 
 ```bash
 swiftc main.swift -emit-executable -lEmployee -I ./Frameworks -L ./Frameworks
 ```
-To give it a bit more explanation the swiftc -h desribes those flags as:
+
+To give it a bit more explanation the command `swiftc -h` desribes those flags as follows:
+
 ```bash
 ...
 -emit-executable        Emit a linked executable
@@ -933,7 +935,8 @@ To give it a bit more explanation the swiftc -h desribes those flags as:
 ...
 ```
 
-Hurrray, the executable was created with the linked library! Unfortunately, it crashes right on start with;
+Hurrray, the executable was created with the linked library! Unfortunately, it crashes right on start with the following:
+
 ```bash
 dyld: Library not loaded: libEmployee.dylib
   Referenced from: /Users/cyrilcermak/Programming/iOS/modular_architecture_on_ios/example/./main
@@ -941,7 +944,7 @@ dyld: Library not loaded: libEmployee.dylib
 [1]    92481 abort      ./main
 ```
 
-Using the knowledge from the previous chapter we can check where the binary expects the library to be with `otool -l ./main`.
+Using the knowledge from the previous chapter we can check where the binary expects the library to be with the command `otool -l ./main`.
 
 ```bash
 Load command 15
@@ -960,10 +963,12 @@ install_name_tool -change libEmployee.dylib @executable_path/Frameworks/libEmplo
 ```
 
 Running it again prints the desired output:
+
 ```bash
 Cyril Cermak
 1. PorschePlatz, Stuttgart, Germany
 ```
+
 \newpage
 ## Conclusion
 
@@ -990,7 +995,7 @@ First, let us do it manually and automate the process of creating libraries late
 
 For demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies to all other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the pre-build repository [here](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
+You can download the [pre-build repository](TODO://GITHUB LINK) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its dependencies.
 
@@ -1001,22 +1006,23 @@ As a reminder, the following schema showcases the Cosmonaut app with its depende
 
 ## Creating workspace structure
 
-First, let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes, the project structure is not optimal. We will be working in a workspace that will contain multiple projects(apps and frameworks).
+First, let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes, the project structure is not optimal. We will be working in a workspace that will contain multiple projects (apps and frameworks).
 
 <div style="float:center" markdown="1">
 ![Create New App](assets/xcode_create_app.png){ width=80% }
 </div>
 
-Since we do not have `Cocopods` yet which would convert the project to the workspace we have to do it manually. In Xcode under `File` select the option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
+Since we do not have `Cocopods` yet, which would convert the project into a workspace, we have to do it manually. In Xcode under `File`, select the option `Save As Workspace`. Close the project and open the Workspace that was newly created by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
 
 Going top-down through the diagram first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon, name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory.
 
 <div style="float:center" markdown="1">
 ![Create New Framework](assets/xcode_create_framework.png){ width=80% }
 </div>
+
 ### Automating the process
 
-While creating new frameworks and apps is not a daily business the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app to create a new one with the same patterns. Now is a good time to create the first script that will support the development of the application framework.
+While creating new frameworks and apps is not a daily business, the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to copy-pasting an existing framework or app to create a new one with the same patterns. Now is a good time to create the first script that will support the development of the application framework.
 
 If you are building the application framework from scratch please copy the `{PROJECT_ROOT}/fastlane` directory from the repository into your `root` directory.
 
@@ -1028,18 +1034,19 @@ The `ProjectFactory` creates a new framework or app based on the `type` paramete
 fastlane make_new_project type:framework project_name:Spacesuit destination_path:../domain/Spacesuit
 ```
 
-In case of Fastlane not being installed on your Mac you can install it via `brew install fastlane` or later on via Ruby `gems` defined in `Gemfile`. For installation please follow the official [manual](https://docs.fastlane.tools/getting-started/ios/setup/).
+In case of Fastlane not being installed on your Mac, you can install it via `brew install fastlane` or later on via Ruby `gems` defined in `Gemfile`. For installation please follow the official [manual](https://docs.fastlane.tools/getting-started/ios/setup/).
 
-Furthermore, we can continue creating all dependencies via the script up until the point where all dependencies were created is reached.
+Furthermore, now that we have the script, all the remaining dependencies can be created with it.
 
 The overall ISS Application Framework should look as follows:
 
 ![Tree structre](assets/tree_framework.png){ width=50% }
 
-Each directory contains an Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer should use the script to create a framework or an app that will be developed.
+Each directory contains an Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer should use the script when adding a framework or an app.
 
 ### Xcode's workspace
-Last but not least, let us create the same directory structure in the Xcode's Workspace so that we can, later on, link those frameworks together and towards the app. In the Cosmonaut app our `Cosmonaut.xcworkspace` resides. An `xcworkspace` is simply a structure that contains;
+Last but not least, let us create the same directory structure in Xcode's Workspace so that we can, later on, link those frameworks together and towards the app. The workspace `Cosmonaut.xcworkspace` resides in the folder Cosmonaut under the app folder. An `xcworkspace` is simply a structure that contains:
+
  - `xcshareddata`: Directory that contains schemes, breakpoints and other shared information
  - `xcuserdata`: Directory that contains information about the current users interface state, opened/modified files of the user and so on
  - `contents.xcworkspacedata`: An XML file that describes what projects are linked towards the workspace such that Xcode can understand it
@@ -1049,17 +1056,19 @@ The workspace structure can be created either by drag and drop all necessary fra
 ![Workspace strucutre](assets/xcode_workspace.png)
 
 ## Generating projects
-You might have noticed `project.yml` file that was created with every framework or app. This file is used by `XcodeGen` (will be introduced in a second) to generate the project based on the settings described in the yaml file. This will avoid conflicts in Apple's infamous `project.pbxproj` files that are representing each project. In modular architecture, this is particularly useful as we are working with many projects across the workspace.
+You might have noticed `project.yml` file that was created with every framework or app. This file is used by `XcodeGen` (will be introduced in a second) to generate the project based on the settings described in the yaml file. This will avoid conflicts in Apple's infamous `project.pbxproj` files that represent each project. In modular architecture, this is particularly useful as we are working with many projects across the workspace.
 
-Conflicts in the `project.pbxproj` files are very common when more than one developer is working on the same codebase. Besides the build settings for the project, the file also contains and tracks files that are included for the compilation so as to which target they belong to. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand.
+Conflicts in the `project.pbxproj` files are very common when more than one developer is working on the same codebase. Besides the build settings for the project, this file contains and tracks files that are included for the compilation. It also tracks the targets to which these files belong. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand.
 
-Since programmers are lazy creatures, it very often also happens that the file that was removed from the Xcode's project still remains in the repository as it was not moved to the trash. That could lead to a git tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
+Since programmers are lazy creatures, it very often also happens that a file removed from an Xcode project still remains in the repository as the file itself was not moved to the trash. That could lead to git continuing to track a now unused and undesired file. Furthermore, it could also lead to the file being readded to the project by the developer who was modifying it.
 
 ### Hello XcodeGen
 Fortunately, in the Apple ecosystem, we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the `pbxproj` file for us based on the well-arranged yaml file. In order to use it, we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
 
-As an example let us have a look at the Cosmonaut app project.yml.
+As an example, let us have a look at the Cosmonaut app project.yml.
+
 `app/Cosmonaut/project.yml`
+
 ```yaml
 # Import of the main build_settings file
 include:
@@ -1121,9 +1130,9 @@ targets:
       - target: Cosmonaut
 ```
 
-Even though the YAML file speaks for itself, some explanation is needed.
+Even though the YAML file speaks for itself, let me explain some of it.
 
-First of all, the `include` in the very beginning.
+First of all, let us look at the `include` in the very beginning.
 
 ```yaml
 # Import of the main build_settings file
@@ -1135,7 +1144,9 @@ Before xcodegen starts generating the pbxproj project it processes and includes 
 Imagine a scenario where the iOS deployment version must be bumped up for the app. Since the app links also many frameworks which are being compiled before the app, their deployment target also needs to be bumped up. Without XcodeGen, each project would have to be modified to have the new deployment target. Even worse, when trying some build settings out instead of modifying it on each project a simple change in one file that is included in the others will do the trick.
 
 A simplified build settings YAML file could look like this:
+
 `fastlane/build_settings.yml`
+
 ```yaml
 options:
   bundleIdPrefix: com.iss
@@ -1166,7 +1177,8 @@ settings:
 
 The following key is `targets`. In the case of the Cosmonaut application, we are setting three targets. One for the app itself, one for unit tests and finally one for UI tests. Each key sets the name of the target and then describes it with `type`, `platform`, `dependencies` and other parameters XcodeGen supports.
 
-Next, let us have a look at the dependencies.
+Next, let us have a look at the dependencies:
+
 ```yaml
 dependencies:
   # Domains
@@ -1179,7 +1191,7 @@ dependencies:
 ...
 ```
 
-Dependencies links the specified frameworks towards the app. On the snippet above you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation to be found. That being said, the framework needs to be part of the workspace in order for the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default XcodeGen has `embeded: true` for applications as they have to copy the compiled framework to the target in order for the app to launch successfully and `embeded: false` for frameworks. Since the framework is not a standalone executable and must be part of some application it is expected that the application copies it.
+The dependencies section links the specified frameworks toward the app. On the snippet above, you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation to be found. That being said, the framework needs to be part of the workspace in order for the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default XcodeGen has `embeded: true` for applications as they have to copy the compiled framework to the target in order for the app to launch successfully and `embeded: false` for frameworks. Since the framework is not a standalone executable and must be part of some application it is expected that the application copies it.
 
 Full documentation of XcodeGen can be found on its GitHub [page](https://github.com/yonaskolb/XcodeGen):
 
@@ -1206,31 +1218,31 @@ Simply executing the `fastlane generate` command in the root directory of the ap
 
 Looking at the ISS architecture, two very important patterns are being followed.
 
-First of all, any framework does NOT allow linking modules on the same layer. That is prevention for creating cross-linking cycles in between frameworks. For example, if the Network module would link Radio module and the Radio module would link Network module we would be in serious trouble. Surprisingly, not every time Xcode build fails in such setup, however, it will have a really hard time with compiling and linking, up until one day it starts failing.
+First of all, any framework does NOT allow linking modules on the same layer. Doing so is meant to prevent creating cross-linking cycles in between frameworks. For example, if the Network module would link Radio module and the Radio module would link Network module we would be in serious trouble. Surprisingly, Xcode does not fail to build every time in such a setup. However, it will have a really hard time with compiling and linking, up until one day it starts failing.
 
 Second of all, each layer can link frameworks only from its sublayer. This ensures the vertical linking pattern. That being said, the cross-linking dependencies will also not happen on the vertical level.
 
 Let us have a look at some examples of cross-linking dependencies.
 
-### Cross linking dependencies
+### Cross-linking dependencies
 
-Let us say, the build system will jump on compiling the Network module where the Radio is being linked to. When it comes to the point where the Radio needs to be linked it jumps to compile the Radio module without finishing the compilation of the Network. The Radio module now requires a Network module to continue compiling, however, the Network module has not finished compiling yet, therefore, no `swiftmodule` and other files were yet created. The compiler will continue compiling up until one file will be referencing some part(e.g a class in a file) of the other module and the other module will be referencing the caller.
+Let us say that the build system will jump on compiling the Network module where the Radio is being linked to. When it comes to the point where the Radio needs to be linked it jumps to compile the Radio module without finishing the compilation of the Network. The Radio module now requires a Network module to continue compiling, however, the Network module has not finished compiling yet, therefore, no `swiftmodule` and other files were yet created. The compiler will continue compiling up until one file will be referencing some part (e.g a class in a file) of the other module and the other module will be referencing the caller.
 
 That's where the compiler will stop.
 
-No need to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. While, in theory, this is all nice and makes sense but in practice, it can happen that for example, the Cosmonaut domain will require something from the Spacesuit domain. It can be some domain only logic, views or even the whole flow of screens. In that case, there are some options for how to tackle that issue. Either, creating a new module on the service layer and moving there the necessary source code files that are shared across multiple domains or shifting those files from the domain layer to the service layer. The third option would be to use abstraction and achieving the same not from the module level but on the code level. Chosen solution solely depends on the use case.
+Needless to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. In theory this is all nice and makes sense. In practice, however, it can happen that one domain will require something from another domain (for example, the Cosmonaut domain will require something from the Spacesuit domain). It can be some domain-specific logic, views or even the whole flow of screens. In that case, there are some options for how to tackle the issue. Either, a new module on the service layer can be created and the necessary source code files that are shared across multiple domains being moved there. Another option is to shift those files from the domain layer to the service layer. A third option would be to use abstraction and achieve the same result not from the module level but from the code level. The ideal solution solely depends on the use case.
 
-A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a `coordinator` pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework, we can count that all domains understand it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
+A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a `coordinator` pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework, we can rely on all domains understanding it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
 
 ### Vertical linking
 
-Same as the horizontal layer linking, the vertical linking is also very important and must be followed to avoid the above-mentioned compiler issues. In practice, such a scenario can also happen very easily. Imagine, that your team designed a new framework on the Core layer that will provide some extent logging functionality so as data analytics and so on. After a while, some team will want to use the logging functionality for example in the Radio module to provide more debugging details for developers for the Bluetooth module.
+As with horizontal layer linking, vertical linking is also very important and must be followed to avoid the aforementioned compiler issues. In practice, such a scenario can also happen very easily. Imagine, that your team designed a new framework on the Core layer that will provide some extended logging functionality and some data analytics. After a while, some team will want to use the logging functionality, for example in the Radio module, to provide more debugging details for developers for the Bluetooth module.
 
-Unlike in the cross-linking dependencies scenario, in this case, the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer will contain mostly some shared functionality for the Core layer so as some protocols that would allow passing references from the top down.
+Unlike in the cross-linking dependencies scenario, in this case, the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer will contain mostly some shared functionality for the Core layer as well as some protocols that would allow passing references from the top down.
 
-Another solution would be to separate the core public protocols and models of the framework so that it can be exposed and linked towards more frameworks on the same layer. On the higher level, the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, have the downside of having an extra framework that needs to be linked and maintained. However, with this approach, the so-called `Clean Architecture` would be followed. More about that later.
+Another solution would be to separate the core public protocols and models of the framework such that the framework can be exposed and linked towards more frameworks on the same layer. On the higher level, the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, has the downside of having an extra framework that needs to be linked and maintained. However, with this approach, the so-called `Clean Architecture` would be followed. More about that later.
 
-No need to say, any higher-level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app can link anything from the Core or the newly defined Shared layer.
+Needless to say, any higher-level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app can link anything from the Core or the newly defined Shared layer.
 
 ## App secrets
 
