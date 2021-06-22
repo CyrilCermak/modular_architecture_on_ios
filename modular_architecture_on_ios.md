@@ -1367,9 +1367,9 @@ As more teams become increasingly dependent on one another, more meetings and al
 
 ### Conclusion
 
-In this chapter, we had a look, how in practice development of modular architecture could look like. We explored ground rules, project generations with XcodeGen, securely handling secrets so as some common problems people working on such project will be facing.
+In this chapter, we had a look at how the development of modular architecture could look in practice. We explored ground rules, generated projects with XcodeGen, securely handled secrets, and addressed some common problems people working on such projects will be facing.
 
-I hope it all gave a good understanding of how to work in such a setup.
+I hope it all provided a good understanding of how to work in such a setup.
 
 \newpage
 # Dependency Managers
