@@ -1246,15 +1246,16 @@ Needless to say, any higher-level layer framework can link any framework from an
 
 ## App secrets
 
-Considering, many developers are working in the same repository on the same project, securely handling project secrets is inevitable. Project secrets could be for example API keys, SDK keys, encryption keys, so as configuration files or certificates containing sensitive information that could cause potential harm to the app. Essentially, any piece of sensitive information should not be exposed to anyone not working directly on the project. By any means, secrets should NOT be stored in the repository so as included in the compiled binary as plain strings.
+Project secrets could be API keys, SDK keys, encryption keys, as well as configuration files or certificates containing sensitive information that could cause potential harm to the app. Considering, many developers are working in the same repository on the same project, keeping project secrets stored securely such that they are exposed only to appropriate developers can be challenging. Essentially, any piece of sensitive information should not be exposed to anyone not working directly on the project. By any means, secrets should NOT be stored in the repository and should not be part of the compiled binary as plain strings.
 
-The app ideally should decrypt encrypted secret in its runtime. Even though, on the jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network, considering the SSLPinning was in a place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
+The app ideally should decrypt encrypted secret during its runtime. Even though, on a jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network. Considering, the SSLPinning was in a place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
 
 About two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets which solves this problem in a Swifty way.
 
 Now, let us have a look at how to handle secrets in the project.
 
 ### How to handle secrets
+
 First thing first, as mentioned above any secret must be obfuscated, without a doubt. String obfuscation is a technique that via XOR, AES or other encryption algorithms modifies the confidential string or a file such that it cannot be de-obfuscated without the initial encryption key.
 
 Unfortunately, obfuscating strings or files and committing them to the repository might not be enough. What if there is a colleague who has access to the source repository or someone who might want to steal these secrets and hand them out? Simply downloading the repository and printing the de-obfuscated string into a console would do it.
@@ -1263,18 +1264,21 @@ Essentially, the secret should be visible only for the right developer in any ci
 
 ### The GnuPG (GPG)
 
-GPG is an asymmetric key management system that creates a hash for encryption from the public keys of all participants. In the initialisation process, GPG will generate a private and public key. The public key is saved in the .gpg folder under the user's email visible to everyone. The private key is saved in ~/.gnupg and is protected by a password chosen by the user.
+GPG is an asymmetric key management system that creates a hash for encryption from the public keys of all participants. In the initialisation process, GPG will generate a private and public key. The public key is saved in the `.gpg` folder under the user's email visible to everyone. The private key is saved in `~/.gnupg` and is protected by a password chosen by the user.
 
-To add a developer into the authorised group, the developer needs to provide a public key from his machine, simply executing `dotgpg key` will print the key. This key must then be added by the already authorised person `via dotgpg add .`
+To instal GPG on the mac, following command can be used: `brew install gnupg` and `gem install dotgpg` to install `dotgpg`, Ruby program that simplifies the usage of GPG.
 
-The encrypted file by GPG containing all project secrets can be then thoughtfully committed to the repository since only authorised developers who possess the private key can decrypt it.
+To add a developer into the authorised group, the developer needs to provide a public key from his machine, simply executing `dotgpg key` will print the key. This key must then be added by the already authorised person `via dotgpg add`.
+
+The file encrypted by GPG containing all project secrets can be then thoughtfully committed to the repository since only authorised developers who possess the private key can decrypt it.
 
 ### GEM: Mobile Secrets
-[Mobile Secrets](https://github.com/CyrilCermak/mobile-secrets) gem is using XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
+
+[Mobile Secrets](https://github.com/CyrilCermak/mobile-secrets) gem uses an XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
 
 Mobile Secrets itself can then initialise the GPG for the current project if it has not been done yet by running: `mobile-secrets --init-gpg .`.
 
-When the GPG is initialised a template YAML file can be created by running: `mobile-secrets --create-template`
+When GPG is initialised, a template YAML file can be created by running: `mobile-secrets --create-template`.
 
 ![MobileSecrets.yml](assets/mobile_secrets_yaml.png)
 
@@ -1284,19 +1288,19 @@ The `MobileSecrets.yml` file contains the hash key used for obfuscation of secre
 
 Finally, we can run: `mobile-secrets --export ./Output/Path/` to export the swift file with obfuscated secrets.
 
-Mobile Secrets exported Swift source code will look like the example below. Last but not least, that path to this file must be added to the `gitignore`. The secrets source code must be generated locally alongside with generating the projects.
+Mobile Secrets exported Swift source code will look like the example below. Last but not least, the path to this file must be added to the `.gitignore`. The secrets source code must be generated locally alongside with generating the projects.
 
 ![Exported Swift secrets source file](assets/mobile_secrets_final.png)
 
 ### The ugly and brilliant part of the Secrets source code
 
-What happened behind the hood? Out of the YAML configuration, secrets were obfuscated with the specified hash key via XOR and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
+What happened under the hood of the mobile-secrets? Out of the YAML configuration, secrets were obfuscated with the specified hash key via XOR and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
 
 The first item in the bytes array is the hash key. The second item is the key for a secret, the third item contains the obfuscated secret, the fourth is again the key and fifth is the value, and so forth.
 
-To get the de-obfuscated key just call the string(forKey key: String) function. It will iterate over the bytes array, convert the bytes into a string and compare it with the given key. If the key was found the decrypt function will be called with a value on the next index.
+To get the de-obfuscated key just call the `string(forKey key: String)` function. It will iterate over the bytes array, convert the bytes into a string and comparing it with the given key. If the key was found, the decrypt function will be called with a value on the next index.
 
-Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Even though, it made it hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app like mentioned before.
+Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Doing so also made it hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app like mentioned before.
 
 ## Workflow
 While this book is mostly focused on the development aspects of modular architecture some management essentials must also be mentioned. Not surprisingly, developing software for a large organisation can be a real challenge, imagine a scenario where around 30 to 50 developers per platform (iOS/Android/Backend) are working towards the same goal, the same project. Those developers are usually divided into multiple cross-functional teams that are working standalone towards the team's goal.
