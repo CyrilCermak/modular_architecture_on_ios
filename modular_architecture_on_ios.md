@@ -151,33 +151,32 @@ While this chapter is rather theoretical, in the following chapters everything w
 The example has three applications.
 
 - `ISS Overview`: app that shows astronauts the overall status of the space station
-- `Cosmonaut`: app where Cosmonaut can control his spacesuit so as his supplies and personal information
+- `Cosmonaut`: app where a Cosmonaut can control his spacesuit as well as his supplies and personal information
 - `Laboratory`: app from which the laboratories on the space station can be controlled
 
-As described above, all apps are linking Scaffold module which provides the bootstrapping for the app as the app itself is behaving like a container.
+As described above, all apps link the Scaffold module which provides the bootstrapping for the app while the app itself behaves like a container.
 
 ### ISS Overview
 
 ![ISS Overview](assets/ISSOverview.png)
 
-The diagram above describes the concrete linking of modules for the app, let us have a closer look at it.
+The diagram above describes the concrete linking of modules for the app. Let us have a closer look at it.
 
-`ISS Overview` app links `Peripheries` domain which implements logic and screens for peripheries of the station.
+`ISS Overview` app links the domain `Peripheries`, which implements logic and screens for peripheries of the station.
 
-The `Peripheries` domain links `Heat Radiator`, `Solar Array` and `Docking Port` services from whom the data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
+The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and `Docking Port` services from which data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
 
-Linked services are using `Network` and `Radio` core modules which are providing the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE or other technology which would connect to the solar array or heat radiator.
+The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (Bluetooth Low Energy) or other technology which would connect to the solar array or heat radiator.
 
 ### Cosmonaut
 
 ![Cosmonaut App](assets/Cosmonaut.png)
 
-`Cosmonaut` app links `Spacesuit` and `Cosmonaut` domains. Same as for every other domain, each module is responsible for screens and users flow through the part of the app.
+The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each domain is responsible for screens and users flow through the part of the app.
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that are providing data for domain defined screens so as `UIComponents` who are providing the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that provide data for domain-specifc screens as `UIComponents` provides the UI parts.
 
-
-`Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service is using `Network` for updating Huston about the current state of the `Cosmonaut` so as `Persistence` for storing the data of the cosmonaut for offline usage.
+`Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service uses `Network` for updating Houston about the current state of the `Cosmonaut` and uses `Persistence` for storing the data of the cosmonaut for offline usage.
 
 
 ### Laboratory
@@ -186,21 +185,21 @@ I will leave this one for the reader to figure out.
 
 ## Conclusion
 
-As you can probably imagine, scaling of the architecture described above should not be a problem. When it comes to extending for example the ISS Overview app for another ISS periphery, a new domain module can be easily added with some service modules etc.
+As you can probably imagine, scaling the architecture as described above should not be a problem. When it comes to extending the ISS Overview app for another ISS periphery, for example, a new domain module can be easily added with some service modules etc.
 
-When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested Cosmonaut domain module with other necessary modules that are required. Development of the new app will become way easier due to that.
+When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested `Cosmonaut` domain module with other necessary modules that are required. Development of the new app will thus become much easier.
 
 The knowledge of the software that remains in one repository where developers have access to and can learn from is also very beneficial.
 
-There are of course some disadvantages as well. For example, onboarding new developers on such architecture might take a while, especially when there is already huge existing codebase. There, the pair programming comes into play so as proper project onboarding, software architecture documents and the overall documentation of modules and the whole project.
+There are of course some disadvantages as well. For example, onboarding new developers on such an architecture might take a while, especially when there is already a huge existing codebase. In such a case, pair programming comes into play so as a proper project onboarding, software architecture document and the overall documentation of modules which helps newcomers to get on the right track.
 
 
 \newpage
 # Libraries on Apple's ecosystem
 
-Before we deep dive into the development of previously described architecture, there is some essential knowledge that needs to be explained. Especially, the type of library that is going to be used for building such a project and its behaviour.
+Before we deep dive into the development of previously described architecture, there is some essential knowledge that needs to be explained. In particular, we will need some background in the type of library that is going to be used for building such a project and its behaviour.
 
-In Apple's ecosystem as of today, we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. The dynamic library, previously known as `Cocoa Touch Framework`, nowadays simplified to `Framework` and the statically linked, the `Static Library`.
+In Apple's ecosystem as of today, we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Previously known as `Cocoa Touch Framework`, the dynamically linked library is nowadays referred to simply as `Framework`. The statically linked library is known as the `Static Library`.
 
 ![Xcode Framework Types](assets/FrameworksType.png)
 
@@ -217,9 +216,9 @@ What are symbols?
 
 1) Dynamicaly linked
   - **Dylib**: Library that has its own Mach-O (explained later) binary. (`.dylib`)
-  - **Framework**: Framework is a bundle that contains the binary and other resources the binary might need during the run time. (`.framework`)
+  - **Framework**: Framework is a bundle that contains the binary and other resources the binary might need during the runtime. (`.framework`)
   - **TBDs**: Text Based Dynamic Library Stubs is a text stubbed library (symbols only) around a binary without including it as the binary resides on the target system, used by Apple to ship lightweight SDKs for development. (`.tbd`)
-  - **XCFramework**: From Xcode 11 the XCFramework was introduced which allows to group a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`, `watchOS` etc. (`.xcframework`)
+  - **XCFramework**: From Xcode 11, the XCFramework was introduced which allows grouping a set of frameworks for different platforms e.g `macOS`, `iOS`, `iOS simulator`, `watchOS` etc. (`.xcframework`)
 
 2) Statically linked
   - **Archive**: Archive of a compiler produced object files with object code. (`.a`)
@@ -230,15 +229,15 @@ We can look at a framework as some bundle that is standalone and can be attached
 
 ## Dynamic vs static library?
 
-The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as a framework is dynamically linked on the app start to the executable's process. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
+The main difference between a static and dynamic library is in the Inversion Of Control (IoC) and how they are linked towards the main executable. When you are using something from a static library, you are in control of it as it becomes part of the main executable during the build process (linking). On the other hand, when you are using something from a dynamic framework you are passing responsibility for it to the framework as the framework is dynamically linked to the executable's process on app start. I’ll delve more into IoC in the paragraph below. Static libraries, at least on iOS, cannot contain anything other than the executable code unless they are wrapped into a static framework. A framework (dynamic or static) can contain everything you can think of e.g storyboards, XIBs, images and so on…
 
-As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a framework's interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being done you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.
+As mentioned above, the way dynamic framework code execution works is slightly different than in a classic project or a static library. For instance, calling a function from the dynamic framework is done through a framework's interface. Let’s say a class from a framework is instantiated in the project and then a specific method is called on it. When the call is being made, you are passing the responsibility for it to the dynamic framework and the framework itself then makes sure that the specific action is executed and the results then passed back to the caller. This programming paradigm is known as Inversion Of Control. Thanks to the umbrella file and module map you know exactly what you can access and instantiate from the dynamic framework after the framework was built.
 
-A dynamic framework does not support any Bridging-Header file; instead, there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is one big interface for the dynamic framework and it is usually named after the framework name e.g myframework.h. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the ClassName-Swift.h into the umbrella file and exposes the Swift publicly available interfaces via swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
+A dynamic framework does not support any Bridging-Header file; instead, there is an umbrella.h file. An umbrella file should contain all Objective-C imports as you would normally have in the bridging-Header file. The umbrella file is one big interface for the dynamic framework and it is usually named after the framework name e.g `myframework.h`. If you do not want to manually add all the Objective-C headers, you can just mark `.h` files as public. Xcode generates headers for ObjC for public files when building. It does the same thing for Swift files as it puts the `ClassName-Swift.h` into the umbrella file and exposes the publicly available Swift interfaces via the swiftmodule definition. You can check the final umbrella file and swiftmodule under the derived data folder of the compiled framework.
 
-On the other hand, a statically linked library is attached directly to the main executable during linking as the library contains already a pre-compiled archive of the source files with symbols. That being said, there is no need for an umbrella file so as IoC as in dynamic framework.
+On the other hand, a statically linked library is attached directly to the main executable during linking as the library contains already a pre-compiled archive of the source files with symbols. That being said, there is no need for an umbrella file as is the case with IoC in a dynamic framework.
 
-No need to say, classes and other structures must be marked as public to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
+It goes without saying that classes and other structures must be marked as public in order to be visible outside of a framework or a library. Not surprisingly, only objects that are needed for clients of a framework or a library should be exposed.
 
 ### PROS & CONS
 Now let's have a look at some pros & cons of both.
@@ -251,7 +250,7 @@ Now let's have a look at some pros & cons of both.
     - Can be linked transitively to other dynamic libraries without any difficulty.
     - Can be exchanged without the recompile of the main executable just by replacing the framework with a new version.
     - Is loaded into a different memory space than the main executable.
-    - Can be shared in between applications especially useful for system libraries.
+    - Can be shared between applications especially useful for system libraries.
     - Can be loaded partially, only the needed symbols can be loaded into the memory (`dlsym`).
     - Can be loaded lazily, only objects that are referenced will be loaded.
     - Library can perform some cleanup tasks when it is closed (`dlclose`).
@@ -266,29 +265,29 @@ Now let's have a look at some pros & cons of both.
 **Static:**
 
   - **PROS**
-    - Is part of the main executable therefore, the app cannot crash during launch or runtime due to a missing library.
-    - Overall smaller size of the final executable as the symbols can be stripped of.
-    - In terms of calls speed there is no difference in between the main executable and the library as the library is part of the main executable.
+    - Is part of the main executable and therefore the app cannot crash during launch or runtime due to a missing library.
+    - Overall smaller size of the final executable as the unused symbols can be stripped.
+    - In terms of call speed, there is no difference between the main executable and the library as the library is part of the main executable.
     - Compiler can provide some extra optimisation during the build time of the main executable.
 
   - **CONS**
-    - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies else the app on the start needs to decide which library is going to be used.
+    - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies otherwise the app will need to decide on startup which library is going to be used.
     - The main executable must be recompiled when the library has an update even though the library's interface remains the same.
-    - Memory footprint of the main executable is bigger which implies the load time of the App is slower.
+    - Memory footprint of the main executable is bigger which implies the load time of the app is slower.
 
 ## Essentials
 
-When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while a dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes a much slower app starts as the app needs to decide which of those classes will be used. So as in the worst case when two different versions of the same static library are used the app will use them interchangeably. The debugging will become a horror if that case happens that being said, it is very important to be sure that the linking was done right and no warnings appear.
+When building any kind of modular architecture, it is crucial to keep in mind that a static library is attached to the executable while a dynamic one is opened and linked at the start time. Thereafter, if there are two frameworks linking the same static library the app will launch with warnings `Class loaded twice ... one of them will be used.` issue. That causes a much slower app starts as the app needs to decide which of those classes will be used. Furthermore, when two different versions of the same static library are used the app will use them interchangeably. Debugging will become a horror in that case. That being said, it is very important to be sure that the linking was done right and no warnings appear.
 
 All that is the reason why using dynamically linked frameworks for internal development is the way to go. However, working with static libraries is, unfortunately, inevitable especially when working with 3rd party libraries. Big companies like Google, Microsoft or Amazon are using static libraries for distributing their SDKs. For example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subsets of those SDKs are linked statically.
 
-When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App or Framework) it would fail the installation with `target has transitive dependencies that include static binaries`. Therefore, it takes an extra effort to link static binaries into multiple frameworks.
+When using 3rd party dependency manager like Cocoapods for linking one static library attached to more than one project (App or Framework) it would fail the installation with `target has transitive dependencies that include static binaries`. Therefore, it takes extra effort to link static binaries into multiple frameworks.
 
 Let's have a look at how to link such a static library into a dynamically linked SDK.
 
 ## Exposing static 3rd party library
 
-As mentioned above, it takes an extra effort to link a static library or static framework into a dynamically linked project correctly. The crucial part is to make sure that it is linked only in one place. Either towards one dynamic framework where the static library can be exposed via umbrella file and then everywhere where the framework is linked the static library can be accessed through it as well. Or, only towards the app target from where it cannot be exposed anywhere else but via some level of abstraction it can be passed through to other frameworks on the code level. The same applies to the static framework.
+As mentioned above, it takes extra effort to link a static library or static framework into a dynamically linked project correctly. The crucial part is to make sure that it is linked only in one place. Either it can be linked towards one dynamic framework or towards the app target. When linked toward a dynamic framework, the static library can be exposed via umbrella file and made available everywhere the framework is linked. When linked toward the app target, the static library or framework cannot be exposed anywhere else directly but can be passed through to other frameworks on the code level via some level of abstraction. The same applies to the static framework.
 
 As an example of such umbrella file exposing GoogleMaps library that was linked to it could be:
 
@@ -308,7 +307,7 @@ The import of the header file of `GoogleMaps` into the frameworks umbrella file 
 ...
 ```
 
-The library becomes available as soon as the MyFramework import precedes the GoogleMaps one.
+The library becomes available as soon as the `MyFramework` import precedes the `GoogleMaps` one.
 ```Swift
 // MyFileInApp.swift
 import MyFramework
@@ -316,19 +315,19 @@ import GoogleMaps
 ...
 ```
 
-In case of the static GoogleMaps framework, it is necessary to copy its bundle towards the app as there the GoogleMaps binary is looking for its resources like translations, images and so on.
+In case of the static `GoogleMaps` framework, it is necessary to copy its bundle towards the app because it is there that the `GoogleMaps` binary is looking for its resources (translations, images, and so on).
 
 ## Examining library
 
 Let us have a look at some of the commands that comes in handy when solving some problems when it comes to compiler errors or receiving compiled closed source dynamic framework or a static library. To give it a quick start let's have a look at a binary we all know very well; UIKit. The path to the UIKit.framework is: `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
 
-Apple ships various different tools for exploring compiled libraries and frameworks. On the UIKit framework, I will demonstrate only essential commands that I find useful quite often.
+Apple ships various different tools for exploring compiled libraries and frameworks. On the UIKit framework, I will demonstrate only essential commands that I often find quite useful.
 
 ### Mach-O file format
 
 Before we start, it is crucial to know what we are going to be exploring. In the Apple ecosystem, the file format of any binary is called Mach-O (Mach object). Mach-O has a pre-defined structure starting with Mach-O header, following by segments, sections, load commands and so on.
 
-Since you are surely a curious reader, you are now having tons of questions about where it all comes from. The answer to that is quite simple. Since it is all part of the system you can open up Xcode and look for a file in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file for example the Mach-O header struct is defined.
+Since you are surely a curious reader, by now you have many questions about where it all comes from. The answer to that is quite simple. Since it is all part of the system, you can open up Xcode and look for a file in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file for example the Mach-O header struct is defined.
 
 ```c++
 /*
@@ -358,7 +357,7 @@ First, let's have a look at what Architectures the binary can be linked on (fat 
 ```shell
 otool -fv ./UIKit
 ```
-Not surprisingly, the output produces two architectures. One that runs on the Intel mac (`x86_64`) when deploying to the simulator and one that runs on iPhones so as on the recently introduced M1 Mac (`arm64`).
+Not surprisingly, the output produces two architectures. One that runs on the Intel mac (`x86_64`) when deploying to the simulator and one that runs on iPhones as well as on the recently introduced M1 Mac (`arm64`).
 ```
 Fat headers
 fat_magic FAT_MAGIC
@@ -379,12 +378,12 @@ architecture arm64
     align 2^14 (16384)
 ```
 
-When the command finishes successfully while not printing any output it simply means that the binary does not contain the fat header. That being said, the library can run only on one architecture and see what the architecture is we have to print out the Mach-O header of the executable.
+When the command finishes successfully while not printing any output it simply means that the binary does not contain the fat header. That being said, the library can run only on one architecture and to see which architecture that is, we have to print out the Mach-O header of the executable.
 
 ```shell
 otool -hv ./UIKit
 ```
-From the output of the Mach-O header we can see that the `cputype` is `X86_64` so as some extra information like which `flags` the library was compiled with, `filetype` and so on.
+From the output of the Mach-O header we can see that the `cputype` is `X86_64`. We can also see some extra information like with which `flags` the library was compiled, the `filetype`, and so on.
 ```
 Mach header
       magic cputype cpusubtype  caps    filetype ncmds sizeofcmds
@@ -396,7 +395,7 @@ NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 
 ### Executable type
 
-Second, let us determine what type of library we are dealing with. For that, we will use again the `otool` as mentioned above. Mach-O header specifies `filetype`. So running it again on the UIKit.framework with the `-hv` flags produces the following output:
+Second, let us determine what type of library we are dealing with. For that, we will use again the `otool` as mentioned above. Mach-O header specifies `filetype`. So running it again on the `UIKit.framework` with the `-hv` flags produces the following output:
 
 ```
 Mach header
@@ -406,7 +405,7 @@ MH_MAGIC_64  X86_64        ALL  0x00       DYLIB    21       1400
       flags
 NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 ```
-From the output's `filetype` we can see that it is a dynamically linked library. From its extension, we can say it is a dynamically linked framework. As described before, a framework can be dynamically or statically linked. The perfect example of a statically linked framework is `GoogleMaps.framework`. When running the same command on the binary of `GoogleMaps` from the output we can see that the binary is NOT dynamically linked as its type is `OBJECT` aka object files which means that the library is static and linked to the attached executable at the compile time.
+From the output's `filetype` we can see that it is a dynamically linked library. From its extension, we can say it is a dynamically linked framework. As described ealier, a framework can be dynamically or statically linked. The perfect example of a statically linked framework is `GoogleMaps.framework`. When running the same command on the binary of `GoogleMaps` from the output we can see that the binary is NOT dynamically linked as its type is `OBJECT` aka object files which means that the library is static and linked to the attached executable at the compile time.
 
 ```
 Mach header
@@ -416,7 +415,7 @@ MH_MAGIC_64  X86_64        ALL  0x00      OBJECT     4       2688
       flags
 SUBSECTIONS_VIA_SYMBOLS
 ```
-The reason for wrapping the static library into a framework was the necessary include of `GoogleMaps.bundle` which needs to be copied to the target in order the library to work correctly with its resources.
+The reason for wrapping the static library into a framework was the necessary inclusion of `GoogleMaps.bundle` which needed to be copied to the target in order for the library to work correctly with its resources.
 
 Now, let's try to run the same command on the static library archive. As an example we can use again one of the Xcode's libraries located at `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a` path. From the library extension we can immediately say the library is static. Running the `otool -hv libswiftCompatibility50.a` just confirms that the `filetype` is `OBJECT`.
 
@@ -441,11 +440,11 @@ SUBSECTIONS_VIA_SYMBOLS
 While static library archive ending with `.a` is a clearly static one with a framework to be sure that the library is dynamically linked it is necessary to check the binary for its `filetype` in the Mach-O header.
 
 ### Dependencies
-Third, let's have a look at what the library is linking. For that the `otool` provides `-l` flag.
+Third, let's have a look at what the library is linking. For that the `otool` provides `-L` flag.
 ```shell
 otool -L ./UIKit
 ```
-The output lists all dependencies of UIKit framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing `UIKit` into a source code file.
+The output lists all dependencies of the UIKit framework. For example, here you can see that UIKit is linking `Foundation`. That's why the `import Foundation` is no longer needed when importing `UIKit` into a source code file.
 
 ```
 ./UIKit:
@@ -461,18 +460,18 @@ The output lists all dependencies of UIKit framework. For example, here you can 
 
 ### Symbols table
 
-Fourth, it is also useful to know what are the symbols that are defined in the framework. For that the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag so as `-C` to print them demangled. The name mangling is a technique of adding extra information about the language data type (class, struct, enum ...) to the symbol during compile time in order to pass more information about it to the linker. With a mangled symbol, the linker will know that this symbols is for a class, getter, setter etc and can work with it accordingly.
+Fourth, it is also useful to know which symbols are defined in the framework. For that, the `nm` utility is available. To print all symbols including the debugging ones I added `-a` flag as well as `-C` to print them demangled. Name mangling is a technique of adding extra information about the language data type (class, struct, enum ...) to the symbol during compile time in order to pass more information about it to the linker. With a mangled symbol, the linker will know that this symbols is for a class, getter, setter etc and can work with it accordingly.
 
 ```shell
 nm -Ca ./UIKit
 ```
-Unfortunately, the output here is very limited as those symbols listed are the ones that define the dynamic framework itself. The limitation is because Apple ships the binary obfuscated and when reverse-engineering the binary with for example Radare2 disassembler, all we can see is a couple of `add byte` assembly instructions. It is still possible to dump the list of symbols but for that, we would have to either use `lldb` and have the UIKit framework loaded in the memory space or dump the memory footprint of the framework and explore it decrypted. That is unfortunately not part of this book.
+Unfortunately, the output here is very limited as those symbols listed are the ones that define the dynamic framework itself. The limitation is because Apple ships the binary obfuscated and when reverse-engineering the binary with for example Radare2 disassembler, all we can see is a couple of `add byte` assembly instructions. It is still possible to dump the list of symbols, but for that we would have to either use `lldb` and have the UIKit framework loaded in the memory space or dump the memory footprint of the framework and explore it decrypted. That is unfortunately not part of this book.
 ```
 0000000000000ff0 s _UIKitVersionNumber
 0000000000000fc0 s _UIKitVersionString
                  U dyld_stub_binder
 ```
-Just to give an example of how the symbols would look like I printed out compiled realm framework by running `nm -Ca ./Realm`.
+Just to give an example of how the symbols would look, I printed out compiled realm framework by running `nm -Ca ./Realm`.
 ```
 ...
 2c4650 T realm::Table::do_move_row(unsigned long, unsigned long)
@@ -487,7 +486,7 @@ Just to give an example of how the symbols would look like I printed out compile
 2bf3fc T realm::Table::discard_views()
 ...
 ```
-It seems like Realm was developed in C++ but it can be clearly seen what kind of symbols are available within the binary. One more example for Swift with Alamofire. There we can, unfortunately, see that the `nm` was not able to demangle the symbols.
+It seems like Realm was developed in C++ but it can be clearly seen what kind of symbols are available within the binary. Let us look at one more example but for Swift with Alamofire. There we can, unfortunately, see that the `nm` was not able to demangle the symbols.
 ```
 ...
 34d00 T _$s9Alamofire7RequestC8delegateAA12TaskDelegateCvM
@@ -516,7 +515,7 @@ _$s9Alamofire7RequestC10retryCountSuvpfi
 
 ### Strings
 
-Last but not least, it can be also helpful to list all strings that the binary contains. That could help catch developers mistakes like not obfuscated secrets and some other strings that should not be part of the binary. To do that we will use `strings` utility again on the Alamofire binary.
+Last but not least, it can be also helpful to list all strings that the binary contains. That could help catch developers' mistakes such as not obfuscated secrets and some other strings that should not be part of the binary. To do that we will use `strings` utility again on the Alamofire binary.
 ```shell
 strings ./Alamofire
 ```
@@ -534,9 +533,9 @@ The URL provided is not reachable:
 
 ## Build system
 
-The last piece of information that is missing now is; how it all gets glued together. As Apple developers, we are using Xcode for developing apps for Apple products that are then distributed via App Store or other distribution channels. Xcode under the hood is using `Xcode Build System` for producing final executables that run on `X86` and `ARM` processor architectures.
+The last piece of information that is missing now is how it all gets glued together. As Apple developers, we are using Xcode for developing apps for Apple products that are then distributed via App Store or other distribution channels. Xcode under the hood is using `Xcode Build System` for producing final executables that run on `X86` and `ARM` processor architectures.
 
-The Xcode build system consists of multiple steps that depend on each other. Xcode build system supports C based languages (C, C++, Objective-C, Objective-C++) compiled with `clang` so as Swift language compiled with `swiftc`.
+The Xcode build system consists of multiple steps that depend on each other. Xcode build system supports C based languages (C, C++, Objective-C, Objective-C++) compiled with `clang` as well as Swift language compiled with `swiftc`.
 
 Let's have a quick look at what Xcode does when the build is triggered.
 
@@ -546,7 +545,7 @@ Let's have a quick look at what Xcode does when the build is triggered.
 
 2. **Compiler** (`swiftc`, `clang`)
 
-  As mentioned above, the Xcode build system uses two compilers; clang and swiftc. The compiler consists of two parts, front-end and back-end. Both compilers are using the same back-end, LLVM (Low-Level Virtual Machine) and language-specific front-end. The job of a compiler is to compile the preprocessed source code files into object files that contain object code. Object code is simply human-readable assembly instructions that can be understood by the CPU.
+  As mentioned above, the Xcode build system uses two compilers; clang and swiftc. The compiler consists of two parts, front-end and back-end. Both compilers use the same back-end, LLVM (Low-Level Virtual Machine) and language-specific front-end. The job of a compiler is to compile the post-processed source code files into object files that contain object code. Object code is simply human-readable assembly instructions that can be understood by the CPU.
 
 3. **Assembler** (`asm`)
 
@@ -554,16 +553,16 @@ Let's have a quick look at what Xcode does when the build is triggered.
 
 4. **Linker** (`ld`)
 
-  The final step of the build system is linking. The linker is a program that takes object files (multiple compiled files) and links (merges) them together based on the symbols those files are using so as links static and dynamic libraries if needed. In order to be able to link libraries linker needs to know the paths where to look for them. Linker produces the final single file; Mach-O executable.
+  The final step of the build system is linking. The linker is a program that takes object files (multiple compiled files) and links (merges) them together based on the symbols those files are using as well as static and dynamic libraries as needed. In order to be able to link libraries the linker needs to know the paths where to look for them. Linker produces the final single file; Mach-O executable.
 
 5. **Loader** (`loader`)
 
-  After the executable was built the job of a loader is to bring the executable into memory and start the program execution. Loader is a system program operating on the kernel level. Loader assigns the memory space and loads Mach-O executable to it.
+  After the executable was built, the job of a loader is to bring the executable into memory and start the program execution. Loader is a system program operating on the kernel level. Loader assigns the memory space and loads Mach-O executable to it.
 
 Now you should have a high-level overview of what phases the Xcode build system goes through when the build is started.
 
 ## Conclusion
-I hope this chapter gave the essentials of what is the difference in between static and dynamic library so as some examples of how to examine them. It was quite a lot to grasp so now it's time for a double shot of espresso or any kind of preferable refreshment.
+I hope this chapter provided a clear understanding of the essential differences between static and dynamic libraries as well as provided some clear examples showing to examine them. It was quite a lot to grasp, so now it's time for a double shot of espresso or any kind of preferable refreshment.
 
 I would highly recommend to deep dive into this topic even more. Here are some resources I would recommend;
 
@@ -603,15 +602,16 @@ While other chapters are rather essential for having a good understanding of the
 
 ## Compiler Architecture
 
-To fully understand the swift's compiler architecture and its process let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples out of it.
+To fully understand swift's compiler architecture and its process, let us have a look at the documentation provided by [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and do some practical examples based on it.
 
-The following image describes the swiftc architecture. It consists of 7 steps, which are explained in subchapters.
+The following image describes the `swiftc` architecture. It consists of seven steps, which are explained in subchapters.
 
 ![Swiftc Architecture](assets/swiftc_arch.png)
 
-For demonstration purposes, I prepared two simple swift source code files. First, employee.swift and second main.swift. employee.swift is a standalone source code while main.swift requires the Employee being linked to it as a library. All compiler steps are explained on the employee.swift but in the end, the employee source code will be created as a library that the main file will consume and use.
+For demonstration purposes, I prepared two simple swift source code files. First, `employee.swift` and second `main.swift`. The file `employee.swift` is standalone source code while `main.swift` requires the Employee being linked to it as a library. All compiler steps are explained on the `employee.swift` but in the end, the employee source code will be created as a library that the main file will consume and use.
 
 `employee.swift`
+
 ```swift
 import Foundation
 
@@ -661,6 +661,7 @@ public struct EmployeeAddress: Address {
 ```
 
 `main.swift`
+
 ```swift
 import Foundation
 import Employee
@@ -678,13 +679,14 @@ employee.printEmployeeInfo()
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-First of all, comes the parsing. As the definition says, the parser is responsible for lexical syntax check without any type check. The following command prints the parsed AST.
+First in the compilation process is **parsing**. As the definition says, the parser is responsible for the lexical syntax check without any type check. The following command prints the parsed AST.
 
 ```bash
 swiftc ./employee.swift -dump-parse
 ```
 
-In the output, you can notice that the types are not resolved and are ending with errors.
+In the output, you can notice that the types are not resolved and end with errors.
+
 ```
 (source_file "./employee.swift"
 // Importing Foundation
@@ -722,16 +724,16 @@ In the output, you can notice that the types are not resolved and are ending wit
 ...
 ```
 
-From the parsed AST we can see that it is really descriptive. The source code of Employee.swift has 47 lines of code while its parsed AST without type check has 270.
+From the parsed AST we can see that it is really descriptive. The source code of `employee.swift` has 47 lines of code while its parsed AST without type check has 270.
 
-Out of curiosity, let us have a look at how the tree would look like with syntax error. To do so, I added the winner of all times in hide and seek `;` to the protocol declaration.
+Out of curiosity, let us have a look at how the tree would look with a syntax error. To do so, I added the winner of all times in hide and seek, a semi-colon `;`, to the protocol declaration.
 
 ```swift
 public protocol Address {
     var houseNo: Int; { get }
 ```
 
-After running the same command we can see a syntax error at the declaration of houseNo variable. That is the error Xcode would show as soon as it type checks the source file.
+After running the same command we can see a syntax error at the declaration of `houseNo` variable. That is the error Xcode would show as soon as it type checks the source file.
 
 ```
 ...
@@ -746,13 +748,13 @@ After running the same command we can see a syntax error at the declaration of h
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Second comes the semantic analysis, from the definition of it, we should see fully type-checked parsed AST. Executing the following command will give us the answer.
+After parsing, comes the **semantic analysis**. From its definition, we should see fully type-checked parsed AST. Executing the following command will give us the answer.
 
 ```bash
 swiftc ./employee.swift -dump-ast
 ```
 
-In the output all types are resolved and recognised by the compiler, errors no longer appear.
+In the output all types are resolved and recognised by the compiler and the errors no longer appear.
 
 ```
 // Address protocol with resolved types
@@ -781,7 +783,7 @@ In the output all types are resolved and recognised by the compiler, errors no l
              (declref_expr implicit type='EmployeeAddress' decl=employee.(file).EmployeeAddress.<anonymous>.self@./employee.swift:34:16 function_ref=unapplied))))))
 ```
 
-Not surprisingly, when modifying a type for some unknown one the command results in an error.
+Not surprisingly, when using an unknown type, the command results in an error.
 
 ```swift
 public protocol Address {
@@ -801,24 +803,24 @@ public protocol Address {
 
 ### Clang importer
 
-> The Clang importer (implemented in lib/ClangImporter) imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
+> The Clang importer (implemented in lib/ClangImporter imports Clang modules and maps the C or Objective-C APIs they export into their corresponding Swift APIs. The resulting imported ASTs can be referred to by semantic analysis.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-The third is the clang importer. This is the well-known bridging of C/ObjC languages to the Swift API's and wise versa.
+The third in the compilation process is the **clang importer**. This is the well-known bridging of C/ObjC languages to the Swift API's and wise versa.
 
 ### SIL generation
 >The Swift Intermediate Language (SIL) is a high-level, Swift-specific intermediate language suitable for further analysis and optimization of Swift code. The SIL generation phase (implemented in lib/SILGen) lowers the type-checked AST into so-called “raw” SIL. The design of SIL is described in docs/SIL.rst.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Fourth comes the Swift Intermediate Language. Are you curious about how it looks like? To print it we can use the following command.
+The fourth step in the compilation process is the **Swift Intermediate Language**. Are you curious about how it looks? To print it, we can use the following command.
 
 ```bash
 swiftc ./employee.swift -emit-sil
 ```
 
-In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained [here](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
+In the output, we can see the `witness tables`, `vtables` and `message dispatch` tables alongside with other intermediate declarations. Unfortunately, an explanation of this is out of the scope of this book. More about these topics can be obtained in the article about [method dispatch](https://www.rightpoint.com/rplabs/switch-method-dispatch-table).
 
 ```
 ...
@@ -854,7 +856,7 @@ sil_witness_table [serialized] EmployeeAddress: Address module employee {
 ...
 ```
 
-Furthermore, the SIL gets through next two phases; guaranteed transformation and optimisation.
+Furthermore, the SIL must go through next two phases; guaranteed transformation and optimisation.
 
 > SIL guaranteed transformations: The SIL guaranteed transformations (implemented in lib/SILOptimizer/Mandatory) perform additional dataflow diagnostics that affect the correctness of a program (such as a use of uninitialized variables). The end result of these transformations is “canonical” SIL.
 
@@ -865,18 +867,18 @@ Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
 \newpage
-### LLVM IR (Intermediate Representation) Generation
+### LLVM IR Generation
 
 >IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at which point LLVM can continue to optimize it and generate machine code.
 
 Source: [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-Last comes the IR for LLVM. To get the IR from the swiftc we can use the following command:
+The final step in the compilation process is that of the IR (Intermediate Representation) for LLVM. To get the IR from the swiftc we can use the following command:
 
 ```bash
 swiftc ./employee.swift -emit-ir | more
 ```
-Here we can see a snippet of the LLVM's familiar declaration which in the next step would be transformed by it into the machine code.
+Here we can see a snippet of the LLVM's familiar code declaration. In the next step, the code would be transformed by LLVM into the machine code.
 
 ```asm
 ...
@@ -900,7 +902,7 @@ entry:
 
 Finally, we can explore how to manually create a library out of the source code and link it towards the executable.
 
-The following command will export the employee.swift file as an Employee.dylib with it's module definition. Instead of using `-emit-module` we could use `-emit-object` parameter to get a statically linked library.
+The following command will export the `employee.swift` file as an `Employee.dylib` with its module definition. Instead of using the parameter `-emit-module` we could use `-emit-object` to obtain a statically linked library.
 
 ```bash
 swiftc ./employee.swift -emit-library -emit-module -parse-as-library -module-name Employee
@@ -916,12 +918,14 @@ After executing the command, the following files should be created.
  57K Apr  3 20:52 libEmployee.dylib
 ```
 
-Now we can import the Employee library into the main.swift file and proceed with the compile. However, here we have to tell the compiler and linker where to find the Employee library. In this example, I placed the library into Frameworks directory which is on the same level as the main.swift.
+Now we can import the Employee library into the `main.swift` file and proceed with the compile. However, here we have to tell the compiler and linker where to find the Employee library. In this example, I placed the library into a directory named *Frameworks* which resides on the same level as the `main.swift`.
 
 ```bash
 swiftc main.swift -emit-executable -lEmployee -I ./Frameworks -L ./Frameworks
 ```
-To give it a bit more explanation the swiftc -h desribes those flags as:
+
+To give it a bit more explanation the command `swiftc -h` desribes those flags as follows:
+
 ```bash
 ...
 -emit-executable        Emit a linked executable
@@ -931,7 +935,8 @@ To give it a bit more explanation the swiftc -h desribes those flags as:
 ...
 ```
 
-Hurrray, the executable was created with the linked library! Unfortunately, it crashes right on start with;
+Hurrray, the executable was created with the linked library! Unfortunately, it crashes right on start with the following:
+
 ```bash
 dyld: Library not loaded: libEmployee.dylib
   Referenced from: /Users/cyrilcermak/Programming/iOS/modular_architecture_on_ios/example/./main
@@ -939,7 +944,7 @@ dyld: Library not loaded: libEmployee.dylib
 [1]    92481 abort      ./main
 ```
 
-Using the knowledge from the previous chapter we can check where the binary expects the library to be with `otool -l ./main`.
+Using the knowledge from the previous chapter we can check where the binary expects the library to be with the command `otool -l ./main`.
 
 ```bash
 Load command 15
@@ -958,10 +963,12 @@ install_name_tool -change libEmployee.dylib @executable_path/Frameworks/libEmplo
 ```
 
 Running it again prints the desired output:
+
 ```bash
 Cyril Cermak
 1. PorschePlatz, Stuttgart, Germany
 ```
+
 \newpage
 ## Conclusion
 
@@ -988,7 +995,7 @@ First, let us do it manually and automate the process of creating libraries late
 
 For demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies to all other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the pre-build repository [here](TODO://) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
+You can download the [pre-build repository](TODO://GITHUB LINK) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its dependencies.
 
@@ -999,22 +1006,23 @@ As a reminder, the following schema showcases the Cosmonaut app with its depende
 
 ## Creating workspace structure
 
-First, let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes, the project structure is not optimal. We will be working in a workspace that will contain multiple projects(apps and frameworks).
+First, let us manually create the Cosmonaut app from Xcode under the `iss_application_framework/app/` directory. To achieve that, simply create a new App from the Xcode's menu and save it under the predefined folder path with the `Cosmonaut` name. An empty project app should be created, you can run it if you want. Nevertheless, for our purposes, the project structure is not optimal. We will be working in a workspace that will contain multiple projects (apps and frameworks).
 
 <div style="float:center" markdown="1">
 ![Create New App](assets/xcode_create_app.png){ width=80% }
 </div>
 
-Since we do not have `Cocopods` yet which would convert the project to the workspace we have to do it manually. In Xcode under `File` select the option `Save As Workspace`, close the project and open the newly created Workspace by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
+Since we do not have `Cocopods` yet, which would convert the project into a workspace, we have to do it manually. In Xcode under `File`, select the option `Save As Workspace`. Close the project and open the Workspace that was newly created by Xcode. So far the workspace contains only the App. Now it is time to create the necessary dependencies for the Cosmonaut app.
 
 Going top-down through the diagram first comes the `Domain` layer where `Spacesuit`, `Cosmonaut` and `Scaffold` is needed to be created. For creating the `Spacesuit` let us use Xcode one last time. Under the new project select the framework icon, name it `Cosmonaut` and save it under the `iss_application_framework/domain/` directory.
 
 <div style="float:center" markdown="1">
 ![Create New Framework](assets/xcode_create_framework.png){ width=80% }
 </div>
+
 ### Automating the process
 
-While creating new frameworks and apps is not a daily business the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to a copy-pasting already created framework or app to create a new one with the same patterns. Now is a good time to create the first script that will support the development of the application framework.
+While creating new frameworks and apps is not a daily business, the process still needs to assure that correct namespaces and conventions are used across the whole application framework. This usually leads to copy-pasting an existing framework or app to create a new one with the same patterns. Now is a good time to create the first script that will support the development of the application framework.
 
 If you are building the application framework from scratch please copy the `{PROJECT_ROOT}/fastlane` directory from the repository into your `root` directory.
 
@@ -1026,18 +1034,19 @@ The `ProjectFactory` creates a new framework or app based on the `type` paramete
 fastlane make_new_project type:framework project_name:Spacesuit destination_path:../domain/Spacesuit
 ```
 
-In case of Fastlane not being installed on your Mac you can install it via `brew install fastlane` or later on via Ruby `gems` defined in `Gemfile`. For installation please follow the official [manual](https://docs.fastlane.tools/getting-started/ios/setup/).
+In case of Fastlane not being installed on your Mac, you can install it via `brew install fastlane` or later on via Ruby `gems` defined in `Gemfile`. For installation please follow the official [manual](https://docs.fastlane.tools/getting-started/ios/setup/).
 
-Furthermore, we can continue creating all dependencies via the script up until the point where all dependencies were created is reached.
+Furthermore, now that we have the script, all the remaining dependencies can be created with it.
 
 The overall ISS Application Framework should look as follows:
 
 ![Tree structre](assets/tree_framework.png){ width=50% }
 
-Each directory contains an Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer should use the script to create a framework or an app that will be developed.
+Each directory contains an Xcode project which is either a framework or an app created by the script. From now on, every onboarded team or developer should use the script when adding a framework or an app.
 
 ### Xcode's workspace
-Last but not least, let us create the same directory structure in the Xcode's Workspace so that we can, later on, link those frameworks together and towards the app. In the Cosmonaut app our `Cosmonaut.xcworkspace` resides. An `xcworkspace` is simply a structure that contains;
+Last but not least, let us create the same directory structure in Xcode's Workspace so that we can, later on, link those frameworks together and towards the app. The workspace `Cosmonaut.xcworkspace` resides in the folder Cosmonaut under the app folder. An `xcworkspace` is simply a structure that contains:
+
  - `xcshareddata`: Directory that contains schemes, breakpoints and other shared information
  - `xcuserdata`: Directory that contains information about the current users interface state, opened/modified files of the user and so on
  - `contents.xcworkspacedata`: An XML file that describes what projects are linked towards the workspace such that Xcode can understand it
@@ -1047,17 +1056,19 @@ The workspace structure can be created either by drag and drop all necessary fra
 ![Workspace strucutre](assets/xcode_workspace.png)
 
 ## Generating projects
-You might have noticed `project.yml` file that was created with every framework or app. This file is used by `XcodeGen` (will be introduced in a second) to generate the project based on the settings described in the yaml file. This will avoid conflicts in Apple's infamous `project.pbxproj` files that are representing each project. In modular architecture, this is particularly useful as we are working with many projects across the workspace.
+You might have noticed `project.yml` file that was created with every framework or app. This file is used by `XcodeGen` (will be introduced in a second) to generate the project based on the settings described in the yaml file. This will avoid conflicts in Apple's infamous `project.pbxproj` files that represent each project. In modular architecture, this is particularly useful as we are working with many projects across the workspace.
 
-Conflicts in the `project.pbxproj` files are very common when more than one developer is working on the same codebase. Besides the build settings for the project, the file also contains and tracks files that are included for the compilation so as to which target they belong to. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand.
+Conflicts in the `project.pbxproj` files are very common when more than one developer is working on the same codebase. Besides the build settings for the project, this file contains and tracks files that are included for the compilation. It also tracks the targets to which these files belong. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand.
 
-Since programmers are lazy creatures, it very often also happens that the file that was removed from the Xcode's project still remains in the repository as it was not moved to the trash. That could lead to a git tracking of those unused files inside of the repository so as re-adding the deleted file to the project by the developer who was modifying it.
+Since programmers are lazy creatures, it very often also happens that a file removed from an Xcode project still remains in the repository as the file itself was not moved to the trash. That could lead to git continuing to track a now unused and undesired file. Furthermore, it could also lead to the file being readded to the project by the developer who was modifying it.
 
 ### Hello XcodeGen
 Fortunately, in the Apple ecosystem, we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the `pbxproj` file for us based on the well-arranged yaml file. In order to use it, we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
 
-As an example let us have a look at the Cosmonaut app project.yml.
+As an example, let us have a look at the Cosmonaut app project.yml.
+
 `app/Cosmonaut/project.yml`
+
 ```yaml
 # Import of the main build_settings file
 include:
@@ -1119,9 +1130,9 @@ targets:
       - target: Cosmonaut
 ```
 
-Even though the YAML file speaks for itself, some explanation is needed.
+Even though the YAML file speaks for itself, let me explain some of it.
 
-First of all, the `include` in the very beginning.
+First of all, let us look at the `include` in the very beginning.
 
 ```yaml
 # Import of the main build_settings file
@@ -1133,7 +1144,9 @@ Before xcodegen starts generating the pbxproj project it processes and includes 
 Imagine a scenario where the iOS deployment version must be bumped up for the app. Since the app links also many frameworks which are being compiled before the app, their deployment target also needs to be bumped up. Without XcodeGen, each project would have to be modified to have the new deployment target. Even worse, when trying some build settings out instead of modifying it on each project a simple change in one file that is included in the others will do the trick.
 
 A simplified build settings YAML file could look like this:
+
 `fastlane/build_settings.yml`
+
 ```yaml
 options:
   bundleIdPrefix: com.iss
@@ -1164,7 +1177,8 @@ settings:
 
 The following key is `targets`. In the case of the Cosmonaut application, we are setting three targets. One for the app itself, one for unit tests and finally one for UI tests. Each key sets the name of the target and then describes it with `type`, `platform`, `dependencies` and other parameters XcodeGen supports.
 
-Next, let us have a look at the dependencies.
+Next, let us have a look at the dependencies:
+
 ```yaml
 dependencies:
   # Domains
@@ -1177,7 +1191,7 @@ dependencies:
 ...
 ```
 
-Dependencies links the specified frameworks towards the app. On the snippet above you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation to be found. That being said, the framework needs to be part of the workspace in order for the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default XcodeGen has `embeded: true` for applications as they have to copy the compiled framework to the target in order for the app to launch successfully and `embeded: false` for frameworks. Since the framework is not a standalone executable and must be part of some application it is expected that the application copies it.
+The dependencies section links the specified frameworks toward the app. On the snippet above, you can see which dependencies the app is using. The `implicit` keyword with the framework means that the framework is not pre-compiled and requires compilation to be found. That being said, the framework needs to be part of the workspace in order for the build system to work. Another parameter that can be stated there is `embeded: {true|false}`. This parameter sets whether the framework will be embedded with the app and copied into the target. By default XcodeGen has `embeded: true` for applications as they have to copy the compiled framework to the target in order for the app to launch successfully and `embeded: false` for frameworks. Since the framework is not a standalone executable and must be part of some application it is expected that the application copies it.
 
 Full documentation of XcodeGen can be found on its GitHub [page](https://github.com/yonaskolb/XcodeGen):
 
@@ -1204,43 +1218,44 @@ Simply executing the `fastlane generate` command in the root directory of the ap
 
 Looking at the ISS architecture, two very important patterns are being followed.
 
-First of all, any framework does NOT allow linking modules on the same layer. That is prevention for creating cross-linking cycles in between frameworks. For example, if the Network module would link Radio module and the Radio module would link Network module we would be in serious trouble. Surprisingly, not every time Xcode build fails in such setup, however, it will have a really hard time with compiling and linking, up until one day it starts failing.
+First of all, any framework does NOT allow linking modules on the same layer. Doing so is meant to prevent creating cross-linking cycles in between frameworks. For example, if the Network module would link Radio module and the Radio module would link Network module we would be in serious trouble. Surprisingly, Xcode does not fail to build every time in such a setup. However, it will have a really hard time with compiling and linking, up until one day it starts failing.
 
 Second of all, each layer can link frameworks only from its sublayer. This ensures the vertical linking pattern. That being said, the cross-linking dependencies will also not happen on the vertical level.
 
 Let us have a look at some examples of cross-linking dependencies.
 
-### Cross linking dependencies
+### Cross-linking dependencies
 
-Let us say, the build system will jump on compiling the Network module where the Radio is being linked to. When it comes to the point where the Radio needs to be linked it jumps to compile the Radio module without finishing the compilation of the Network. The Radio module now requires a Network module to continue compiling, however, the Network module has not finished compiling yet, therefore, no `swiftmodule` and other files were yet created. The compiler will continue compiling up until one file will be referencing some part(e.g a class in a file) of the other module and the other module will be referencing the caller.
+Let us say that the build system will jump on compiling the Network module where the Radio is being linked to. When it comes to the point where the Radio needs to be linked it jumps to compile the Radio module without finishing the compilation of the Network. The Radio module now requires a Network module to continue compiling, however, the Network module has not finished compiling yet, therefore, no `swiftmodule` and other files were yet created. The compiler will continue compiling up until one file will be referencing some part (e.g a class in a file) of the other module and the other module will be referencing the caller.
 
 That's where the compiler will stop.
 
-No need to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. While, in theory, this is all nice and makes sense but in practice, it can happen that for example, the Cosmonaut domain will require something from the Spacesuit domain. It can be some domain only logic, views or even the whole flow of screens. In that case, there are some options for how to tackle that issue. Either, creating a new module on the service layer and moving there the necessary source code files that are shared across multiple domains or shifting those files from the domain layer to the service layer. The third option would be to use abstraction and achieving the same not from the module level but on the code level. Chosen solution solely depends on the use case.
+Needless to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. In theory this is all nice and makes sense. In practice, however, it can happen that one domain will require something from another domain (for example, the Cosmonaut domain will require something from the Spacesuit domain). It can be some domain-specific logic, views or even the whole flow of screens. In that case, there are some options for how to tackle the issue. Either, a new module on the service layer can be created and the necessary source code files that are shared across multiple domains being moved there. Another option is to shift those files from the domain layer to the service layer. A third option would be to use abstraction and achieve the same result not from the module level but from the code level. The ideal solution solely depends on the use case.
 
-A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a `coordinator` pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework, we can count that all domains understand it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
+A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a `coordinator` pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework, we can rely on all domains understanding it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
 
 ### Vertical linking
 
-Same as the horizontal layer linking, the vertical linking is also very important and must be followed to avoid the above-mentioned compiler issues. In practice, such a scenario can also happen very easily. Imagine, that your team designed a new framework on the Core layer that will provide some extent logging functionality so as data analytics and so on. After a while, some team will want to use the logging functionality for example in the Radio module to provide more debugging details for developers for the Bluetooth module.
+As with horizontal layer linking, vertical linking is also very important and must be followed to avoid the aforementioned compiler issues. In practice, such a scenario can also happen very easily. Imagine, that your team designed a new framework on the Core layer that will provide some extended logging functionality and some data analytics. After a while, some team will want to use the logging functionality, for example in the Radio module, to provide more debugging details for developers for the Bluetooth module.
 
-Unlike in the cross-linking dependencies scenario, in this case, the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer will contain mostly some shared functionality for the Core layer so as some protocols that would allow passing references from the top down.
+Unlike in the cross-linking dependencies scenario, in this case, the abstraction was defined on the core level already. Thereafter, there is no way of passing it in the code from the top down. In this case, the new layer needs to be created, let us say shared or common. The supporting layer will contain mostly some shared functionality for the Core layer as well as some protocols that would allow passing references from the top down.
 
-Another solution would be to separate the core public protocols and models of the framework so that it can be exposed and linked towards more frameworks on the same layer. On the higher level, the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, have the downside of having an extra framework that needs to be linked and maintained. However, with this approach, the so-called `Clean Architecture` would be followed. More about that later.
+Another solution would be to separate the core public protocols and models of the framework such that the framework can be exposed and linked towards more frameworks on the same layer. On the higher level, the instantiation would take place and the instances would be passed to the implementations on the lower layer as they both linked towards the newly created core framework of that module. This, however, has the downside of having an extra framework that needs to be linked and maintained. However, with this approach, the so-called `Clean Architecture` would be followed. More about that later.
 
-No need to say, any higher-level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app can link anything from the Core or the newly defined Shared layer.
+Needless to say, any higher-level layer framework can link any framework from any lower layer. So for example, the Cosmonaut app can link anything from the Core or the newly defined Shared layer.
 
 ## App secrets
 
-Considering, many developers are working in the same repository on the same project, securely handling project secrets is inevitable. Project secrets could be for example API keys, SDK keys, encryption keys, so as configuration files or certificates containing sensitive information that could cause potential harm to the app. Essentially, any piece of sensitive information should not be exposed to anyone not working directly on the project. By any means, secrets should NOT be stored in the repository so as included in the compiled binary as plain strings.
+Project secrets could be API keys, SDK keys, encryption keys, as well as configuration files or certificates containing sensitive information that could cause potential harm to the app. Considering, many developers are working in the same repository on the same project, keeping project secrets stored securely such that they are exposed only to appropriate developers can be challenging. Essentially, any piece of sensitive information should not be exposed to anyone not working directly on the project. By any means, secrets should NOT be stored in the repository and should not be part of the compiled binary as plain strings.
 
-The app ideally should decrypt encrypted secret in its runtime. Even though, on the jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network, considering the SSLPinning was in a place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
+The app ideally should decrypt encrypted secret during its runtime. Even though, on a jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network. Considering, the SSLPinning was in a place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
 
 About two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets which solves this problem in a Swifty way.
 
 Now, let us have a look at how to handle secrets in the project.
 
 ### How to handle secrets
+
 First thing first, as mentioned above any secret must be obfuscated, without a doubt. String obfuscation is a technique that via XOR, AES or other encryption algorithms modifies the confidential string or a file such that it cannot be de-obfuscated without the initial encryption key.
 
 Unfortunately, obfuscating strings or files and committing them to the repository might not be enough. What if there is a colleague who has access to the source repository or someone who might want to steal these secrets and hand them out? Simply downloading the repository and printing the de-obfuscated string into a console would do it.
@@ -1249,18 +1264,21 @@ Essentially, the secret should be visible only for the right developer in any ci
 
 ### The GnuPG (GPG)
 
-GPG is an asymmetric key management system that creates a hash for encryption from the public keys of all participants. In the initialisation process, GPG will generate a private and public key. The public key is saved in the .gpg folder under the user's email visible to everyone. The private key is saved in ~/.gnupg and is protected by a password chosen by the user.
+GPG is an asymmetric key management system that creates a hash for encryption from the public keys of all participants. In the initialisation process, GPG will generate a private and public key. The public key is saved in the `.gpg` folder under the user's email visible to everyone. The private key is saved in `~/.gnupg` and is protected by a password chosen by the user.
 
-To add a developer into the authorised group, the developer needs to provide a public key from his machine, simply executing `dotgpg key` will print the key. This key must then be added by the already authorised person `via dotgpg add .`
+To instal GPG on the mac, following command can be used: `brew install gnupg` and `gem install dotgpg` to install `dotgpg`, Ruby program that simplifies the usage of GPG.
 
-The encrypted file by GPG containing all project secrets can be then thoughtfully committed to the repository since only authorised developers who possess the private key can decrypt it.
+To add a developer into the authorised group, the developer needs to provide a public key from his machine, simply executing `dotgpg key` will print the key. This key must then be added by the already authorised person `via dotgpg add`.
+
+The file encrypted by GPG containing all project secrets can be then thoughtfully committed to the repository since only authorised developers who possess the private key can decrypt it.
 
 ### GEM: Mobile Secrets
-[Mobile Secrets](https://github.com/CyrilCermak/mobile-secrets) gem is using XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
+
+[Mobile Secrets](https://github.com/CyrilCermak/mobile-secrets) gem uses an XOR cipher alongside with GPG to handle the whole process. To install MobileSecrets simply execute `gem install mobile-secrets`.
 
 Mobile Secrets itself can then initialise the GPG for the current project if it has not been done yet by running: `mobile-secrets --init-gpg .`.
 
-When the GPG is initialised a template YAML file can be created by running: `mobile-secrets --create-template`
+When GPG is initialised, a template YAML file can be created by running: `mobile-secrets --create-template`.
 
 ![MobileSecrets.yml](assets/mobile_secrets_yaml.png)
 
@@ -1270,61 +1288,60 @@ The `MobileSecrets.yml` file contains the hash key used for obfuscation of secre
 
 Finally, we can run: `mobile-secrets --export ./Output/Path/` to export the swift file with obfuscated secrets.
 
-Mobile Secrets exported Swift source code will look like the example below. Last but not least, that path to this file must be added to the `gitignore`. The secrets source code must be generated locally alongside with generating the projects.
+Mobile Secrets exported Swift source code will look like the example below. Last but not least, the path to this file must be added to the `.gitignore`. The secrets source code must be generated locally alongside with generating the projects.
 
 ![Exported Swift secrets source file](assets/mobile_secrets_final.png)
 
 ### The ugly and brilliant part of the Secrets source code
 
-What happened behind the hood? Out of the YAML configuration, secrets were obfuscated with the specified hash key via XOR and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
+What happened under the hood of the mobile-secrets? Out of the YAML configuration, secrets were obfuscated with the specified hash key via XOR and converted into bytes. Therefore, it ended up with an array of UInt8 arrays.
 
 The first item in the bytes array is the hash key. The second item is the key for a secret, the third item contains the obfuscated secret, the fourth is again the key and fifth is the value, and so forth.
 
-To get the de-obfuscated key just call the string(forKey key: String) function. It will iterate over the bytes array, convert the bytes into a string and compare it with the given key. If the key was found the decrypt function will be called with a value on the next index.
+To get the de-obfuscated key just call the `string(forKey key: String)` function. It will iterate over the bytes array, convert the bytes into a string and comparing it with the given key. If the key was found, the decrypt function will be called with a value on the next index.
 
-Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Even though, it made it hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app like mentioned before.
+Since we have the array of UInt8 arrays(`[[UInt8]]`) mixed with the hash key, keys and obfuscated secrets, it would take a significant effort to reverse-engineer the binary and get the algorithm. Even to get the bytes array of arrays would take a significant effort. Doing so also made it hard to get the secrets out of the binary. Yet, the secrets can still be obtained when the attacker gains control over the runtime of the app like mentioned before.
 
 ## Workflow
-While this book is mostly focused on the development aspects of modular architecture some management essentials must also be mentioned. Not surprisingly, developing software for a large organisation can be a real challenge, imagine a scenario where around 30 to 50 developers per platform (iOS/Android/Backend) are working towards the same goal, the same project. Those developers are usually divided into multiple cross-functional teams that are working standalone towards the team's goal.
+While this book is mostly focused on the development aspects of modular architecture, some management essentials must also be mentioned. Not surprisingly, developing software for a large organisation can be a real challenge. Imagine a scenario where around 30 to 50 developers per platform (iOS/Android/Backend) are working on the same project toward the same goal. Those developers are usually divided into multiple cross-functional teams that are working independently as toward each team's own goals.
 
-A cross-functional team usually consists of a product owner or a product manager, which highly depends on the company and its structure so as the agile methodologies the company is using. Furthermore, designers, who are defining the UI/UX and behaviour on each platform, developers from each platform and last but not least, the quality assurance.
+A cross-functional team usually consists of a product owner or a product manager, designers, who are defining the UI/UX and behaviour on each platform, developers from each platform, and last but not least, the quality assurance. Obviously the particular combination is highly dependent upon the company and its structure as well as the agile methodologies the company is using.
 
-The team goal can be for example developing some specific business domain, the team then becomes the domain expert and is further responsible for developing, improving and integrating that domain into the final customer-facing application.
+For example, the team goal can be developing some specific business domain where the team then becomes the domain expert and is further responsible for developing, improving, and integrating that domain into the final customer-facing application.
 
-It could also be that the team develops a standalone application on top of the framework. If the team followed the same patterns defined in the framework, usually by technical leads, it can also be easily later on integrated as a part of some bigger application that for example groups those functionalities in one app. Or the other way around splits one big app into multiple smaller ones. Like for example, Facebook did with their Messenger app.
+It could also be that the team develops a standalone application on top of the framework. If the team followed the same patterns defined in the framework, usually by technical leads. The app can be then easily later on integrated as a part of some bigger application that for example groups those functionalities in one app. Or the other way around splits one big app into multiple smaller ones. Like for example, Facebook did with their Messenger app.
 
 ### Teams
-Teams and their management plays a crucial role in the success of the project. The modular architecture by any means helps to find boundaries of teams. From the developers POV, each developer is responsible for developing the frameworks belonging to the team. In our Cosmonaut example, it could be the Cosmonaut domain alongside with Cosmonaut service. While Spacesuit domain and Spacesuit service would be developed by another team.
+Teams and their management play a crucial role in the success of the project. The modular architecture by any means helps define boundaries of teams. From the developers POV, each developer is responsible for developing the frameworks belonging to the team. In our Cosmonaut example, it could be the Cosmonaut domain alongside with Cosmonaut service. While Spacesuit domain and Spacesuit service would be developed by another team.
 
-That does not necessarily mean that the team Cosmonaut, let us say, cannot develop or modify the source code in the domain or service of Spacesuit. However, it surely should not be able to merge their changes into the repository without the given permission of that affected team.
+That does not necessarily mean that the team Cosmonaut, let us say, cannot develop or modify the source code in the domain or service of Spacesuit. It should however mean that changes team Cosmonaut makes to team Spacesuit's domain code should seek review and approval from the Spacesuit team.
 
-Luckily, there is one simple solution for it. The code owners definition, which most of the CI/CD platforms supports. The code owner file simply defines who is the owner of what part of the codebase. This already briefly touched the topic of git which is covered in the following subchapter.
+Luckily, there is one simple solution supported by many CI/CD platforms for it: code owners. The code owner file simply defines who is the owner of which part of the codebase. This already briefly touched the topic of git which is covered in the following subchapter.
 
 ### Git & Contribution
 
-While there are many different approaches how to contribute to the repository via git in our modular architecture I find out one particular the most helpful. The GitFlow. I am sure you have heard of it at some point or if you have not you could be using it without knowing.
+While there are many different approaches on how to contribute to the repository via git in our modular architecture, I find one particular the most helpful: The [GitHub flow](https://guides.github.com/introduction/flow/). I am sure you have heard of it at some point or if you have not you could be using it without knowing.
 
-Most likely, on projects developed by a single team, it heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of a team of teams, contributing to mono-repository with GitFlow alongside with four eyes principle is the way to go.
+Most likely, on projects developed by a single team, the whole workflow heavily depends on the team how they will decide to contribute to the repository. Nevertheless, in the case of a team of teams, contributing to a mono-repository with the GitHub flow, coupled with the four eyes principle, is the way to go.
 
-Four eyes principles simply mean that in order to merge a pull request it needs to be reviewed first. That being said, in the team, each platform must have at least two developers so that the team can gain autonomy and work independently.
+The four eyes principle simply means that in order to merge a pull request, the pull request must first be reviewed by another set of eyes, another person. That being said, in the team, each platform must have at least two developers so that the team can develop autonomy and work independently.
 
-In case of making changes in another team's code, a dedicated code-owner from the team must approve the changes. Only with that, the team can stay ahead and have the ultimate overview of their part of the codebase and domain knowledge. Without defining the code-owners soon everyone would be working everywhere and it would all turn into chaos.
+When making changes in another team's code, a dedicated code owner from the team must approve the changes. Once approved, the team can stay ahead and maintain the overview of its part of the codebase and domain knowledge. Without defining the code owners early on in the project's lifetime, everyone would be working everywhere and it could all turn into chaos.
 
-Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that's very difficult to maintain and takes the most effort. That part will be the core layer. While the core layer could be developed by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays a crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer, if we don't count the utils layer, it will be highly likely used by many frameworks on the higher layer.
+Looking at the framework structure, it is quite clear where each team has its boundaries. However, there is one part that is very difficult to maintain and takes the most effort. That part will be the core layer. While the core layer could be developed by the creators of the application framework in the very early stages, it is surely the part everybody is relying on. Therefore, great test coverage plays a crucial role when developing anything in the core layer. Later on, any change in any interface of an object will affect everybody who is using it. Since it is the lowest layer (since we are not counting the utils layer), it will be highly likely that it will be used by many frameworks in the higher layers.
 
-The core layer, after all the desired functionality was implemented and bugs were fixed will not need much of a focus. However, teams might need to extend the functionality on that layer, which could lead as mentioned above towards opening a PR with their suggestions for the extension. In this case, the core ownership should be made of tech leads who are having the overall vision of the project.
+After all the desired functionality has been implemented and known bugs have been fixed, the core layer will not need much of a focus. However, teams may still need to extend the functionality on that layer. This could result in those teams opening a PR with their needed functionality or with suggestions of improvements. In this case, the tech leads should be seen as being code owners of the code in question since they are the ones with the duty of maintaining the overall vision of the project.
 
 ### Scalability
-As mentioned already in the book, modular architecture is designed to be highly scalable. With the pre-defined scripts, the new team can simply create a new framework or an app and start the implementation. Nevertheless, the onboarding of a new colleague or the whole team plays a significant time that needs to be taken into account.
+As mentioned already in the book, modular architecture is designed to be highly scalable. With the pre-defined scripts, the new team can simply create a new framework or app and start the implementation right away. Nevertheless, the onboarding of a new colleague or the whole team takes time which needs to be considered by the project management.
 
-Most likely, scaling for example to a 6th team working on the framework will require quite an extensive onboarding session. Due to a large amount of code, design patterns, CI/CD, code style etc. will take a lot of time for newcomers to get the speed. In such case, usually, platform technical leads are doing pair programming, code reviews and further onboarding up until the newcomers are familiar with the development concept, patterns and so on.
-
+Most likely, scaling to a 6th team working on the framework will require quite an extensive onboarding session. Due to the amount of code, design patterns, CI/CD, code style and so on, it may take a lot of time for newcomers to get the speed. In such a case, platform technical leads bring new members up to speed via pair programming, code reviews, and further onboarding up until the newcomers are familiar with the development concept, patterns, and so on.
 
 ### Application Framework & Distribution
 
-Architecture-wise, the whole application framework can be used as the software foundation for the whole company. Different products can be easily created with the already pre-built foundation which contains the whole company knowledge in terms of software development. No need to say, from the engineering point of view, this is a big win for the whole company. For example, thanks to that, SW engineers can much more precisely estimate how much of the development time can the new product cost, how long will it take so as probably what would be the biggest challenges there.
+Architecture-wise, the application framework can be used as the software foundation for a company. Different products can now be easily created with the pre-built foundation which encapsulates the entire company's knowledge in software development. Needless to say, from the engineering point of view, this is a big win for the whole company. With the application framework in hand, software engineers can provide much more accurate estimates and do so with more confidence and speed. Software engineers will be able to forecast development time and make note of the biggest risks and challenges of development.
 
-Nevertheless, there are much more use cases where such architecture would be helpful. Due to modularisation, standalone frameworks can be exported and used for development without affecting the current development workflow. This could be particularly helpful when, for example, a subsidiary would be developing another software product. With already pre-built core components, most importantly the UI part facing the customers, new product in the subsidiary can be built much faster and without gaining the confidential parts held in service or domain layers. However, in such case the team responsible for developing the distributed components or let us say the SDK is becoming the support team for the customers of the SDK. In that case, a new process and workflow must be established. The responsible team could be opened to submitting bug reports and distributing the new versions of the SDK bi-weekly, or whenever it is suitable.
+Nevertheless, there are many more use cases where such an architecture would be helpful. Due to modularisation, standalone frameworks can be exported and used for development without affecting the current development workflow. This could be particularly helpful when, for example, a subsidiary would be developing another software product. With pre-built core components, most importantly the UI part facing the customers, new products in the subsidiary can be built much faster and without gaining access to the confidential parts held in service or domain layers. However, in such case the team responsible for developing the distributed components, or let us say the SDK, will become the support team for the consumers of the SDK. In that case, a new process and workflow must be established. The responsible team could be opened to submitting bug reports and distributing the new versions of the SDK bi-weekly, or whenever it is suitable.
 
 ## Common Problems
 
@@ -1332,52 +1349,52 @@ While praising such architecture pretty much all the time, like everything, it c
 
 ### Maintenance
 
-First things first, the maintenance of the application framework can be very inefficient. The whole framework will not go far without technical leads who are having the company strategy aligned vision for the development of the framework or products and can, thereafter, give the directions for the development, also technically backed up by solution architects. Since there can be many teams working and contributing to the repository, the maintenance might be happening daily. The most affected part is probably the CI/CD chain, where things can break quickly, failing unit-tests, legacy code, supporting apps that are no longer in development etc.
+First things first, the maintenance of the application framework can be very inefficient and difficult. The application framework will not go far without technical leads who can align the company strategy for the development of the framework and products. Thereafter, technical leads give the directions for the development technically backed up by system and solution architects. Since there can be many teams working and contributing to the repository some maintenance might be happening daily. The most affected part is probably the CI/CD chain. On the CI/CD things can break quickly, furthermore, maintenance of failing unit-tests, legacy code, supporting apps that are no longer in development etc is needed.
 
-In case of the maintenance, particularly hard could be maintaining apps or frameworks that are no longer in development. Let us say, an app consists of domains and services that was successfully delivered to the customers and there is no more development planned for it. This resolves in code that runs in production, therefore, it is very important. However, since it relies on the e.g core frameworks that are still in development the tests will start failing, the interfaces need to be updated and so on. In the end, this will require additional effort for one of the teams to just take care of it until a further decision is made for development. Or, archive it, remove it from the actively developed codebase and when the time comes, put it back, update all interfaces and changes that happened in the framework and then happily continue development.
+In case of the maintenance, a particular difficulty (challenge) could be maintaining apps or frameworks that are no longer in development. Let us say, an app consisting of domains and services was successfully delivered to the customers and there is no more development planned for it. This results in code that runs in production. Therefore, it is very important. Since it relies on the e.g service layer frameworks that are still in development the tests will start failing. Interfaces need to be updated and so on. In the end, this will require additional effort for one of the teams to just take care of it until a further decision is made for development. Another approach would be to archive it, remove it from the actively developed codebase and when the time comes, put it back. Furthermore, update all interfaces and changes that happened in the framework and then happily continue the development.
 
 ### Code style
 
-Since many different developers are working, following the same code style, principles and patterns can be a challenge. Everybody has different preferences, different experience and getting sometimes people on the same board is quite difficult.
+Since many different developers are working together, collaborating on the same code base, following the same code style, principles and patterns can be a challenge. Everybody has different preferences and different experiences. Getting people on the same board can sometimes be quite difficult.
 
-Nevertheless, following the ground rules and overall framework patterns is what matters the most. In this case what helps is well-documented code, framework documentation so as proper onboarding that ideally consists of pair programming, code reviews and ad-hoc one on one sessions. Changes in the code style, importing new libraries, new patterns and so on can be discussed in developers guild meetings where everybody can vote for what seems to be the best option. In guilds, everybody can make suggestions for improvements and vote for changes he or she likes.
+Nevertheless, following the ground rules and overall framework patterns is what matters the most. In this case, what helps is having the code itself and framework being well documented. Good documentation should be complemented by a proper onboarding process that ideally consists of pair programming, code reviews, and ad-hoc one on one sessions. Changes in the code style, importing new libraries, introducing new patterns and so on can be discussed in developers guild meetings where everybody can vote for what seems to be the best option. In guilds, everybody can make suggestions for improvements and vote for changes he or she likes.
 
 ### Not fully autonomous teams
 
-In theory, each team should have its autonomy. Nevertheless, in practice it is slightly different, in some cases, teams might depend on each other which, furthermore, brings more teams communication and worst-case failing the teams goal because of the unfulfilled promises of the dependent team.
+In theory, each team should have its own autonomy. Nevertheless, in practice it can be slightly more complicated. In some cases, teams might depend upon each other. If so, challenges of increased inter team collaboration and increased team communication may need to be addressed. Without adequately dealing with these circumstances, a worst case may be teams failing to meet their goals due to unfulfilled promises of the dependent team.
 
-More teams are dependent on each other, more meetings and alignments are needed which, unfortunately, slows down the teams.
+As more teams become increasingly dependent on one another, more meetings and alignments are needed. The increase in these syncs can, unfortunately, slows down the teams.
 
 ### Conclusion
 
-In this chapter, we had a look, how in practice development of modular architecture could look like. We explored ground rules, project generations with XcodeGen, securely handling secrets so as some common problems people working on such project will be facing.
+In this chapter, we had a look at how the development of modular architecture could look in practice. We explored ground rules, generated projects with XcodeGen, securely handled secrets, and addressed some common problems people working on such projects will be facing.
 
-I hope it all gave a good understanding of how to work in such a setup.
+I hope it all provided a good understanding of how to work in such a setup.
 
 \newpage
 # Dependency Managers
 
-Generally, a good practice when working on large codebases is not to import many 3rd party libraries. Especially the huge ones, for example, RxSwift, Alamofire, Moja etc. Those libraries are extraordinarily big and highly likely some of their functionality will never be used. This will resolve in having a dead code attached to the project. No need to say, the binary size, compile-time and most importantly the maintenance will increase heavily. With each API change of the library every part of the codebase will have to be adapted. Obviously, essential vendor SDKs, like GoogleMaps, Firebase, AmazonSDK and so on will still have to be linked to the project, however, using libraries to provide wrappers around the native iOS code should be avoided and developed specifically to the project needs.
+Generally, a good practice when working on large codebases is not to import many 3rd party libraries, especially the huge ones, for example, RxSwift, Alamofire, Moja, etc. Those libraries are extraordinarily big and it is highly likely that some of their functionality will never be used. This will result in having dead code attached to the project. Needless to say, the binary size, compilation time, and, most importantly, the maintenance will increase heavily. With each API change of the library every part of the codebase will have to be adapted. Obviously, essential vendor SDKs, like GoogleMaps, Firebase, AmazonSDK and so on will still have to be linked to the project. However, using libraries to provide wrappers around the native iOS code should be avoided and instead libraries should be developed specifically to the project's needs.
 
-In one of my projects I worked on, the compile-time of the whole application was at about 20-25 minutes. The project was in development for about 8 years and had approximately 80 3rd party dependencies linked via Cocopods. That was the biggest problem for taking so much of the compile time. I do remember that I spent nearly three full months refactoring the huge codebase into the modular architecture described here. Before the project was modularised with internally developed frameworks maintained as Cocoapods. Along the way of refactoring, I also removed some of the unused libraries, and most importantly removed the Alamofire, RxSwift, RxCocoa, and other big libraries from Cocoapods and linked them via Carthage which decreased the compile-time drastically.
+In one of the projects I worked on, the compile time of the whole application was at about 20-25 minutes. The project had been in development for about 8 years and had approximately 80 3rd party dependencies linked via Cocoapods. This alone accounted for the largest percentage of build time. I do remember that I spent nearly three full months refactoring the huge codebase into the modular architecture described here. Before the transformation, the project was modularised with internally developed pods. While refactoring, I also removed some of the unused libraries. Furthermore, and most importantly, I removed Alamofire, RxSwift, RxCocoa, and other big libraries from being included via Cocoapods and linked them via Carthage instead. This change decreased the compile time drastically.
 
-Cocopods libraries are compiled every time the project is cleaned while Carthage is compiled only once. Carthage produces binaries that are then linked to a project. Cleaning a project was a pretty common thing to do, Xcode has improved in that sense a lot, but with the first Swift versions it was nowhere near to be perfect and with a clean build most issues disappeared immediately. Due to that refactoring, the compile-time after cleaning the project was decreased to 10 minutes which was mostly compile of the project source code with a few 3rd party libraries that remained linked via Cocoapods for convenience.
+Cocoapods libraries are compiled every time the project is cleaned while Carthage is compiled only once. Carthage produces binaries that are then linked to a project. Cleaning a project was a pretty common thing to do, and Xcode has improved in that sense a lot, but with the first Swift versions it was nowhere near perfection and with a clean build most issues disappeared immediately. After the refactoring, the compile time after cleaning the project was decreased to 10 minutes. Most of this time was the compilation of the project source code and the few 3rd party libraries that remained linked via Cocoapods for convenience.
 
-The way third party libraries are managed and linked to the project matters a lot, especially, when the project is big or is aiming to be big. Now let us have a look at the three most commonly used dependency managers on iOS and how to use them in modular architecture. By the most common, I mean Cocopods, Carthage and the new Apple's SwiftPM.
+The way third party libraries are managed and linked to the project matters a lot, especially, when the project is big or is aiming to be big. Now let us have a look at the three most commonly used dependency managers when developing for iOS and how to use them in modular architecture. They are as follows: Cocoapods, Carthage, and Apple's new Swift Package Manager.
 
 ## Cocoapods
 
-The most used and well-known dependency manager on iOS is [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrate a new library so as to remove it. Cocoapods manage everything for the developer under the hood, therefore, there is no further work required to start using the library. When Cocoapods are installed, with `pod install`, they are attached to the workspace as an Xcode project that contains all libraries that are specified in the Podfile. During the compilation of the project, dependencies are compiled as they are needed. This is good for small projects or even big ones but the libraries must be linked carefully as every library takes some compile-time and further maintenance, like mentioned before.
+The most used and well-known dependency manager on iOS are [Cocoapods](https://cocoapods.org/). Cocoapods are great to start with, it is really easy to integrate a new library so as to remove it. Cocoapods manage everything for the developer under the hood, therefore, there is no further work required to start using the library. When Cocoapods are installed, with `pod install`, they are attached to the workspace as an Xcode project that contains all libraries that are specified in the Podfile. During the compilation of the project, dependencies are compiled as they are needed. This is good for small projects, or even big ones, but the libraries must be linked carefully as every library takes some time to compile and eventually requires maintenance, like mentioned earlier.
 
-Quite often Cocoapods are also used for in-house framework development which is very convenient, however, all the fun stops when the project grows and the internal dependencies are using many big libraries. Then the whole project depends on the in-house developed pods who are internally linking the 3rd party pods. This scenario can easily result in a huge compile time as there is no legit way of replacing the linked 3rd party frameworks via their compiled versions. No need to say, Cocoapods also will not let you integrate a static library to more than one framework because of transitive dependencies, therefore, some dynamic library wrappers might need to be introduced to avoid it.
+Quite often Cocoapods are also used for in-house framework development which is very convenient. However, all the fun stops when the project grows and the internal dependencies are using many big libraries. Then the whole project depends on the in-house developed pods which are internally linking the 3rd party pods. This scenario can easily result in a very long compilation phase as there is no legit way of replacing the linked 3rd party frameworks via their compiled versions. It goes without saying then that Cocoapods also will not let you integrate a static library to more than one framework because of transitive dependencies. Therefore some dynamic library wrappers might need to be introduced to avoid it.
 
-In such cases, it might be necessary to move away from internally developed Cocoapods and integrate a similar approach like described in this book which gives the project complete freedom. This could lead to days or even weeks of work, depends on how the project is big, structured etc. Nevertheless, moving away from such a design will improve the everyday compile-time of each developer when it comes to that point. Like mentioned before, for small projects it could really be the way to go but it has its limits.
+In such cases, it might be necessary to move away from internally developed Cocoapods and integrate a similar approach like described in this book which gives the project complete freedom. This could lead to days or even weeks of work, depending on how big and how well structured the project is. Nevertheless, moving away from such a design will improve the everyday compile time for each developer. Like mentioned before, for small projects it could really be the way to go but it has its limits.
 
 ### Integration with the application framework
 
-Surprisingly, to integrate Cocoapods in the whole application framework might also not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks so as each app developed on top of it. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared Podfile that will define Pods for each framework, thereafter, every app can easily reuse it. Furthermore, each app has its own Podfile that specifies what Pods must be installed for which framework to avoid unnecessary linking for frameworks the app will not need.
+Surprisingly, integrating Cocoapods in the whole application framework might not be as easy as you might think. Cocoapods must keep the same versions of libraries across all frameworks and on each app developed upon those frameworks. This will require a little bit of Ruby programming. Essentially, the application framework must have one shared `Podfile` that will define pods for each framework. Thereafter, every app can easily reuse it. Furthermore, each app has its own `Podfile` that specifies which pods must be installed for which framework to avoid unnecessarily linking frameworks the app will not need.
 
-Let us have a look now how App's Podfile could look like for the Cosmonaut example.
+Let us have a look now how the app's `Podfile` could look for the Cosmonaut example.
 `app/Cosmonaut/Podifle`
 ```ruby
 # Including the shared podfile
@@ -1422,9 +1439,9 @@ target 'CosmonautApp' do
 end
 ```
 
-Firstly, the shared Podfile that defines pods for all frameworks is included. After setting the platform and workspace, the installation for all linked frameworks takes place. Last but not least, the well known app target is defined, potentially with some extra pods. Here, a special attention goes to the `add_linked_libs_from_sdks_to_app` function which will be explained in a second.
+Firstly, the shared `Podfile` that defines pods for all frameworks is included. After setting the platform and workspace, the installation for all linked frameworks takes place. Last but not least, the well known app target is defined, potentially with some extra pods. Here, special attention goes to the `add_linked_libs_from_sdks_to_app` function which will be explained in a second.
 
-To fully understand what is happening inside of the app's Podfile we have to have a look at the shared Podfile.
+To fully understand what is happening inside of the app's `Podfile` we have to have a look at the shared `Podfile`.
 `fastlane/Podifle.rb`
 ```ruby
 require 'cocoapods'
@@ -1474,7 +1491,7 @@ def install target_name, project_path, linked_libs
   end
 end
 
-# Helper method to install Pods that
+# Helper method to install pods that
 # track the overall linked pods in the linkedPods set
 def link libs
   libs.each do |lib|
@@ -1483,7 +1500,7 @@ def link libs
   end
 end
 
-# Helper method called from the App target to install
+# Helper method called from the app target to install
 # dynamic libraries, as they must be copied to the target
 # without that the app would be crashing on start
 def add_linked_libs_from_sdks_to_app
@@ -1501,19 +1518,19 @@ def install_test_subdependencies project_path, target_name, test_target_name, fo
 end
 ```
 
-Here we can see, on top of the file, the struct `Lib` that represents a Cocoapod library. In the next lines, it is used to describe the libraries that can be used within the whole framework and apps. Furthermore, each framework is defined by a function, e.g. `spacesuit_sdk`, which is then called from the main app Podfile to install the libraries for those required frameworks. Finally, helper functions are defined to simplify the whole workflow.
+Here we can see, at the top of the file, the struct `Lib` that represents a Cocoapod library. In the next lines, `Lib` is used to describe the libraries that can be used within the whole framework and apps. Furthermore, each framework is defined by a function, e.g. `spacesuit_sdk`, which is then called from the main app `Podfile` to install the libraries for those required frameworks. Finally, helper functions are defined to simplify the whole workflow.
 
-Those two functions require some explanation, first the `add_linked_libs_from_sdks_to_app` mentioned in the app's Podfile. The function must be called from within the app's target to add all the dependencies of the linked frameworks. Without it, we would end up in the so-called dependency hell. The app would be crashing with e.g `TrustKit library not loaded... referenced from: ISSNetwork`, because the libraries were linked towards the frameworks, however, frameworks do not copy linked libraries into the target. Therefore, the App must do it for us. Frameworks then can find their libraries at the `@rpath`(Runpath Search Paths).
+Those two functions require some explanation. First, the `add_linked_libs_from_sdks_to_app` mentioned in the app's `Podfile` must be called from within the app's target to add all the dependencies of the linked frameworks. Without it, we would end up in the so-called dependency hell. The app would be crashing with e.g `TrustKit library not loaded... referenced from: ISSNetwork`, because the libraries were linked towards the frameworks, however, frameworks do not copy linked libraries into the target. Therefore, the App must do it for us. Frameworks then can find their libraries at the `@rpath`(Runpath Search Paths).
 
-The second function is `install_test_subdependencies`, this the same scenario as for the previous function, however, in this case for tests. In order to launch tests, they also have to link all dependencies of the linked frameworks towards it. Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared Podfile then use the defined pods for those frameworks.
+The second function is `install_test_subdependencies`. This is the same scenario as for the previous function but for the tests. In order to launch tests, tests have to link all dependencies of the linked frameworks towards the XCTests. Lucky enough, thanks to Xcodegen, we can iterate over all `project.yml` files and find the linked frameworks and within the shared `Podfile` then use the defined pods for those frameworks.
 
 In the source code everything is well commented so it should be easy to understand.
 
 ## Carthage
 
-While Cocoapods is a true 3rd party dependency manager that does everything for the developer under the hood, [Carthage](https://github.com/Carthage/Carthage) leaves developers with free hands. Carthage pre-build libraries described in the Cartfile and produce compiled binaries for pre-defined architectures. Executing Carthage's build command with `carthage update --platform iOS` will fetch all the dependencies and produces the compiled versions. Such a task can be time-consuming, especially, when 3rd party libraries are one of the big ones. Nevertheless, such a command is usually executed only once. Compiled libraries can then be stored in some cloud storage where each developer or CI will pull them from into the pre-defined git ignored project's folder or possibly update them if it is necessary. That being said, some dependency maintenance and sharing strategy need to be in place.
+While Cocoapods is a true 3rd party dependency manager that does everything for the developer under the hood, [Carthage](https://github.com/Carthage/Carthage) leaves developers with free hands. Frameworks to be included via Carthage are listed in the `Cartfile`. Frameworks listed within this file will be fetched and either built locally or pre-compiled XCFramework will be downloaded. Executing Carthage's build command with `carthage update --platform iOS` will fetch all the dependencies and produces the compiled versions. Such a task can be time consuming, especially, when some of the 3rd party libraries included are some of the aforementioned big ones. Nevertheless, such a command is usually executed only once. Compiled libraries can then be stored in some cloud storage where each developer or CI will pull them into the pre-defined git ignored project's folder or possibly update them if it is necessary. That being said, a dependency maintenance and sharing strategy needs to be in place.
 
-As mentioned above, Carthage only builds the libraries, it is on the developer how they are then linked towards the frameworks and apps. Luckily, XcodeGen helps a lot when linking Carthage libraries. In the YAML file, it can be easily defined where the Carthage executables are stored so as which ones we want to link. In case the linked framework is a static one it can also be easily specified with `linkType`.
+As mentioned above, Carthage only builds the libraries. Thus it is up to the developer to dictate how they are linked toward the frameworks and apps. Luckily, XcodeGen helps a lot when linking Carthage libraries. In the YAML file, it can be easily defined where the Carthage executables are stored as well as which ones we want to link. Linking a static framework can easily be performed by specifying the `linkType`.
 
 ```yaml
 # Definition of the targets that exists within the project
@@ -1542,35 +1559,35 @@ targets:
     ...
 ```
 
-Eventually, the compiled binaries are linked to the frameworks and apps which no longer requires the expensive compile time. When the build is started Xcode looks at the library search paths for linking the compiled binaries. In comparison to compiling the whole 3rd party libraries from source code, linking takes only seconds.
+At build time, the compiled binaries are linked to the frameworks and apps. The expensive compile time is no longer required for each build. When the build is started, Xcode looks at the library search paths for compiled binaries to link. In comparison to compiling all 3rd party libraries from source code, linking takes only seconds.
 
-By the end of the day, Carthage will require much more work for having it properly setup and maintained in the project, updating one library will require recompile the library and its dependencies, uploading it somewhere to the server where it can be accessible by all developers and finally, downloading the latest Carthage builds by developers locally. Surely, each developer can also recompile the libraries locally but that can take away again a lot of time from each developer, depends on the amount of libraries used.
+By the end of the day, Carthage will require much more work in order to have it properly configured and maintained in the project. Updating one library will require recompiling the library and its dependencies, uploading it somewhere to the server where it can be accessible by all developers and, finally, downloading the latest Carthage builds by developers locally. Surely, each developer can also recompile the libraries locally but that can take away again a lot of time from each developer, depends on the amount of libraries used.
 
-One last thing worth mentioning is ABI (Application Binary Interface) interoperability. Since with Carthage the binaries are being linked, the compiler must be interoperable with the compiler who produced the binaries. That in the end might be a big problem, as the whole team will have to update Xcode in the same time so as the vendors of those libraries might need to update their source code to be compatible with the higher version of Swift. ABI is a very interesting topic in language development. I would highly encourage reading about it in the official Swift [repository](https://github.com/apple/swift/blob/main/docs/ABIStabilityManifesto.md).
+One last thing worth mentioning is ABI (Application Binary Interface) interoperability. Since with Carthage the binaries are being linked, the compiler must be interoperable with the compiler that produced the binaries. In the end that might be a big problem, as the whole team will have to update Xcode at the same time. Furthermore, the vendors of those libraries might need to update their source code to be compatible with the higher version of Swift. ABI is a very interesting topic in language development. I would highly encourage reading about it in the official Swift [repository](https://github.com/apple/swift/blob/main/docs/ABIStabilityManifesto.md).
 
 ## SwiftPM
 
-[Swift Package Manager](https://swift.org/package-manager/) is the official dependency manager provided by Apple. It works on a similar basis as Cocoapods. Each framework or app is described with its dependencies in Package.swift file and compiled during the build. The benefit of using SwiftPM is that it can be used for scripts development or even cross-platform development, while Cocopods are AppleOS dependent. Nevertheless, SwiftPM can be used for iOS/macOS development with ease. In comparison with Cocoapods, SwiftPM does not require extra actions in order to fetch the dependencies, Xcode simply takes care of it. SwiftPM also does not require to use of Workspace for development as it directly adds the dependencies to the current Xcode project while Cocopods requires to work in an Xcode's workspace as the Pods are attached as a standalone project that contains all the binaries.
+[Swift Package Manager](https://swift.org/package-manager/) is the official dependency manager provided by Apple. It works on a similar basis as Cocoapods. Each framework or app is described with its dependencies in a `Package.swift` file and compiled during the build. The benefit of using SwiftPM is that it can be used for script development or even cross-platform development. Cocoapods on the other hand is AppleOS dependent. Nevertheless, SwiftPM can be used for iOS/macOS development with ease. In comparison with Cocoapods, SwiftPM does not require extra actions in order to fetch the dependencies, Xcode simply takes care of it. SwiftPM also does not require using a Workspace for development as it directly adds the dependencies to the current Xcode project. In contrast, Cocopods requires working with an Xcode Workspace as the Pods are attached as a standalone project that contains all the binaries.
 
-One of the example projects using the SwiftPM for cross-platform development is the Swift server-side web framework, [Vapor](https://github.com/vapor/vapor). Vapor runs happily on both, macOS and Linux instances. Nevertheless, developing Swift code for both platforms might not be as easy as you imagine. There is a lot of differences in the Foundation developed for Apple OSes and Linux versions. Therefore, some alignments might be necessary in order to run the code on both systems which can be the reason why some libraries cannot be simply used on both systems, but that was just a side note.
+One of the example projects using the SwiftPM for cross-platform development is the Swift server-side web framework, [Vapor](https://github.com/vapor/vapor). Vapor runs happily on both macOS and Linux instances. Nevertheless, developing Swift code for both platforms might not be as easy as you imagine. There are many differences in the Foundation developed for Apple OSes and Linux versions. Therefore, some alignments might be necessary in order to run the code on both systems and this may be the reason why some libraries cannot  simply be used on both systems.
 
 ![SwiftPM with Vapor application](assets/SwiftPM.png)
 
 ## Conclusion
 
-This chapter gave an introduction to the most common package managers that could be used for managing 3rd party frameworks with ease. Choosing the right one might, unfortunately, not be as obvious as we would wish for. There are trade-offs for each one of them, however, choosing Cocopods or SwiftPM at the start and then potentially replacing some of the big libraries with Carthage, such that the compile-time can be decreased might be a good way to go. That being said, with the hybrid approach, the project benefits from both which could speed up everyday development dramatically.
+This chapter gave an introduction to the most common package managers that could be used for managing 3rd party frameworks with ease. Choosing the right one might, unfortunately, not be as obvious as we would wish for. There are trade offs for each one of them. Choosing Cocoapods or SwiftPM at the start and then potentially replacing some of the big libraries with Carthage, to reduce compile times as needed, might be a good way to go. That being said, with the hybrid approach, the project benefits from both feature sets which could speed up everyday development dramatically.
 
 \newpage
 # Design Patterns
 
-Design patterns help developers to solve complex problems in a known, organised and structural way. Furthermore, when new developers are onboarded, they might already know the patterns used for solving such problem which helps them to gain the speed and confidence for development in the new codebase.
+Design patterns help developers to solve complex problems in a known, organised, and structured way. Furthermore, when new developers are onboarded, they might already know the patterns used for solving such problem which helps them to gain speed and confidence for development in the new codebase.
 
 The purpose of this book is not to focus on design patterns in detail as there are plenty of books about them already. However, some patterns that are particularly useful when developing such modular architecture are highlighted here.
 
 
 ## Coordinator
 
-First of all, let us have a look at the Coordinator pattern. One of the well-known navigation pattern of all times when it comes to iOS development. Coordinator as its name says takes care of coordinating the user's flow throughout the app. In our Application Framework, each domain framework can be represented by its coordinator as an entry point to that domain. The coordinator can then internally instantiate view controllers so as their view models and coordinate the presentation flow. For the client, who is using it, all the necessary complexity is abstracted and held in one place. Coordinators usually need to be triggered to take the charge with `start` method. Such a method could also provide an option for a `link` or a `route` which is a deep link whose the coordinator can decide to handle or not.
+First of all, let us have a look at the Coordinator pattern, one of the most well known navigation patterns of all times when it comes to iOS development. Coordinator, as its name says, takes care of coordinating the user's flow throughout the app. In our Application Framework, each domain framework can be represented by its coordinator as an entry point to that domain. The coordinator can then internally instantiate view controllers and their view models and coordinate the presentation flow. For the client, who is using it, all the necessary complexity is abstracted and held in one place. Coordinators usually need to be triggered to take charge with a `start` method. Such a method could also provide an option for a `link` or a `route` which is a deep link which the coordinator can decide to handle or not.
 
 While there are many different implementations of such a pattern, for the sake of the example and our CosmonautApp I chose the simplest implementation.
 
@@ -1645,11 +1662,11 @@ After hooking up the coordinator into the App window, with for example the main 
 
 ## Strategy
 
-One of my favourite patterns is Strategy, even though I create it in a slightly different way than it was originally meant to. Strategy pattern is particularly helpful when developing reusable components, like for example views. Such a view can be initialised with a certain `strategy` or a `type`. In traditional book examples, strategy pattern is often described and defined via protocols and the ability to exchange the protocol with a different implementation that conforms to it. However, there is a much more Swiftier way to achieve the same goal with ease, `enum`. Enum can simply represent a strategy for each case for the object and via enum functions, the necessary logic can be implemented. Surely, the enum can be abstracted by some protocol.
+One of my favourite patterns is Strategy, even though I create it in a slightly different way than it was originally intended. Strategy pattern is particularly helpful when developing reusable components, like for example views. Such a view can be initialised with a certain `strategy` or a `type`. In traditional book examples, strategy pattern is often described and defined via protocols and the ability to exchange the protocol with a different implementation that conforms to it. However, there is a much more Swift-like way to achieve the same goal with ease, `enum`. Enum can simply represent a strategy for each case for the object and via enum functions, the necessary logic can be implemented. Surely, the enum can be abstracted by some protocol.
 
 ## Configuration
 
-Configuration is great for all the services and components that serve more than one purpose which will highly likely happen as we are developing many apps on top of the same reusable services. Configuration is a simple object that describes how an instance of the desired object should look like or behave. That could be as simple as setting SSLPinning for network service or setting a name to a CoreData context and so on.
+Configuration is great for all the services and components that serve more than one purpose which will highly likely happen as we are developing many apps on top of the same reusable services. Configuration is a simple object that describes how an instance of the desired object should look or behave. That could be as simple as setting SSLPinning for a network service or setting a name to a CoreData context and so on.
 
 As an example in the Application Framework, we can have a look at the `AppCoordinator` where the `Configuration` is defined in its extension.
 File: `domain/Scaffold/Scaffold/Source/AppCoordinator.swift`
@@ -1672,7 +1689,7 @@ extension AppCoordinator {
 }
 ```
 
-AppCoordinator takes the configuration object and based on its values performs necessary actions to provide the desired behaviour.
+AppCoordinator takes the configuration object and performs necessary actions based on its values to provide the desired behaviour.
 
 File: `domain/Scaffold/Scaffold/Source/AppCoordinator.swift`
 ```swift
@@ -1688,17 +1705,17 @@ public class AppCoordinator: Coordinator {
 
 ## Decoupling
 
-It can surely happen that at some point a different implementation of some protocol must be used, however, that might be much harder than you might think. Imagine a scenario where a CosmonautService (protocol) is used all over our ComsonautApp, however, it was decided that this app will have two different flavours, one for US cosmonaut and one for Russian cosmonaut. The cosmonaut service logic can be huge, 3rd party libraries that are used might also differ and surely we do not want to include unused libraries with our US ComsonautApp or vice versa, that would be shipping a dead code! In that case, we have to decouple those two frameworks and provide a common interface to them in a separate framework.
+It can surely happen that at some point a different implementation of some protocol must be used. However, that may prove to be much harder than you might think. Imagine a scenario where a CosmonautService (protocol) is used all over our ComsonautApp. Then image it was decided that this app will have two different flavours, one for US cosmonaut and one for Russian cosmonaut. The cosmonaut service logic can be huge, 3rd party libraries that are used might also differ and surely we do not want to include unused libraries with our US ComsonautApp or vice versa, that would be shipping a dead code! In that case, we have to decouple those two frameworks and provide a common interface to them in a separate framework.
 
-In such a case we have to make one exception to our Application Framework linking law. For example, let us call it the `CosmonautServiceCore` framework would be representing the public interfaces for the higher layers, it would contain protocols and necessary objects that need to be exposed out of the framework to the outer world. `USCosmonautService` and `RUCosmonautService` would then link the `CosmonautServiceCore` on the same hierarchy level and would provide the implementations of protocols defined there.
+In such a case we have to make one exception to our Application Framework linking law. For example, let us call it the `CosmonautServiceCore` framework that would be representing the public interfaces for the higher layers. It would contain protocols and necessary objects that need to be exposed out of the framework to the outer world. `USCosmonautService` and `RUCosmonautService` would then link the `CosmonautServiceCore` on the same hierarchy level and would provide the implementations of protocols defined there.
 
-In such a case, since there is no cross-linking in between those interfaces framework and its implementation, it is fine to link it that way.  The higher-level framework or even better the main App itself, in our example `CosmonautApp` would then based on the availability of the linked framework instantiated the objects represented in the `CosmonautServiceCore` from the framework that was linked to it. Which would be either `USCosmonautService` or `RUCosmonautService`.
+In such a case, since there is no cross-linking of those interfaces, frameworks, and their implementations, it is fine to link it that way.  The higher level framework or, even better, the main App itself, in our example, `CosmonautApp` would then be based on the availability of the linked framework instantiated the objects represented in the `CosmonautServiceCore` from the framework that was linked to it. Which would be either `USCosmonautService` or `RUCosmonautService`.
 
-This example is not part of the source code demo, however, such a scenario can happen so it is important to keep the solution for such a problem in mind.
+This example is not part of the source code demo although such a scenario can happen. Nonetheless it is important to keep the solution for such a problem in mind.
 
 ## MVVM + C
 
-Probably no need for much explanation for Model, View, ViewModel with Coordinator pattern, however, there are many different approaches and implementations. First of all, sometimes it's not necessary to use MVVM as the plain old classic MVC do the trick as well without the necessity of having an extra object. Second of all, the way how objects are bound together matters.
+Probably no need for much explanation for Model, View, ViewModel with Coordinator pattern, however, there are many different approaches and implementations. First of all, sometimes it is not necessary to use MVVM as the plain old classic MVC can do the trick as well without the necessity of having an extra object. Second of all, the way in which objects are bound together matters.
 
 
 ## Protocol Oriented Programming (POP)
@@ -1711,12 +1728,12 @@ The purpose of this chapter was only to mention the most important patterns that
 \newpage
 # Project Automation
 
-When it comes to a project where many developers are contributing simultaneously automation will become a crucial part of it. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be simply generating the `xcodeproj` projects by XcodeGen like in our example to avoid conflicts, pulling new translation strings, generating entitlements on the fly, up to building the app on the CI and publishing it to the AppStore or other distribution centre (CD).
+When it comes to a project where many developers are contributing simultaneously, automation will become a crucial part of its success. It might be hard in the very beginning to imagine what kind of tasks might be automated but it will become crystal clear during the development phase. It can be as simple as generating the `xcodeproj` projects with XcodeGen like in our example to avoid conflicts. Automation can also be used to pull new translation strings, generate entitlements on the fly, and can be used to build the app on the CI as well as publishing it to the AppStore or other distribution centre (CD).
 
 ## Fastlane
-First and foremost, iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains a countless amount of plugins that can be used to support project automation. With Fastlane, it is also easy to create your own plugins that will be project-specific only. Fastlane is developed in Ruby so as its plugins are. However, since all is built with Ruby, Fastlane gives the freedom to import any other ruby projects or classes developed in plain Ruby and directly call them from the Fastlane's recognisable function so-called `lane`.
+First and foremost in the way of automation is iOS developers beloved `Fastlane`. Fastlane is probably the biggest automation help when it comes to iOS development. It contains a countless amount of plugins that can be used to support project automation. With Fastlane, it is also easy to create your own plugins that will be project-specific only. Fastlane is developed in Ruby and its plugins are as well. However, since all is built with Ruby, Fastlane gives the freedom to import any other ruby projects or classes developed in plain Ruby and directly call them from the Fastlane's recognisable function so-called `lane`.
 
-As an example, we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning where in this case the so-called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile and then used as a normal Ruby program. In this case, it is NOT purposely developed as a Fastlane's action. The reason being that it is much easier to develop a pure Ruby program as it unlike Fastlane's action does not require the whole Fastlane's ecosystem to be launched which takes a couple of seconds at its best. No need to say, Fastlane's action surely comes with its advantages as well, like Fastlane's action listings, direct execution and so on.
+As an example, we can have a look at the Fastfile's `make_new_project` lane introduced in the very beginning. In this case the so-called `ProjectFactory` class is implemented in `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile. Then it is used as a normal Ruby program. It is NOT purposely developed as a Fastlane's action. The reason being that it is much easier to develop a pure Ruby program as the program unlike Fastlane's action does not require the whole Fastlane's ecosystem to be launched. Launching Fastlane takes a couple of seconds at its best. Perhaps obviously, Fastlane's action surely comes with its advantages as well, like Fastlane's action listings, direct execution and so on.
 
 `/fastlane/Fastfile`
 ```ruby
@@ -1754,16 +1771,16 @@ To grow a codebase that scales fast, it is crucial to maintain and ensure its qu
 
 ![CI Pipeline Success Example](assets/CI-pipeline.png)
 
-If everything goes well and all tests are passing, the merge request gets merged by the CI and CD takes it over. On the other hand, if something breaks, developers then need to provide fixes on their changes or adjustment to those tests to reflect their latest changes.
+If everything goes well and all tests are passing, the merge request can be approved and merged by the CI and CD takes it over. On the other hand, if something breaks, developers then need to provide fixes on their changes or adjustment to those tests to reflect their latest changes.
 
 ![CI Pipeline Failure Example](assets/CI-pipeline-failure.png)
 
 
 ## Continuous Delivery (CD)
 
-As soon as the merge is done continuous delivery can start. To fail fast if something goes wrong when for example the pipeline has not detected a breaking change or due to any other reason, alpha builds are created. Alpha build reflects the latest development state of the codebase. Ideally, developers should work in a way where the development state of the codebase is always production-ready. Such that, if some hot-fixes in production are needed the production build can be triggered from the development state immediately. This approach avoids any bug-fixing by cherry-picking and forces developers to commit high-quality atomic commits onto the codebase.
+As soon as the merge is done continuous delivery can start. In order to quickly detect if something goes wrong (fail fast) when, for example the pipeline has not detected a breaking change or due to any other reason, alpha builds are created. An Alpha build reflects the latest development state of the codebase. Ideally, developers should work in a way where the development state of the codebase is always production-ready. They should do so in such a way that if some hot-fixes in production are needed the production build can be triggered from the development state immediately. This approach avoids any bug-fixing by cherry-picking and forces developers to commit high-quality atomic commits onto the codebase.
 
-Based on the project, different build configurations can be produced. Build configuration could be for example different environment, different identifiers or secrets to service providers and so on.
+Based on the project, different build configurations can be produced. Build configurations could specify different environments, different identifiers, different secrets to service providers and so on.
 
 ![CD Pipeline Example](assets/CD-pipeline.png)
 
@@ -1773,7 +1790,9 @@ If you have not learned it yet, do so, it's great.
 
 ## Conclusion
 
-CI/CD is a crucial part of every bigger project unfortunately as of today maintaining pipelines is difficult especially in fast-paced projects. Many things can go wrong, 3rd party dependencies CDN might go down for some time, something works locally but not on the CI, different versioning of tools, especially Xcode can cause lots of headaches so as the configuration of the CI/CD itself. The purpose of this chapter was to introduce the concept on a higher level. To deep dive into CI/CD, the documentation of the provider is the best read.
+CI/CD is a crucial part of every bigger project and unfortunately as of today maintaining pipelines is difficult. Especially in fast-paced projects. Many things can go wrong, 3rd party dependencies CDN might go down for some time, something works locally but not on the CI, different versioning of tools, failing tests, Xcode can cause lots of headaches and so on. Needless to mention the configuration of the CI/CD itself.
+
+The purpose of this chapter was to introduce the concept on a higher level. To deep dive into CI/CD, the documentation of the provider is the best read.
 
 Furthermore, to deep dive more into this topic, I would recommend this article and free ebook.
 
@@ -1783,7 +1802,7 @@ https://codemagic.io/ci-cd-ebook/
 \newpage
 # THE END
 
-When everything goes well, containers will get shipped on the boat to the end customers and life of all is great. However, if it gets stuck at Suez same as the Evergreen ferry, do not panic. It is a software, everything is fixable (unless you ran bad code on top of the production database with Schrödinger's backup policy, then may all the network bandwidth be with you) it just takes time and lots of work but in the end, the ferry with its containers will depart and leave towards the customers.
+When everything goes well, containers will get shipped on the boat to the end customers and life of all is great. However, if it gets stuck at Suez same as the Evergreen ferry, do not panic. It is just software and everything is fixable (unless you ran bad code on top of the production database with Schrödinger's backup policy. In that case may all the network bandwidth be with you). Sometimes it just takes time and lots of work but in the end, the ferry with its containers will depart and leave towards the customers.
 
 ![Libraries ready to be dispatched](assets/port.jpg)
 
