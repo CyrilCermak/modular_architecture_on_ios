@@ -43,8 +43,8 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 # About the author
 Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
 
-## Reviewers
-?
+## Reviewer
+Highly likely due to the quality of this book the reviewer wishes to be secret. 
 
 \newpage
 \tableofcontents
@@ -71,8 +71,6 @@ The latest version of [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt
 
 ## What is this book about
 This book describes the essentials of building a modular architecture on iOS. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project.
-
-At the end of this book, you can read about the experience from the top-notch iOS engineers working across numerous different projects from different countries and continents.
 
 ## What is this book NOT about
 SwiftUI.
@@ -135,7 +133,7 @@ The core layer is the enabler for the whole app. Services will link the necessar
 A core module in our e-commerce app could be `Network` or `UIComponents`.
 
 ### Shared Layer
-The shared layer is a supporting layer for the whole framework. It can happen that this layer might not need to exist, therefore, it is not considered in all diagrams. However, a perfect example of the shared layer is some logging mechanism. Even core layer modules may want to log some output and that could potentially lead to duplicates. This duplicated code could be solved by the shared layer.
+The shared layer is a supporting layer for the whole framework. It can happen that this layer might not need to exist, therefore, it is not considered in all diagrams. However, a perfect example of the shared layer is some logging mechanism. Even core layer modules may want to log some output and that could potentially lead to duplicates. This duplicated code could be solved by the shared layer or by following principles of clean architecture. Nevertheless, more on that topic later. 
 
 For example, a shared module in an e-commerce app could be `Logging` or `AppAnalytics`.
 
@@ -1705,7 +1703,7 @@ public class AppCoordinator: Coordinator {
 
 ## Decoupling
 
-It can surely happen that at some point a different implementation of some protocol must be used. However, that may prove to be much harder than you might think. Imagine a scenario where a CosmonautService (protocol) is used all over our ComsonautApp. Then image it was decided that this app will have two different flavours, one for US cosmonaut and one for Russian cosmonaut. The cosmonaut service logic can be huge, 3rd party libraries that are used might also differ and surely we do not want to include unused libraries with our US ComsonautApp or vice versa, that would be shipping a dead code! In that case, we have to decouple those two frameworks and provide a common interface to them in a separate framework.
+It can surely happen that at some point a different implementation of some protocol must be used. However, that may prove to be much harder than you might think. Imagine a scenario where a CosmonautService (protocol) is used all over our ComsonautApp. Then imagine it was decided that this app will have two different flavours, one for US cosmonaut and one for Russian cosmonaut. The cosmonaut service logic can be huge, 3rd party libraries that are used might also differ and surely we do not want to include unused libraries with our US ComsonautApp or vice versa, that would be shipping a dead code! In that case, we have to decouple those two frameworks and provide a common interface to them in a separate framework.
 
 In such a case we have to make one exception to our Application Framework linking law. For example, let us call it the `CosmonautServiceCore` framework that would be representing the public interfaces for the higher layers. It would contain protocols and necessary objects that need to be exposed out of the framework to the outer world. `USCosmonautService` and `RUCosmonautService` would then link the `CosmonautServiceCore` on the same hierarchy level and would provide the implementations of protocols defined there.
 
