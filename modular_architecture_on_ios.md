@@ -43,8 +43,8 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 # About the author
 Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
 
-## Reviewers
-?
+## Reviewer
+Highly likely due to the quality of this book the reviewer wishes to be secret. 
 
 \newpage
 \tableofcontents
