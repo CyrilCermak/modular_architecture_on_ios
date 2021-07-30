@@ -1,7 +1,7 @@
 ---
 title: "Modular Architecture on iOS/macOS"
 author: [Cyril Cermak]
-date: "23.3.2021"
+date: "30.7.2021"
 subject: "Domain driven design development"
 keywords: [Markdown, Example]
 subtitle: "Building large scalable iOS apps and frameworks with Domain Driven Design"
@@ -21,6 +21,8 @@ urlcolor: cyan
 # Modular Architecture on iOS and macOS
 
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
+
+**CFBundleVersion** - 0.9.0 - Developer preview
 
 \newpage
 # Dedication
@@ -1809,3 +1811,14 @@ If you have reached this page then I would like to thank you very much for readi
 Do not hesitate at all to shoot me an [email](mailto:info@cyrilcermak.com) if you have any questions, suggestions or just want to drop a few lines.
 
 Thanks!
+
+# Licence
+Copyright © 2021 Cyril Cermak.
+
+All rights reserved. This book or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the publisher except for the use of brief quotations in a book review.
+
+Publisher
+Cyril Cermak
+
+www.cyrilcermak.com 
+
