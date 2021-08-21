@@ -995,7 +995,7 @@ First, let us do it manually and automate the process of creating libraries late
 
 For demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies to all other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the [pre-build repository](TODO://GITHUB LINK) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
+You can download the [pre-build repository](https://github.com/CyrilCermak/modular-architecture-on-iOS) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its dependencies.
 
@@ -1822,3 +1822,4 @@ Cyril Cermak
 
 www.cyrilcermak.com 
 
+x§
