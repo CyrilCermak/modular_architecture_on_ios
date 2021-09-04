@@ -130,6 +130,7 @@ end
 # without that the app would be crashing on start
 def add_linked_libs_from_sdks_to_app
   $linkedPods.each do |lib|
+    puts "Installing #{lib.name}"
     next if lib.is_static
     pod lib.name, lib.version
   end

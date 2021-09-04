@@ -42,7 +42,7 @@ settingGroups:
       SWIFT_VERSION: 5.0
     # User-Defined
       COMPRESS_PNG_FILES: false
-      SWIFT_COMPILATION_MODE: wholemodule
+      SWIFT_COMPILATION_MODE: incremental
       CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF: true
       CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS: true
 
@@ -64,3 +64,4 @@ settingGroups:
         OTHER_LDFLAGS: $(inherited)
         ONLY_ACTIVE_ARCH: true
         SWIFT_OPTIMIZATION_LEVEL: -Owholemodule
+        SWIFT_COMPILATION_MODE: wholemodule
