@@ -1808,9 +1808,15 @@ When everything goes well, containers will get shipped on the boat to the end cu
 
 If you have reached this page then I would like to thank you very much for reading this book and I hope it enlightened you at least at some parts of the development of modular architecture.
 
-Do not hesitate at all to shoot me an [email](mailto:info@cyrilcermak.com) if you have any questions, suggestions or just want to drop a few lines.
+Do not hesitate at all to shoot me an [email](mailto:info@cyrilcermak.com) or connect on [LinkedIn](https://www.linkedin.com/in/cyril-cermak-210a8b6b/) if you have any questions, suggestions or just want to drop a few lines.
 
 Thanks!
+
+# Donation
+
+If this book helped you or you found it interesting any kind of donation would be greatly appreciated.
+
+[![paypal](assets/donate.png)](https://www.paypal.com/donate?hosted_button_id=MYSY29ZZF4GSN)
 
 # Licence
 Copyright © 2021 Cyril Cermak.
