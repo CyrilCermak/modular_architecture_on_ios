@@ -1,5 +1,5 @@
 echo "Generating GitHub README"
-pandoc "modular_architecture_on_ios.md" -o "README.md" --from markdown --listings --highlight-style tango
+pandoc "modular_architecture_on_ios.md" -o "README.md" --from markdown --to markdown_strict
 echo "Generating PDF"
 pandoc "modular_architecture_on_ios.md" -o "modular_architecture_on_ios.pdf" --from markdown --template "./eisvogel.tex" --listings --pdf-engine=xelatex --highlight-style tango
 echo "Generating epub"

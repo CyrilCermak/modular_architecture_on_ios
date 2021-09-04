@@ -1,6 +1,3 @@
-```{=tex}
-\newpage
-```
 # Modular Architecture on iOS and macOS
 
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven
@@ -8,31 +5,25 @@ Design
 
 **CFBundleVersion** - 0.9.0 - Developer preview
 
-```{=tex}
-\newpage
-```
 # Dedication
 
-"To my Mom and Dad, because they really tried."
+“To my Mom and Dad, because they really tried.”
 
 &&
 
-"To all my non-tech friends for whom I am always fixing various
+“To all my non-tech friends for whom I am always fixing various
 problems: not enough disk space, printers not working, forgotten
-passcodes etc., and who will never read this line."
+passcodes etc., and who will never read this line.”
 
 &&
 
-"To all passionate engineers who are solving tough problems on a daily
-basis with a smile. It is great pleasure for everyone to work with you!"
+“To all passionate engineers who are solving tough problems on a daily
+basis with a smile. It is great pleasure for everyone to work with you!”
 
 &&
 
-"Finally, to my current girlfriend ... whoever she is"
+“Finally, to my current girlfriend … whoever she is”
 
-```{=tex}
-\newpage
-```
 # About the author
 
 Hi, I am Cyril, a software engineer by heart and the author of this
@@ -51,11 +42,6 @@ project.
 Highly likely due to the quality of this book the reviewer wishes to be
 secret.
 
-```{=tex}
-\newpage
-\tableofcontents
-\newpage
-```
 # Introduction
 
 In the software engineering field, people are going from project to
@@ -70,13 +56,13 @@ projects are built or managed at the organisational level.
 Scaling up the monolithic approach to a team of e.g 10+ developers will
 most likely result in hell. By hell, I mean, resolving `xcodeproj`
 issues, where in the worst case, both parties renamed, edited, or
-deleted the same source code file or touched the same {storyboard\|xib}
+deleted the same source code file or touched the same {storyboard|xib}
 file. That is, both worked on the same file which would resolve in
 classic merge conflicts. Somehow, we all become accustomed to those
 issues and have learned we will just need to live with them.
 
 The deal-breaker comes when your PO/PM/CTO/CEO or anybody higher on the
-company's food chain than you are will come to the team to announce that
+company’s food chain than you are will come to the team to announce that
 he or she is planning to release a new flavour of the app or to divide
 the current app into two separate parts. Afterwards, the engineering
 decision needs to be made to either continue with the monolithic
@@ -91,7 +77,7 @@ Not surprisingly, a better approach would be to start refactoring the
 app using a modular approach, where each team can be responsible for
 particular frameworks (parts of the app) that are then linked towards
 final customer-facing apps. That will most certainly take time as it
-will not be easy to transform it but the future of the company's mobile
+will not be easy to transform it but the future of the company’s mobile
 engineering will be faster, scalable, maintainable and even ready to
 distribute or open-source some SDKs of it to the outer world.
 
@@ -141,13 +127,10 @@ and which way would be the best for modularising the project.
 
 SwiftUI.
 
-```{=tex}
-\newpage
-```
 # Modular Architecture
 
 **Modular**, *adjective - employing or involving a module or modules as
-the basis of design or construction: "modular housing units"*
+the basis of design or construction: “modular housing units”*
 
 In the introduction, I briefly touched on the motivation for building
 the project in a modular way. To summarise, modular architecture will
@@ -224,7 +207,7 @@ them to implement the business domain needs of the company or the
 project. Domains will contain, for example, the user flow within the
 particular domain part of the app. Furthermore, the domain will have the
 necessary components for the flow like; view controllers, views, models
-and view models. Obviously it depends on the team's preferences and
+and view models. Obviously it depends on the team’s preferences and
 technical experience which pattern will be used for creating screens.
 Personally, the reactive MVVM+C is my favourite but more on that later.
 
@@ -304,7 +287,7 @@ logic and screens for peripheries of the station.
 
 The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and
 `Docking Port` services from which data about those peripheries are
-gathered so as `UIComponents` for bootstrapping the screens'
+gathered so as `UIComponents` for bootstrapping the screens’
 development.
 
 The linked services use the `Network` and `Radio` core modules. These
@@ -357,10 +340,7 @@ programming comes into play so as a proper project onboarding, software
 architecture document and the overall documentation of modules which
 helps newcomers to get on the right track.
 
-```{=tex}
-\newpage
-```
-# Libraries on Apple's ecosystem
+# Libraries on Apple’s ecosystem
 
 Before we deep dive into the development of previously described
 architecture, there is some essential knowledge that needs to be
@@ -368,7 +348,7 @@ explained. In particular, we will need some background in the type of
 library that is going to be used for building such a project and its
 behaviour.
 
-In Apple's ecosystem as of today, we have two main options when it comes
+In Apple’s ecosystem as of today, we have two main options when it comes
 to creating a library. The library can either be statically or
 dynamically linked. Previously known as `Cocoa Touch Framework`, the
 dynamically linked library is nowadays referred to simply as
@@ -379,18 +359,15 @@ dynamically linked library is nowadays referred to simply as
 
 **What is a library?**
 
-To quote Apple: *"Libraries define symbols that are not built as part of
-your target."*
+To quote Apple: *“Libraries define symbols that are not built as part of
+your target.”*
 
 What are symbols? *Symbols reference to chunks of code or data within
 binary.*
 
-```{=tex}
-\newpage
-```
 **Types of libraries:**
 
-1)  Dynamicaly linked
+1.  Dynamicaly linked
 
 -   **Dylib**: Library that has its own Mach-O (explained later) binary.
     (`.dylib`)
@@ -405,7 +382,7 @@ binary.*
     allows grouping a set of frameworks for different platforms e.g
     `macOS`, `iOS`, `iOS simulator`, `watchOS` etc. (`.xcframework`)
 
-2)  Statically linked
+1.  Statically linked
 
 -   **Archive**: Archive of a compiler produced object files with object
     code. (`.a`)
@@ -428,17 +405,17 @@ executable. When you are using something from a static library, you are
 in control of it as it becomes part of the main executable during the
 build process (linking). On the other hand, when you are using something
 from a dynamic framework you are passing responsibility for it to the
-framework as the framework is dynamically linked to the executable's
-process on app start. I'll delve more into IoC in the paragraph below.
+framework as the framework is dynamically linked to the executable’s
+process on app start. I’ll delve more into IoC in the paragraph below.
 Static libraries, at least on iOS, cannot contain anything other than
 the executable code unless they are wrapped into a static framework. A
 framework (dynamic or static) can contain everything you can think of
-e.g storyboards, XIBs, images and so on...
+e.g storyboards, XIBs, images and so on…
 
 As mentioned above, the way dynamic framework code execution works is
 slightly different than in a classic project or a static library. For
 instance, calling a function from the dynamic framework is done through
-a framework's interface. Let's say a class from a framework is
+a framework’s interface. Let’s say a class from a framework is
 instantiated in the project and then a specific method is called on it.
 When the call is being made, you are passing the responsibility for it
 to the dynamic framework and the framework itself then makes sure that
@@ -474,7 +451,7 @@ framework or a library should be exposed.
 
 ### PROS & CONS
 
-Now let's have a look at some pros & cons of both.
+Now let’s have a look at some pros & cons of both.
 
 **Dynamic:**
 
@@ -531,7 +508,7 @@ Now let's have a look at some pros & cons of both.
         dependencies otherwise the app will need to decide on startup
         which library is going to be used.
     -   The main executable must be recompiled when the library has an
-        update even though the library's interface remains the same.
+        update even though the library’s interface remains the same.
     -   Memory footprint of the main executable is bigger which implies
         the load time of the app is slower.
 
@@ -564,7 +541,7 @@ would fail the installation with
 Therefore, it takes extra effort to link static binaries into multiple
 frameworks.
 
-Let's have a look at how to link such a static library into a
+Let’s have a look at how to link such a static library into a
 dynamically linked SDK.
 
 ## Exposing static 3rd party library
@@ -583,33 +560,27 @@ abstraction. The same applies to the static framework.
 As an example of such umbrella file exposing GoogleMaps library that was
 linked to it could be:
 
-``` objc
-// MyFramework.h - Umbrella file
-#import <UIKit/UIKit.h>
-#import "GoogleMaps/GoogleMaps.h"
-```
+    // MyFramework.h - Umbrella file
+    #import <UIKit/UIKit.h>
+    #import "GoogleMaps/GoogleMaps.h"
 
 The import of the header file of `GoogleMaps` into the frameworks
 umbrella file exposes all public headers of the GoogleMaps because the
 `GoogleMaps.h` has all the GoogleMaps public headers.
 
-``` objc
-// GoogleMaps.h
-#import "GMSIndoorBuilding.h"
-#import "GMSIndoorLevel.h"
-#import "GMSAddress.h"
-...
-```
+    // GoogleMaps.h
+    #import "GMSIndoorBuilding.h"
+    #import "GMSIndoorLevel.h"
+    #import "GMSAddress.h"
+    ...
 
 The library becomes available as soon as the `MyFramework` import
 precedes the `GoogleMaps` one.
 
-``` swift
-// MyFileInApp.swift
-import MyFramework
-import GoogleMaps
-...
-```
+    // MyFileInApp.swift
+    import MyFramework
+    import GoogleMaps
+    ...
 
 In case of the static `GoogleMaps` framework, it is necessary to copy
 its bundle towards the app because it is there that the `GoogleMaps`
@@ -620,7 +591,7 @@ binary is looking for its resources (translations, images, and so on).
 Let us have a look at some of the commands that comes in handy when
 solving some problems when it comes to compiler errors or receiving
 compiled closed source dynamic framework or a static library. To give it
-a quick start let's have a look at a binary we all know very well;
+a quick start let’s have a look at a binary we all know very well;
 UIKit. The path to the UIKit.framework is:
 `/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/System/Library/Frameworks/UIKit.framework`
 
@@ -642,22 +613,20 @@ it is all part of the system, you can open up Xcode and look for a file
 in a global path `/usr/include/mach-o/loader.h`. In the `loader.h` file
 for example the Mach-O header struct is defined.
 
-``` cpp
-/*
- * The 64-bit mach header appears at the very beginning of object files for
- * 64-bit architectures.
- */
-struct mach_header_64 {
-    uint32_t    magic;      /* mach magic number identifier */
-    cpu_type_t  cputype;    /* cpu specifier */
-    cpu_subtype_t   cpusubtype; /* machine specifier */
-    uint32_t    filetype;   /* type of file */
-    uint32_t    ncmds;      /* number of load commands */
-    uint32_t    sizeofcmds; /* the size of all the load commands */
-    uint32_t    flags;      /* flags */
-    uint32_t    reserved;   /* reserved */
-};
-```
+    /*
+     * The 64-bit mach header appears at the very beginning of object files for
+     * 64-bit architectures.
+     */
+    struct mach_header_64 {
+        uint32_t    magic;      /* mach magic number identifier */
+        cpu_type_t  cputype;    /* cpu specifier */
+        cpu_subtype_t   cpusubtype; /* machine specifier */
+        uint32_t    filetype;   /* type of file */
+        uint32_t    ncmds;      /* number of load commands */
+        uint32_t    sizeofcmds; /* the size of all the load commands */
+        uint32_t    flags;      /* flags */
+        uint32_t    reserved;   /* reserved */
+    };
 
 When the compiler produces the final executable the Mach-O header is
 placed at a concrete byte position in it. Therefore, tools that are
@@ -671,15 +640,13 @@ following
 
 ### Fat headers
 
-First, let's have a look at what Architectures the binary can be linked
+First, let’s have a look at what Architectures the binary can be linked
 on (fat headers). For that, we are going to use `otool`; the utility
 that is shipped within every macOS. To list fat headers of a compiled
 binary we will use the flag `-f` and to produce a symbols readable
 output I also added the `-v` flag.
 
-``` shell
-otool -fv ./UIKit
-```
+    otool -fv ./UIKit
 
 Not surprisingly, the output produces two architectures. One that runs
 on the Intel mac (`x86_64`) when deploying to the simulator and one that
@@ -709,9 +676,7 @@ said, the library can run only on one architecture and to see which
 architecture that is, we have to print out the Mach-O header of the
 executable.
 
-``` shell
-otool -hv ./UIKit
-```
+    otool -hv ./UIKit
 
 From the output of the Mach-O header we can see that the `cputype` is
 `X86_64`. We can also see some extra information like with which `flags`
@@ -738,7 +703,7 @@ the `-hv` flags produces the following output:
           flags
     NOUNDEFS DYLDLINK TWOLEVEL APP_EXTENSION_SAFE
 
-From the output's `filetype` we can see that it is a dynamically linked
+From the output’s `filetype` we can see that it is a dynamically linked
 library. From its extension, we can say it is a dynamically linked
 framework. As described ealier, a framework can be dynamically or
 statically linked. The perfect example of a statically linked framework
@@ -760,8 +725,8 @@ necessary inclusion of `GoogleMaps.bundle` which needed to be copied to
 the target in order for the library to work correctly with its
 resources.
 
-Now, let's try to run the same command on the static library archive. As
-an example we can use again one of the Xcode's libraries located at
+Now, let’s try to run the same command on the static library archive. As
+an example we can use again one of the Xcode’s libraries located at
 `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftCompatibility50.a`
 path. From the library extension we can immediately say the library is
 static. Running the `otool -hv libswiftCompatibility50.a` just confirms
@@ -789,15 +754,13 @@ necessary to check the binary for its `filetype` in the Mach-O header.
 
 ### Dependencies
 
-Third, let's have a look at what the library is linking. For that the
+Third, let’s have a look at what the library is linking. For that the
 `otool` provides `-L` flag.
 
-``` shell
-otool -L ./UIKit
-```
+    otool -L ./UIKit
 
 The output lists all dependencies of the UIKit framework. For example,
-here you can see that UIKit is linking `Foundation`. That's why the
+here you can see that UIKit is linking `Foundation`. That’s why the
 `import Foundation` is no longer needed when importing `UIKit` into a
 source code file.
 
@@ -817,14 +780,12 @@ Fourth, it is also useful to know which symbols are defined in the
 framework. For that, the `nm` utility is available. To print all symbols
 including the debugging ones I added `-a` flag as well as `-C` to print
 them demangled. Name mangling is a technique of adding extra information
-about the language data type (class, struct, enum ...) to the symbol
+about the language data type (class, struct, enum …) to the symbol
 during compile time in order to pass more information about it to the
 linker. With a mangled symbol, the linker will know that this symbols is
 for a class, getter, setter etc and can work with it accordingly.
 
-``` shell
-nm -Ca ./UIKit
-```
+    nm -Ca ./UIKit
 
 Unfortunately, the output here is very limited as those symbols listed
 are the ones that define the dynamic framework itself. The limitation is
@@ -872,9 +833,7 @@ that the `nm` was not able to demangle the symbols.
 
 To demangle swift manually following command can be used.
 
-``` shell
-nm -a ./Alamofire | awk '{ print $3 }' | xargs swift demangle {} \;
-```
+    nm -a ./Alamofire | awk '{ print $3 }' | xargs swift demangle {} \;
 
 Which produces the mangled symbol name with the demangled explanation.
 
@@ -890,14 +849,12 @@ Which produces the mangled symbol name with the demangled explanation.
 ### Strings
 
 Last but not least, it can be also helpful to list all strings that the
-binary contains. That could help catch developers' mistakes such as not
+binary contains. That could help catch developers’ mistakes such as not
 obfuscated secrets and some other strings that should not be part of the
 binary. To do that we will use `strings` utility again on the Alamofire
 binary.
 
-``` shell
-strings ./Alamofire
-```
+    strings ./Alamofire
 
 The output is a list of plain text strings found in the binary.
 
@@ -924,7 +881,7 @@ other. Xcode build system supports C based languages (C, C++,
 Objective-C, Objective-C++) compiled with `clang` as well as Swift
 language compiled with `swiftc`.
 
-Let's have a quick look at what Xcode does when the build is triggered.
+Let’s have a quick look at what Xcode does when the build is triggered.
 
 1.  **Preprocessing**
 
@@ -934,7 +891,7 @@ preprocessor also decides which compiler will be used for which source
 code file. Not surprisingly, Swift source code file will be compiled by
 `swiftc` and other C like files will use `clang`.
 
-2.  **Compiler** (`swiftc`, `clang`)
+1.  **Compiler** (`swiftc`, `clang`)
 
 As mentioned above, the Xcode build system uses two compilers; clang and
 swiftc. The compiler consists of two parts, front-end and back-end. Both
@@ -944,7 +901,7 @@ post-processed source code files into object files that contain object
 code. Object code is simply human-readable assembly instructions that
 can be understood by the CPU.
 
-3.  **Assembler** (`asm`)
+1.  **Assembler** (`asm`)
 
 The assembler takes the output of the compiler (assembly) and produces
 relocatable machine code. Machine code is recognised by a concrete type
@@ -953,7 +910,7 @@ be absolute machine code. While relocatable code can be placed at any
 position in memory by loader the absolute machine code has its position
 set in the binary.
 
-4.  **Linker** (`ld`)
+1.  **Linker** (`ld`)
 
 The final step of the build system is linking. The linker is a program
 that takes object files (multiple compiled files) and links (merges)
@@ -962,7 +919,7 @@ static and dynamic libraries as needed. In order to be able to link
 libraries the linker needs to know the paths where to look for them.
 Linker produces the final single file; Mach-O executable.
 
-5.  **Loader** (`loader`)
+1.  **Loader** (`loader`)
 
 After the executable was built, the job of a loader is to bring the
 executable into memory and start the program execution. Loader is a
@@ -977,7 +934,7 @@ system goes through when the build is started.
 I hope this chapter provided a clear understanding of the essential
 differences between static and dynamic libraries as well as provided
 some clear examples showing to examine them. It was quite a lot to
-grasp, so now it's time for a double shot of espresso or any kind of
+grasp, so now it’s time for a double shot of espresso or any kind of
 preferable refreshment.
 
 I would highly recommend to deep dive into this topic even more. Here
@@ -1017,12 +974,9 @@ Used binaries:
 
 [Realm](https://realm.io/docs/swift/latest)
 
-```{=tex}
-\newpage
-```
 # Swift Compiler (optional)
 
-Since we touched the Xcode's build system in the previous chapter it
+Since we touched the Xcode’s build system in the previous chapter it
 would be unfair to the `swiftc` to leave it untouched. Even though
 knowing how compiler works is not mandatory knowledge it is really
 interesting and it gives a good closure of the whole process from
@@ -1034,7 +988,7 @@ is optional.
 
 ## Compiler Architecture
 
-To fully understand swift's compiler architecture and its process, let
+To fully understand swift’s compiler architecture and its process, let
 us have a look at the documentation provided by
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture) and
 do some practical examples based on it.
@@ -1054,70 +1008,63 @@ use.
 
 `employee.swift`
 
-``` swift
-import Foundation
+    import Foundation
 
-public protocol Address {
-    var houseNo: Int { get }
-    var street: String { get }
-    var city: String { get }
-    var state: String { get }
-}
-
-public protocol Person {
-    var firstName: String { get }
-    var lastName: String { get }
-    var address: Address { get }
-}
-
-public class Employee: Person {
-    public let firstName: String
-    public let lastName: String
-    public let address: Address
-
-    public init(firstName: String, lastName: String, address: Address) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.address = address
+    public protocol Address {
+        var houseNo: Int { get }
+        var street: String { get }
+        var city: String { get }
+        var state: String { get }
     }
 
-    public func printEmployeeInfo() {
-        print("\(firstName) \(lastName)")
-        print("\(address.houseNo). \(address.street), \(address.city), \(address.state)")
+    public protocol Person {
+        var firstName: String { get }
+        var lastName: String { get }
+        var address: Address { get }
     }
-}
 
-public struct EmployeeAddress: Address {
-    public let houseNo: Int
-    public let street: String
-    public let city: String
-    public let state: String
+    public class Employee: Person {
+        public let firstName: String
+        public let lastName: String
+        public let address: Address
 
-    public init(houseNo: Int, street: String, city: String, state: String) {
-        self.houseNo = houseNo
-        self.street = street
-        self.city = city
-        self.state = state
+        public init(firstName: String, lastName: String, address: Address) {
+            self.firstName = firstName
+            self.lastName = lastName
+            self.address = address
+        }
+
+        public func printEmployeeInfo() {
+            print("\(firstName) \(lastName)")
+            print("\(address.houseNo). \(address.street), \(address.city), \(address.state)")
+        }
     }
-}
-```
+
+    public struct EmployeeAddress: Address {
+        public let houseNo: Int
+        public let street: String
+        public let city: String
+        public let state: String
+
+        public init(houseNo: Int, street: String, city: String, state: String) {
+            self.houseNo = houseNo
+            self.street = street
+            self.city = city
+            self.state = state
+        }
+    }
 
 `main.swift`
 
-``` swift
-import Foundation
-import Employee
+    import Foundation
+    import Employee
 
-let employee = Employee(firstName: "Cyril",
-                       lastName: "Cermak",
-                       address: EmployeeAddress(houseNo: 1, street: "PorschePlatz", city: "Stuttgart", state: "Germany"))
+    let employee = Employee(firstName: "Cyril",
+                           lastName: "Cermak",
+                           address: EmployeeAddress(houseNo: 1, street: "PorschePlatz", city: "Stuttgart", state: "Germany"))
 
-employee.printEmployeeInfo()
-```
+    employee.printEmployeeInfo()
 
-```{=tex}
-\newpage
-```
 ### Parsing
 
 > The parser is a simple, recursive-descent parser (implemented in
@@ -1133,9 +1080,7 @@ First in the compilation process is **parsing**. As the definition says,
 the parser is responsible for the lexical syntax check without any type
 check. The following command prints the parsed AST.
 
-``` bash
-swiftc ./employee.swift -dump-parse
-```
+    swiftc ./employee.swift -dump-parse
 
 In the output, you can notice that the types are not resolved and end
 with errors.
@@ -1183,10 +1128,8 @@ Out of curiosity, let us have a look at how the tree would look with a
 syntax error. To do so, I added the winner of all times in hide and
 seek, a semi-colon `;`, to the protocol declaration.
 
-``` swift
-public protocol Address {
-    var houseNo: Int; { get }
-```
+    public protocol Address {
+        var houseNo: Int; { get }
 
 After running the same command we can see a syntax error at the
 declaration of `houseNo` variable. That is the error Xcode would show as
@@ -1197,9 +1140,6 @@ soon as it type checks the source file.
         var houseNo: Int; { get }
     ...
 
-```{=tex}
-\newpage
-```
 ### Semantic analysis
 
 > Semantic analysis (implemented in lib/Sema) is responsible for taking
@@ -1216,9 +1156,7 @@ After parsing, comes the **semantic analysis**. From its definition, we
 should see fully type-checked parsed AST. Executing the following
 command will give us the answer.
 
-``` bash
-swiftc ./employee.swift -dump-ast
-```
+    swiftc ./employee.swift -dump-ast
 
 In the output all types are resolved and recognised by the compiler and
 the errors no longer appear.
@@ -1251,10 +1189,8 @@ the errors no longer appear.
 Not surprisingly, when using an unknown type, the command results in an
 error.
 
-``` swift
-public protocol Address {
-    var houseNo: Foo { get }
-```
+    public protocol Address {
+        var houseNo: Foo { get }
 
     /employee.swift:4:18: error: cannot find type 'Foo' in scope
         var houseNo: Foo { get }
@@ -1276,7 +1212,7 @@ Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
 The third in the compilation process is the **clang importer**. This is
-the well-known bridging of C/ObjC languages to the Swift API's and wise
+the well-known bridging of C/ObjC languages to the Swift API’s and wise
 versa.
 
 ### SIL generation
@@ -1284,7 +1220,7 @@ versa.
 > The Swift Intermediate Language (SIL) is a high-level, Swift-specific
 > intermediate language suitable for further analysis and optimization
 > of Swift code. The SIL generation phase (implemented in lib/SILGen)
-> lowers the type-checked AST into so-called "raw" SIL. The design of
+> lowers the type-checked AST into so-called “raw” SIL. The design of
 > SIL is described in docs/SIL.rst.
 
 Source:
@@ -1294,9 +1230,7 @@ The fourth step in the compilation process is the **Swift Intermediate
 Language**. Are you curious about how it looks? To print it, we can use
 the following command.
 
-``` bash
-swiftc ./employee.swift -emit-sil
-```
+    swiftc ./employee.swift -emit-sil
 
 In the output, we can see the `witness tables`, `vtables` and
 `message dispatch` tables alongside with other intermediate
@@ -1344,7 +1278,7 @@ transformation and optimisation.
 > (implemented in lib/SILOptimizer/Mandatory) perform additional
 > dataflow diagnostics that affect the correctness of a program (such as
 > a use of uninitialized variables). The end result of these
-> transformations is "canonical" SIL.
+> transformations is “canonical” SIL.
 
 Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
@@ -1358,9 +1292,6 @@ Source:
 Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-```{=tex}
-\newpage
-```
 ### LLVM IR Generation
 
 > IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at
@@ -1374,35 +1305,28 @@ The final step in the compilation process is that of the IR
 (Intermediate Representation) for LLVM. To get the IR from the swiftc we
 can use the following command:
 
-``` bash
-swiftc ./employee.swift -emit-ir | more
-```
+    swiftc ./employee.swift -emit-ir | more
 
-Here we can see a snippet of the LLVM's familiar code declaration. In
+Here we can see a snippet of the LLVM’s familiar code declaration. In
 the next step, the code would be transformed by LLVM into the machine
 code.
 
-``` asm
-...
-entry:
-   %1 = getelementptr inbounds %__opaque_existential_type_1, %__opaque_existential_type_1* %0, i32 0, i32 1
-   %2 = load %swift.type*, %swift.type** %1, align 8
-   %3 = getelementptr inbounds %__opaque_existential_type_1, %__opaque_existential_type_1* %0, i32 0, i32 0
-   %4 = bitcast %swift.type* %2 to i8***
-   %5 = getelementptr inbounds i8**, i8*** %4, i64 -1
-   %.valueWitnesses = load i8**, i8*** %5, align 8, !invariant.load !64, !dereferenceable !65
-   %6 = bitcast i8** %.valueWitnesses to %swift.vwtable*
-   %7 = getelementptr inbounds %swift.vwtable, %swift.vwtable* %6, i32 0, i32 10
-   %flags = load i32, i32* %7, align 8, !invariant.load !64
-   %8 = and i32 %flags, 131072
-   %flags.isInline = icmp eq i32 %8, 0
-   br i1 %flags.isInline, label %inline, label %outline
-...
-```
+    ...
+    entry:
+       %1 = getelementptr inbounds %__opaque_existential_type_1, %__opaque_existential_type_1* %0, i32 0, i32 1
+       %2 = load %swift.type*, %swift.type** %1, align 8
+       %3 = getelementptr inbounds %__opaque_existential_type_1, %__opaque_existential_type_1* %0, i32 0, i32 0
+       %4 = bitcast %swift.type* %2 to i8***
+       %5 = getelementptr inbounds i8**, i8*** %4, i64 -1
+       %.valueWitnesses = load i8**, i8*** %5, align 8, !invariant.load !64, !dereferenceable !65
+       %6 = bitcast i8** %.valueWitnesses to %swift.vwtable*
+       %7 = getelementptr inbounds %swift.vwtable, %swift.vwtable* %6, i32 0, i32 10
+       %flags = load i32, i32* %7, align 8, !invariant.load !64
+       %8 = and i32 %flags, 131072
+       %flags.isInline = icmp eq i32 %8, 0
+       br i1 %flags.isInline, label %inline, label %outline
+    ...
 
-```{=tex}
-\newpage
-```
 ### Exporting dylib
 
 Finally, we can explore how to manually create a library out of the
@@ -1413,19 +1337,15 @@ The following command will export the `employee.swift` file as an
 parameter `-emit-module` we could use `-emit-object` to obtain a
 statically linked library.
 
-``` bash
-swiftc ./employee.swift -emit-library -emit-module -parse-as-library -module-name Employee
-```
+    swiftc ./employee.swift -emit-library -emit-module -parse-as-library -module-name Employee
 
 After executing the command, the following files should be created.
 
-``` bash
-380B Apr  2 13:36 Employee.swiftdoc
- 19K Apr  3 20:52 Employee.swiftmodule
-2.9K Apr  3 20:52 Employee.swiftsourceinfo
-1.1K Apr  3 20:52 employee.swift
- 57K Apr  3 20:52 libEmployee.dylib
-```
+    380B Apr  2 13:36 Employee.swiftdoc
+     19K Apr  3 20:52 Employee.swiftmodule
+    2.9K Apr  3 20:52 Employee.swiftsourceinfo
+    1.1K Apr  3 20:52 employee.swift
+     57K Apr  3 20:52 libEmployee.dylib
 
 Now we can import the Employee library into the `main.swift` file and
 proceed with the compile. However, here we have to tell the compiler and
@@ -1433,44 +1353,36 @@ linker where to find the Employee library. In this example, I placed the
 library into a directory named *Frameworks* which resides on the same
 level as the `main.swift`.
 
-``` bash
-swiftc main.swift -emit-executable -lEmployee -I ./Frameworks -L ./Frameworks
-```
+    swiftc main.swift -emit-executable -lEmployee -I ./Frameworks -L ./Frameworks
 
 To give it a bit more explanation the command `swiftc -h` desribes those
 flags as follows:
 
-``` bash
-...
--emit-executable        Emit a linked executable
--I <value>              Add directory to the import search path
--L <value>              Add directory to library link search path
--l<value>               Specifies a library which should be linked against
-...
-```
+    ...
+    -emit-executable        Emit a linked executable
+    -I <value>              Add directory to the import search path
+    -L <value>              Add directory to library link search path
+    -l<value>               Specifies a library which should be linked against
+    ...
 
 Hurrray, the executable was created with the linked library!
 Unfortunately, it crashes right on start with the following:
 
-``` bash
-dyld: Library not loaded: libEmployee.dylib
-  Referenced from: /Users/cyrilcermak/Programming/iOS/modular_architecture_on_ios/example/./main
-  Reason: image not found
-[1]    92481 abort      ./main
-```
+    dyld: Library not loaded: libEmployee.dylib
+      Referenced from: /Users/cyrilcermak/Programming/iOS/modular_architecture_on_ios/example/./main
+      Reason: image not found
+    [1]    92481 abort      ./main
 
 Using the knowledge from the previous chapter we can check where the
 binary expects the library to be with the command `otool -l ./main`.
 
-``` bash
-Load command 15
-          cmd LC_LOAD_DYLIB
-      cmdsize 48
-         name libEmployee.dylib (offset 24)
-   time stamp 2 Thu Jan  1 01:00:02 1970
-      current version 0.0.0
-compatibility version 0.0.0
-```
+    Load command 15
+              cmd LC_LOAD_DYLIB
+          cmdsize 48
+             name libEmployee.dylib (offset 24)
+       time stamp 2 Thu Jan  1 01:00:02 1970
+          current version 0.0.0
+    compatibility version 0.0.0
 
 The binary expects the libEmployee.dylib to be at the same path. This
 can be easily fixed with one more tool, `install_name`. It changes the
@@ -1481,14 +1393,9 @@ follows;
 
 Running it again prints the desired output:
 
-``` bash
-Cyril Cermak
-1. PorschePlatz, Stuttgart, Germany
-```
+    Cyril Cermak
+    1. PorschePlatz, Stuttgart, Germany
 
-```{=tex}
-\newpage
-```
 ## Conclusion
 
 In this chapter, the basics of Swift compiler architecture were
@@ -1514,12 +1421,9 @@ Development](https://modocache.io/getting-started-with-swift-development)
 [executable path, load path and
 rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
 
-```{=tex}
-\newpage
-```
 # Development of the modular architecture
 
-The necessary theory about Apple's libraries and some essentials were
+The necessary theory about Apple’s libraries and some essentials were
 explained. Finally, it is time to deep dive into the building phase.
 
 First, let us do it manually and automate the process of creating
@@ -1539,23 +1443,23 @@ build it on your own up until a certain point.
 As a reminder, the following schema showcases the Cosmonaut app with its
 dependencies.
 
-::: {style="float:center" markdown="1"}
-![Cosmonaut App](assets/Cosmonaut.png){width="70%"}
-:::
+<figure>
+<img src="assets/Cosmonaut.png" style="width:70.0%" alt="Cosmonaut App" /><figcaption aria-hidden="true">Cosmonaut App</figcaption>
+</figure>
 
 ## Creating workspace structure
 
 First, let us manually create the Cosmonaut app from Xcode under the
 `iss_application_framework/app/` directory. To achieve that, simply
-create a new App from the Xcode's menu and save it under the predefined
+create a new App from the Xcode’s menu and save it under the predefined
 folder path with the `Cosmonaut` name. An empty project app should be
 created, you can run it if you want. Nevertheless, for our purposes, the
 project structure is not optimal. We will be working in a workspace that
 will contain multiple projects (apps and frameworks).
 
-::: {style="float:center" markdown="1"}
-![Create New App](assets/xcode_create_app.png){width="80%"}
-:::
+<figure>
+<img src="assets/xcode_create_app.png" style="width:80.0%" alt="Create New App" /><figcaption aria-hidden="true">Create New App</figcaption>
+</figure>
 
 Since we do not have `Cocopods` yet, which would convert the project
 into a workspace, we have to do it manually. In Xcode under `File`,
@@ -1570,9 +1474,9 @@ creating the `Spacesuit` let us use Xcode one last time. Under the new
 project select the framework icon, name it `Cosmonaut` and save it under
 the `iss_application_framework/domain/` directory.
 
-::: {style="float:center" markdown="1"}
-![Create New Framework](assets/xcode_create_framework.png){width="80%"}
-:::
+<figure>
+<img src="assets/xcode_create_framework.png" style="width:80.0%" alt="Create New Framework" /><figcaption aria-hidden="true">Create New Framework</figcaption>
+</figure>
 
 ### Automating the process
 
@@ -1590,7 +1494,7 @@ the `{PROJECT_ROOT}/fastlane` directory from the repository into your
 The scripting around the framework with `Fastlane` is explained later on
 in the book. However, all you need to know now is that Fastlane contains
 lane `make_new_project` that takes three arguments; `type`
-{app\|framework}, `project_name` and `destination_path`. The lane in
+{app|framework}, `project_name` and `destination_path`. The lane in
 Fastlane simple uses the instance of the `ProjectFactory` class located
 in the
 `{PROJECT_ROOT}/fastlane/scripts/ProjectFactory/project_factory.rb`
@@ -1601,9 +1505,7 @@ parameter that is passed to it from the command line. As an example of
 creating the Spacesuit domain framework, the following command can be
 used.
 
-``` shell
-fastlane make_new_project type:framework project_name:Spacesuit destination_path:../domain/Spacesuit
-```
+    fastlane make_new_project type:framework project_name:Spacesuit destination_path:../domain/Spacesuit
 
 In case of Fastlane not being installed on your Mac, you can install it
 via `brew install fastlane` or later on via Ruby `gems` defined in
@@ -1615,16 +1517,18 @@ can be created with it.
 
 The overall ISS Application Framework should look as follows:
 
-![Tree structre](assets/tree_framework.png){width="50%"}
+<figure>
+<img src="assets/tree_framework.png" style="width:50.0%" alt="Tree structre" /><figcaption aria-hidden="true">Tree structre</figcaption>
+</figure>
 
 Each directory contains an Xcode project which is either a framework or
 an app created by the script. From now on, every onboarded team or
 developer should use the script when adding a framework or an app.
 
-### Xcode's workspace
+### Xcode’s workspace
 
 Last but not least, let us create the same directory structure in
-Xcode's Workspace so that we can, later on, link those frameworks
+Xcode’s Workspace so that we can, later on, link those frameworks
 together and towards the app. The workspace `Cosmonaut.xcworkspace`
 resides in the folder Cosmonaut under the app folder. An `xcworkspace`
 is simply a structure that contains:
@@ -1648,7 +1552,7 @@ was chosen the final `xcworkspace` should look as follow:
 You might have noticed `project.yml` file that was created with every
 framework or app. This file is used by `XcodeGen` (will be introduced in
 a second) to generate the project based on the settings described in the
-yaml file. This will avoid conflicts in Apple's infamous
+yaml file. This will avoid conflicts in Apple’s infamous
 `project.pbxproj` files that represent each project. In modular
 architecture, this is particularly useful as we are working with many
 projects across the workspace.
@@ -1658,10 +1562,10 @@ one developer is working on the same codebase. Besides the build
 settings for the project, this file contains and tracks files that are
 included for the compilation. It also tracks the targets to which these
 files belong. A typical conflict happens when one developer removes a
-file from the Xcode's structure while another developer was modifying it
+file from the Xcode’s structure while another developer was modifying it
 in a separate branch. This will resolve in a merge conflict in the
 `pbxproj` file which is very time consuming to fix as the file is using
-Apple's mystified language no one can understand.
+Apple’s mystified language no one can understand.
 
 Since programmers are lazy creatures, it very often also happens that a
 file removed from an Xcode project still remains in the repository as
@@ -1682,76 +1586,72 @@ As an example, let us have a look at the Cosmonaut app project.yml.
 
 `app/Cosmonaut/project.yml`
 
-``` yaml
-# Import of the main build_settings file
-include:
-  - ../../fastlane/build_settings.yml
+    # Import of the main build_settings file
+    include:
+      - ../../fastlane/build_settings.yml
 
-# Definition of the project
-name: Cosmonaut
-settings:
-  groups:
-    - BuildSettings
-
-# Definition of the targets that exists within the project
-targets:
-
-  # The main application
-  Cosmonaut:
-    type: application
-    platform: iOS
-    sources: Cosmonaut
-    dependencies:
-      # Domains
-      - framework: ISSCosmonaut.framework
-        implicit: true
-      - framework: ISSSpacesuit.framework
-        implicit: true
-      - framework: ISSScaffold.framework
-        implicit: true
-      # Services
-      - framework: ISSSpacesuitService.framework
-        implicit: true
-      - framework: ISSCosmonautService.framework
-        implicit: true
-      # Core
-      - framework: ISSNetwork.framework
-        implicit: true
-      - framework: ISSRadio.framework
-        implicit: true
-      - framework: ISSPersistence.framework
-        implicit: true
-      - framework: ISSUIComponents.framework
-        implicit: true
-
-  # Tests for the main application
-  CosmonautTests:
-    type: bundle.unit-test
-    platform: iOS
-    sources: CosmonautTests
-    dependencies:
-      - target: Cosmonaut
+    # Definition of the project
+    name: Cosmonaut
     settings:
-      TEST_HOST: $(BUILT_PRODUCTS_DIR)/Cosmonaut.app/Cosmonaut
+      groups:
+        - BuildSettings
 
-  # UITests for the main application
-  CosmonautUITests:
-    type: bundle.ui-testing
-    platform: iOS
-    sources: CosmonautUITests
-    dependencies:
-      - target: Cosmonaut
-```
+    # Definition of the targets that exists within the project
+    targets:
+
+      # The main application
+      Cosmonaut:
+        type: application
+        platform: iOS
+        sources: Cosmonaut
+        dependencies:
+          # Domains
+          - framework: ISSCosmonaut.framework
+            implicit: true
+          - framework: ISSSpacesuit.framework
+            implicit: true
+          - framework: ISSScaffold.framework
+            implicit: true
+          # Services
+          - framework: ISSSpacesuitService.framework
+            implicit: true
+          - framework: ISSCosmonautService.framework
+            implicit: true
+          # Core
+          - framework: ISSNetwork.framework
+            implicit: true
+          - framework: ISSRadio.framework
+            implicit: true
+          - framework: ISSPersistence.framework
+            implicit: true
+          - framework: ISSUIComponents.framework
+            implicit: true
+
+      # Tests for the main application
+      CosmonautTests:
+        type: bundle.unit-test
+        platform: iOS
+        sources: CosmonautTests
+        dependencies:
+          - target: Cosmonaut
+        settings:
+          TEST_HOST: $(BUILT_PRODUCTS_DIR)/Cosmonaut.app/Cosmonaut
+
+      # UITests for the main application
+      CosmonautUITests:
+        type: bundle.ui-testing
+        platform: iOS
+        sources: CosmonautUITests
+        dependencies:
+          - target: Cosmonaut
 
 Even though the YAML file speaks for itself, let me explain some of it.
 
 First of all, let us look at the `include` in the very beginning.
 
-``` yaml
-# Import of the main build_settings file
-include:
-  - ../../fastlane/build_settings.yml
-```
+    # Import of the main build_settings file
+    include:
+      - ../../fastlane/build_settings.yml
 
 Before xcodegen starts generating the pbxproj project it processes and
 includes other YAML files if the include keyword is found. In case of
@@ -1770,24 +1670,22 @@ A simplified build settings YAML file could look like this:
 
 `fastlane/build_settings.yml`
 
-``` yaml
-options:
-  bundleIdPrefix: com.iss
-  developmentLanguage: en
-settingGroups:
-  BuildSettings:
-    base:
-    # Architectures
-      SDKROOT: iphoneos
-    # Build Options
-      ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
-      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
-      ENABLE_BITCODE: false
-    # Deployment
-      IPHONEOS_DEPLOYMENT_TARGET: 13.0
-      TARGETED_DEVICE_FAMILY: 1
-...
-```
+    options:
+      bundleIdPrefix: com.iss
+      developmentLanguage: en
+    settingGroups:
+      BuildSettings:
+        base:
+        # Architectures
+          SDKROOT: iphoneos
+        # Build Options
+          ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: $(inherited)
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+          ENABLE_BITCODE: false
+        # Deployment
+          IPHONEOS_DEPLOYMENT_TARGET: 13.0
+          TARGETED_DEVICE_FAMILY: 1
+    ...
 
 Worth mentioning is that in the `BuildSettings` the key in the YAML
 matches with Xcode build settings which can be seen in the inspector
@@ -1795,12 +1693,10 @@ side panel. As you can see the `BuildSettings` key is then referred
 inside the `project.yml` file under the settings right after the project
 name.
 
-``` yaml
-name: Cosmonaut
-settings:
-  groups:
-    - BuildSettings
-```
+    name: Cosmonaut
+    settings:
+      groups:
+        - BuildSettings
 
 The following key is `targets`. In the case of the Cosmonaut
 application, we are setting three targets. One for the app itself, one
@@ -1810,17 +1706,15 @@ and other parameters XcodeGen supports.
 
 Next, let us have a look at the dependencies:
 
-``` yaml
-dependencies:
-  # Domains
-  - framework: ISSCosmonaut.framework
-    implicit: true
-  - framework: ISSSpacesuit.framework
-    implicit: true
-  - framework: ISSScaffold.framework
-    implicit: true
-...
-```
+    dependencies:
+      # Domains
+      - framework: ISSCosmonaut.framework
+        implicit: true
+      - framework: ISSSpacesuit.framework
+        implicit: true
+      - framework: ISSScaffold.framework
+        implicit: true
+    ...
 
 The dependencies section links the specified frameworks toward the app.
 On the snippet above, you can see which dependencies the app is using.
@@ -1839,21 +1733,19 @@ application copies it.
 Full documentation of XcodeGen can be found on its GitHub
 [page](https://github.com/yonaskolb/XcodeGen):
 
-Finally, let's generate the projects and build the app with all its
+Finally, let’s generate the projects and build the app with all its
 frameworks. For that, a simple lane in Fastlane was created.
 
-``` ruby
-lane :generate do
-  # Finding all projects within directories
-  Dir["../**/project.yml"].each do |project_path|
-    # Skipping the template files
-    next if project_path.include? "fastlane"
+    lane :generate do
+      # Finding all projects within directories
+      Dir["../**/project.yml"].each do |project_path|
+        # Skipping the template files
+        next if project_path.include? "fastlane"
 
-    UI.success "Generating project: #{project_path}"
-    `xcodegen -s #{project_path}`
-  end
-end
-```
+        UI.success "Generating project: #{project_path}"
+        `xcodegen -s #{project_path}`
+      end
+    end
 
 Simply executing the `fastlane generate` command in the root directory
 of the application framework generates all projects and we can open the
@@ -1893,7 +1785,7 @@ other files were yet created. The compiler will continue compiling up
 until one file will be referencing some part (e.g a class in a file) of
 the other module and the other module will be referencing the caller.
 
-That's where the compiler will stop.
+That’s where the compiler will stop.
 
 Needless to say, each layer is defined to contain stand-alone modules
 that are just in need of some sub-dependencies. In theory this is all
@@ -2002,7 +1894,7 @@ play.
 GPG is an asymmetric key management system that creates a hash for
 encryption from the public keys of all participants. In the
 initialisation process, GPG will generate a private and public key. The
-public key is saved in the `.gpg` folder under the user's email visible
+public key is saved in the `.gpg` folder under the user’s email visible
 to everyone. The private key is saved in `~/.gnupg` and is protected by
 a password chosen by the user.
 
@@ -2087,7 +1979,7 @@ challenge. Imagine a scenario where around 30 to 50 developers per
 platform (iOS/Android/Backend) are working on the same project toward
 the same goal. Those developers are usually divided into multiple
 cross-functional teams that are working independently as toward each
-team's own goals.
+team’s own goals.
 
 A cross-functional team usually consists of a product owner or a product
 manager, designers, who are defining the UI/UX and behaviour on each
@@ -2122,7 +2014,7 @@ by another team.
 That does not necessarily mean that the team Cosmonaut, let us say,
 cannot develop or modify the source code in the domain or service of
 Spacesuit. It should however mean that changes team Cosmonaut makes to
-team Spacesuit's domain code should seek review and approval from the
+team Spacesuit’s domain code should seek review and approval from the
 Spacesuit team.
 
 Luckily, there is one simple solution supported by many CI/CD platforms
@@ -2151,10 +2043,10 @@ another person. That being said, in the team, each platform must have at
 least two developers so that the team can develop autonomy and work
 independently.
 
-When making changes in another team's code, a dedicated code owner from
+When making changes in another team’s code, a dedicated code owner from
 the team must approve the changes. Once approved, the team can stay
 ahead and maintain the overview of its part of the codebase and domain
-knowledge. Without defining the code owners early on in the project's
+knowledge. Without defining the code owners early on in the project’s
 lifetime, everyone would be working everywhere and it could all turn
 into chaos.
 
@@ -2198,7 +2090,7 @@ development concept, patterns, and so on.
 
 Architecture-wise, the application framework can be used as the software
 foundation for a company. Different products can now be easily created
-with the pre-built foundation which encapsulates the entire company's
+with the pre-built foundation which encapsulates the entire company’s
 knowledge in software development. Needless to say, from the engineering
 point of view, this is a big win for the whole company. With the
 application framework in hand, software engineers can provide much more
@@ -2296,9 +2188,6 @@ common problems people working on such projects will be facing.
 I hope it all provided a good understanding of how to work in such a
 setup.
 
-```{=tex}
-\newpage
-```
 # Dependency Managers
 
 Generally, a good practice when working on large codebases is not to
@@ -2313,7 +2202,7 @@ Obviously, essential vendor SDKs, like GoogleMaps, Firebase, AmazonSDK
 and so on will still have to be linked to the project. However, using
 libraries to provide wrappers around the native iOS code should be
 avoided and instead libraries should be developed specifically to the
-project's needs.
+project’s needs.
 
 In one of the projects I worked on, the compile time of the whole
 application was at about 20-25 minutes. The project had been in
@@ -2342,7 +2231,7 @@ The way third party libraries are managed and linked to the project
 matters a lot, especially, when the project is big or is aiming to be
 big. Now let us have a look at the three most commonly used dependency
 managers when developing for iOS and how to use them in modular
-architecture. They are as follows: Cocoapods, Carthage, and Apple's new
+architecture. They are as follows: Cocoapods, Carthage, and Apple’s new
 Swift Package Manager.
 
 ## Cocoapods
@@ -2393,51 +2282,49 @@ app can easily reuse it. Furthermore, each app has its own `Podfile`
 that specifies which pods must be installed for which framework to avoid
 unnecessarily linking frameworks the app will not need.
 
-Let us have a look now how the app's `Podfile` could look for the
+Let us have a look now how the app’s `Podfile` could look for the
 Cosmonaut example. `app/Cosmonaut/Podifle`
 
-``` ruby
-# Including the shared podfile
-require_relative "../../fastlane/Podfile"
+    # Including the shared podfile
+    require_relative "../../fastlane/Podfile"
 
-platform :ios, '13.0'
-workspace 'CosmonautApp'
+    platform :ios, '13.0'
+    workspace 'CosmonautApp'
 
-# Linking pods for desired frameworks from the shared Podfile
-# Domain
-spacesuit_sdk
-cosmonaut_sdk
-scaffold_sdk
-# Service
-spacesuitservice_sdk
-cosmonautservice_sdk
-# Core
-network_sdk
-radio_sdk
-uicomponents_sdk
-persistence_sdk
+    # Linking pods for desired frameworks from the shared Podfile
+    # Domain
+    spacesuit_sdk
+    cosmonaut_sdk
+    scaffold_sdk
+    # Service
+    spacesuitservice_sdk
+    cosmonautservice_sdk
+    # Core
+    network_sdk
+    radio_sdk
+    uicomponents_sdk
+    persistence_sdk
 
 
-# Installing pods for the Application target
-target 'CosmonautApp' do
-  use_frameworks!
+    # Installing pods for the Application target
+    target 'CosmonautApp' do
+      use_frameworks!
 
-  pod $snapKit.name, $snapKit.version
+      pod $snapKit.name, $snapKit.version
 
-  # Linking all dynamic libraries required from any used framework towards the main app target
-  # as only app can copy frameworks to the target
-  add_linked_libs_from_sdks_to_app
+      # Linking all dynamic libraries required from any used framework towards the main app target
+      # as only app can copy frameworks to the target
+      add_linked_libs_from_sdks_to_app
 
-  # Dedicated tests for the application
-  target 'CosmonautAppTests' do
-    inherit! :search_paths
-  end
+      # Dedicated tests for the application
+      target 'CosmonautAppTests' do
+        inherit! :search_paths
+      end
 
-  target 'CosmonautAppUITests' do
-    # Pods for testing
-  end
-end
-```
+      target 'CosmonautAppUITests' do
+        # Pods for testing
+      end
+    end
 
 Firstly, the shared `Podfile` that defines pods for all frameworks is
 included. After setting the platform and workspace, the installation for
@@ -2446,83 +2333,81 @@ app target is defined, potentially with some extra pods. Here, special
 attention goes to the `add_linked_libs_from_sdks_to_app` function which
 will be explained in a second.
 
-To fully understand what is happening inside of the app's `Podfile` we
+To fully understand what is happening inside of the app’s `Podfile` we
 have to have a look at the shared `Podfile`. `fastlane/Podifle.rb`
 
-``` ruby
-require 'cocoapods'
-require 'set'
+    require 'cocoapods'
+    require 'set'
 
-Lib = Struct.new(:name, :version, :is_static)
-$linkedPods = Set.new
+    Lib = Struct.new(:name, :version, :is_static)
+    $linkedPods = Set.new
 
-### available libraries within the whole Application Framework
-$snapKit = Lib.new("SnapKit", "5.0.0")
-$siren = Lib.new("Siren", "5.8.1")
-...
+    ### available libraries within the whole Application Framework
+    $snapKit = Lib.new("SnapKit", "5.0.0")
+    $siren = Lib.new("Siren", "5.8.1")
+    ...
 
-### Project paths with required libraries
-# Domains
-$scaffold_project_path = '../../domain/Scaffold/Scaffold.xcodeproj'
-$spacesuit_project_path = '../../domain/Spacesuit/Spacesuit.xcodeproj'
-...
+    ### Project paths with required libraries
+    # Domains
+    $scaffold_project_path = '../../domain/Scaffold/Scaffold.xcodeproj'
+    $spacesuit_project_path = '../../domain/Spacesuit/Spacesuit.xcodeproj'
+    ...
 
-# Linked libraries
-$network_libs = [$trustKit]
-$cosmonaut_libs = [$snapKit]
-...
+    # Linked libraries
+    $network_libs = [$trustKit]
+    $cosmonaut_libs = [$snapKit]
+    ...
 
-### Domain
-def spacesuit_sdk
-  target_name = 'ISSSpacesuit'
-  install target_name, $spacesuit_project_path, []
-end
+    ### Domain
+    def spacesuit_sdk
+      target_name = 'ISSSpacesuit'
+      install target_name, $spacesuit_project_path, []
+    end
 
-def cosmonaut_sdk
-  target_name = 'ISSCosmonaut'
-  test_target_name = 'CosmonautTests'
-  install target_name, $cosmonaut_project_path, $cosmonaut_libs
+    def cosmonaut_sdk
+      target_name = 'ISSCosmonaut'
+      test_target_name = 'CosmonautTests'
+      install target_name, $cosmonaut_project_path, $cosmonaut_libs
 
-  install_test_subdependencies $cosmonaut_project_path, target_name, test_target_name, []
-end
-...
+      install_test_subdependencies $cosmonaut_project_path, target_name, test_target_name, []
+    end
+    ...
 
-# Helper wrapper around Cocoapods installation
-def install target_name, project_path, linked_libs
-  target target_name do
-    use_frameworks!
-    project project_path
+    # Helper wrapper around Cocoapods installation
+    def install target_name, project_path, linked_libs
+      target target_name do
+        use_frameworks!
+        project project_path
 
-    link linked_libs
-  end
-end
+        link linked_libs
+      end
+    end
 
-# Helper method to install pods that
-# track the overall linked pods in the linkedPods set
-def link libs
-  libs.each do |lib|
-    pod lib.name, lib.version
-    $linkedPods << lib
-  end
-end
+    # Helper method to install pods that
+    # track the overall linked pods in the linkedPods set
+    def link libs
+      libs.each do |lib|
+        pod lib.name, lib.version
+        $linkedPods << lib
+      end
+    end
 
-# Helper method called from the app target to install
-# dynamic libraries, as they must be copied to the target
-# without that the app would be crashing on start
-def add_linked_libs_from_sdks_to_app
-  $linkedPods.each do |lib|
-    next if lib.is_static
-    pod lib.name, lib.version
-  end
-end
+    # Helper method called from the app target to install
+    # dynamic libraries, as they must be copied to the target
+    # without that the app would be crashing on start
+    def add_linked_libs_from_sdks_to_app
+      $linkedPods.each do |lib|
+        next if lib.is_static
+        pod lib.name, lib.version
+      end
+    end
 
-# Maps the list of dependencies from YAML files to the global variables defined on top of the File
-# e.g ISSUIComponents.framework found in subdependencies will get mapped to the uicomponents_libs.
-# From all dependencies found a Set of desired libraries is taken and installed
-def install_test_subdependencies project_path, target_name, test_target_name, found_subdependencies
-  ...
-end
-```
+    # Maps the list of dependencies from YAML files to the global variables defined on top of the File
+    # e.g ISSUIComponents.framework found in subdependencies will get mapped to the uicomponents_libs.
+    # From all dependencies found a Set of desired libraries is taken and installed
+    def install_test_subdependencies project_path, target_name, test_target_name, found_subdependencies
+      ...
+    end
 
 Here we can see, at the top of the file, the struct `Lib` that
 represents a Cocoapod library. In the next lines, `Lib` is used to
@@ -2533,8 +2418,8 @@ to install the libraries for those required frameworks. Finally, helper
 functions are defined to simplify the whole workflow.
 
 Those two functions require some explanation. First, the
-`add_linked_libs_from_sdks_to_app` mentioned in the app's `Podfile` must
-be called from within the app's target to add all the dependencies of
+`add_linked_libs_from_sdks_to_app` mentioned in the app’s `Podfile` must
+be called from within the app’s target to add all the dependencies of
 the linked frameworks. Without it, we would end up in the so-called
 dependency hell. The app would be crashing with e.g
 `TrustKit library not loaded... referenced from: ISSNetwork`, because
@@ -2562,13 +2447,13 @@ everything for the developer under the hood,
 free hands. Frameworks to be included via Carthage are listed in the
 `Cartfile`. Frameworks listed within this file will be fetched and
 either built locally or pre-compiled XCFramework will be downloaded.
-Executing Carthage's build command with `carthage update --platform iOS`
+Executing Carthage’s build command with `carthage update --platform iOS`
 will fetch all the dependencies and produces the compiled versions. Such
 a task can be time consuming, especially, when some of the 3rd party
 libraries included are some of the aforementioned big ones.
 Nevertheless, such a command is usually executed only once. Compiled
 libraries can then be stored in some cloud storage where each developer
-or CI will pull them into the pre-defined git ignored project's folder
+or CI will pull them into the pre-defined git ignored project’s folder
 or possibly update them if it is necessary. That being said, a
 dependency maintenance and sharing strategy needs to be in place.
 
@@ -2579,32 +2464,30 @@ the YAML file, it can be easily defined where the Carthage executables
 are stored as well as which ones we want to link. Linking a static
 framework can easily be performed by specifying the `linkType`.
 
-``` yaml
-# Definition of the targets that exists within the project
-targets:
+    # Definition of the targets that exists within the project
+    targets:
 
-  # The main application
-  Cosmonaut:
-    type: application
-    platform: iOS
-    sources: Cosmonaut
-    # Considering the Carthage is stored in the root folder of the project
-    carthageBuildPath: ../../Carthage/build
-    carthageExecutablePath: ../../Carthage
-    dependencies:
-      - carthage: Alamofire
-      - carthage: SnapKit
-      - carthage: MSAppCenter
-        linkType: static
-      # Domains
-      - framework: ISSCosmonaut.framework
-        implicit: true
-      - framework: ISSSpacesuit.framework
-        implicit: true
-      - framework: ISSScaffold.framework
-        implicit: true
-    ...
-```
+      # The main application
+      Cosmonaut:
+        type: application
+        platform: iOS
+        sources: Cosmonaut
+        # Considering the Carthage is stored in the root folder of the project
+        carthageBuildPath: ../../Carthage/build
+        carthageExecutablePath: ../../Carthage
+        dependencies:
+          - carthage: Alamofire
+          - carthage: SnapKit
+          - carthage: MSAppCenter
+            linkType: static
+          # Domains
+          - framework: ISSCosmonaut.framework
+            implicit: true
+          - framework: ISSSpacesuit.framework
+            implicit: true
+          - framework: ISSScaffold.framework
+            implicit: true
+        ...
 
 At build time, the compiled binaries are linked to the frameworks and
 apps. The expensive compile time is no longer required for each build.
@@ -2673,9 +2556,6 @@ good way to go. That being said, with the hybrid approach, the project
 benefits from both feature sets which could speed up everyday
 development dramatically.
 
-```{=tex}
-\newpage
-```
 # Design Patterns
 
 Design patterns help developers to solve complex problems in a known,
@@ -2694,7 +2574,7 @@ are highlighted here.
 First of all, let us have a look at the Coordinator pattern, one of the
 most well known navigation patterns of all times when it comes to iOS
 development. Coordinator, as its name says, takes care of coordinating
-the user's flow throughout the app. In our Application Framework, each
+the user’s flow throughout the app. In our Application Framework, each
 domain framework can be represented by its coordinator as an entry point
 to that domain. The coordinator can then internally instantiate view
 controllers and their view models and coordinate the presentation flow.
@@ -2711,75 +2591,71 @@ implementation.
 First, let us have a look at some protocols: File:
 `core/UIComponents/UIComponents/Source/Coordinator.swift`
 
-``` swift
-// DeepLink represents a linking within the coordinator
-public protocol DeepLink {}
+    // DeepLink represents a linking within the coordinator
+    public protocol DeepLink {}
 
-public protocol Coordinator: AnyObject {
+    public protocol Coordinator: AnyObject {
 
-    var childCoordinators: [Coordinator] { get set }
-    var finish: ((DeepLink?) -> Void)? { get set }
+        var childCoordinators: [Coordinator] { get set }
+        var finish: ((DeepLink?) -> Void)? { get set }
 
-    func start()
-    func start(link: DeepLink) -> Bool
-}
+        func start()
+        func start(link: DeepLink) -> Bool
+    }
 
-// Representation of a coordinator who is using navigationController
-public protocol NavigationCoordinator: Coordinator {
-    var navigationController: UINavigationController { get set }
-}
+    // Representation of a coordinator who is using navigationController
+    public protocol NavigationCoordinator: Coordinator {
+        var navigationController: UINavigationController { get set }
+    }
 
-// Representation of a coordinator who is using tabBarController
-public protocol TabBarCoordinator: Coordinator {
-    var tabBarController: UITabBarController { get set }
-    var tabViewController: TabBarViewController { get }
-}
+    // Representation of a coordinator who is using tabBarController
+    public protocol TabBarCoordinator: Coordinator {
+        var tabBarController: UITabBarController { get set }
+        var tabViewController: TabBarViewController { get }
+    }
 
-public protocol TabBarViewController: UIViewController {
-    var tabBarImage: UIImage { get }
-    var tabBarName: String { get }
-}
-```
+    public protocol TabBarViewController: UIViewController {
+        var tabBarImage: UIImage { get }
+        var tabBarName: String { get }
+    }
 
 To see how those protocols are used in action we can have a look at the
 CosmonautCoordinator. File:
 `domain/Cosmonaut/Cosmonaut/Source/CosmonautCoordinator.swift`
 
-``` swift
-public class CosmonautCoordinator: NavigationCoordinator {
-    public enum CosmonautLink {
-      case info
+    public class CosmonautCoordinator: NavigationCoordinator {
+        public enum CosmonautLink {
+          case info
+        }
+
+        public lazy var navigationController: UINavigationController = UINavigationController()
+
+        public var childCoordinators: [Coordinator] = []
+
+        public init() {}
+
+        public func start() {
+            navigationController.setViewControllers([
+                makeCosmonautViewController()
+            ], animated: false)
+        }
+
+        public func start(link: DeepLink) -> Bool {
+            guard let link = link as? CosmonautLink else { return false }
+
+            // TODO: handle rute
+            return true
+        }
+
+        private func makeCosmonautViewController() -> UIViewController {
+            return ComsonautViewController()
+        }
     }
-
-    public lazy var navigationController: UINavigationController = UINavigationController()
-
-    public var childCoordinators: [Coordinator] = []
-
-    public init() {}
-
-    public func start() {
-        navigationController.setViewControllers([
-            makeCosmonautViewController()
-        ], animated: false)
-    }
-
-    public func start(link: DeepLink) -> Bool {
-        guard let link = link as? CosmonautLink else { return false }
-
-        // TODO: handle rute
-        return true
-    }
-
-    private func makeCosmonautViewController() -> UIViewController {
-        return ComsonautViewController()
-    }
-}
-```
 
 After hooking up the coordinator into the App window, with for example
 the main `AppCoordinator` defined in the `Scaffold` module, simply
 calling `start()` or `start(link: CosmonautLink.info)` will take over
-the flow of the particular domain or user's flow.
+the flow of the particular domain or user’s flow.
 
 ## Strategy
 
@@ -2808,39 +2684,35 @@ As an example in the Application Framework, we can have a look at the
 `AppCoordinator` where the `Configuration` is defined in its extension.
 File: `domain/Scaffold/Scaffold/Source/AppCoordinator.swift`
 
-``` swift
-extension AppCoordinator {
-    public struct Configuration {
-        public enum PresentatinStyle {
-            case tabBar, navigation
-        }
+    extension AppCoordinator {
+        public struct Configuration {
+            public enum PresentatinStyle {
+                case tabBar, navigation
+            }
 
-        public var style: PresentatinStyle
-        public var menuCoordinator: Coordinator?
+            public var style: PresentatinStyle
+            public var menuCoordinator: Coordinator?
 
-        public init(style: PresentatinStyle, menuCoordinator: Coordinator?) {
-            self.style = style
-            self.menuCoordinator = menuCoordinator
+            public init(style: PresentatinStyle, menuCoordinator: Coordinator?) {
+                self.style = style
+                self.menuCoordinator = menuCoordinator
+            }
         }
     }
-}
-```
 
 AppCoordinator takes the configuration object and performs necessary
 actions based on its values to provide the desired behaviour.
 
 File: `domain/Scaffold/Scaffold/Source/AppCoordinator.swift`
 
-``` swift
-public class AppCoordinator: Coordinator {
-  ...
-    public init(window: UIWindow, configuration: Configuration) {
-        self.configuration = configuration
-        self.window = window
+    public class AppCoordinator: Coordinator {
+      ...
+        public init(window: UIWindow, configuration: Configuration) {
+            self.configuration = configuration
+            self.window = window
+        }
+      ...
     }
-  ...
-}
-```
 
 ## Decoupling
 
@@ -2903,9 +2775,6 @@ patterns that helps when developing modular architecture. I would highly
 recommend deep diving more into this topic via books that are specially
 focused on such topic.
 
-```{=tex}
-\newpage
-```
 # Project Automation
 
 When it comes to a project where many developers are contributing
@@ -2928,39 +2797,37 @@ easy to create your own plugins that will be project-specific only.
 Fastlane is developed in Ruby and its plugins are as well. However,
 since all is built with Ruby, Fastlane gives the freedom to import any
 other ruby projects or classes developed in plain Ruby and directly call
-them from the Fastlane's recognisable function so-called `lane`.
+them from the Fastlane’s recognisable function so-called `lane`.
 
-As an example, we can have a look at the Fastfile's `make_new_project`
+As an example, we can have a look at the Fastfile’s `make_new_project`
 lane introduced in the very beginning. In this case the so-called
 `ProjectFactory` class is implemented in
 `/fastlane/scripts/ProjectFactory/` and imported into the Fastfile. Then
 it is used as a normal Ruby program. It is NOT purposely developed as a
-Fastlane's action. The reason being that it is much easier to develop a
-pure Ruby program as the program unlike Fastlane's action does not
-require the whole Fastlane's ecosystem to be launched. Launching
+Fastlane’s action. The reason being that it is much easier to develop a
+pure Ruby program as the program unlike Fastlane’s action does not
+require the whole Fastlane’s ecosystem to be launched. Launching
 Fastlane takes a couple of seconds at its best. Perhaps obviously,
-Fastlane's action surely comes with its advantages as well, like
-Fastlane's action listings, direct execution and so on.
+Fastlane’s action surely comes with its advantages as well, like
+Fastlane’s action listings, direct execution and so on.
 
 `/fastlane/Fastfile`
 
-``` ruby
-require_relative "scripts/ProjectFactory/project_factory"
+    require_relative "scripts/ProjectFactory/project_factory"
 
-lane :make_new_project do |options|
-  type = options[:type] # Project type can be either app or framework
-  project_name = options[:project_name]
-  destination_path = options[:destination_path]
+    lane :make_new_project do |options|
+      type = options[:type] # Project type can be either app or framework
+      project_name = options[:project_name]
+      destination_path = options[:destination_path]
 
-  UI.error "app_name and destination_path must be provided." unless project_name && destination_path
+      UI.error "app_name and destination_path must be provided." unless project_name && destination_path
 
-  factory = ProjectFactory.new project_name, destination_path
+      factory = ProjectFactory.new project_name, destination_path
 
-  type == "app" ? factory.make_new_app : factory.make_new_framework
-end
-```
+      type == "app" ? factory.make_new_app : factory.make_new_framework
+    end
 
-Creating a proper Fastlane's plugin out of the Ruby program could be
+Creating a proper Fastlane’s plugin out of the Ruby program could be
 easily done by following this
 [documentation](https://docs.fastlane.tools/plugins/create-plugin/).
 
@@ -2972,7 +2839,7 @@ give you the option to choose from the publicly available `lanes` that
 are already implemented.
 
 Furthermore, we will need a central place where we can execute those
-scripts to free the developers' resources. There are many different
+scripts to free the developers’ resources. There are many different
 CI/CD providers that offers pretty much the same solution with very
 similar setups and problems.
 
@@ -3026,9 +2893,9 @@ identifiers, different secrets to service providers and so on.
 
 ![CD Pipeline Example](assets/CD-pipeline.png)
 
-## Ruby, programmer's best friend
+## Ruby, programmer’s best friend
 
-If you have not learned it yet, do so, it's great.
+If you have not learned it yet, do so, it’s great.
 
 ## Conclusion
 
@@ -3049,16 +2916,13 @@ article and free ebook.
 https://blog.codemagic.io/the-complete-guide-to-ci-cd/
 https://codemagic.io/ci-cd-ebook/
 
-```{=tex}
-\newpage
-```
 # THE END
 
 When everything goes well, containers will get shipped on the boat to
 the end customers and life of all is great. However, if it gets stuck at
 Suez same as the Evergreen ferry, do not panic. It is just software and
 everything is fixable (unless you ran bad code on top of the production
-database with Schrödinger's backup policy. In that case may all the
+database with Schrödinger’s backup policy. In that case may all the
 network bandwidth be with you). Sometimes it just takes time and lots of
 work but in the end, the ferry with its containers will depart and leave
 towards the customers.
