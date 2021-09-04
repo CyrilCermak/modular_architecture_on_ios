@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		0240072B47B6225FA8E1F54F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2D305ED31FFEAB8414392C /* NetworkService.swift */; };
 		4A613B7CD7700F0D025CD080 /* ISSNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		773053F699CB621A3CBBD8EB /* Pods_ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7018148B969BABAE2D731CD3 /* Pods_ISSNetwork.framework */; };
 		857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; };
-		9106D1AE3028B181AC360FEF /* Pods_ISSNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE905DA5CCFCA2E469113F1 /* Pods_ISSNetwork.framework */; };
 		D3E1F43411BF58BB40B2117B /* ISSNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0223A82975333FAAA7476EEE /* ISSNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E778F92E918BD126BAA989AF /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F812B411A786CECE70EE3 /* NetworkTests.swift */; };
 /* End PBXBuildFile section */
@@ -41,31 +41,31 @@
 
 /* Begin PBXFileReference section */
 		0223A82975333FAAA7476EEE /* ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2AE905DA5CCFCA2E469113F1 /* Pods_ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		89D91E8AE6BF81B8B80953AC /* Pods-ISSNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.debug.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.debug.xcconfig"; sourceTree = "<group>"; };
+		7018148B969BABAE2D731CD3 /* Pods_ISSNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0F812B411A786CECE70EE3 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		9A2D305ED31FFEAB8414392C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		A24F440C6BF4E75F4EE0B909 /* Pods-ISSNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.release.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		A96B8F878FAAE41B2DD2DF82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C0D24EA10E5DB60E0B1CED9D /* Pods-ISSNetwork.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.debug.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.debug.xcconfig"; sourceTree = "<group>"; };
 		D31D00108B0A681EE3FC2CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E0FB5C30082CF5D10003ED8A /* ISSNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSNetwork.h; sourceTree = "<group>"; };
+		E13C94AA4BCA1463C1E19907 /* Pods-ISSNetwork.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSNetwork.release.xcconfig"; path = "Target Support Files/Pods-ISSNetwork/Pods-ISSNetwork.release.xcconfig"; sourceTree = "<group>"; };
 		F41BD618F19CEE10F0289308 /* NetworkTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C7229F141F1EA0F7D4A04D56 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9106D1AE3028B181AC360FEF /* Pods_ISSNetwork.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D4E73BBAFF38C9F70CF753D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				857D7D5AE05F125A9962C00F /* ISSNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD5414BE0C1E77C6E8FED806 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				773053F699CB621A3CBBD8EB /* Pods_ISSNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,8 +78,8 @@
 				9166151E42F735C5010F5460 /* Network */,
 				4C5A1FFBB1E33A6E0CA3A32E /* NetworkTests */,
 				B02A4899222D2A1DA3F4A4FA /* Products */,
-				DAE81F1C9DEFC63747C30F2C /* Pods */,
-				C47C94367BE3D846358EA171 /* Frameworks */,
+				A68D57BD76E1B5B28AB34A8A /* Pods */,
+				A560A43D95CEA8CBF32DA207 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +102,24 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		A560A43D95CEA8CBF32DA207 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7018148B969BABAE2D731CD3 /* Pods_ISSNetwork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A68D57BD76E1B5B28AB34A8A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C0D24EA10E5DB60E0B1CED9D /* Pods-ISSNetwork.debug.xcconfig */,
+				E13C94AA4BCA1463C1E19907 /* Pods-ISSNetwork.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
+			sourceTree = "<group>";
+		};
 		B02A4899222D2A1DA3F4A4FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,24 +127,6 @@
 				F41BD618F19CEE10F0289308 /* NetworkTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C47C94367BE3D846358EA171 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2AE905DA5CCFCA2E469113F1 /* Pods_ISSNetwork.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DAE81F1C9DEFC63747C30F2C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				89D91E8AE6BF81B8B80953AC /* Pods-ISSNetwork.debug.xcconfig */,
-				A24F440C6BF4E75F4EE0B909 /* Pods-ISSNetwork.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,10 +147,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00500DF359729D36DDC8883A /* Build configuration list for PBXNativeTarget "ISSNetwork" */;
 			buildPhases = (
-				8DE4524C5A9216A9838A7520 /* [CP] Check Pods Manifest.lock */,
+				A353F0DB9DEC7B809FD35D12 /* [CP] Check Pods Manifest.lock */,
 				09939F63682BF52A64515657 /* Headers */,
 				4B8C23063178FA348869FF8D /* Sources */,
-				C7229F141F1EA0F7D4A04D56 /* Frameworks */,
+				FD5414BE0C1E77C6E8FED806 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -215,7 +215,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8DE4524C5A9216A9838A7520 /* [CP] Check Pods Manifest.lock */ = {
+		A353F0DB9DEC7B809FD35D12 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,7 +285,7 @@
 		};
 		63C3D388EFA9CB324D00120E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A24F440C6BF4E75F4EE0B909 /* Pods-ISSNetwork.release.xcconfig */;
+			baseConfigurationReference = E13C94AA4BCA1463C1E19907 /* Pods-ISSNetwork.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -309,7 +309,7 @@
 		};
 		72ADF54385C9883FC0A8A576 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89D91E8AE6BF81B8B80953AC /* Pods-ISSNetwork.debug.xcconfig */;
+			baseConfigurationReference = C0D24EA10E5DB60E0B1CED9D /* Pods-ISSNetwork.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;

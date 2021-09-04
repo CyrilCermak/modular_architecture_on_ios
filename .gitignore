@@ -2,3 +2,4 @@
 *.pbxuser
 *.xcodeproj
 */xcuserdata/
+*.project.pbxproj
