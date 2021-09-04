@@ -1744,7 +1744,7 @@ lane :make_new_project do |options|
   project_name = options[:project_name]
   destination_path = options[:destination_path]
 
-  UI.error "💥app_name and destination_path must be provided.💥" unless project_name && destination_path
+  UI.error "app_name and destination_path must be provided." unless project_name && destination_path
 
   factory = ProjectFactory.new project_name, destination_path
 
