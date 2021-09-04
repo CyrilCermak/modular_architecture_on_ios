@@ -1821,5 +1821,3 @@ Publisher
 Cyril Cermak
 
 www.cyrilcermak.com 
-
-x§
