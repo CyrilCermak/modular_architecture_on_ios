@@ -1,6 +1,4 @@
-```{=tex}
-\newpage
-```
+
 # Modular Architecture on iOS and macOS
 
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven
@@ -8,9 +6,7 @@ Design
 
 **CFBundleVersion** - 0.9.0 - Developer preview
 
-```{=tex}
-\newpage
-```
+
 # Dedication
 
 "To my Mom and Dad, because they really tried."
@@ -30,9 +26,7 @@ basis with a smile. It is great pleasure for everyone to work with you!"
 
 "Finally, to my current girlfriend ... whoever she is"
 
-```{=tex}
-\newpage
-```
+
 # About the author
 
 Hi, I am Cyril, a software engineer by heart and the author of this
@@ -51,11 +45,7 @@ project.
 Highly likely due to the quality of this book the reviewer wishes to be
 secret.
 
-```{=tex}
-\newpage
-\tableofcontents
-\newpage
-```
+
 # Introduction
 
 In the software engineering field, people are going from project to
@@ -141,9 +131,7 @@ and which way would be the best for modularising the project.
 
 SwiftUI.
 
-```{=tex}
-\newpage
-```
+
 # Modular Architecture
 
 **Modular**, *adjective - employing or involving a module or modules as
@@ -357,9 +345,7 @@ programming comes into play so as a proper project onboarding, software
 architecture document and the overall documentation of modules which
 helps newcomers to get on the right track.
 
-```{=tex}
-\newpage
-```
+
 # Libraries on Apple's ecosystem
 
 Before we deep dive into the development of previously described
@@ -385,9 +371,7 @@ your target."*
 What are symbols? *Symbols reference to chunks of code or data within
 binary.*
 
-```{=tex}
-\newpage
-```
+
 **Types of libraries:**
 
 1)  Dynamicaly linked
@@ -1017,9 +1001,7 @@ Used binaries:
 
 [Realm](https://realm.io/docs/swift/latest)
 
-```{=tex}
-\newpage
-```
+
 # Swift Compiler (optional)
 
 Since we touched the Xcode's build system in the previous chapter it
@@ -1115,9 +1097,7 @@ let employee = Employee(firstName: "Cyril",
 employee.printEmployeeInfo()
 ```
 
-```{=tex}
-\newpage
-```
+
 ### Parsing
 
 > The parser is a simple, recursive-descent parser (implemented in
@@ -1197,9 +1177,7 @@ soon as it type checks the source file.
         var houseNo: Int; { get }
     ...
 
-```{=tex}
-\newpage
-```
+
 ### Semantic analysis
 
 > Semantic analysis (implemented in lib/Sema) is responsible for taking
@@ -1358,9 +1336,7 @@ Source:
 Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-```{=tex}
-\newpage
-```
+
 ### LLVM IR Generation
 
 > IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at
@@ -1400,9 +1376,7 @@ entry:
 ...
 ```
 
-```{=tex}
-\newpage
-```
+
 ### Exporting dylib
 
 Finally, we can explore how to manually create a library out of the
@@ -1486,9 +1460,7 @@ Cyril Cermak
 1. PorschePlatz, Stuttgart, Germany
 ```
 
-```{=tex}
-\newpage
-```
+
 ## Conclusion
 
 In this chapter, the basics of Swift compiler architecture were
@@ -1514,9 +1486,7 @@ Development](https://modocache.io/getting-started-with-swift-development)
 [executable path, load path and
 rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
 
-```{=tex}
-\newpage
-```
+
 # Development of the modular architecture
 
 The necessary theory about Apple's libraries and some essentials were
@@ -2296,9 +2266,7 @@ common problems people working on such projects will be facing.
 I hope it all provided a good understanding of how to work in such a
 setup.
 
-```{=tex}
-\newpage
-```
+
 # Dependency Managers
 
 Generally, a good practice when working on large codebases is not to
@@ -2673,9 +2641,7 @@ good way to go. That being said, with the hybrid approach, the project
 benefits from both feature sets which could speed up everyday
 development dramatically.
 
-```{=tex}
-\newpage
-```
+
 # Design Patterns
 
 Design patterns help developers to solve complex problems in a known,
@@ -2903,9 +2869,7 @@ patterns that helps when developing modular architecture. I would highly
 recommend deep diving more into this topic via books that are specially
 focused on such topic.
 
-```{=tex}
-\newpage
-```
+
 # Project Automation
 
 When it comes to a project where many developers are contributing
@@ -3049,9 +3013,7 @@ article and free ebook.
 https://blog.codemagic.io/the-complete-guide-to-ci-cd/
 https://codemagic.io/ci-cd-ebook/
 
-```{=tex}
-\newpage
-```
+
 # THE END
 
 When everything goes well, containers will get shipped on the boat to

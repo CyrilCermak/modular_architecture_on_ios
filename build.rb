@@ -1,8 +1,11 @@
-echo "Generating GitHub README"
-pandoc "modular_architecture_on_ios.md" -o "README.md" --from markdown --to markdown --highlight-style tango
-sed 's/newpage/x/g' "README.md"
+puts "Generating GitHub README"
+puts `pandoc "modular_architecture_on_ios.md" -o "README.md" --from markdown --to markdown --highlight-style tango`
+generated_md = File.read("README.md")
+generated_md.gsub! "```\{=tex\}\n\\newpage\n```", "" 
+generated_md.gsub! "```\{=tex\}\n\\newpage\n\\tableofcontents\n\\newpage\n```", ""
 
-# ```{=tex}\n\newpage\n```\n
+File.open("README.md", "w") { |f| f.puts generated_md }
+
 
 # 
 # 
