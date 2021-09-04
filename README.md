@@ -3051,5 +3051,3 @@ book review.
 Publisher Cyril Cermak
 
 www.cyrilcermak.com
-
-x§
