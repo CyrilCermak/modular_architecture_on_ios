@@ -1,5 +1,4 @@
 .DS_Store
 *.pbxuser
 *.xcodeproj
-*/xcuserdata/
 *.project.pbxproj
