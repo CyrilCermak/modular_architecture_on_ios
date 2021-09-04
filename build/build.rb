@@ -1,3 +1,6 @@
+### README
+# execute from the root folder; ruby ./build/build.rb
+
 ### README.md
 readme_file = "README.md"
 modular_architecture_on_ios = "modular_architecture_on_ios"
