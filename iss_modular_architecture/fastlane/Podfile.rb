@@ -120,7 +120,6 @@ end
 # track the overall linked pods in the linkedPods set 
 def link libs
   libs.each do |lib|
-    p lib
     pod lib.name, lib.version
     $linkedPods << lib
   end

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		17E8E7AD3EE0EE6922028136 /* Outputable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B7CBD4E230A0BCE1EBFA9 /* Outputable.swift */; };
+		3BAB37A85A88307425E3261C /* Pods_ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13ADD6D007E4A72FCDAB0B37 /* Pods_ISSUIComponents.framework */; };
 		4B48A8B68A11D4C4542F89F6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DED54AD13AA6DD63D53434 /* Color.swift */; };
 		6F773A62ABE02548FBB1B9FA /* ISSAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B58F4D7A5D5340FE135FBA /* ISSAnimationView.swift */; };
 		776BABCF18B40A5AA4D72EBD /* ISSTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723090ECC3891DE7438242F2 /* ISSTableView.swift */; };
 		83E861A7E382E3544734D253 /* ISSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD5927C6E8251EE716A402C /* ISSButton.swift */; };
-		8E332BEF55338BBB7A24C076 /* Pods_ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D824CEA646F27535F07C818 /* Pods_ISSUIComponents.framework */; };
 		92EE5599DAE26C6792CF7979 /* ISSUIComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; };
 		A34AEA3F55CB076B041016D8 /* ISSUIComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B17839F0BCB92F69F83AFB4B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39684D4CAD6930A3A6BEBE0 /* Font.swift */; };
@@ -47,31 +47,31 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		13ADD6D007E4A72FCDAB0B37 /* Pods_ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC425049DF9C6DC96DA7E0D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		22CCCB22DCAC52589C950F67 /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
 		3FD5927C6E8251EE716A402C /* ISSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSButton.swift; sourceTree = "<group>"; };
 		40C7FD69AD387CE4402D39F8 /* ISSDetailTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSDetailTableCell.swift; sourceTree = "<group>"; };
-		4CDF4D847835970822E23B0A /* Pods-ISSUIComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.debug.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.debug.xcconfig"; sourceTree = "<group>"; };
 		4D1B7CBD4E230A0BCE1EBFA9 /* Outputable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outputable.swift; sourceTree = "<group>"; };
 		723090ECC3891DE7438242F2 /* ISSTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSTableView.swift; sourceTree = "<group>"; };
 		8002542D895B1757872B8000 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8A1591C95677B0FEB4232B5A /* UIComponentsTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = UIComponentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A5AD3D966C4DECE46F97C7A /* ISSUIComponents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISSUIComponents.h; sourceTree = "<group>"; };
-		9D824CEA646F27535F07C818 /* Pods_ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7B58F4D7A5D5340FE135FBA /* ISSAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSAnimationView.swift; sourceTree = "<group>"; };
 		B23779B6B1BA9282A1572EFD /* ISSUIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ISSUIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0471ABD241540AC7B751087 /* UIComponentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentsTests.swift; sourceTree = "<group>"; };
 		D4DED54AD13AA6DD63D53434 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DD842186BC1234A08C0A5E18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E123E1047D4C6092694657D0 /* Pods-ISSUIComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.debug.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.debug.xcconfig"; sourceTree = "<group>"; };
+		E7A75A41B89D89E49CD97FBA /* Pods-ISSUIComponents.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ISSUIComponents.release.xcconfig"; path = "Target Support Files/Pods-ISSUIComponents/Pods-ISSUIComponents.release.xcconfig"; sourceTree = "<group>"; };
 		F39684D4CAD6930A3A6BEBE0 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C17F99FAEE86F304F9EE2E59 /* Frameworks */ = {
+		B55B95D5A89D58FC2EA01ABF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E332BEF55338BBB7A24C076 /* Pods_ISSUIComponents.framework in Frameworks */,
+				3BAB37A85A88307425E3261C /* Pods_ISSUIComponents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07508C6C5B2CF221BFB159EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13ADD6D007E4A72FCDAB0B37 /* Pods_ISSUIComponents.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0B23238E3B6CEDD4ADC7CB9A /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +102,16 @@
 				796926C35BA09957B1B3D95B /* Source */,
 			);
 			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		4D08A15DD50AAFB3271B7623 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E123E1047D4C6092694657D0 /* Pods-ISSUIComponents.debug.xcconfig */,
+				E7A75A41B89D89E49CD97FBA /* Pods-ISSUIComponents.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 		796926C35BA09957B1B3D95B /* Source */ = {
@@ -108,14 +126,6 @@
 				AE12C867AB2E83EECC7E02C3 /* ISSTableView */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		A38A034E4918848FACA28141 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9D824CEA646F27535F07C818 /* Pods_ISSUIComponents.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A3AF73A7E1A5280A591BB443 /* Products */ = {
@@ -142,8 +152,8 @@
 				0B23238E3B6CEDD4ADC7CB9A /* UIComponents */,
 				EEBF5FB3201C009D7B5868A6 /* UIComponentsTests */,
 				A3AF73A7E1A5280A591BB443 /* Products */,
-				F9E07035B5447C772D3E671D /* Pods */,
-				A38A034E4918848FACA28141 /* Frameworks */,
+				4D08A15DD50AAFB3271B7623 /* Pods */,
+				07508C6C5B2CF221BFB159EB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,16 +164,6 @@
 				D0471ABD241540AC7B751087 /* UIComponentsTests.swift */,
 			);
 			path = UIComponentsTests;
-			sourceTree = "<group>";
-		};
-		F9E07035B5447C772D3E671D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4CDF4D847835970822E23B0A /* Pods-ISSUIComponents.debug.xcconfig */,
-				22CCCB22DCAC52589C950F67 /* Pods-ISSUIComponents.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../../app/Cosmonaut/Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,10 +184,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0A2557C1E089E82D00E4D5B /* Build configuration list for PBXNativeTarget "ISSUIComponents" */;
 			buildPhases = (
-				D2AE0AB0B5F1303AC7AB3CDF /* [CP] Check Pods Manifest.lock */,
+				50F6D352DECA94E72CDC3B9B /* [CP] Check Pods Manifest.lock */,
 				6FF78DDEA9D3D1D2890DD190 /* Headers */,
 				75B36429A0E95D7C43E07EB2 /* Sources */,
-				C17F99FAEE86F304F9EE2E59 /* Frameworks */,
+				B55B95D5A89D58FC2EA01ABF /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -252,7 +252,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D2AE0AB0B5F1303AC7AB3CDF /* [CP] Check Pods Manifest.lock */ = {
+		50F6D352DECA94E72CDC3B9B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -392,7 +392,7 @@
 		};
 		1314541D635C003A0BA3AAA6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22CCCB22DCAC52589C950F67 /* Pods-ISSUIComponents.release.xcconfig */;
+			baseConfigurationReference = E7A75A41B89D89E49CD97FBA /* Pods-ISSUIComponents.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -537,7 +537,7 @@
 		};
 		7F9A0A6311522F099BF10F04 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CDF4D847835970822E23B0A /* Pods-ISSUIComponents.debug.xcconfig */;
+			baseConfigurationReference = E123E1047D4C6092694657D0 /* Pods-ISSUIComponents.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
