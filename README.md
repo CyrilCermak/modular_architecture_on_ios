@@ -653,7 +653,7 @@ well.
 
 For further exploration of Mach-O file, I would recommend reading the
 following
-[article](https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103.).
+[article](https://medium.com/@cyrilcermak/exploring-ios-es-mach-o-executable-structure-aa5d8d1c7103).
 
 ### Fat headers
 
