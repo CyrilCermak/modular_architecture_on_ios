@@ -11,16 +11,36 @@ settings:
 # Definition of the targets that exists within the project
 targets:
   
-  # The main application
+  # The service framework containing implementations
   ISSSpacesuitService:
     type: framework
     platform: iOS
     sources: SpacesuitService
     dependencies:
-    # Core
+    # Linking and implements the `ISSSpacesuitServiceCore` protocols  
+    - framework: ISSSpacesuitServiceCore.framework
+      implicit: true
+    # Core layer dependencies
+    - framework: ISSPersistence.framework
+      implicit: true
+    - framework: ISSNetwork.framework
+      implicit: true
+    - framework: ISSUIComponents.framework
+      implicit: true
     - framework: ISSRadio.framework
       implicit: true
-  
+      
+  # Core Framework for ISSSpacesuitServiceCore
+  # defines interfaces and plain public types
+  ISSSpacesuitServiceCore:
+    type: framework
+    platform: iOS
+    sources: SpacesuitServiceCore
+    dependencies:
+      # Linking and uses only interfaces from the NetworkCore
+      - framework: ISSNetworkCore.framework
+        implicit: true
+        
   # Tests for the main application
   SpacesuitServiceTests:
     type: bundle.unit-test
