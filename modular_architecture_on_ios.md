@@ -1309,7 +1309,15 @@ In Xcode another target would just appear under the available targets and within
 ![ISSSpacesuitService with Core](assets/xcode_core_framework.png){ width=80% }
 
 
-### Core Framework linking
+### Core Framework Usage and Best Practices
+
+Not surprisingly, when introducing e.g a new service framework, the best practice would be to start simple. For starters, having just the main framework with the protocols, types and implementations all mixed in. As the use cases of re-using some of the public parts of the service within another framework on the same layer emerge the main framework could be split and the core parts could be moved out of the main framework to the core one. 
+
+The core framework should contain only plain protocols, type definitions and basic data objects to really express only the "core".
+
+Certainly, in the ideal world, the core framework should not have any concrete implementations, however, in practice sometimes it is inevitable to add some helper and small class there.
+
+### Core Framework linking and advantages
 
 The most brilliant part about the Core framework is actually not only its reusability on the same layer while ensuring no cross compile issues but also the linking abstraction. As soon as the Core framework exists, it is no longer needed to link the main implementation heavy framework in services or domains. Instead, the Core is used as a dependency to higher layers. The framework that is linking this framework will depend on the lightweight core part of it. This further brings couple of wins. 
 
@@ -1321,13 +1329,11 @@ A compile time could be heavily decreased. Let us have a look at why. Since now 
 
 Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. 
 
-### Core Framework Usage and Best Practices
+### Core Framework disadvantages
 
-Not surprisingly, when introducing e.g a new service framework, the best practice would be to start simple. For starters, having just the main framework with the protocols, types and implementations all mixed in. As the use cases of re-using some of the public parts of the service within another framework on the same layer emerge the main framework could be split and the core parts could be moved out of the main framework to the core one. 
+As everything in our industry also core frameworks are having some downsides. First and foremost it is yet another framework that must be properly linked within the Application Framework and taken care of. In our example project that might be very simple but on big projects the Application Framework can contain hundreds of frameworks and the core parts potentially at some points doubles the amount. 
 
-The core framework should contain only plain protocols, type definitions and basic data objects to really express only the "core".
-
-Certainly, in the ideal world, the core framework should not have any concrete implementations, however, in practice sometimes it is inevitable to add some helper class there.
+Further, worth mentioning point is the app start time, as not surprisingly core frameworks introduces new dynamic frameworks that must be linked to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices. 
 
 ### Core Framework 
 
