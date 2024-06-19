@@ -3,3 +3,4 @@
 *.xcodeproj
 *.project.pbxproj
 DerivedData
+Pods
