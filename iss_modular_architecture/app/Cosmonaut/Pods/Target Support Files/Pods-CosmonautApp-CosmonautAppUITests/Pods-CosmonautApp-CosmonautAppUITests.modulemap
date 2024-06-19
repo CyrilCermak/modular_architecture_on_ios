@@ -1,6 +1,0 @@
-framework module Pods_CosmonautApp_CosmonautAppUITests {
-  umbrella header "Pods-CosmonautApp-CosmonautAppUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}

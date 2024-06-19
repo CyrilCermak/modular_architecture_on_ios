@@ -1,6 +1,0 @@
-framework module Pods_ISSSpacesuitService {
-  umbrella header "Pods-ISSSpacesuitService-umbrella.h"
-
-  export *
-  module * { export * }
-}
