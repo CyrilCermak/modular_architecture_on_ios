@@ -1344,7 +1344,16 @@ Mergeable libraries to the rescue, Apple introduced in WWDC2023 new compiler fea
 
 ### Core Framework Rules 
 
-Generally, a core framework should not have many dependencies. However, it is possible to link lower layer frameworks, ideally abstracted by the core framework but also the concrete implementation if such pattern on lower framework was not applied. Furthermore, a core framework can potentially link another core framework on the same layer. Delving on our `CosmonautServiceCore` and `SpacesuitServiceCore`, each could link one and other however such case should be carefully evaluated to avoid tangling and yet again the compiler issues when cross linking.    
+Generally, a core framework should not have many dependencies. However, it is possible to link lower layer frameworks, ideally abstracted by the core framework but also the concrete implementation if such pattern on lower framework was not applied. Furthermore, a core framework can potentially link another core framework on the same layer. Delving on our `CosmonautServiceCore` and `SpacesuitServiceCore`, each could link one and other. Given that there are no concrete implementations in it no issues should arise. However such case should be carefully evaluated to avoid tangling and yet again the compiler issues when cross linking.    
+
+Certainly, linking the framework downwards should not be allowed in our example, `CosmonautServiceCore` should never be linked to `NetworkService` or any of its parts as lower layer must be agnostic of the upper layer.
+
+## Testing
+
+### UITesting in Isolation
+### UITesting in Application Framework
+### Unit Testing in Isolation
+### Unit Testing in Application Framework
 
 ### Mock Framework 
 
