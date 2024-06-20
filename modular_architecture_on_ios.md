@@ -1257,7 +1257,7 @@ Let us look at the concrete example. We can take a `CosmonautService` abstracted
 
 ### Using Core Framework
 
-Core framework is essentially another Framework target within the `SpacesuitService` Xcode project of the main framework. In our example of SpacesuitService, a core framework would be `SpacesuitServiceCore`. The `SpacesuitServiceCore` framework would however have to follow yet another strict set of rules to avoid any kind of cross compile issues. 
+Core framework is essentially another Framework target within the `SpacesuitService` Xcode project of the main framework. In our example of SpacesuitService, a core framework would be `SpacesuitServiceCore`. The `SpacesuitServiceCore` framework would however have to follow yet another set of rules to avoid any kind of cross compile issues. 
 
 In XcodeGen the Core framework could be defined as follows;
 
@@ -1287,7 +1287,7 @@ ISSSpacesuitServiceCore:
 ...
 ```
 
-Consequently, the `SpacesuitServiceCore` can be linked and used in the CosmonautService framework. Making the `CosmonautService` understands the `SpacesuitService`.
+Consequently, the `SpacesuitServiceCore` can be linked and used in the CosmonautService framework. Making all publicly available protocols and types available to the `CosmonautService`.
 
 ```yaml
 ...
@@ -1311,33 +1311,43 @@ In Xcode another target would just appear under the available targets and within
 
 ### Core Framework Usage and Best Practices
 
-Not surprisingly, when introducing e.g a new service framework, the best practice would be to start simple. For starters, having just the main framework with the protocols, types and implementations all mixed in. As the use cases of re-using some of the public parts of the service within another framework on the same layer emerge the main framework could be split and the core parts could be moved out of the main framework to the core one. 
+Not surprisingly, when introducing e.g a new service framework, the best practice would be to start simple. For starters, having just the main framework with the protocols, types and implementations all mixed in. As the use cases of re-using some of the public parts of the service within another framework on the same layer emerge, the main framework could be split and the core parts could be moved out of the main framework to the core one. 
 
-The core framework should contain only plain protocols, type definitions and basic data objects to really express only the "core".
-
-Certainly, in the ideal world, the core framework should not have any concrete implementations, however, in practice sometimes it is inevitable to add some helper and small class there.
+The core framework should contain only plain protocols, type definitions and basic data objects to really express only the "core". Certainly, in the ideal world, the core framework would not have any concrete implementations, however, in practice sometimes it is inevitable to add some helper class or a small class there. 
 
 ### Core Framework linking and advantages
 
-The most brilliant part about the Core framework is actually not only its reusability on the same layer while ensuring no cross compile issues but also the linking abstraction. As soon as the Core framework exists, it is no longer needed to link the main implementation heavy framework in services or domains. Instead, the Core is used as a dependency to higher layers. The framework that is linking this framework will depend on the lightweight core part of it. This further brings couple of wins. 
+The most brilliant part about the Core framework is actually not only its reusability on the same layer while ensuring no cross compile issues but also the linking abstraction. As soon as the Core framework exists, it is no longer needed to link the main implementation heavy framework in services or domains. Instead, the Core is used as a dependency to higher layers. The framework that is linking the core framework will depend on the lightweight abstraction part of it. This further brings couple of wins. 
 
 **Compile time decrease**
 
-A compile time could be heavily decreased. Let us have a look at why. Since now on the broader scope services and domains would depend on core frameworks representing protocols and basic types only, build system would not have to recompile or re-check to ensure the stability of dependent frameworks. If any implementation is changed within the main framework, the change affects only the main framework which ideally is linked only to the main app in order to instantiate the objects. Therefore, everything else within the Application Framework dependent on the core framework remains untouched. The build system instead of re-building the whole tree and checking recursively all dependencies would just have to re-compile the implementation. That already is a big win. However, no need to say that this applies to changes that are not modifying the core. If for example a protocol would be updated then no compile time would be saved. Yet another reason to focus and design protocols well - this however applies and is absolutely crucial in a later stage of development. 
+A compile time could be heavily decreased. Let us have a look at why. Since now on the broader scope services and domains would depend on core frameworks representing protocols and basic types only, build system would not have to recompile or re-check to ensure the stability of dependent frameworks. If any implementation is changed within the main framework, the change affects only the main framework which ideally is linked only to the main app in order to instantiate the objects. Therefore, everything else within the Application Framework dependent on the core framework remains untouched. The build system instead of re-building the whole tree and checking recursively all dependencies would just have to re-compile the implementation. That already is a big win. However, no need to say that this applies to changes that are not modifying the core. If for example a protocol would be updated in the core module then no compile time would be saved. Yet another reason to focus and design protocols well - this however applies and is absolutely crucial in a later stage of development. 
 
-**Tests to run decrease**
+**Tests needed to run decrease**
 
-Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. 
+Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. Especially on big project this brings lots of wins, imagine a project with hundreds of frameworks each having hundreds or even thousands of tests, which need to run before merge. Optimising the amount of frameworks needed to be tested on each PR at this point is cruical.
+
+**Framework Control And Encapsulation**
+
+A less significant benefit is, the fact that clients of the linked framework can no longer instantiate objects on their own. There is no concrete implementation within the Core. The main framework would have to be linked in order to let the client instantiate the objects. This particular case can improve the code a lot. Due to the fact that each client depends on the abstraction only and for example only the app instantiates the concrete objects which are then passed down to lower layers or registered in a dependency injection pool, all by the abstracted protocols. This further is ensuring single instances of classes are used across the app lifecycle rather than random clients using and creating new instances as they like. 
 
 ### Core Framework disadvantages
 
 As everything in our industry also core frameworks are having some downsides. First and foremost it is yet another framework that must be properly linked within the Application Framework and taken care of. In our example project that might be very simple but on big projects the Application Framework can contain hundreds of frameworks and the core parts potentially at some points doubles the amount. 
 
-Further, worth mentioning point is the app start time, as not surprisingly core frameworks introduces new dynamic frameworks that must be linked to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices. 
+Further, worth mentioning point is the app start time, as not surprisingly core frameworks introducing new dynamic frameworks that must be linked to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices. 
 
-### Core Framework 
+**Mergeable Libraries**
+
+Mergeable libraries to the rescue, Apple introduced in WWDC2023 new compiler feature which can merge dynamic frameworks into one shared framework, drastically improving the start up time while leaving developers with the flexibility of dynamic linking. Unfortunately, as of now, almost one year after this feature was introduced the mergeable libraries are still having lots of issues. Certainly, those will be fixed with new Xcode updates and then the disadvantage of slower app start will be heavily improved.
+[Apple Documentation - Mergable Libraries](https://developer.apple.com/documentation/xcode/configuring-your-project-to-use-mergeable-libraries)
 
 ### Core Framework Rules 
+
+Generally, a core framework should not have many dependencies. However, it is possible to link lower layer frameworks, ideally abstracted by the core framework but also the concrete implementation if such pattern on lower framework was not applied. Furthermore, a core framework can potentially link another core framework on the same layer. Delving on our `CosmonautServiceCore` and `SpacesuitServiceCore`, each could link one and other however such case should be carefully evaluated to avoid tangling and yet again the compiler issues when cross linking.    
+
+### Mock Framework 
+
 
 
 Core  
