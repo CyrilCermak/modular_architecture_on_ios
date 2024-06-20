@@ -1350,10 +1350,54 @@ Certainly, linking the framework downwards should not be allowed in our example,
 
 ## Testing
 
+Since we already have a good working structure of our highly modular Application Framework let us have a look at how to test it in the most efficient and effective way. On small projects time spend on testing might not play very significant part as tests might be finished within a couple of minutes contrary on a big project and in our case tests could easily take hours to finish. Accordingly, the test strategy must be designed, developed, and supported on the locally and on the CI systems. 
+
+### Unit Testing in Isolation
+
+First and foremost, unit testing and the ability to run tests in isolation. Not surprisingly, each Xcode project created should also contain unit tests for the implementations of the main framework. Continuing on our example, the test bundle can be added just by extending the configuration in the project.yml.
+
+```yaml
+...
+# The service framework containing implementations
+ISSCosmonautService:
+  type: framework
+  platform: iOS
+  sources: CosmonautService
+  dependencies:
+    - framework: ISSNetworkCore.framework
+      implicit: true
+    ...
+... 
+CosmonautServiceTests:
+  type: bundle.unit-test
+  platform: iOS
+  sources: CosmonautServiceTests
+  dependencies:
+    - target: ISSCosmonautService
+...
+```
+
+Something definitely worth mentioning when developing in the Application Framework is the run in isolation. A developer no longer needs to compile the whole app consisting of lots frameworks but can set and build the desired framework just by setting it as a run/build target in Xcode. This allows beautiful tunnel focus isolation on the framework from the whole project. By doing so, the setup is the most optimal way to do test driven development, especially for a lower level UI free frameworks.
+
+To ensure the stability and good health of a framework tests should run on any change within the framework so as on any change of the dependent framework listed in dependencies. In our example, `CosmonautService` links `ISSNetwork`, therefore, if `ISSNetworkCore` has changes, everything that depends on the `ISSNetwork` must also be compiled and tested. To ensure that a change in a pull request does not break the integrity before the merge all relevant frameworks must be tested.
+
+In the example, of a change in the `ISSNetworkCore` on the core layer, lots of frameworks would have to undergo the testing because of the framework is widely used across the application framework and provides essential functionality. On the other hand when a change in a domain like e.g `Cosmonaut` happen, there are no dependencies to a domain besides the app, therefore, only tests for the domain itself would have to run so as the main app or apps that are having this domain as a dependencies would have to be compiled or also run their unit tests.
+
+Further, in development usually a mixture of those two scenarios combined together is very often seen. As if `ISSNetworkCore` extends its protocol the developer also must adjust the affected code in other modules.
+
+Hint, as described already, an app in the Application Framework behaves like a container and usually does not have any logic implemented. Therefore, it can be that such app does not have many tests.
+
+I hope those two different examples gave a good idea of how drastically the time can differ on the CI when testing a change. From lets say testing a one domain and an app to running tests of the whole application framework. Unfortunately Apple does not provide any tools that would count with those scenarios, but thanks to XcodeGen and its yaml description such testing can be scripted before the project is generated.
+
+
+TODO: //
+**Application Framework app** 
+ 
+### Unit Testing in Application Framework
+
+
 ### UITesting in Isolation
 ### UITesting in Application Framework
-### Unit Testing in Isolation
-### Unit Testing in Application Framework
 
 ### Mock Framework 
 

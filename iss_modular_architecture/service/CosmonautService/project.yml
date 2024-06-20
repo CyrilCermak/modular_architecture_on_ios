@@ -33,6 +33,8 @@ targets:
         implicit: true
       - framework: ISSRadio.framework
         implicit: true
+      - framework: ISSNetworkCore.framework
+        implicit: true
   
   # Core Framework for ISSCosmonautService
   # defines interfaces and plain public types
