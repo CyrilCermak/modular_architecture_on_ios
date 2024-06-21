@@ -38,3 +38,29 @@ targets:
     sources: CosmonautTests
     dependencies:
       - target: ISSCosmonaut
+
+  CosmonautUITestsHostApp:
+    type: application
+    platform: iOS
+    sources: CosmonautUITestsHostApp
+    dependencies:
+      # The host app must have all the dependencies from the ISSCosmonaut
+      # Service
+      - framework: ISSCosmonautService.framework
+        implicit: true
+      - framework: ISSOverviewService.framework
+        implicit: true
+      # Core
+      - framework: ISSUIComponents.framework
+        implicit: true
+      # Core dependencies of ISSCosmonautService
+      - framework: ISSNetwork.framework
+        implicit: true
+      - framework: ISSPersistence.framework
+        implicit: true
+        
+  CosmonautUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+    - path: CosmonautUITests

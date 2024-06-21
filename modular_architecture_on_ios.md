@@ -1379,7 +1379,7 @@ CosmonautServiceTests:
 
 Something definitely worth mentioning when developing in the Application Framework is the run in isolation. A developer no longer needs to compile the whole app consisting of lots frameworks but can set and build the desired framework just by setting it as a run/build target in Xcode. This allows beautiful tunnel focus isolation on the framework from the whole project. By doing so, the setup is the most optimal way to do test driven development, especially for a lower level UI free frameworks.
 
-To ensure the stability and good health of a framework tests should run on any change within the framework so as on any change of the dependent framework listed in dependencies. In our example, `CosmonautService` links `ISSNetwork`, therefore, if `ISSNetworkCore` has changes, everything that depends on the `ISSNetwork` must also be compiled and tested. To ensure that a change in a pull request does not break the integrity before the merge all relevant frameworks must be tested.
+To ensure the stability and good health of a framework, tests should run on any change within the framework so as on any change of the dependent framework listed in dependencies. In our example, `CosmonautService` links `ISSNetwork`, therefore, if `ISSNetworkCore` has changes, everything that depends on the `ISSNetwork` must also be compiled and tested. To ensure that a change in a pull request does not break the integrity before the merge all relevant frameworks must be tested.
 
 In the example, of a change in the `ISSNetworkCore` on the core layer, lots of frameworks would have to undergo the testing because of the framework is widely used across the application framework and provides essential functionality. On the other hand when a change in a domain like e.g `Cosmonaut` happen, there are no dependencies to a domain besides the app, therefore, only tests for the domain itself would have to run so as the main app or apps that are having this domain as a dependencies would have to be compiled or also run their unit tests.
 
@@ -1387,17 +1387,80 @@ Further, in development usually a mixture of those two scenarios combined togeth
 
 Hint, as described already, an app in the Application Framework behaves like a container and usually does not have any logic implemented. Therefore, it can be that such app does not have many tests.
 
-I hope those two different examples gave a good idea of how drastically the time can differ on the CI when testing a change. From lets say testing a one domain and an app to running tests of the whole application framework. Unfortunately Apple does not provide any tools that would count with those scenarios, but thanks to XcodeGen and its yaml description such testing can be scripted before the project is generated.
+I hope those two different examples gave a good idea of how drastically the time can differ on the CI when testing a change. From lets say testing a one domain and an app to running tests of the whole application framework. Unfortunately, Apple does not provide any tools that would count with those scenarios, but thanks to XcodeGen and its yaml description such testing can be scripted before the project is generated.
 
+### Application Framework App
 
-TODO: //
-**Application Framework app** 
- 
-### Unit Testing in Application Framework
+Up until now, the testing happened under one umbrella of an app in the Application Framework. However, Application Framework can have multiple applications consisting of the frameworks available. Those frameworks does not necessarily have to be related. There might be frameworks solely dedicated to one app, but leveraging the foundational work of the application framework. Meaning, using the same core frameworks for e.g Networking, Persistence etc. 
 
+This scenario somehow forces us to introduce something we can call `Application Framework App`, which is a dummy application living on the app level consisting of all frameworks available within the Application Framework. The app does not necessarily have to do anything. It is there just to provide a container, an encapsulation of the whole Application Framework. The app by default can have all frameworks in, including one or more XCTestPlans defining the testing strategy and all test targets. 
+
+### Unit Testing in Application Framework App
+
+Application Framework App is the perfect place for developers to ensure that their change, let's continue with the example, in `ISSNetworkCore` does compile within the whole Application Framework and not only within the singular app.
+
+On the CI, however, this app could be scripted and created on the fly based on the identified changes compared to the targeted branch. The scripted app would consist only of the needed frameworks for compilation so as already adjusted the targets needed to test in the test plan. It would be a subset of the Application Framework agnostic of any other app.
 
 ### UITesting in Isolation
-### UITesting in Application Framework
+
+Similarly to unit testing the UI tests can be developed and executed. Unlike unit tests, UI tests need an app to run in, as there is the actual UI. The first logical idea that comes to mind is to implement and maintain the UI tests on the app level. There the full application is created and can be deployed to a simulator or a device to run those tests. While this is surely the most intuitive way of introducing UI tests to the project it is not the ideal one. Imagine a scenario, where a domain, e.g `ISSUser` which provides the user's sign up / sign in functionality, profile details its flows etc. should be UI tested. Such a common business domain can be easily re-used across different apps. As those apps would grow, they would also aim for the UI testing strategy, and here we have the conflict. Either one app would give up on UI testing the user profile part of the app; if even possible. As login might be required to test some of the app's functionalities or the tests would be simply duplicated. In case of UI tests, the code duplication could be a significant which is something, we as good citizens of Application Framework should badly avoid doing.
+   
+Yet another stunningly beautiful part of this highly modular architecture comes in to play. Let us call it UITests in isolation. Instead of defining the UITests on the app level, they can directly be defined on the domain level. A domain e.g `ISSCosmonaut`, can have its own so called by Apple `HostingApp`. The hosting app would be created within the Xcode project of the Cosmonaut domain and be nicely encapsulated in the Xcode's project. All this can be easily defined in project.yml.
+
+// TODO: Ensure that this works in the example project
+
+```yaml
+...
+ISSCosmonaut:
+  type: framework
+  platform: iOS
+  sources: Cosmonaut
+  dependencies:
+    # Service
+    - framework: ISSCosmonautService.framework
+      implicit: true
+    ...
+
+# Tests for the main application
+CosmonautTests:
+  type: bundle.unit-test
+  platform: iOS
+  sources: CosmonautTests
+  dependencies:
+    - target: ISSCosmonaut
+
+CosmonautUITestsHostApp:
+  type: application
+  platform: iOS
+  sources: CosmonautUITestsHostApp
+  dependencies:
+    # The host app must have all the dependencies from the ISSCosmonaut
+    # Service
+    - framework: ISSCosmonautService.framework
+      implicit: true
+    ...
+      
+CosmonautUITests:
+  type: bundle.ui-testing
+  platform: iOS
+  sources:
+  - path: CosmonautUITests
+...
+```
+
+UITestsHostApp brings again another level of testing in isolation. Independently from the whole Application Framework, the app can be deployed and UI tested. An ideal scenario is when a domain is represented by a coordinator or many coordinators which take over the screen. The UITestsHostApp would simply mock the services those coordinators need to interact with and set up the app just as simply as instantiating the coordinators stack. 
+
+Within such architecture the UITestsHostApp could be up and ready in no time, leaving the adequate team to develop the UITests. Essentially, the UITestsHostApp would just copy the instantiating boilerplate from the main app to ensure the consistency. 
+
+This could be done for every domain that provides screen flows through the application, covering the Application Framework with as many tests as possible.
+
+### UITesting in Application Framework App
+
+Similarly to unit tests the UI tests would also have their place in the grouped app. By default in this case it could be a UI test plan defined in the `xctestplan` consisting of all hosting apps and their UI tests from the whole Application Framework, leaving developers with singular place to run all those tests for all available targets in one go. 
+
+No need to mention that this UI xctestplan could be also scripted on the CI and only tests that are relevant to a change would be compiled and run.
+
+Sadly, UI tests are usually very expensive to run, it is not a surprise that sometimes those tests would take hours before finishing, therefore, they could run on a nightly basis or another development workflow relevant time.
 
 ### Mock Framework 
 
