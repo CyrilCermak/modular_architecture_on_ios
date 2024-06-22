@@ -40,7 +40,9 @@ targets:
     type: framework
     platform: iOS
     sources: NetworkMocks
-    scheme: {}
+    dependencies:
+      - framework: ISSNetworkCore.framework
+        implicit: true
   
   # Tests for the main application
   NetworkTests:

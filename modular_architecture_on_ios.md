@@ -1458,15 +1458,34 @@ This could be done for every domain that provides screen flows through the appli
 
 Similarly to unit tests the UI tests would also have their place in the grouped app. By default in this case it could be a UI test plan defined in the `xctestplan` consisting of all hosting apps and their UI tests from the whole Application Framework, leaving developers with singular place to run all those tests for all available targets in one go. 
 
-No need to mention that this UI xctestplan could be also scripted on the CI and only tests that are relevant to a change would be compiled and run.
+No need to mention that this UI xctestplan could be also scripted on the CI and only tests that are relevant to a change would be compiled and run on a Pull Request.
 
-Sadly, UI tests are usually very expensive to run, it is not a surprise that sometimes those tests would take hours before finishing, therefore, they could run on a nightly basis or another development workflow relevant time.
+Sadly, UI tests are usually very expensive to run, it is not a surprise that sometimes those tests take hours before finishing, therefore, they could run on a nightly basis or another development workflow relevant time.
 
 ### Mock Framework 
 
+As the tests grow there will be a pattern emerging, lots of frameworks will start implementing their own stubs and mocks from linked framework. As an example, a `CosmonautSerivceTests` could instantiate the `CosmonautService` with stubbed `NetworkService`, in order to provide the data or return mocked responses. This mocked `NetworkService` however will get implmeneted pretty much in every tests of a framework that is linking and using the `NetworkService`. Therefore, over time those stubs and mocks will be by each test module that needs them, making very difficult to adjust the `NetworkService` protocol because on such change all conformed objects will have to be adapted. Making the developer go through all tests and adapt the mocks and stubs accordingly.
 
+Luckily, yet again, there is a beautiful solution for such problem in our modular architecture. Let us call it a Mock framework. A Mock framework sits again within the same Xcode project as the main framework and just simply provide generic stubs and mocks which can then further be extended or adapted as needed for the tests. 
 
-Core  
+There are many advantages of the Mock framework. First of all, it enforces a developer to make one great mock or a stub which is highly flexible and re-usable. Having a mock framework drastically reduces the need of creating such class in the test modules all over again. It also nicely separates the mock objects from the main production framework, pre-compiler macros would achieve the same but when mocking lots of classes, separating them completely to a different framework is even better.
+
+Worth mentioning is that mock frameworks are specifically used for testing, and should not be linked and used in the production app - that would be an anti-pattern. In project.yml such mocked framework could be defined as follows;
+
+```yaml
+...
+ISSNetworkMock:
+  type: framework
+  platform: iOS
+  sources: NetworkMocks
+  dependencies:
+    - framework: ISSNetworkCore.framework
+      implicit: true
+...
+```
+
+For the test from dependent frameworks bundles, only change would be to link the mocked framework in order to get access to mocks and stubs it provides.
+
 
 TODO: //
 ## Closer look at one framework, explain Mocks, Test, UITests in isolation etc.
