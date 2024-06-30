@@ -142,32 +142,32 @@ For example, a shared module in an e-commerce app could be `Logging` or `AppAnal
 
 ## Example: International Space Station
 
-Now in this example, we will have a look at how such architecture could look like for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). The diagram below shows the four-layer architecture with the modules and links.
+Now in this example, we will have a look at how such architecture could look like for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). The diagram below shows the five-layer architecture with the modules and links. This structure is then further referenced as Application Framework.
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.
 
-![Overview](assets/ISS.png)
+![Overview](assets/application_framework.png)
 
 
 The example has three applications.
 
-- `ISS Overview`: app that shows astronauts the overall status of the space station
+- `Overview`: app that shows astronauts the overall status of the space station
 - `Cosmonaut`: app where a Cosmonaut can control his spacesuit as well as his supplies and personal information
 - `Laboratory`: app from which the laboratories on the space station can be controlled
 
 As described above, all apps link the Scaffold module which provides the bootstrapping for the app while the app itself behaves like a container.
 
-### ISS Overview
+### Overview
 
 ![ISS Overview](assets/ISSOverview.png)
 
 The diagram above describes the concrete linking of modules for the app. Let us have a closer look at it.
 
-`ISS Overview` app links the domain `Peripheries`, which implements logic and screens for peripheries of the station.
+`Overview` app links the domain `Peripheries`, which implements logic and screens for peripheries of the station.
 
 The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and `Docking Port` services from which data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
 
-The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (Bluetooth Low Energy) or other technology which would connect to the solar array or heat radiator.
+The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (Bluetooth Low Energy) or other technology which would connect to the solar array or heat radiator. Further, `UIComponents` are used to bootstrap the design and `Persistence` is used for a database operations.
 
 ### Cosmonaut
 
@@ -175,7 +175,7 @@ The linked services use the `Network` and `Radio` core modules. These provide th
 
 The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each domain is responsible for screens and users flow through the part of the app.
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut` services that provide data for domain-specifc screens as `UIComponents` provides the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service` services that provide data for domain-specifc screens and `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service uses `Network` for updating Houston about the current state of the `Cosmonaut` and uses `Persistence` for storing the data of the cosmonaut for offline usage.
 
@@ -186,7 +186,7 @@ I will leave this one for the reader to figure out.
 
 ## Conclusion
 
-As you can probably imagine, scaling the architecture as described above should not be a problem. When it comes to extending the ISS Overview app for another ISS periphery, for example, a new domain module can be easily added with some service modules etc.
+As you can probably imagine, scaling the architecture as described above should not be a problem. When it comes to extending the Overview app for another ISS periphery, for example, a new domain module can be easily added with some service modules etc.
 
 When a requirement comes for creating a new app for e.g. cosmonauts, the new app can already link the battlefield proven and tested `Cosmonaut` domain module with other necessary modules that are required. Development of the new app will thus become much easier.
 

@@ -1,5 +1,6 @@
 
 ![Overview](assets/cover.png)
+\newpage
 
 # Modular Architecture on iOS and macOS
 
@@ -8,6 +9,7 @@ Design
 
 **CFBundleVersion** - 0.9.0 - Developer preview
 
+\newpage
 
 # Dedication
 
@@ -17,17 +19,19 @@ Design
 
 "To all my non-tech friends for whom I am always fixing various
 problems: not enough disk space, printers not working, forgotten
-passcodes etc., and who will never read this line."
+passcodes etc., and who will never in their lives read this line."
 
 &&
 
 "To all passionate engineers who are solving tough problems on a daily
-basis with a smile. It is great pleasure for everyone to work with you!"
+basis with a smile. It is great pleasure for everyone to work with you!
+This book is for you!"
 
 &&
 
-"Finally, to my current girlfriend ... whoever she is"
+"Finally, to my current girlfriend ... whoever she might be"
 
+\newpage
 
 # About the author
 
@@ -36,17 +40,20 @@ book. Most of my professional career was spent building iOS apps or iOS
 frameworks. My professional career began at Skoda Auto Connect App in
 Prague, continued for Freelancer Ltd in Sydney building iOS platform,
 included numerous start-ups along the way, and, currently, has me as an
-iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing
-different approaches for building modular iOS architectures and will be
-providing some mechanisms and essential knowledge that should help one
-decide which approach would fit the best or should be considered for a
-project.
+iOS System Architect Porsche AG in Stuttgart. In this book, I am
+describing different approaches for building modular iOS architectures
+and will be providing some mechanisms and essential knowledge that
+should help one decide which approach would fit the best or should be
+considered for a project.
 
 ## Reviewer
 
 Highly likely due to the quality of this book the reviewer wishes to be
-secret.
+secret, I think that's fair.
 
+\newpage
+\tableofcontents
+\newpage
 
 # Introduction
 
@@ -55,9 +62,9 @@ project, gaining a different kind of experience out of it. In
 particular, on iOS, mostly the monolithic approaches are used. In some
 cases it makes total sense, so nothing against it. However, scaling up
 the team, or even better, the team of teams on a monolithically built
-app is horrifying and nearly impossible without some major time impacts
-on a daily basis. Numerous problems will rise, that limit the way iOS
-projects are built or managed at the organisational level.
+app is horrifying and nearly impossible without some major build time
+impacts on a daily basis. Numerous problems will rise, that limit the
+way iOS projects are built or managed at the organisational level.
 
 Scaling up the monolithic approach to a team of e.g 10+ developers will
 most likely result in hell. By hell, I mean, resolving `xcodeproj`
@@ -101,12 +108,13 @@ on Medium in
 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f).
 Of course, in this book you will read about it in more detail.
 
-Nowadays, as an iOS TechLead, I am often getting asked some questions
-all over again from new teams or new colleagues with regards to those
-topics. Thereafter, I decided to sum it up and tried to get the whole
-subject covered in this book. The purpose of it is to help developers
-working on such architectures to gain the background knowledge and
-experience in order to more quickly and correctly implement these ideas.
+Nowadays, as an iOS System Architect, I am often getting asked some
+questions all over again from new teams or new colleagues with regards
+to those topics. Thereafter, I decided to sum it up and tried to get the
+whole subject covered in this book. The purpose of it is to help
+developers working on such architectures to gain the background
+knowledge and experience in order to more quickly and correctly
+implement these ideas.
 
 Hopefully, this introduction provided enough motivation that you will
 want to dive further into this book.
@@ -127,12 +135,15 @@ iOS. You will find examples of different approaches, framework types,
 their pros and cons, common problems and so on. By the end of this book,
 you should have a very good understanding of what benefits such an
 architecture will bring to your project, whether it is necessary at all,
-and which way would be the best for modularising the project.
+and which way would be the best for modularising the project. This book
+focuses on high level architecture, modularisation of a project, and
+collaboration in way to be the most efficient.
 
 ## What is this book NOT about
 
 SwiftUI.
 
+\newpage
 
 # Modular Architecture
 
@@ -164,7 +175,7 @@ Station](https://en.wikipedia.org/wiki/International_Space_Station).
 ## Design
 
 In this book, I chose to use the architecture that I think is the most
-evolved. It is a five-layer architecture that consists of the following
+flexible. It is a five-layer architecture that consists of the following
 layers:
 
 -   Application
@@ -173,38 +184,47 @@ layers:
 -   Core
 -   Shared
 
-Each layer is explained in the following chapter.
+Each layer is explained in the following section.
 
 Nevertheless, the same principles can be applied for other architectural
-types as well. An example is a feature-oriented architecture where the
-layers could be defined as follows:
+structures as well. An example is a simplified feature-oriented
+architecture where the layers could be defined as follows:
 
 -   Application
 -   Feature
 -   Core
--   Shared
+
+This whole setup in general is further in the book referenced as
+Application Framework.
 
 Now to the specific layers.
 
 ## Layers
 
-Let us have a look now at each layer and its purpose. Modules within
-layers are then demonstrated with the example in the following chapter.
+Let us have a look now at each layer and its purpose. Further, we will
+look at the particular modules within layers and their internal
+structure.
 
 ### Application Layer
 
 The application layer consists of the final customer-facing products:
-applications. Applications glue all the different parts together,
-linking domains via configurations and a Scaffold module. In such
-architecture, the App is a container that puts pieces together.
+applications. Applications assemble all the necessary parts from the
+Application Framework together, linking domains, services, and so on.
+Further the app is instantiating the UI stack, primarily domain
+coordinators (if such pattern is used) and objects such as
+NetworkService, CashierService, etc. The app also has its unique app
+configuration, which hosts information such as app flavour, app variant,
+enabled feature toggles, keychain configuration etc. Patterns that will
+help achieve such requirements will be described later.
 
-Nevertheless, the App might also contain some necessary Application
+Additionally, the App might also contain some necessary application
 implementations like receiving push notifications, handling deep
-linking, requesting permissions, and so on.
+linking, requesting permissions, and many more.
 
-Patterns that will help achieve such goals will be described later.
+In the Application Framework, the App is just a container that stitches
+pieces together.
 
-For example, an app in an e-commerce business could be `The Shop` for
+As an example, an app in an e-commerce business could be `The Shop` for
 online customer and `Cashier` for the employees of that company.
 
 ### Domain Layer
@@ -213,13 +233,16 @@ Domain layer links services and other modules from layers below and uses
 them to implement the business domain needs of the company or the
 project. Domains will contain, for example, the user flow within the
 particular domain part of the app. Furthermore, the domain will have the
-necessary components for the flow like; view controllers, views, models
-and view models. Obviously it depends on the team's preferences and
-technical experience which pattern will be used for creating screens.
-Personally, the reactive MVVM+C is my favourite but more on that later.
+necessary components for the flow like; coordinators, view controllers,
+views, models and view models. Obviously it depends on the team's
+preferences and technical experience which pattern will be used for
+creating screens. Personally, the reactive MVVM+C is my favourite but
+more on that later.
 
 Continuing with our example of an e-commerce app, a domain could be
-`Checkout` or `Store Items`.
+`Checkout` or `Store Items` and a shared domain could be a `User` which
+would based on a configuration display flow for an employee or a
+customer.
 
 ### Service Layer
 
@@ -262,17 +285,18 @@ For example, a shared module in an e-commerce app could be `Logging` or
 Now in this example, we will have a look at how such architecture could
 look like for the [International Space
 Station](https://en.wikipedia.org/wiki/International_Space_Station). The
-diagram below shows the four-layer architecture with the modules and
-links.
+diagram below shows the five-layer architecture with the modules and
+links. This structure is then further referenced as Application
+Framework.
 
 While this chapter is rather theoretical, in the following chapters
 everything will be explained and showcased in practice.
 
-![Overview](assets/ISS.png)
+![Overview](assets/application_framework.png)
 
 The example has three applications.
 
--   `ISS Overview`: app that shows astronauts the overall status of the
+-   `Overview`: app that shows astronauts the overall status of the
     space station
 -   `Cosmonaut`: app where a Cosmonaut can control his spacesuit as well
     as his supplies and personal information
@@ -282,15 +306,15 @@ The example has three applications.
 As described above, all apps link the Scaffold module which provides the
 bootstrapping for the app while the app itself behaves like a container.
 
-### ISS Overview
+### Overview
 
 ![ISS Overview](assets/ISSOverview.png)
 
 The diagram above describes the concrete linking of modules for the app.
 Let us have a closer look at it.
 
-`ISS Overview` app links the domain `Peripheries`, which implements
-logic and screens for peripheries of the station.
+`Overview` app links the domain `Peripheries`, which implements logic
+and screens for peripheries of the station.
 
 The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and
 `Docking Port` services from which data about those peripheries are
@@ -301,7 +325,9 @@ The linked services use the `Network` and `Radio` core modules. These
 provide the foundation for the communication with other systems via
 network protocols. `Radio` in this case could implement some
 communication channel via BLE (Bluetooth Low Energy) or other technology
-which would connect to the solar array or heat radiator.
+which would connect to the solar array or heat radiator. Further,
+`UIComponents` are used to bootstrap the design and `Persistence` is
+used for a database operations.
 
 ### Cosmonaut
 
@@ -311,9 +337,9 @@ The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This
 is the same for every other domain, each domain is responsible for
 screens and users flow through the part of the app.
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit` and `Cosmonaut`
-services that provide data for domain-specifc screens as `UIComponents`
-provides the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and
+`Cosmonaut Service` services that provide data for domain-specifc
+screens and `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts
 spacesuit via BLE or another type of radio technology. `Cosmonaut`
@@ -328,9 +354,9 @@ I will leave this one for the reader to figure out.
 ## Conclusion
 
 As you can probably imagine, scaling the architecture as described above
-should not be a problem. When it comes to extending the ISS Overview app
-for another ISS periphery, for example, a new domain module can be
-easily added with some service modules etc.
+should not be a problem. When it comes to extending the Overview app for
+another ISS periphery, for example, a new domain module can be easily
+added with some service modules etc.
 
 When a requirement comes for creating a new app for e.g. cosmonauts, the
 new app can already link the battlefield proven and tested `Cosmonaut`
@@ -347,6 +373,7 @@ programming comes into play so as a proper project onboarding, software
 architecture document and the overall documentation of modules which
 helps newcomers to get on the right track.
 
+\newpage
 
 # Libraries on Apple's ecosystem
 
@@ -373,6 +400,7 @@ your target."*
 What are symbols? *Symbols reference to chunks of code or data within
 binary.*
 
+\newpage
 
 **Types of libraries:**
 
@@ -465,9 +493,6 @@ Now let's have a look at some pros & cons of both.
 **Dynamic:**
 
 -   **PROS**
-    -   Faster app start time as a library is linked during app launch
-        time or runtime, therefore the main executable has lesser memory
-        footprint to load.
     -   Can be opened on demand, therefore, might not get opened at all
         if user do not open specific part of the app (`dlopen`).
     -   Can be linked transitively to other dynamic libraries without
@@ -484,7 +509,18 @@ Now let's have a look at some pros & cons of both.
         loaded.
     -   Library can perform some cleanup tasks when it is closed
         (`dlclose`).
+    -   Potentially faster app start time as if a library is linked
+        lazily, and opened in the runtime.
+    -   Mergeable libraries, Xcode 15 feature could be used to combine
+        all dynamic libraries into a single framework leveraging the
+        best from the both worlds.
+    -   Hard separation of the codebase improves the compile time of the
+        application.
 -   **CONS**
+    -   Slower app launch as each dynamic library must be opened, and
+        loaded to memory separately. At the very worst case, a library
+        can run some computational difficult algorithm on the dlopen
+        initialiser which could slow the start up time even further.\
     -   The target must copy all dynamic libraries else the app crashes
         on the start or during runtime with `dyld library not found`.
     -   The overall size of the binary is bigger than the static one as
@@ -501,6 +537,8 @@ Now let's have a look at some pros & cons of both.
 **Static:**
 
 -   **PROS**
+    -   Faster app start up, as just one executable is loaded into the
+        memory
     -   Is part of the main executable and therefore the app cannot
         crash during launch or runtime due to a missing library.
     -   Overall smaller size of the final executable as the unused
@@ -518,19 +556,19 @@ Now let's have a look at some pros & cons of both.
         which library is going to be used.
     -   The main executable must be recompiled when the library has an
         update even though the library's interface remains the same.
-    -   Memory footprint of the main executable is bigger which implies
-        the load time of the app is slower.
+    -   Compile time is slower as there are no hard interfaces and the
+        build system must always figure it out what to re-compile
 
 ## Essentials
 
 When building any kind of modular architecture, it is crucial to keep in
 mind that a static library is attached to the executable while a dynamic
-one is opened and linked at the start time. Thereafter, if there are two
-frameworks linking the same static library the app will launch with
+one is opened and linked at the launch time. Thereafter, if there are
+two frameworks linking the same static library the app will launch with
 warnings `Class loaded twice ... one of them will be used.` issue. That
-causes a much slower app starts as the app needs to decide which of
-those classes will be used. Furthermore, when two different versions of
-the same static library are used the app will use them interchangeably.
+causes even slower app starts as the app needs to decide which of those
+classes will be used. Furthermore, when two different versions of the
+same static library are used the app will use them interchangeably.
 Debugging will become a horror in that case. That being said, it is very
 important to be sure that the linking was done right and no warnings
 appear.
@@ -539,9 +577,9 @@ All that is the reason why using dynamically linked frameworks for
 internal development is the way to go. However, working with static
 libraries is, unfortunately, inevitable especially when working with 3rd
 party libraries. Big companies like Google, Microsoft or Amazon are
-using static libraries for distributing their SDKs. For example:
-`GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all subsets
-of those SDKs are linked statically.
+using static libraries for distributing their SDKs. As of now, for
+example: `GoogleMaps`, `GooglePlaces`, `Firebase`, `MSAppCenter` and all
+subsets of those SDKs are linked statically.
 
 When using 3rd party dependency manager like Cocoapods for linking one
 static library attached to more than one project (App or Framework) it
@@ -1003,6 +1041,7 @@ Used binaries:
 
 [Realm](https://realm.io/docs/swift/latest)
 
+\newpage
 
 # Swift Compiler (optional)
 
@@ -1099,6 +1138,7 @@ let employee = Employee(firstName: "Cyril",
 employee.printEmployeeInfo()
 ```
 
+\newpage
 
 ### Parsing
 
@@ -1179,6 +1219,7 @@ soon as it type checks the source file.
         var houseNo: Int; { get }
     ...
 
+\newpage
 
 ### Semantic analysis
 
@@ -1338,6 +1379,7 @@ Source:
 Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
+\newpage
 
 ### LLVM IR Generation
 
@@ -1378,6 +1420,7 @@ entry:
 ...
 ```
 
+\newpage
 
 ### Exporting dylib
 
@@ -1462,6 +1505,7 @@ Cyril Cermak
 1. PorschePlatz, Stuttgart, Germany
 ```
 
+\newpage
 
 ## Conclusion
 
@@ -1488,6 +1532,7 @@ Development](https://modocache.io/getting-started-with-swift-development)
 [executable path, load path and
 rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
 
+\newpage
 
 # Development of the modular architecture
 
@@ -1497,7 +1542,7 @@ explained. Finally, it is time to deep dive into the building phase.
 First, let us do it manually and automate the process of creating
 libraries later on so that the newcomers do not have to copy-paste much
 of the boilerplate code when starting a new team or new part of the
-framework.
+application framework.
 
 For demonstration purposes, I chose the Cosmonaut app with all its
 necessary dependencies. Nevertheless, the same principle applies to all
@@ -1880,6 +1925,8 @@ being moved there. Another option is to shift those files from the
 domain layer to the service layer. A third option would be to use
 abstraction and achieve the same result not from the module level but
 from the code level. The ideal solution solely depends on the use case.
+There is yet another to separate the interfaces into a separate
+framework which will be introduced in the next section.
 
 A simple example could be that some flow is represented by a protocol
 that has a `start` function on it. That could for example be a
@@ -1919,11 +1966,517 @@ the implementations on the lower layer as they both linked towards the
 newly created core framework of that module. This, however, has the
 downside of having an extra framework that needs to be linked and
 maintained. However, with this approach, the so-called
-`Clean Architecture` would be followed. More about that later.
+`Clean Architecture` would be followed. More about that in the next
+section.
 
 Needless to say, any higher-level layer framework can link any framework
 from any lower layer. So for example, the Cosmonaut app can link
 anything from the Core or the newly defined Shared layer.
+
+## Core Framework
+
+For most cases, the architecture described until now would be
+sufficient. However, as teams and the Application Framework grow, there
+will be more and more use cases where the services will have to
+interact. There is always a possibility to connect the services on a
+higher level, in this case described they could be interacting either on
+a domain level or if more domains would be in need of it, even on the
+app level.
+
+Let us look at the concrete example. We can take a `CosmonautService`
+abstracted by a public protocol `CosmonautServicing` and
+`SpacesuitService` abstracted by a public protocol `SpacesuitServicing`
+each implemented in the relevant framework. A valid architectural need
+could be that `CosmonautService` must somehow interact with the
+`SpacesuitService` meaning knowing the public interface of the
+`SpacesuitService` such that an instance conforming to the public
+protocol can be passed in. The easiest way would be to interconnect
+those services via callbacks on a domain level or the app level, where
+an output of `CosmonautService` would be observed and trigger the needed
+functionality of the `SpacesuitService`. Having one case like that is
+probably fine, however, as such interaction grows the code will get
+ugly, luckily there is a way to improve our existing architecture by
+introducing something we can call a `Core` framework.
+
+### Using Core Framework
+
+Core framework is essentially another Framework target within the
+`SpacesuitService` Xcode project of the main framework. In our example
+of SpacesuitService, a core framework would be `SpacesuitServiceCore`.
+The `SpacesuitServiceCore` framework would however have to follow yet
+another set of rules to avoid any kind of cross compile issues.
+
+In XcodeGen the Core framework could be defined as follows;
+
+``` yaml
+...
+# The service framework containing implementations
+ISSSpacesuitService:
+  type: framework
+  platform: iOS
+  sources: SpacesuitService
+  dependencies:
+  # Linking and implements the `ISSSpacesuitServiceCore` protocols  
+  - framework: ISSSpacesuitServiceCore.framework
+    implicit: true
+...
+    
+# Core Framework for ISSSpacesuitServiceCore
+# defines interfaces and plain public types
+ISSSpacesuitServiceCore:
+  type: framework
+  platform: iOS
+  sources: SpacesuitServiceCore
+  dependencies:
+    # Linking and uses only interfaces from the NetworkCore
+    - framework: ISSNetworkCore.framework
+      implicit: true
+...
+```
+
+Consequently, the `SpacesuitServiceCore` can be linked and used in the
+CosmonautService framework. Making all publicly available protocols and
+types available to the `CosmonautService`.
+
+``` yaml
+...
+# The service framework containing implementations
+ISSCosmonautService:
+  type: framework
+  platform: iOS
+  sources: CosmonautService
+  dependencies:
+    # Linking the SpacesuitServiceCore in order to be able to use
+    # the public interfaces from it.
+    - framework: ISSSpacesuitServiceCore.framework
+      implicit: true
+...
+```
+
+In Xcode another target would just appear under the available targets
+and within the Cosmonaut project.
+
+![ISSSpacesuitService with
+Core](assets/xcode_core_framework.png){width="80%"}
+
+### Core Framework Usage and Best Practices
+
+Not surprisingly, when introducing e.g a new service framework, the best
+practice would be to start simple. For starters, having just the main
+framework with the protocols, types and implementations all mixed in. As
+the use cases of re-using some of the public parts of the service within
+another framework on the same layer emerge, the main framework could be
+split and the core parts could be moved out of the main framework to the
+core one.
+
+The core framework should contain only plain protocols, type definitions
+and basic data objects to really express only the "core". Certainly, in
+the ideal world, the core framework would not have any concrete
+implementations, however, in practice sometimes it is inevitable to add
+some helper class or a small class there.
+
+### Core Framework linking and advantages
+
+The most brilliant part about the Core framework is actually not only
+its reusability on the same layer while ensuring no cross compile issues
+but also the linking abstraction. As soon as the Core framework exists,
+it is no longer needed to link the main implementation heavy framework
+in services or domains. Instead, the Core is used as a dependency to
+higher layers. The framework that is linking the core framework will
+depend on the lightweight abstraction part of it. This further brings
+couple of wins.
+
+**Compile time decrease**
+
+A compile time could be heavily decreased. Let us have a look at why.
+Since now on the broader scope services and domains would depend on core
+frameworks representing protocols and basic types only, build system
+would not have to recompile or re-check to ensure the stability of
+dependent frameworks. If any implementation is changed within the main
+framework, the change affects only the main framework which ideally is
+linked only to the main app in order to instantiate the objects.
+Therefore, everything else within the Application Framework dependent on
+the core framework remains untouched. The build system instead of
+re-building the whole tree and checking recursively all dependencies
+would just have to re-compile the implementation. That already is a big
+win. However, no need to say that this applies to changes that are not
+modifying the core. If for example a protocol would be updated in the
+core module then no compile time would be saved. Yet another reason to
+focus and design protocols well - this however applies and is absolutely
+crucial in a later stage of development.
+
+**Tests needed to run decrease**
+
+Similarly to compile time, the tests that need to run to ensure
+stability and health of the Application Framework would also decrease.
+In our scenario where `CosmonautService` uses the
+`SpacesuitServiceCore`, the `CosmonautService` no longer depends on the
+implementations, therefore, instead of in tests working with concrete
+classes stubs and mocks are implemented based on the protocols - which
+at this point we are sure that remained the same.
+`CosmonautServiceTests` on a change in main `SpacesuitService` framework
+won't need to run at all. Because there is no direct dependency between
+those two frameworks. The tests would have to run only if the
+`SpacesuitServiceCore` would change. The lesser linking of main
+frameworks within the Application Framework the faster the testing.
+Especially on big project this brings lots of wins, imagine a project
+with hundreds of frameworks each having hundreds or even thousands of
+tests, which need to run before merge. Optimising the amount of
+frameworks needed to be tested on each PR at this point is cruical.
+
+**Framework Control And Encapsulation**
+
+A less significant benefit is, the fact that clients of the linked
+framework can no longer instantiate objects on their own. There is no
+concrete implementation within the Core. The main framework would have
+to be linked in order to let the client instantiate the objects. This
+particular case can improve the code a lot. Due to the fact that each
+client depends on the abstraction only and for example only the app
+instantiates the concrete objects which are then passed down to lower
+layers or registered in a dependency injection pool, all by the
+abstracted protocols. This further is ensuring single instances of
+classes are used across the app lifecycle rather than random clients
+using and creating new instances as they like.
+
+### Core Framework disadvantages
+
+As everything in our industry also core frameworks are having some
+downsides. First and foremost it is yet another framework that must be
+properly linked within the Application Framework and taken care of. In
+our example project that might be very simple but on big projects the
+Application Framework can contain hundreds of frameworks and the core
+parts potentially at some points doubles the amount.
+
+Further, worth mentioning point is the app start time, as not
+surprisingly core frameworks introducing new dynamic frameworks that
+must be linked and copied to the main app which will make the cold
+starts slower, as each dynamic framework must be loaded and opened on
+the app start which takes time, especially on older devices.
+
+**Mergeable Libraries**
+
+Mergeable libraries to the rescue, Apple introduced in WWDC2023 new
+compiler feature which can merge dynamic frameworks into one shared
+framework, drastically improving the start up time while leaving
+developers with the flexibility of dynamic linking. Unfortunately, as of
+now, almost one year after this feature was introduced the mergeable
+libraries are still having lots of issues. Certainly, those will be
+fixed with new Xcode updates and then the disadvantage of slower app
+start will be heavily improved. [Apple Documentation - Mergable
+Libraries](https://developer.apple.com/documentation/xcode/configuring-your-project-to-use-mergeable-libraries)
+
+### Core Framework Rules
+
+Generally, a core framework should not have many dependencies. However,
+it is possible to link lower layer frameworks, ideally abstracted by the
+core framework but also the concrete implementation if such pattern on
+lower framework was not applied. Furthermore, a core framework can
+potentially link another core framework on the same layer. Delving on
+our `CosmonautServiceCore` and `SpacesuitServiceCore`, each could link
+one and other. Given that there are no concrete implementations in it no
+issues should arise. However such case should be carefully evaluated to
+avoid tangling and yet again the compiler issues when cross linking.
+
+Certainly, linking the framework downwards should not be allowed in our
+example, `CosmonautServiceCore` should never be linked to
+`NetworkService` or any of its parts as lower layer must be agnostic of
+the upper layer.
+
+## Testing
+
+Since we already have a good working structure of our highly modular
+Application Framework let us have a look at how to test it in the most
+efficient and effective way. On small projects time spend on testing
+might not play very significant part as tests might be finished within a
+couple of minutes contrary on a big project and in our case tests could
+easily take hours to finish. Accordingly, the test strategy must be
+designed, developed, and supported locally and on the CI systems.
+
+### Unit Testing in Isolation
+
+First and foremost, unit testing and the ability to run tests in
+isolation. Not surprisingly, each Xcode project created should also
+contain unit tests for the implementations of the main framework.
+Continuing on our example, the test bundle can be added just by
+extending the configuration in the project.yml.
+
+``` yaml
+...
+# The service framework containing implementations
+ISSCosmonautService:
+  type: framework
+  platform: iOS
+  sources: CosmonautService
+  dependencies:
+    - framework: ISSNetworkCore.framework
+      implicit: true
+    ...
+... 
+CosmonautServiceTests:
+  type: bundle.unit-test
+  platform: iOS
+  sources: CosmonautServiceTests
+  dependencies:
+    - target: ISSCosmonautService
+...
+```
+
+Something definitely worth mentioning when developing in the Application
+Framework is the run in isolation. A developer no longer needs to
+compile the whole app consisting of lots frameworks but can set and
+build the desired framework just by setting it as a run/build target in
+Xcode. This allows beautiful tunnel focus isolation on the framework
+from the whole project. By doing so, the setup is the most optimal way
+to do test driven development, especially for a lower level UI free
+frameworks.
+
+To ensure the stability and good health of a framework, tests should run
+on any change within the framework so as on any change of the dependent
+framework listed in dependencies. In our example, `CosmonautService`
+links `ISSNetwork`, therefore, if `ISSNetworkCore` has changes,
+everything that depends on the `ISSNetwork` must also be compiled and
+tested. To ensure that a change in a pull request does not break the
+integrity before the merge all relevant frameworks must be tested.
+
+In the example, of a change in the `ISSNetworkCore` on the core layer,
+lots of frameworks would have to undergo the testing because of the
+framework is widely used across the application framework and provides
+essential functionality. On the other hand when a change in a domain
+like e.g `Cosmonaut` happen, there are no dependencies to a domain
+besides the app, therefore, only tests for the domain itself would have
+to run so as the main app or apps that are having this domain as a
+dependencies would have to be compiled or also run their unit tests.
+
+Further, in development usually a mixture of those two scenarios
+combined together is very often seen. As if `ISSNetworkCore` extends its
+protocol the developer also must adjust the affected code in other
+modules.
+
+Hint, as described already, an app in the Application Framework behaves
+like a container and usually does not have any logic implemented.
+Therefore, it can be that such app does not have many tests.
+
+I hope those two different examples gave a good idea of how drastically
+the time can differ on the CI when testing a change. From lets say
+testing a one domain and an app to running tests of the whole
+application framework. Unfortunately, Apple does not provide any tools
+that would count with those scenarios, but thanks to XcodeGen and its
+yaml description such testing can be scripted before the project is
+generated.
+
+### Application Framework App
+
+Up until now, the testing happened under one umbrella of an app in the
+Application Framework. However, Application Framework can have multiple
+applications consisting of the frameworks available. Those frameworks
+does not necessarily have to be related. There might be frameworks
+solely dedicated to one app, but leveraging the foundational work of the
+application framework. Meaning, using the same core frameworks for e.g
+Networking, Persistence etc.
+
+This scenario somehow forces us to introduce something we can call
+`Application Framework App`, which is a dummy application living on the
+app level consisting of all frameworks available within the Application
+Framework. The app does not necessarily have to do anything. It is there
+just to provide a container, an encapsulation of the whole Application
+Framework. The app by default can have all frameworks in, including one
+or more XCTestPlans defining the testing strategy and all test targets.
+
+### Unit Testing in Application Framework App
+
+Application Framework App is the perfect place for developers to ensure
+that their change, let's continue with the example, in `ISSNetworkCore`
+does compile within the whole Application Framework and not only within
+the singular app.
+
+On the CI, however, this app could be scripted and created on the fly
+based on the identified changes compared to the targeted branch. The
+scripted app would consist only of the needed frameworks for compilation
+so as already adjusted the targets needed to test in the test plan. It
+would be a subset of the Application Framework agnostic of any other
+app.
+
+### UITesting in Isolation
+
+Similarly to unit testing the UI tests can be developed and executed.
+Unlike unit tests, UI tests need an app to run in, as there is the
+actual UI. The first logical idea that comes to mind is to implement and
+maintain the UI tests on the app level. There the full application is
+created and can be deployed to a simulator or a device to run those
+tests. While this is surely the most intuitive way of introducing UI
+tests to the project it is not the ideal one. Imagine a scenario, where
+a domain, e.g `ISSUser` which provides the user's sign up / sign in
+functionality, profile details its flows etc. should be UI tested. Such
+a common business domain can be easily re-used across different apps. As
+those apps would grow, they would also aim for the UI testing strategy,
+and here we have the conflict. Either one app would give up on UI
+testing the user profile part of the app; if even possible. As login
+might be required to test some of the app's functionalities or the tests
+would be simply duplicated. In case of UI tests, the code duplication
+could be a significant which is something, we as good citizens of
+Application Framework should badly avoid doing.
+
+Yet another stunningly beautiful part of this highly modular
+architecture comes in to play. Let us call it UITests in isolation.
+Instead of defining the UITests on the app level, they can directly be
+defined on the domain level. A domain e.g `ISSCosmonaut`, can have its
+own so called by Apple `HostingApp`. The hosting app would be created
+within the Xcode project of the Cosmonaut domain and be nicely
+encapsulated in the Xcode's project. All this can be easily defined in
+project.yml.
+
+``` yaml
+...
+ISSCosmonaut:
+  type: framework
+  platform: iOS
+  sources: Cosmonaut
+  dependencies:
+    # Service
+    - framework: ISSCosmonautService.framework
+      implicit: true
+    ...
+
+# Tests for the main application
+CosmonautTests:
+  type: bundle.unit-test
+  platform: iOS
+  sources: CosmonautTests
+  dependencies:
+    - target: ISSCosmonaut
+
+CosmonautUITestsHostApp:
+  type: application
+  platform: iOS
+  sources: CosmonautUITestsHostApp
+  dependencies:
+    # The host app must have all the dependencies from the ISSCosmonaut
+    # Service
+    - framework: ISSCosmonautService.framework
+      implicit: true
+    ...
+      
+CosmonautUITests:
+  type: bundle.ui-testing
+  platform: iOS
+  sources:
+  - path: CosmonautUITests
+...
+```
+
+UITestsHostApp brings again another level of testing in isolation.
+Independently from the whole Application Framework, the app can be
+deployed and UI tested. An ideal scenario is when a domain is
+represented by a coordinator or many coordinators which take over the
+screen. The UITestsHostApp would simply mock the services those
+coordinators need to interact with and set up the app just as simply as
+instantiating the coordinators stack.
+
+Within such architecture the UITestsHostApp could be up and ready in no
+time, leaving the adequate team to develop the UITests. Essentially, the
+UITestsHostApp would just copy the instantiating boilerplate from the
+main app to ensure the consistency.
+
+This could be done for every domain that provides screen flows through
+the application, covering the Application Framework with as many tests
+as possible.
+
+### UITesting in Application Framework App
+
+Similarly to unit tests the UI tests would also have their place in the
+grouped app. By default in this case it could be a UI test plan defined
+in the `xctestplan` consisting of all hosting apps and their UI tests
+from the whole Application Framework, leaving developers with singular
+place to run all those tests for all available targets in one go.
+
+No need to mention that this UI xctestplan could be also scripted on the
+CI and only tests that are relevant to a change would be compiled and
+run on a Pull Request.
+
+Sadly, UI tests are usually very expensive to run, it is not a surprise
+that sometimes those tests take hours before finishing, therefore, they
+could run on a nightly basis or another development workflow relevant
+time.
+
+### Mock Framework
+
+As the tests grow there will be a pattern emerging, lots of frameworks
+will start implementing their own stubs and mocks from linked framework.
+As an example, a `CosmonautServiceTests` could instantiate the
+`CosmonautService` with stubbed `NetworkService`, in order to provide
+the data or return mocked responses. This mocked `NetworkService`
+however will get implmeneted pretty much in every tests of a framework
+that is linking and using the `NetworkService`. Therefore, over time
+those stubs and mocks will be by each test module that needs them,
+making very difficult to adjust the `NetworkService` protocol because on
+such change all conformed objects will have to be adapted. Making the
+developer go through all tests and adapt the mocks and stubs
+accordingly.
+
+Luckily, yet again, there is a beautiful solution for such problem in
+our modular architecture. Let us call it a Mock framework. A Mock
+framework sits again within the same Xcode project as the main framework
+and just simply provide generic stubs and mocks which can then further
+be extended or adapted as needed for the tests.
+
+There are many advantages of the Mock framework. First of all, it
+enforces a developer to make one great mock or a stub which is highly
+flexible and re-usable. Having a mock framework drastically reduces the
+need of creating such class in the test modules all over again. It also
+nicely separates the mock objects from the main production framework,
+pre-compiler macros would achieve the same but when mocking lots of
+classes, separating them completely to a different framework is even
+better.
+
+Worth mentioning is that mock frameworks are specifically used for
+testing, and should not be linked and used in the production app - that
+would be an anti-pattern. In project.yml such mocked framework could be
+defined as follows;
+
+``` yaml
+...
+ISSNetworkMock:
+  type: framework
+  platform: iOS
+  sources: NetworkMocks
+  dependencies:
+    - framework: ISSNetworkCore.framework
+      implicit: true
+...
+```
+
+For the test from dependent frameworks bundles, only change would be to
+link the mocked framework in order to get access to mocks and stubs it
+provides.
+
+## Final Look at One Fully Fledged Xcode Project (module)
+
+Finally, let us have a look at one fully fledged module which is
+featuring everything previously described. In our example
+`CosmonautService` seems like the ideal candidate that leverages
+everything described in here.
+
+The `CosmonautService` has - **CosmonautServiceTests** - Ensuring
+stability via unit testing - **CosmonautServiceUITests** - Ensuring
+stability via UI testing in the CosmonautServiceUITestsHostApp -
+**CosmonautServiceUITestsHostApp** - A special container app that allows
+the service to profile its features and run them in isolation from the
+whole Application Framework - **CosmonautService** - The main framework
+for developing the CosmonautService module - **CosmonautServiceCore** -
+The core framework for the main, ensuring that across others only the
+interfaces are used so as enabling the same layer re-reusability
+
+![Cosmonaut Service Fully Fledged
+Framework](assets/fully_fledged_framework.png) { width=60% }
+
+![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png) {
+width=60% }
+
+## Benefits of such modularisation
+
+## Different slicing of an layered architecture
+
+## Benchmarking of the architectures from David
 
 ## App secrets
 
@@ -2268,6 +2821,7 @@ common problems people working on such projects will be facing.
 I hope it all provided a good understanding of how to work in such a
 setup.
 
+\newpage
 
 # Dependency Managers
 
@@ -2643,6 +3197,7 @@ good way to go. That being said, with the hybrid approach, the project
 benefits from both feature sets which could speed up everyday
 development dramatically.
 
+\newpage
 
 # Design Patterns
 
@@ -2871,6 +3426,7 @@ patterns that helps when developing modular architecture. I would highly
 recommend deep diving more into this topic via books that are specially
 focused on such topic.
 
+\newpage
 
 # Project Automation
 
@@ -3015,6 +3571,7 @@ article and free ebook.
 https://blog.codemagic.io/the-complete-guide-to-ci-cd/
 https://codemagic.io/ci-cd-ebook/
 
+\newpage
 
 # THE END
 
