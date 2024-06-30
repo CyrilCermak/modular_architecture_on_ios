@@ -1253,7 +1253,7 @@ Needless to say, any higher-level layer framework can link any framework from an
 
 For most cases, the architecture described until now would be sufficient. However, as teams and the Application Framework grow, there will be more and more use cases where the services will have to interact. There is always a possibility to connect the services on a higher level, in this case described they could be interacting either on a domain level or if more domains would be in need of it, even on the app level. 
 
-Let us look at the concrete example. We can take a `CosmonautService` abstracted by a public protocol `CosmonautServicing` and `SpacesuitService` abstracted by a public protocol `SpacesuitServicing` each implemented in the relevant framework. A valid architectural need could be that `CosmonautSerivce` must somehow interact with the `SpacesuitService` meaning knowing the public interface of the `SpacesuitService` such that an instance conforming to the public protocol can be passed in. The easiest way would be to interconnect those services via callbacks on a domain level or the app level, where an output of `CosmonautSerivce` would be observed and trigger the needed functionality of the `SpacesuitService`. Having one case like that is probably fine, however, as such interaction grows the code will get ugly, luckily there is a way to improve our existing architecture by introducing something we can call a `Core` framework.
+Let us look at the concrete example. We can take a `CosmonautService` abstracted by a public protocol `CosmonautServicing` and `SpacesuitService` abstracted by a public protocol `SpacesuitServicing` each implemented in the relevant framework. A valid architectural need could be that `CosmonautService` must somehow interact with the `SpacesuitService` meaning knowing the public interface of the `SpacesuitService` such that an instance conforming to the public protocol can be passed in. The easiest way would be to interconnect those services via callbacks on a domain level or the app level, where an output of `CosmonautService` would be observed and trigger the needed functionality of the `SpacesuitService`. Having one case like that is probably fine, however, as such interaction grows the code will get ugly, luckily there is a way to improve our existing architecture by introducing something we can call a `Core` framework.
 
 ### Using Core Framework
 
@@ -1335,7 +1335,7 @@ A less significant benefit is, the fact that clients of the linked framework can
 
 As everything in our industry also core frameworks are having some downsides. First and foremost it is yet another framework that must be properly linked within the Application Framework and taken care of. In our example project that might be very simple but on big projects the Application Framework can contain hundreds of frameworks and the core parts potentially at some points doubles the amount. 
 
-Further, worth mentioning point is the app start time, as not surprisingly core frameworks introducing new dynamic frameworks that must be linked to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices. 
+Further, worth mentioning point is the app start time, as not surprisingly core frameworks introducing new dynamic frameworks that must be linked and copied to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices. 
 
 **Mergeable Libraries**
 
@@ -1350,7 +1350,7 @@ Certainly, linking the framework downwards should not be allowed in our example,
 
 ## Testing
 
-Since we already have a good working structure of our highly modular Application Framework let us have a look at how to test it in the most efficient and effective way. On small projects time spend on testing might not play very significant part as tests might be finished within a couple of minutes contrary on a big project and in our case tests could easily take hours to finish. Accordingly, the test strategy must be designed, developed, and supported on the locally and on the CI systems. 
+Since we already have a good working structure of our highly modular Application Framework let us have a look at how to test it in the most efficient and effective way. On small projects time spend on testing might not play very significant part as tests might be finished within a couple of minutes contrary on a big project and in our case tests could easily take hours to finish. Accordingly, the test strategy must be designed, developed, and supported locally and on the CI systems. 
 
 ### Unit Testing in Isolation
 
@@ -1407,8 +1407,6 @@ Similarly to unit testing the UI tests can be developed and executed. Unlike uni
    
 Yet another stunningly beautiful part of this highly modular architecture comes in to play. Let us call it UITests in isolation. Instead of defining the UITests on the app level, they can directly be defined on the domain level. A domain e.g `ISSCosmonaut`, can have its own so called by Apple `HostingApp`. The hosting app would be created within the Xcode project of the Cosmonaut domain and be nicely encapsulated in the Xcode's project. All this can be easily defined in project.yml.
 
-// TODO: Ensure that this works in the example project
-
 ```yaml
 ...
 ISSCosmonaut:
@@ -1464,7 +1462,7 @@ Sadly, UI tests are usually very expensive to run, it is not a surprise that som
 
 ### Mock Framework 
 
-As the tests grow there will be a pattern emerging, lots of frameworks will start implementing their own stubs and mocks from linked framework. As an example, a `CosmonautSerivceTests` could instantiate the `CosmonautService` with stubbed `NetworkService`, in order to provide the data or return mocked responses. This mocked `NetworkService` however will get implmeneted pretty much in every tests of a framework that is linking and using the `NetworkService`. Therefore, over time those stubs and mocks will be by each test module that needs them, making very difficult to adjust the `NetworkService` protocol because on such change all conformed objects will have to be adapted. Making the developer go through all tests and adapt the mocks and stubs accordingly.
+As the tests grow there will be a pattern emerging, lots of frameworks will start implementing their own stubs and mocks from linked framework. As an example, a `CosmonautServiceTests` could instantiate the `CosmonautService` with stubbed `NetworkService`, in order to provide the data or return mocked responses. This mocked `NetworkService` however will get implmeneted pretty much in every tests of a framework that is linking and using the `NetworkService`. Therefore, over time those stubs and mocks will be by each test module that needs them, making very difficult to adjust the `NetworkService` protocol because on such change all conformed objects will have to be adapted. Making the developer go through all tests and adapt the mocks and stubs accordingly.
 
 Luckily, yet again, there is a beautiful solution for such problem in our modular architecture. Let us call it a Mock framework. A Mock framework sits again within the same Xcode project as the main framework and just simply provide generic stubs and mocks which can then further be extended or adapted as needed for the tests. 
 
@@ -1486,9 +1484,22 @@ ISSNetworkMock:
 
 For the test from dependent frameworks bundles, only change would be to link the mocked framework in order to get access to mocks and stubs it provides.
 
+## Final Look at One Fully Fledged Xcode Project (module)
+Finally, let us have a look at one fully fledged module which is featuring everything previously described. In our example `CosmonautService` seems like the ideal candidate that leverages everything described in here.
 
-TODO: //
-## Closer look at one framework, explain Mocks, Test, UITests in isolation etc.
+The `CosmonautService` has 
+  - **CosmonautServiceTests** - Ensuring stability via unit testing
+  - **CosmonautServiceUITests** - Ensuring stability via UI testing in the CosmonautServiceUITestsHostApp
+  - **CosmonautServiceUITestsHostApp** - A special container app that allows the service to profile its features and run them in isolation from the whole Application Framework
+  - **CosmonautService** - The main framework for developing the CosmonautService module
+  - **CosmonautServiceCore** - The core framework for the main, ensuring that across others only the interfaces are used so as enabling the same layer re-reusability
+
+![Cosmonaut Service Fully Fledged Framework](assets/fully_fledged_framework.png) { width=60% }
+
+
+![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png) { width=60% }
+     
+
 ## Benefits of such modularisation
 ## Different slicing of an layered architecture
 ## Benchmarking of the architectures from David
