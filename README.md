@@ -2472,11 +2472,37 @@ Framework](assets/fully_fledged_framework.png) { width=60% }
 ![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png) {
 width=60% }
 
-## Benefits of such modularisation
+## Conclusion
+
+In this chapter we delved on the modularisation of the whole Application
+Framework, further slicing a framework and separating it into its Core,
+or adding the UITestingHostApp to it which further allows running the
+framework in complete isolation from the rest. I hope that the benefits
+of this approach are now well understood. Like everything, there is a
+pros and cons, this scalable architecture would be a big overhead for a
+team of two or three developers. However, when having many teams
+contributing to the codebase on a daily basis this would definitely be a
+huge benefit. I can tell from my experience where at Porsche we scaled
+from two teams to nowadays \~25 teams with this approach. The
+development of frameworks can and should start simply, when needed the
+architecture can be enhanced.
+
+In the next chapter we are going to have a look at other possibilities
+of modularisation. Particularly, we are going to focus on the difference
+between static and dynamic linking, launch time of the app based on the
+number of modules, and compile time of each different approach from on a
+developer's change in the codebase to a full clean build and similar to
+an incremental build.
 
 ## Different slicing of an layered architecture
 
 ## Benchmarking of the architectures from David
+
+# Modular Architecture - Best Practices
+
+At this point, we have a very well designed and benchmarked
+architecture, let us continue in this chapter with the best practices of
+contribution and collaboration on the modularised Application Framework.
 
 ## App secrets
 

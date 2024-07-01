@@ -1506,9 +1506,9 @@ In this chapter we delved on the modularisation of the whole Application Framewo
 
 In the next chapter we are going to have a look at other possibilities of modularisation. Particularly, we are going to focus on the difference between static and dynamic linking, launch time of the app based on the number of modules, and compile time of each different approach from on a developer's change in the codebase to a full clean build and similar to an incremental build. 
 
-## Different slicing of an layered architecture
+# Benchmarking of the architectures from David
 
-## Benchmarking of the architectures from David
+// TODO: Copy-paste the findings from David's thesis
 
 # Modular Architecture - Best Practices
 
