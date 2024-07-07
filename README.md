@@ -2496,7 +2496,9 @@ an incremental build.
 
 # Benchmarking of the architectures from David
 
-// TODO: Copy-paste the findings from David's thesis
+// TODO: Copy-paste the findings from David's thesis, highlight the
+advantages and disadvantages, yet again elaborate on mergable libraries
+how they could bring down the disadvantages rapidly.
 
 # Modular Architecture - Best Practices
 
