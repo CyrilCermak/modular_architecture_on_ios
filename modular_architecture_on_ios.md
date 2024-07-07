@@ -5,7 +5,6 @@ date: "30.7.2021"
 subject: "Domain driven design development"
 keywords: [Markdown, Example]
 subtitle: "Building large scalable iOS apps and frameworks with Domain Driven Design"
-lang: "en"
 titlepage: true,
 titlepage-rule-heigh: 0
 toc-own-page: true
