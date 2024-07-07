@@ -1,8 +1,7 @@
 ---
-title: "Modular Architecture on iOS/macOS"
+title: "Modular Architecture on iOS and macOS"
 author: [Cyril Cermak]
-date: "30.7.2021"
-subject: "Domain driven design development"
+date: "7.7.2021"
 keywords: [Markdown, Example]
 subtitle: "Building large scalable iOS apps and frameworks with Domain Driven Design"
 titlepage: true,
