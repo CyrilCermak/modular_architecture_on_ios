@@ -32,7 +32,7 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
-"To all passionate engineers who are solving tough problems on a daily basis with a smile. It is great pleasure for everyone to work with you! This book is for you!"
+"To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger says; Don't just take, give something back. This is me giving back." 
 
 &&
 
@@ -59,7 +59,7 @@ The deal-breaker comes when your PO/PM/CTO/CEO or anybody higher on the company'
 
 Not surprisingly, a better approach would be to start refactoring the app using a modular approach, where each team can be responsible for particular frameworks (parts of the app) that are then linked towards final customer-facing apps. That will most certainly take time as it will not be easy to transform it but the future of the company's mobile engineering will be faster, scalable, maintainable and even ready to distribute or open-source some SDKs of it to the outer world.
 
-Another scenario could be that you are already working on an app that is set up in a modular way but your app takes around 20 mins to compile because it is a huge legacy codebase that has been in development for the past eight or so years and has linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean means you can take a double shot of espresso. I have been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process of such a project [in an article on Medium in 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
+Another scenario could be that you are already working on an app that is set up in a modular way but your app takes around 20 mins to compile because it is a huge legacy codebase that has been in development for the past ten or so years and has linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean means you can take a double shot of espresso. I have been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process of such a project [in an article on Medium in 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
 
 Nowadays, as an iOS System Architect, I am often getting asked some questions all over again from new teams or new colleagues with regards to those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. The purpose of it is to help developers working on such architectures to gain the background knowledge and experience in order to more quickly and correctly implement these ideas.
 
@@ -70,7 +70,7 @@ Hopefully, this introduction provided enough motivation that you will want to di
 The latest version of [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) for compiling the demo examples, [brew](https://brew.sh/) to install some mandatory dependencies, [Ruby](https://www.ruby-lang.org/en/), and [bundler](https://bundler.io/) for running scripts and downloading some ruby gems.
 
 ## What is this book about
-This book describes the essentials of building a modular architecture on iOS. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project. This book focuses on high level architecture, modularisation of a project, and collaboration in way to be the most efficient.  
+This book describes the essentials of building a modular architecture on iOS which further can be extended to all Apple platforms. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project. This book focuses on high level architecture, modularisation of a project, and collaboration in way to be the most efficient.  
 
 ## What is this book NOT about
 SwiftUI.
@@ -81,7 +81,7 @@ SwiftUI.
 
 In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. These include building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers, and so on. With the already existing mobile foundation, the whole development process will be done way faster and cleaner.
 
-To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD (Continous Integration / Continous Delivery), maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
+To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD (Continuous Integration / Continuous Delivery), maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
 
 This book describes building such a large scalable architecture with domain-driven design and does so by using examples; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
@@ -102,7 +102,7 @@ Nevertheless, the same principles can be applied for other architectural structu
 - Feature
 - Core
 
-This whole setup in general is further in the book referenced as Application Framework.
+This whole setup with layers and modules in them is further in the book referenced as `Application Framework`.
 
 Now to the specific layers.
 
@@ -173,7 +173,7 @@ The linked services use the `Network` and `Radio` core modules. These provide th
 
 The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each domain is responsible for screens and users flow through the part of the app.
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service` services that provide data for domain-specifc screens and `UIComponents` provides the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service` services that provide data for domain-specific screens and `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service uses `Network` for updating Houston about the current state of the `Cosmonaut` and uses `Persistence` for storing the data of the cosmonaut for offline usage.
 

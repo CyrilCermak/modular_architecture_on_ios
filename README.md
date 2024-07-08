@@ -7,7 +7,7 @@
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven
 Design
 
-**CFBundleVersion** - 0.9.0 - Developer preview
+**CFBundleVersion** - 2.0.0 - Developer preview
 
 \newpage
 
@@ -2500,7 +2500,11 @@ an incremental build.
 advantages and disadvantages, yet again elaborate on mergable libraries
 how they could bring down the disadvantages rapidly.
 
-# Modular Architecture - Best Practices
+# SPM (maybe v3? or never)
+
+// TODO: Building the same with SPM
+
+# Application Framework - Best Practices
 
 At this point, we have a very well designed and benchmarked
 architecture, let us continue in this chapter with the best practices of
