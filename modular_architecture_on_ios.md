@@ -601,7 +601,7 @@ Used binaries:
 
 \newpage
 # Swift Compiler (optional)
-Since we touched the Xcode's build system in the previous chapter it would be unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human-readable code to running it on bare metal.
+Since we touched the Xcode's build system in the previous chapter it would be unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human-readable code to running it on bare metal. In this chapter we are going to look at how a library can be built purely in Swift's ecosystem.
 
 While other chapters are rather essential for having a good understanding of the development of modular architecture, this chapter is optional.
 
@@ -1000,14 +1000,13 @@ First, let us do it manually and automate the process of creating libraries late
 
 For demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies to all other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the [pre-build repository](https://github.com/CyrilCermak/modular-architecture-on-iOS) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
+You can look at the `iss_modular_architecture` folder and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its dependencies.
 
 <div style="float:center" markdown="1">
 ![Cosmonaut app](assets/Cosmonaut.png){ width=70% }
 </div>
-
 
 ## Creating workspace structure
 
@@ -1065,7 +1064,7 @@ You might have noticed `project.yml` file that was created with every framework 
 
 Conflicts in the `project.pbxproj` files are very common when more than one developer is working on the same codebase. Besides the build settings for the project, this file contains and tracks files that are included for the compilation. It also tracks the targets to which these files belong. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand.
 
-Since programmers are lazy creatures, it very often also happens that a file removed from an Xcode project still remains in the repository as the file itself was not moved to the trash. That could lead to git continuing to track a now unused and undesired file. Furthermore, it could also lead to the file being readded to the project by the developer who was modifying it.
+Since programmers are lazy creatures, it very often also happens that a file removed from an Xcode project still remains in the repository as the file itself was not moved to the trash. That could lead to git continuing to track a now unused and undesired file. Furthermore, it could also lead to the file being re-added to the project by the developer who was modifying it.
 
 ### Hello XcodeGen
 Fortunately, in the Apple ecosystem, we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the `pbxproj` file for us based on the well-arranged yaml file. In order to use it, we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
@@ -1235,7 +1234,7 @@ Let us say that the build system will jump on compiling the Network module where
 
 That's where the compiler will stop.
 
-Needless to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. In theory this is all nice and makes sense. In practice, however, it can happen that one domain will require something from another domain (for example, the Cosmonaut domain will require something from the Spacesuit domain). It can be some domain-specific logic, views or even the whole flow of screens. In that case, there are some options for how to tackle the issue. Either, a new module on the service layer can be created and the necessary source code files that are shared across multiple domains being moved there. Another option is to shift those files from the domain layer to the service layer. A third option would be to use abstraction and achieve the same result not from the module level but from the code level. The ideal solution solely depends on the use case. There is yet another to separate the interfaces into a separate framework which will be introduced in the next section.
+Needless to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. In theory this is all nice and makes sense. In practice, however, it can happen that one domain will require something from another domain (for example, the Cosmonaut domain will require something from the Spacesuit domain). It can be some domain-specific logic, views or even the whole flow of screens. In that case, there are some options for how to tackle the issue. Either, a new module on the service layer can be created and the necessary source code files that are shared across multiple domains being moved there. Another option is to shift those files from the domain layer to the service layer. A third option would be to use abstraction and achieve the same result not from the module level but from the code level. The ideal solution solely depends on the use case. There is yet another possibility, to separate the interfaces into a separate framework which will be introduced in the next section.
 
 A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a `coordinator` pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework, we can rely on all domains understanding it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
 
@@ -1325,7 +1324,7 @@ A compile time could be heavily decreased. Let us have a look at why. Since now 
 
 **Tests needed to run decrease**
 
-Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. Especially on big project this brings lots of wins, imagine a project with hundreds of frameworks each having hundreds or even thousands of tests, which need to run before merge. Optimising the amount of frameworks needed to be tested on each PR at this point is cruical.
+Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. Especially on big project this brings lots of wins, imagine a project with hundreds of frameworks each having hundreds or even thousands of tests, which need to run before merge. Optimising the amount of frameworks needed to be tested on each PR at this point is crucial.
 
 **Framework Control And Encapsulation**
 
