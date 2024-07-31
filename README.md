@@ -7,7 +7,7 @@
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven
 Design
 
-**CFBundleVersion** - 0.9.0 - Developer preview
+**CFBundleVersion** - 2.0.0 - Developer preview
 
 \newpage
 
@@ -292,7 +292,7 @@ Framework.
 While this chapter is rather theoretical, in the following chapters
 everything will be explained and showcased in practice.
 
-![Overview](assets/application_framework.png)
+![Application Framework](assets/application_framework.png){width="70%"}
 
 The example has three applications.
 
@@ -308,7 +308,7 @@ bootstrapping for the app while the app itself behaves like a container.
 
 ### Overview
 
-![ISS Overview](assets/ISSOverview.png)
+![Overview app](assets/ISSOverview.png){width="70%"}
 
 The diagram above describes the concrete linking of modules for the app.
 Let us have a closer look at it.
@@ -331,7 +331,7 @@ used for a database operations.
 
 ### Cosmonaut
 
-![Cosmonaut App](assets/Cosmonaut.png)
+![Cosmonaut app](assets/Cosmonaut.png){width="70%"}
 
 The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This
 is the same for every other domain, each domain is responsible for
@@ -1557,7 +1557,7 @@ As a reminder, the following schema showcases the Cosmonaut app with its
 dependencies.
 
 ::: {style="float:center" markdown="1"}
-![Cosmonaut App](assets/Cosmonaut.png){width="70%"}
+![Cosmonaut app](assets/Cosmonaut.png){width="70%"}
 :::
 
 ## Creating workspace structure
@@ -2056,8 +2056,8 @@ ISSCosmonautService:
 In Xcode another target would just appear under the available targets
 and within the Cosmonaut project.
 
-![ISSSpacesuitService with
-Core](assets/xcode_core_framework.png){width="80%"}
+![SpacesuitService with
+Core](assets/xcode_core_framework.png){width="50%"}
 
 ### Core Framework Usage and Best Practices
 
@@ -2467,10 +2467,10 @@ The core framework for the main, ensuring that across others only the
 interfaces are used so as enabling the same layer re-reusability
 
 ![Cosmonaut Service Fully Fledged
-Framework](assets/fully_fledged_framework.png) { width=60% }
+Framework](assets/fully_fledged_framework.png){width="60%"}
 
-![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png) {
-width=60% }
+![Cosmonaut Service - Xcode
+project](assets/cosmonautService_full.png){width="60%"}
 
 ## Conclusion
 
@@ -2494,11 +2494,17 @@ number of modules, and compile time of each different approach from on a
 developer's change in the codebase to a full clean build and similar to
 an incremental build.
 
-## Different slicing of an layered architecture
+# Benchmarking of the architectures from David
 
-## Benchmarking of the architectures from David
+// TODO: Copy-paste the findings from David's thesis, highlight the
+advantages and disadvantages, yet again elaborate on mergable libraries
+how they could bring down the disadvantages rapidly.
 
-# Modular Architecture - Best Practices
+# SPM (maybe v3? or never)
+
+// TODO: Building the same with SPM
+
+# Application Framework - Best Practices
 
 At this point, we have a very well designed and benchmarked
 architecture, let us continue in this chapter with the best practices of

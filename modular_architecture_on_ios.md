@@ -1,11 +1,9 @@
 ---
-title: "Modular Architecture on iOS/macOS"
+title: "Modular Architecture on iOS and macOS"
 author: [Cyril Cermak]
-date: "30.7.2021"
-subject: "Domain driven design development"
+date: "17.7.2024"
 keywords: [Markdown, Example]
 subtitle: "Building large scalable iOS apps and frameworks with Domain Driven Design"
-lang: "en"
 titlepage: true,
 titlepage-rule-heigh: 0
 toc-own-page: true
@@ -22,7 +20,7 @@ urlcolor: cyan
 
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
-**CFBundleVersion** - 0.9.0 - Developer preview
+**CFBundleVersion** - 2.0.0 - Developer preview
 
 \newpage
 # Dedication
@@ -34,7 +32,7 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
-"To all passionate engineers who are solving tough problems on a daily basis with a smile. It is great pleasure for everyone to work with you! This book is for you!"
+"To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger says; Don't just take, give something back. This is me giving back." 
 
 &&
 
@@ -61,7 +59,7 @@ The deal-breaker comes when your PO/PM/CTO/CEO or anybody higher on the company'
 
 Not surprisingly, a better approach would be to start refactoring the app using a modular approach, where each team can be responsible for particular frameworks (parts of the app) that are then linked towards final customer-facing apps. That will most certainly take time as it will not be easy to transform it but the future of the company's mobile engineering will be faster, scalable, maintainable and even ready to distribute or open-source some SDKs of it to the outer world.
 
-Another scenario could be that you are already working on an app that is set up in a modular way but your app takes around 20 mins to compile because it is a huge legacy codebase that has been in development for the past eight or so years and has linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean means you can take a double shot of espresso. I have been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process of such a project [in an article on Medium in 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
+Another scenario could be that you are already working on an app that is set up in a modular way but your app takes around 20 mins to compile because it is a huge legacy codebase that has been in development for the past ten or so years and has linked every possible 3rd party library along the way. The decision was made to modularise it with Cocoapods therefore, you cannot link easily already pre-compiled libraries with Carthage and every project clean means you can take a double shot of espresso. I have been there, trust me, it is another type of hell, definitely not a place where anyone would like to be. I described the whole migration process of such a project [in an article on Medium in 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f). Of course, in this book you will read about it in more detail.
 
 Nowadays, as an iOS System Architect, I am often getting asked some questions all over again from new teams or new colleagues with regards to those topics. Thereafter, I decided to sum it up and tried to get the whole subject covered in this book. The purpose of it is to help developers working on such architectures to gain the background knowledge and experience in order to more quickly and correctly implement these ideas.
 
@@ -72,7 +70,7 @@ Hopefully, this introduction provided enough motivation that you will want to di
 The latest version of [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) for compiling the demo examples, [brew](https://brew.sh/) to install some mandatory dependencies, [Ruby](https://www.ruby-lang.org/en/), and [bundler](https://bundler.io/) for running scripts and downloading some ruby gems.
 
 ## What is this book about
-This book describes the essentials of building a modular architecture on iOS. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project. This book focuses on high level architecture, modularisation of a project, and collaboration in way to be the most efficient.  
+This book describes the essentials of building a modular architecture on iOS which further can be extended to all Apple platforms. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project. This book focuses on high level architecture, modularisation of a project, and collaboration in way to be the most efficient.  
 
 ## What is this book NOT about
 SwiftUI.
@@ -83,7 +81,7 @@ SwiftUI.
 
 In the introduction, I briefly touched on the motivation for building the project in a modular way. To summarise, modular architecture will give us much more freedom when it comes to the product decisions that will influence the overall app engineering. These include building another app for the same company, open-sourcing some parts of the existing codebase, scaling the team of developers, and so on. With the already existing mobile foundation, the whole development process will be done way faster and cleaner.
 
-To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD (Continous Integration / Continous Delivery), maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
+To be fair, maintaining such a software foundation of a company might be also really difficult. By maintaining, I mean, taking care of the CI/CD (Continuous Integration / Continuous Delivery), maintaining old projects developed on top of the foundation that was heavily refactored in the meantime, legacy code, keeping it up-to-date with the latest development tools and so on. It goes without saying that on a very large project, this could be the work of one standalone team.
 
 This book describes building such a large scalable architecture with domain-driven design and does so by using examples; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
@@ -104,7 +102,7 @@ Nevertheless, the same principles can be applied for other architectural structu
 - Feature
 - Core
 
-This whole setup in general is further in the book referenced as Application Framework.
+This whole setup with layers and modules in them is further in the book referenced as `Application Framework`.
 
 Now to the specific layers.
 
@@ -146,7 +144,7 @@ Now in this example, we will have a look at how such architecture could look lik
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.
 
-![Overview](assets/application_framework.png)
+![Application Framework](assets/application_framework.png){ width=70% }
 
 
 The example has three applications.
@@ -159,7 +157,7 @@ As described above, all apps link the Scaffold module which provides the bootstr
 
 ### Overview
 
-![ISS Overview](assets/ISSOverview.png)
+![Overview app](assets/ISSOverview.png){ width=70% }
 
 The diagram above describes the concrete linking of modules for the app. Let us have a closer look at it.
 
@@ -171,11 +169,11 @@ The linked services use the `Network` and `Radio` core modules. These provide th
 
 ### Cosmonaut
 
-![Cosmonaut App](assets/Cosmonaut.png)
+![Cosmonaut app](assets/Cosmonaut.png){ width=70% }
 
 The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each domain is responsible for screens and users flow through the part of the app.
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service` services that provide data for domain-specifc screens and `UIComponents` provides the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service` services that provide data for domain-specific screens and `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service uses `Network` for updating Houston about the current state of the `Cosmonaut` and uses `Persistence` for storing the data of the cosmonaut for offline usage.
 
@@ -201,6 +199,8 @@ There are of course some disadvantages as well. For example, onboarding new deve
 Before we deep dive into the development of previously described architecture, there is some essential knowledge that needs to be explained. In particular, we will need some background in the type of library that is going to be used for building such a project and its behaviour.
 
 In Apple's ecosystem as of today, we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Previously known as `Cocoa Touch Framework`, the dynamically linked library is nowadays referred to simply as `Framework`. The statically linked library is known as the `Static Library`.
+
+Actually, at this point, we might say there is third. A short note deserves also Swift Package and Swift Package Manager (SPM). SPM is part of the Swift's ecosystem rather than Apple's. A swift package describes how a source code should be attached to a target, leaving up to the swift package developer if static or dynamic linking is used. By default, SPM uses static linking and similarly as a Framework can have additional resources attached to it. SPM is not designed to share a compiled executables, it is designed to share source code files with ease. It also became a common practice to share a xcframework via SPM, in that case SPM servers just as a wrapper around the attached compiled binary.  
 
 ![Xcode Framework Types](assets/FrameworksType.png)
 
@@ -601,7 +601,7 @@ Used binaries:
 
 \newpage
 # Swift Compiler (optional)
-Since we touched the Xcode's build system in the previous chapter it would be unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human-readable code to running it on bare metal.
+Since we touched the Xcode's build system in the previous chapter it would be unfair to the `swiftc` to leave it untouched. Even though knowing how compiler works is not mandatory knowledge it is really interesting and it gives a good closure of the whole process from writing human-readable code to running it on bare metal. In this chapter we are going to look at how a library can be built purely in Swift's ecosystem.
 
 While other chapters are rather essential for having a good understanding of the development of modular architecture, this chapter is optional.
 
@@ -1000,14 +1000,13 @@ First, let us do it manually and automate the process of creating libraries late
 
 For demonstration purposes, I chose the Cosmonaut app with all its necessary dependencies. Nevertheless, the same principle applies to all other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the [pre-build repository](https://github.com/CyrilCermak/modular-architecture-on-iOS) and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
+You can look at the `iss_modular_architecture` folder and fully focus on the step by step explanations in the book or you can build it on your own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its dependencies.
 
 <div style="float:center" markdown="1">
-![Cosmonaut App](assets/Cosmonaut.png){ width=70% }
+![Cosmonaut app](assets/Cosmonaut.png){ width=70% }
 </div>
-
 
 ## Creating workspace structure
 
@@ -1065,7 +1064,7 @@ You might have noticed `project.yml` file that was created with every framework 
 
 Conflicts in the `project.pbxproj` files are very common when more than one developer is working on the same codebase. Besides the build settings for the project, this file contains and tracks files that are included for the compilation. It also tracks the targets to which these files belong. A typical conflict happens when one developer removes a file from the Xcode's structure while another developer was modifying it in a separate branch. This will resolve in a merge conflict in the `pbxproj` file which is very time consuming to fix as the file is using Apple's mystified language no one can understand.
 
-Since programmers are lazy creatures, it very often also happens that a file removed from an Xcode project still remains in the repository as the file itself was not moved to the trash. That could lead to git continuing to track a now unused and undesired file. Furthermore, it could also lead to the file being readded to the project by the developer who was modifying it.
+Since programmers are lazy creatures, it very often also happens that a file removed from an Xcode project still remains in the repository as the file itself was not moved to the trash. That could lead to git continuing to track a now unused and undesired file. Furthermore, it could also lead to the file being re-added to the project by the developer who was modifying it.
 
 ### Hello XcodeGen
 Fortunately, in the Apple ecosystem, we can use [xcodegen](https://github.com/yonaskolb/XcodeGen), a program that generates the `pbxproj` file for us based on the well-arranged yaml file. In order to use it, we have to first install it via `brew install xcodegen` or via other ways described on its homepage.
@@ -1235,7 +1234,7 @@ Let us say that the build system will jump on compiling the Network module where
 
 That's where the compiler will stop.
 
-Needless to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. In theory this is all nice and makes sense. In practice, however, it can happen that one domain will require something from another domain (for example, the Cosmonaut domain will require something from the Spacesuit domain). It can be some domain-specific logic, views or even the whole flow of screens. In that case, there are some options for how to tackle the issue. Either, a new module on the service layer can be created and the necessary source code files that are shared across multiple domains being moved there. Another option is to shift those files from the domain layer to the service layer. A third option would be to use abstraction and achieve the same result not from the module level but from the code level. The ideal solution solely depends on the use case. There is yet another to separate the interfaces into a separate framework which will be introduced in the next section.
+Needless to say, each layer is defined to contain stand-alone modules that are just in need of some sub-dependencies. In theory this is all nice and makes sense. In practice, however, it can happen that one domain will require something from another domain (for example, the Cosmonaut domain will require something from the Spacesuit domain). It can be some domain-specific logic, views or even the whole flow of screens. In that case, there are some options for how to tackle the issue. Either, a new module on the service layer can be created and the necessary source code files that are shared across multiple domains being moved there. Another option is to shift those files from the domain layer to the service layer. A third option would be to use abstraction and achieve the same result not from the module level but from the code level. The ideal solution solely depends on the use case. There is yet another possibility, to separate the interfaces into a separate framework which will be introduced in the next section.
 
 A simple example could be that some flow is represented by a protocol that has a `start` function on it. That could for example be a `coordinator` pattern that would be defined for the whole framework and all modules would be following it. That protocol must then be defined in one of the lower layers frameworks in this case since it is related to a flow of view controllers, the UIComponents could be a good place for it. Due to that, in the framework, we can rely on all domains understanding it. Thereafter, the Cosmonaut app could instantiate the coordinator from the Spacesuit domain and pass it down or assign it as a child coordinator to the Cosmonaut domain.
 
@@ -1306,7 +1305,7 @@ ISSCosmonautService:
 
 In Xcode another target would just appear under the available targets and within the Cosmonaut project.
 
-![ISSSpacesuitService with Core](assets/xcode_core_framework.png){ width=80% }
+![SpacesuitService with Core](assets/xcode_core_framework.png){ width=50% }
 
 
 ### Core Framework Usage and Best Practices
@@ -1325,7 +1324,7 @@ A compile time could be heavily decreased. Let us have a look at why. Since now 
 
 **Tests needed to run decrease**
 
-Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. Especially on big project this brings lots of wins, imagine a project with hundreds of frameworks each having hundreds or even thousands of tests, which need to run before merge. Optimising the amount of frameworks needed to be tested on each PR at this point is cruical.
+Similarly to compile time, the tests that need to run to ensure stability and health of the Application Framework would also decrease. In our scenario where `CosmonautService` uses the `SpacesuitServiceCore`, the `CosmonautService` no longer depends on the implementations, therefore, instead of in tests working with concrete classes stubs and mocks are implemented based on the protocols - which at this point we are sure that remained the same. `CosmonautServiceTests` on a change in main `SpacesuitService` framework won't need to run at all. Because there is no direct dependency between those two frameworks. The tests would have to run only if the `SpacesuitServiceCore` would change. The lesser linking of main frameworks within the Application Framework the faster the testing. Especially on big project this brings lots of wins, imagine a project with hundreds of frameworks each having hundreds or even thousands of tests, which need to run before merge. Optimising the amount of frameworks needed to be tested on each PR at this point is crucial.
 
 **Framework Control And Encapsulation**
 
@@ -1494,10 +1493,10 @@ The `CosmonautService` has
   - **CosmonautService** - The main framework for developing the CosmonautService module
   - **CosmonautServiceCore** - The core framework for the main, ensuring that across others only the interfaces are used so as enabling the same layer re-reusability
 
-![Cosmonaut Service Fully Fledged Framework](assets/fully_fledged_framework.png) { width=60% }
+![Cosmonaut Service Fully Fledged Framework](assets/fully_fledged_framework.png){ width=60% }
 
 
-![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png) { width=60% }
+![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png){ width=60% }
      
 
 ## Conclusion
@@ -1723,7 +1722,11 @@ When building apps in the described modular architecture, some considerations ne
 - With mergeable libraries working, the launch time effects of an increased number of frameworks might not be as pronounced, if present at all. As the frameworks do not need to be loaded dynamically on each app start, the biggest contributing factor to the launch time is no longer there. In the first small experiments with our My Porsche app, we could decrease the launch time from around 2 seconds to under 0.5 seconds on an iPhone 14 Pro.
 
 
-# Modular Architecture - Best Practices
+# SPM (maybe v3? or never)
+
+// TODO: Building the same with SPM
+
+# Application Framework - Best Practices
 
 At this point, we have a very well designed and benchmarked architecture, let us continue in this chapter with the best practices of contribution and collaboration on the modularised Application Framework. 
 
