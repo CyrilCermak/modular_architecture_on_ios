@@ -1516,7 +1516,150 @@ As a baseline comparison, a monolithic app will be used. In this app, code is no
 
 
 ## Test setup
+For testing the different architectures, it wasn't feasibly to migrate a working app of considerable size into the different architectures, as this would take quite a lot of time and effort. Instead, a code generator has been written. This generator can dynamically generate enums, protocols and corresponding implementations according to a template and replace the name of the file. These files also reference each other, so an implementation of protocol A will reference protocol B. While generating these files, they are structured automatically by the generator according to the architectures that are benchmarked against each other. The contents of the files try to resemble real-world projects like the MPA and use complex features like `Combine` and generics. The generated swift files were then combined into an iOS App project using `xcodegen` to generate the coresponding Xcode project files.
 
+Using this method, multiple different apps were generated: One monolithic application as a baseline; four apps using the described four-layered-architecutre, four apps using a three-layered-architecture, and four apps using the separated Core module architecture of the four-layered-architecture. For each of the architectures (exluduing the monolithic application), four variants of the apps have been generated: two statically linked and two dynamically linked applications. One of those two applications with 30 modules and the other one with 300 modules. With that strategy, all architectures can be compared for each linking method and how the metrics change with an increased number of modules.
+The tolal number of tested applications is 13 (4 different architecture x 2 linking methods x 2 different number of modules + 1 monolith).
+
+For the generation of the swift files, the following templates were used for enums:
+```swift
+public enum EnumName<T1, T2, T3, T4, T5> {
+  case case0
+  ...
+  case case6(
+    T1, T2, T3, T4, T5, T1, T2, T3, T4, T5, T1, T2, T3, T4, T5, T1, T2, T3, T4, T5, T1, T2, T3, T4,
+    T5)
+  ...
+  case case12(URLSession, UIView, UIViewController, UINavigationController, any View)
+
+  public var comment: String {
+    switch self {
+    case .case0:
+      return "case0"
+    ...
+    case .case6(
+      let t1 as URL, let t2 as CurrentValueSubject<Any, Never>,
+      let t3 as CurrentValueSubject<Any, Never>, let t4, let t5, let t12, let t22, let t32, let t42,
+      let t52, let t13,
+      let t23, let t33, let t43, let t53, let t14, let t24, let t34, let t44, let t54, let t15,
+      let t25, let t35, let t45, let t55):
+      let just = Just(t1)
+      let combined = t2.combineLatest(t3, just).sink { _ in
+        print("Received values")
+      }
+      return
+        "case6 combined: \(combined.hashValue) \(t1) \( t2) \(t3) \(t4) \(t5) \(t12) \(t22) \(t32) \(t42) \(t52) \(t13) \(t23) \(t33) \(t43) \(t53) \(t14) \(t24) \(t34) \(t44) \(t54) \(t15) \(t25) \(t35) \(t45) \(t55)"
+    ...
+    case .case12(
+      let urlsession, let uiView, let vc, let nvc,
+      let view):
+      return
+        "case 12 \(urlsession.description) \(uiView.isExclusiveTouch) \(vc.isViewLoaded) \(nvc.description) \(view)"
+    default:
+      return "default"
+    }
+  }
+}
+```
+
+for protocols:
+
+```swift
+public protocol ProtocolName {
+    var getProp1: String { get }
+    var getProp2: String { get }
+    var getProp3: String { get }
+    var getProp4: String { get }
+    var getProp5: String { get }
+    var getProp6: String { get }
+    var getProp7: String { get }
+    var getProp8: String { get }
+    var getProp9: String { get }
+    var getProp10: String { get }
+    var getProp11: String { get }
+    var getProp12: String { get }
+    var getProp13: String { get }
+    var getProp14: String { get }
+    var getProp15: String { get }
+
+    var combineProp: CurrentValueSubject<URL?, Never> { get set }
+
+    var getSetProp16: String? { get set }
+    var getSetProp17: String? { get set }
+    var getSetProp18: String? { get set }
+    var getSetProp19: String? { get set }
+    var getSetProp20: String? { get set }
+    var getSetProp21: String? { get set }
+    var getSetProp22: String? { get set }
+    var getSetProp23: String? { get set }
+    var getSetProp24: String? { get set }
+    var getSetProp25: String? { get set }
+    var getSetProp26: String? { get set }
+    var getSetProp27: String? { get set }
+    var getSetProp28: String? { get set }
+    var getSetProp29: String? { get set }
+    var getSetProp30: String? { get set }
+
+    func function31(prop1: String, prop2: Bool) -> String
+    func function32(prop1: String, prop2: Bool) -> String
+    func function33(prop1: String, prop2: Bool) -> String
+    func function34(prop1: String, prop2: Bool) -> String
+    func function35(prop1: String, prop2: Bool) -> String
+    func function36(prop1: String, prop2: Bool) -> String
+    func function37(prop1: String, prop2: Bool) -> String
+    func function38(prop1: String, prop2: Bool) -> String
+}
+```
+
+and the corresponding protocol implementation:
+
+```swift
+public class ##name##: ##protocol## {
+    public var cancellables = Set<AnyCancellable>()
+
+    public var otherProtocolImpl: ##otherProto##?
+
+    public init(otherProtocolImpl: ##otherProto##?) {
+        self.otherProtocolImpl = otherProtocolImpl
+    }
+
+    public var getProp1: String {
+        "prop1"
+    }
+    ...
+
+    public var combineProp: CurrentValueSubject<URL?, Never> = CurrentValueSubject(URL(string: "demo"))
+
+    public var getSetProp16: String?
+    ...
+
+    public func function31(prop1: String, prop2: Bool) -> String {
+        combineProp
+            .sink { url in
+                print(url?.description ?? "default value")
+            }
+            .store(in: &cancellables)
+        combineProp.send(URL(string: "two"))
+        otherProtocolImpl?.combineProp.send(URL(string: "https://hello.from.other.implementation.com/"))
+        return prop1 + "\(prop2)" + (getSetProp16 ?? "") + (getSetProp17 ?? "")
+    }
+
+    public func function32(prop1: String, prop2: Bool) -> String {
+        combineProp
+            .sink { url in
+                print(url?.description ?? "default value")
+            }
+            .store(in: &cancellables)
+        return prop1 + "\(prop2)" + (getSetProp18 ?? "") + (getSetProp19 ?? "")
+    }
+
+    ...
+}
+```
+
+Each app contains 1000 generated enums, 1000 generated protocols and 1000 protocol implementations. With that way, the only variables are the linking methods, architectures, and the number of used frameworks.
+
+For mergeable frameworks, the dynamically linked app in the four-layered-architecture has been also enabled for mergeable frameworks. As similar results to the statically linked frameworks are expected, this app is only used as a comparison that mergeable libraries behave as expected.
 
 ## Test results
 The following sections show the results of the described applications in the four mentioned metrics: app size, memory usage, compile time, and cold launch time.
