@@ -1711,15 +1711,18 @@ With mergeable libraries, the launch time of an app can be reduced quite signifi
 Frameworks shared with your app extensions (for example a widget), can not be merged into the main app executable, as the app extensions still depend on these dynamic frameworks. If they would be merged into the app extensions as well, the code inside the frameworks would be shippted twice to all users: once merged into the main executable and once merged into the app extension.
 The frameworks will only be merged for release builds, meaning for debug builds, all the benefits of dynamically linked libraries are still there.
 
+The generated app in the four-layered-architecture has also been tested for launch time: the same application that took 1.5 seconds to launch on the iPHone 14 Pro only took 0.15 seconds to launch with mergeable libraries enabled. The same application with static linking took 0.12 seconds to launch. With that, it can be concluded that apps built with mergeable libraries take about the same time to launch than statically linked applications.
+
 ## Conclusion
-<!-- this needs some more love -->
 When building apps in the described modular architecture, some considerations need to be taken from the results of the benchmark results.
 
-- Adding a new framework to your Application Framework should be done with absolute care. Splitting the apps up into multiple smaller frameworks might lead to longer launch times for your users.
+- If mergeable libraries are not enabled, adding a new framework to an Application Framework should be done with absolute care. Splitting the apps up into multiple smaller frameworks might lead to longer launch times for users of that app.
 
-- Separating the moduels into their core and implementation parts might make your app compile time faster. If no protocol or interface changes are made, the modules depending only on the core part of said framework do not need to be recompiled. Only the main application which then should depend on the concrete implementation module needs to be rebuild, which needs to happen anyway.
+- If possible at all, mergeable libraries should be enabled. It esentially results in the launch time of a statically built app. For the tested sample app on the iPhone 14, it reduces the launch time by about 90%! 
 
-- With mergeable libraries working, the launch time effects of an increased number of frameworks might not be as pronounced, if present at all. As the frameworks do not need to be loaded dynamically on each app start, the biggest contributing factor to the launch time is no longer there. In the first small experiments with our My Porsche app, we could decrease the launch time from around 2 seconds to under 0.5 seconds on an iPhone 14 Pro.
+- Separating the moduels into their core and implementation parts might make your app compile time faster. If no protocol or interface changes are made, the modules depending only on the core part of said framework do not need to be recompiled. Only the main application which then should depend on the concrete implementation module needs to be rebuild, which needs to happen anyway. The main benefit of this architecture however remains, that linking on the same layer is possible.
+
+- If mergeable libraries are not enabled, the separation into Core modules will also lead to more modules and dynamic libraries need to be loaeded on app start and in turn a longer app launch time. This separation should then only be done when the horizontal linking benefit is actually needed for that framework.
 
 
 # SPM (maybe v3? or never)
