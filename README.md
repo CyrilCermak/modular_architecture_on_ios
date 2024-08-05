@@ -23,9 +23,8 @@ passcodes etc., and who will never in their lives read this line."
 
 &&
 
-"To all passionate engineers who are solving tough problems on a daily
-basis with a smile. It is great pleasure for everyone to work with you!
-This book is for you!"
+"To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger
+says; Don't just take, give something back. This is me giving back."
 
 &&
 
@@ -33,23 +32,33 @@ This book is for you!"
 
 \newpage
 
-# About the author
+# About the Author
 
 Hi, I am Cyril, a software engineer by heart and the author of this
 book. Most of my professional career was spent building iOS apps or iOS
 frameworks. My professional career began at Skoda Auto Connect App in
 Prague, continued for Freelancer Ltd in Sydney building iOS platform,
 included numerous start-ups along the way, and, currently, has me as an
-iOS System Architect Porsche AG in Stuttgart. In this book, I am
-describing different approaches for building modular iOS architectures
-and will be providing some mechanisms and essential knowledge that
-should help one decide which approach would fit the best or should be
-considered for a project.
+iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing
+different approaches for building modular iOS architectures and will be
+providing some mechanisms and essential knowledge that should help one
+decide which approach would fit the best or should be considered for a
+project.
 
-## Reviewer
+## About the Reviewer
 
-Highly likely due to the quality of this book the reviewer wishes to be
-secret, I think that's fair.
+Greetings, I am Kristopher K. Kruger, the unintentional and forever
+grateful reviewer of this book in both its current and previous
+editions. My professional journey as an iOS Software Developer took an
+unexpected turn when I met the illustrious Cyril while working on the
+same groundbreaking project. Our paths first crossed amidst a whirlwind
+of iOS Swift code, Ruby code, and GitHub Actions during the development
+of the aforementioned project. In this book, I provided a meticulous,
+albeit whimsical, review of modular iOS architectures, contributing not
+just technical insights but also arcane wisdom gathered from my vast and
+varied experiences. My reviews are known for their unique blend of
+hard-hitting analysis and absurd humor, ensuring that even the driest of
+subjects can elicit a hearty chuckle.
 
 \newpage
 \tableofcontents
@@ -97,14 +106,13 @@ distribute or open-source some SDKs of it to the outer world.
 Another scenario could be that you are already working on an app that is
 set up in a modular way but your app takes around 20 mins to compile
 because it is a huge legacy codebase that has been in development for
-the past eight or so years and has linked every possible 3rd party
-library along the way. The decision was made to modularise it with
-Cocoapods therefore, you cannot link easily already pre-compiled
-libraries with Carthage and every project clean means you can take a
-double shot of espresso. I have been there, trust me, it is another type
-of hell, definitely not a place where anyone would like to be. I
-described the whole migration process of such a project [in an article
-on Medium in
+the past ten or so years and has linked every possible 3rd party library
+along the way. The decision was made to modularise it with Cocoapods
+therefore, you cannot link easily already pre-compiled libraries with
+Carthage and every project clean means you can take a double shot of
+espresso. I have been there, trust me, it is another type of hell,
+definitely not a place where anyone would like to be. I described the
+whole migration process of such a project [in an article on Medium in
 2018](https://medium.com/freelancer-engineering/modular-architecture-on-ios-and-how-i-decreased-build-time-by-50-23c7666c6d2f).
 Of course, in this book you will read about it in more detail.
 
@@ -131,13 +139,14 @@ ruby gems.
 ## What is this book about
 
 This book describes the essentials of building a modular architecture on
-iOS. You will find examples of different approaches, framework types,
-their pros and cons, common problems and so on. By the end of this book,
-you should have a very good understanding of what benefits such an
-architecture will bring to your project, whether it is necessary at all,
-and which way would be the best for modularising the project. This book
-focuses on high level architecture, modularisation of a project, and
-collaboration in way to be the most efficient.
+iOS which further can be extended to all Apple platforms. You will find
+examples of different approaches, framework types, their pros and cons,
+common problems and so on. By the end of this book, you should have a
+very good understanding of what benefits such an architecture will bring
+to your project, whether it is necessary at all, and which way would be
+the best for modularising the project. This book focuses on high level
+architecture, modularisation of a project, and collaboration in way to
+be the most efficient.
 
 ## What is this book NOT about
 
@@ -161,7 +170,7 @@ be done way faster and cleaner.
 
 To be fair, maintaining such a software foundation of a company might be
 also really difficult. By maintaining, I mean, taking care of the CI/CD
-(Continous Integration / Continous Delivery), maintaining old projects
+(Continuous Integration / Continuous Delivery), maintaining old projects
 developed on top of the foundation that was heavily refactored in the
 meantime, legacy code, keeping it up-to-date with the latest development
 tools and so on. It goes without saying that on a very large project,
@@ -171,6 +180,17 @@ This book describes building such a large scalable architecture with
 domain-driven design and does so by using examples; The software
 foundation for the [International Space
 Station](https://en.wikipedia.org/wiki/International_Space_Station).
+
+In the context of this book a module is the standalone drawn box, or in
+practice an Xcode project which encapsulates frameworks, test bundles
+etc. Further to quote
+[Apple](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html):
+*A framework is a hierarchical directory that encapsulates shared
+resources, such as a dynamic shared library, nib files, image files,
+localized strings, header files, and reference documentation in a single
+package. Multiple applications can use all of these resources
+simultaneously. The system loads them into memory as needed and shares
+the one copy of the resource among all applications whenever possible.*
 
 ## Design
 
@@ -194,8 +214,8 @@ architecture where the layers could be defined as follows:
 -   Feature
 -   Core
 
-This whole setup in general is further in the book referenced as
-Application Framework.
+This whole setup with layers and modules in them is further in the book
+referenced as `Application Framework`.
 
 Now to the specific layers.
 
@@ -338,7 +358,7 @@ is the same for every other domain, each domain is responsible for
 screens and users flow through the part of the app.
 
 `Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and
-`Cosmonaut Service` services that provide data for domain-specifc
+`Cosmonaut Service` services that provide data for domain-specific
 screens and `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts
@@ -389,6 +409,18 @@ dynamically linked. Previously known as `Cocoa Touch Framework`, the
 dynamically linked library is nowadays referred to simply as
 `Framework`. The statically linked library is known as the
 `Static Library`.
+
+Actually, at this point, we might say there is third. A short note
+deserves also Swift Package and Swift Package Manager (SPM). SPM is part
+of the Swift's ecosystem rather than Apple's. A swift package describes
+how a source code should be attached to a target, leaving up to the
+swift package developer if static or dynamic linking is used. By
+default, SPM uses static linking and similarly as a Framework can have
+additional resources attached to it. SPM is not designed to share a
+compiled executables, it is designed to share source code files with
+ease. It also became a common practice to share a xcframework via SPM,
+in that case SPM servers just as a wrapper around the attached compiled
+binary.
 
 ![Xcode Framework Types](assets/FrameworksType.png)
 
@@ -1049,7 +1081,9 @@ Since we touched the Xcode's build system in the previous chapter it
 would be unfair to the `swiftc` to leave it untouched. Even though
 knowing how compiler works is not mandatory knowledge it is really
 interesting and it gives a good closure of the whole process from
-writing human-readable code to running it on bare metal.
+writing human-readable code to running it on bare metal. In this chapter
+we are going to look at how a library can be built purely in Swift's
+ecosystem.
 
 While other chapters are rather essential for having a good
 understanding of the development of modular architecture, this chapter
@@ -1548,10 +1582,9 @@ For demonstration purposes, I chose the Cosmonaut app with all its
 necessary dependencies. Nevertheless, the same principle applies to all
 other apps within our future iOS/macOS ISS foundational framework.
 
-You can download the [pre-build
-repository](https://github.com/CyrilCermak/modular-architecture-on-iOS)
-and fully focus on the step by step explanations in the book or you can
-build it on your own up until a certain point.
+You can look at the `iss_modular_architecture` folder and fully focus on
+the step by step explanations in the book or you can build it on your
+own up until a certain point.
 
 As a reminder, the following schema showcases the Cosmonaut app with its
 dependencies.
@@ -1684,7 +1717,7 @@ Since programmers are lazy creatures, it very often also happens that a
 file removed from an Xcode project still remains in the repository as
 the file itself was not moved to the trash. That could lead to git
 continuing to track a now unused and undesired file. Furthermore, it
-could also lead to the file being readded to the project by the
+could also lead to the file being re-added to the project by the
 developer who was modifying it.
 
 ### Hello XcodeGen
@@ -1925,8 +1958,8 @@ being moved there. Another option is to shift those files from the
 domain layer to the service layer. A third option would be to use
 abstraction and achieve the same result not from the module level but
 from the code level. The ideal solution solely depends on the use case.
-There is yet another to separate the interfaces into a separate
-framework which will be introduced in the next section.
+There is yet another possibility, to separate the interfaces into a
+separate framework which will be introduced in the next section.
 
 A simple example could be that some flow is represented by a protocol
 that has a `start` function on it. That could for example be a
@@ -2122,7 +2155,7 @@ frameworks within the Application Framework the faster the testing.
 Especially on big project this brings lots of wins, imagine a project
 with hundreds of frameworks each having hundreds or even thousands of
 tests, which need to run before merge. Optimising the amount of
-frameworks needed to be tested on each PR at this point is cruical.
+frameworks needed to be tested on each PR at this point is crucial.
 
 **Framework Control And Encapsulation**
 
@@ -2494,11 +2527,425 @@ number of modules, and compile time of each different approach from on a
 developer's change in the codebase to a full clean build and similar to
 an incremental build.
 
-# Benchmarking of the architectures from David
+# Benchmarking of the different architectures
 
-// TODO: Copy-paste the findings from David's thesis, highlight the
-advantages and disadvantages, yet again elaborate on mergable libraries
-how they could bring down the disadvantages rapidly.
+When choosing an architecture for an app or any kind of Application
+Framework, different performance metrics and the working structure
+should be considered. The metrics in focus of in the following section
+are app size, app compile time, memory usage and - most interestingly -
+app launch time. These metrics will be compared for static and dynamic
+linking for different architectues.
+
+The first architecture is the modular architecture with four layers, as
+described in the previous chapters, but without the usage of the
+separation of the frameworks into core and implementation. The second
+architeture is simmilar to the previous one, but with a combined domain
+and service layer, resulting in a three-layered architecture. The third
+and final architecture resembles the approach of separating the modules
+into their protocols and implementations frameworks, as described in
+previous chapters with the Core modules.
+
+As a baseline comparison, a monolithic app will be used. In this app,
+code is not separated into different modules. All the code is directly
+added into the main app's project in Xcode. It does therefore not use
+any linking at all. In the following comparisons, it is often compared
+to the statically linked applications, as monoliths are closer to
+statically linked applications then dynamically linked ones. For launch
+time, monolith applications and statically linked ones behave very
+simmilar.
+
+## Test setup
+
+For testing the different architectures, it wasn't feasibly to migrate a
+working app of considerable size into the different architectures, as
+this would take quite a lot of time and effort. Instead, a code
+generator has been written. This generator can dynamically generate
+enums, protocols and corresponding implementations according to a
+template and replace the name of the file. These files also reference
+each other, so an implementation of protocol A will reference protocol
+B. While generating these files, they are structured automatically by
+the generator according to the architectures that are benchmarked
+against each other. The contents of the files try to resemble real-world
+projects like the MPA and use complex features like `Combine` and
+generics. The generated swift files were then combined into an iOS App
+project using `xcodegen` to generate the coresponding Xcode project
+files.
+
+Using this method, multiple different apps were generated: One
+monolithic application as a baseline; four apps using the described
+four-layered-architecutre, four apps using a three-layered-architecture,
+and four apps using the separated Core module architecture of the
+four-layered-architecture. For each of the architectures (exluduing the
+monolithic application), four variants of the apps have been generated:
+two statically linked and two dynamically linked applications. One of
+those two applications with 30 modules and the other one with 300
+modules. With that strategy, all architectures can be compared for each
+linking method and how the metrics change with an increased number of
+modules. The tolal number of tested applications is 13 (4 different
+architecture x 2 linking methods x 2 different number of modules + 1
+monolith).
+
+For the generation of the swift files, the following templates were used
+for enums:
+
+``` swift
+public enum EnumName<T1, T2, T3, T4, T5> {
+  case case0
+  ...
+  case case6(
+    T1, T2, T3, T4, T5, T1, T2, T3, T4, T5, T1, T2, T3, T4, T5, T1, T2, T3, T4, T5, T1, T2, T3, T4,
+    T5)
+  ...
+  case case12(URLSession, UIView, UIViewController, UINavigationController, any View)
+
+  public var comment: String {
+    switch self {
+    case .case0:
+      return "case0"
+    ...
+    case .case6(
+      let t1 as URL, let t2 as CurrentValueSubject<Any, Never>,
+      let t3 as CurrentValueSubject<Any, Never>, let t4, let t5, let t12, let t22, let t32, let t42,
+      let t52, let t13,
+      let t23, let t33, let t43, let t53, let t14, let t24, let t34, let t44, let t54, let t15,
+      let t25, let t35, let t45, let t55):
+      let just = Just(t1)
+      let combined = t2.combineLatest(t3, just).sink { _ in
+        print("Received values")
+      }
+      return
+        "case6 combined: \(combined.hashValue) \(t1) \( t2) \(t3) \(t4) \(t5) \(t12) \(t22) \(t32) \(t42) \(t52) \(t13) \(t23) \(t33) \(t43) \(t53) \(t14) \(t24) \(t34) \(t44) \(t54) \(t15) \(t25) \(t35) \(t45) \(t55)"
+    ...
+    case .case12(
+      let urlsession, let uiView, let vc, let nvc,
+      let view):
+      return
+        "case 12 \(urlsession.description) \(uiView.isExclusiveTouch) \(vc.isViewLoaded) \(nvc.description) \(view)"
+    default:
+      return "default"
+    }
+  }
+}
+```
+
+for protocols:
+
+``` swift
+public protocol ProtocolName {
+    var getProp1: String { get }
+    var getProp2: String { get }
+    var getProp3: String { get }
+    var getProp4: String { get }
+    var getProp5: String { get }
+    var getProp6: String { get }
+    var getProp7: String { get }
+    var getProp8: String { get }
+    var getProp9: String { get }
+    var getProp10: String { get }
+    var getProp11: String { get }
+    var getProp12: String { get }
+    var getProp13: String { get }
+    var getProp14: String { get }
+    var getProp15: String { get }
+
+    var combineProp: CurrentValueSubject<URL?, Never> { get set }
+
+    var getSetProp16: String? { get set }
+    var getSetProp17: String? { get set }
+    var getSetProp18: String? { get set }
+    var getSetProp19: String? { get set }
+    var getSetProp20: String? { get set }
+    var getSetProp21: String? { get set }
+    var getSetProp22: String? { get set }
+    var getSetProp23: String? { get set }
+    var getSetProp24: String? { get set }
+    var getSetProp25: String? { get set }
+    var getSetProp26: String? { get set }
+    var getSetProp27: String? { get set }
+    var getSetProp28: String? { get set }
+    var getSetProp29: String? { get set }
+    var getSetProp30: String? { get set }
+
+    func function31(prop1: String, prop2: Bool) -> String
+    func function32(prop1: String, prop2: Bool) -> String
+    func function33(prop1: String, prop2: Bool) -> String
+    func function34(prop1: String, prop2: Bool) -> String
+    func function35(prop1: String, prop2: Bool) -> String
+    func function36(prop1: String, prop2: Bool) -> String
+    func function37(prop1: String, prop2: Bool) -> String
+    func function38(prop1: String, prop2: Bool) -> String
+}
+```
+
+and the corresponding protocol implementation:
+
+``` swift
+public class ##name##: ##protocol## {
+    public var cancellables = Set<AnyCancellable>()
+
+    public var otherProtocolImpl: ##otherProto##?
+
+    public init(otherProtocolImpl: ##otherProto##?) {
+        self.otherProtocolImpl = otherProtocolImpl
+    }
+
+    public var getProp1: String {
+        "prop1"
+    }
+    ...
+
+    public var combineProp: CurrentValueSubject<URL?, Never> = CurrentValueSubject(URL(string: "demo"))
+
+    public var getSetProp16: String?
+    ...
+
+    public func function31(prop1: String, prop2: Bool) -> String {
+        combineProp
+            .sink { url in
+                print(url?.description ?? "default value")
+            }
+            .store(in: &cancellables)
+        combineProp.send(URL(string: "two"))
+        otherProtocolImpl?.combineProp.send(URL(string: "https://hello.from.other.implementation.com/"))
+        return prop1 + "\(prop2)" + (getSetProp16 ?? "") + (getSetProp17 ?? "")
+    }
+
+    public func function32(prop1: String, prop2: Bool) -> String {
+        combineProp
+            .sink { url in
+                print(url?.description ?? "default value")
+            }
+            .store(in: &cancellables)
+        return prop1 + "\(prop2)" + (getSetProp18 ?? "") + (getSetProp19 ?? "")
+    }
+
+    ...
+}
+```
+
+Each app contains 1000 generated enums, 1000 generated protocols and
+1000 protocol implementations. With that way, the only variables are the
+linking methods, architectures, and the number of used frameworks.
+
+For mergeable frameworks, the dynamically linked app in the
+four-layered-architecture has been also enabled for mergeable
+frameworks. As similar results to the statically linked frameworks are
+expected, this app is only used as a comparison that mergeable libraries
+behave as expected.
+
+## Test results
+
+The following sections show the results of the described applications in
+the four mentioned metrics: app size, memory usage, compile time, and
+cold launch time.
+
+### App size
+
+![App size benchmarking results](assets/benchmarking/app-size.png) {
+width=80% } The results of the app size measurements are shown in the
+table above. Dynamic and static linking are shown in the columns while
+the four different architectures are shown in the rows. Each cell is
+then further subdivided into three smaller cells. The first cell shows
+the overall application bundle size, while the second shows the size of
+the main executable and the third shows the size of the Frameworks
+folder. As there is no such folder for statically linked applications,
+this cell is marked with "n/a" in the table. Dynamic linking with the
+monolith architecture is also not possible and is therefore marked "n/a"
+as well.
+
+The results of the statically linked application for the 4-layered and
+protocol modular architecture show the expected results of having a
+similar size as the monolith application, even if a bit smaller. The
+4-layered dynamically linked application is about 30% bigger than the
+static monolithic application, showing the overhead for packaging the
+same code in 300 different dynamic frameworks. The Core-separated
+application has an application bundle size that is about 22% bigger than
+the monolith application or the comparable statically linked
+application, showing the overhead for 200 dynamic frameworks to be
+smaller than for 300 frameworks. It thus could be concluded that 100
+dynamic frameworks have roughly an overhead of 10 MB.
+
+Outliers from this data are both the dynamically and statically linked
+3-layered applications. They show a significant reduction in bundle
+size, application size and Frameworks folder size respectively. Even
+after multiple retests, the results stayed the same. One possible
+explanation could be a specific Swift compiler optimization that happens
+for this architecture, even if it is unlikely. Confirming that all 200
+dynamic frameworks were part of the application bundle did also not help
+explain the significantly smaller size. As each of the dynamic
+frameworks is about of the same size as the frameworks from the other
+applications, the explanation of this discrepancy cannot be explained.
+
+For the applications with fewer modules, the application sizes are shown
+in the following table. They all are very similar in size to the
+monolith application. The main executable for the dynamically compiled
+applications in the table even have the exact same size. The only
+measurable size difference was then seen in the size of the dynamic
+frameworks folder.
+
+### Memory usage
+
+![Memory usage benchmarking
+results](assets/benchmarking/memory-usage.png) { width=80% }
+
+The results of the memory usage measurements show the expected results
+as seen in the table above. All measured values are in the range of
+(10.3 ± 0.5)MB, regardless of device age, architecture and linking
+method. As all applications load the same view when launching, this
+result is expected. The small remaining difference can only be explained
+with run-to-run variations. As this measurement showed no deviation, it
+was not measured for the test cases with fewer dynamic frameworks. It
+would be expected that the memory usage would be in the same range as
+well.
+
+### Compile time
+
+![Compile time benchmarking
+results](assets/benchmarking/compile-time.png) { width=80% }
+
+The results of the compile-time measurements are shown in the figure
+above. Results of the incremental build are marked accordingly. The
+compilation of the monolith application took 115.8 s. Compiling the
+4-layered modular, 3-layered modular and protocol modular static linked
+applications was around 5 to 20s faster than the monolith application
+with 109.5 s, 105.3 s and 95.4 s respectively. This increase in speed
+could be due to an increase in the parallel compilation of the different
+static frameworks. With a monolith application, Xcode may not be as
+optimized to compile the different source code files in parallel.
+
+Compiling the dynamically linked 4-layered application compared to the
+statically linked application took about 32% longer. This increase may
+be the overhead of compiling the different dynamic frameworks and
+linking them to the main executable. For the protocol modular and
+3-layered application, no noticeable build time difference can be seen
+compared to the statically linked counterpart. This is in contrast to
+the increase for the 4-layered application. Incremental builds for all
+modular application architectures are then faster than the clean build
+by a factor of 2-3. For the monolithic application, no such decrease can
+be observed. This is likely the case as Xcode will recompile all files
+in the monolithic module, resulting in the same build time as with a
+clean build (or even a slightly longer time as seen in this example).
+
+Compared to the compile times for the applications with fewer static and
+dynamic frameworks (by a factor of 10) as seen in Figure 4.6, the clean
+build time decreases drastically. For the 4-layered application, the
+dynamically linked application now compiles in 80.7 s instead of 144.3 s
+for example. The other two application archi- tectures see a similar
+reduction in compile time, if not as drastic as the 4-layered
+applications. The dynamically linked 3-layered and protocol modular
+applications now compile faster than their statically linked
+counterparts. As this is not the case for the 4-layered application,
+there seems to be a threshold somewhere between 20 and 30 frameworks
+(for the configurations tested in this benchmark), under which it is
+faster to compile them dynamically. Above this threshold, static linking
+seems to be faster.
+
+### Launch time
+
+Launch time of the application is heavily dependend on the used device.
+Due to that, the tests were run on iPhones from different generations.
+The tested phones were an iPhone 6s, an iPhone Xs and an iPhone 14 Pro.
+These phones were not brand new for these tests and already heavily used
+for app development. Even though these phones were used, the results
+should still be valid as all devices still indicated high performance
+mode on their battery health settings.
+
+The following three figures show the cold launch times of the tested
+applications on the different iPhones (6s, Xs and 14 Pro) respectively:
+
+![Launch time usage benchmarking
+results](assets/benchmarking/launch-6s.png) { width=80% }
+
+![Launch time usage benchmarking
+results](assets/benchmarking/launch-xs.png) { width=80% }
+
+![Launch time usage benchmarking
+results](assets/benchmarking/launch-14.png) { width=80% }
+
+The difference in age and processing power between the iPhone 6s and 14
+Pro can clearly be seen here. The older device launches the same
+application (4-layered modular with dynamic linking) about 10 times more
+slowly than the new device, while the iPhone Xs is about half as fast as
+the latest iPhone. While the iPhone 6s takes 14.4 s to launch the
+4-layered modular application with dynamic linking, the iPhone Xs takes
+2.94 s and the iPhone 14 Pro takes 1.54 s. This reduction in launch time
+for the newer iPhone models is greater than the improvement in device
+specs over the years.
+
+The figures also show very clearly that having more dynamic frameworks
+is the greatest factor contributing to the application launch time.
+While the tested 4-layered application has 300 frameworks, the 3-layered
+and Core-separeted application have about 200 frameworks, a clear
+increase in launch time from the 3-layered to the 4-layered applications
+can be seen across all devices. This effect is also visible with fewer
+frameworks (by a factor of 10, resulting in 30 frameworks for the
+4-layered application and 20 frameworks for the 3-layered and
+Core-separated), though with less margin. The results with fewer dynamic
+frameworks are marked accordingly. The reduction in launch time for 10
+times fewer dynamic frameworks, however, does not result in a 10 times
+reduction in launch time. For the iPhone 14 Pro, going from 300 to 30
+frameworks in the 4-layered modular architecture (in Figure 4.2),
+results in a launch time increase by a factor of roughly `7.7`.
+
+With static linking, no dynamic frameworks need to be loaded at all.
+This results in a very fast application cold launch time for all three
+devices, comparable to the monolith launch time. While the iPhone 6s is
+still only about half as fast as the iPhone 14 Pro, a launch time of
+0.13s, 0.16s and 0.33s respectively is still fast compared to the launch
+times with dynamic linking.
+
+With mergeable libraries, the launch time of an app can be reduced quite
+significantly. All dynamic frameworks that are not needed in your app
+extensions will get merged into the main exectuable as if they were
+statically linked. This means that the frameworks no longer need to be
+dynamically loaded on app start. Frameworks shared with your app
+extensions (for example a widget), can not be merged into the main app
+executable, as the app extensions still depend on these dynamic
+frameworks. If they would be merged into the app extensions as well, the
+code inside the frameworks would be shippted twice to all users: once
+merged into the main executable and once merged into the app extension.
+The frameworks will only be merged for release builds, meaning for debug
+builds, all the benefits of dynamically linked libraries are still
+there.
+
+The generated app in the four-layered-architecture has also been tested
+for launch time: the same application that took 1.5 seconds to launch on
+the iPHone 14 Pro only took 0.15 seconds to launch with mergeable
+libraries enabled. The same application with static linking took 0.12
+seconds to launch. With that, it can be concluded that apps built with
+mergeable libraries take about the same time to launch than statically
+linked applications.
+
+## Conclusion
+
+When building apps in the described modular architecture, some
+considerations need to be taken from the results of the benchmark
+results.
+
+-   If mergeable libraries are not enabled, adding a new framework to an
+    Application Framework should be done with absolute care. Splitting
+    the apps up into multiple smaller frameworks might lead to longer
+    launch times for users of that app.
+
+-   If possible at all, mergeable libraries should be enabled. It
+    esentially results in the launch time of a statically built app. For
+    the tested sample app on the iPhone 14, it reduces the launch time
+    by about 90%!
+
+-   Separating the moduels into their core and implementation parts
+    might make your app compile time faster. If no protocol or interface
+    changes are made, the modules depending only on the core part of
+    said framework do not need to be recompiled. Only the main
+    application which then should depend on the concrete implementation
+    module needs to be rebuild, which needs to happen anyway. The main
+    benefit of this architecture however remains, that linking on the
+    same layer is possible.
+
+-   If mergeable libraries are not enabled, the separation into Core
+    modules will also lead to more modules and dynamic libraries need to
+    be loaeded on app start and in turn a longer app launch time. This
+    separation should then only be done when the horizontal linking
+    benefit is actually needed for that framework.
 
 # SPM (maybe v3? or never)
 
