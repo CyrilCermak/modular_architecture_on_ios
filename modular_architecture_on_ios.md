@@ -40,11 +40,15 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 \newpage
 
-# About the author
-Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS System Architect Porsche AG in Stuttgart. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
+# About the Author
+Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
 
-## Reviewer
-Highly likely due to the quality of this book the reviewer wishes to be secret, I think that's fair. 
+## About the Reviewer
+Greetings, I am Kristopher K. Kruger, the unintentional and forever grateful reviewer of this book in both its current and previous editions.
+My professional journey as an iOS Software Developer took an unexpected turn when I met the illustrious Cyril while working on the same groundbreaking project.
+Our paths first crossed amidst a whirlwind of iOS Swift code, Ruby code, and GitHub Actions during the development of the aforementioned project.
+In this book, I provided a meticulous, albeit whimsical, review of modular iOS architectures, contributing not just technical insights but also arcane wisdom gathered from my vast and varied experiences.
+My reviews are known for their unique blend of hard-hitting analysis and absurd humor, ensuring that even the driest of subjects can elicit a hearty chuckle.
 
 \newpage
 \tableofcontents
