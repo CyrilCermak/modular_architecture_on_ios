@@ -85,6 +85,8 @@ To be fair, maintaining such a software foundation of a company might be also re
 
 This book describes building such a large scalable architecture with domain-driven design and does so by using examples; The software foundation for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station).
 
+In the context of this book a module is the standalone drawn box, or in practice an Xcode project which encapsulates frameworks, test bundles etc. Further to quote [Apple](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html): *A framework is a hierarchical directory that encapsulates shared resources, such as a dynamic shared library, nib files, image files, localized strings, header files, and reference documentation in a single package. Multiple applications can use all of these resources simultaneously. The system loads them into memory as needed and shares the one copy of the resource among all applications whenever possible.*
+
 ## Design
 In this book, I chose to use the architecture that I think is the most flexible. It is a five-layer architecture that consists of the following layers:
 
