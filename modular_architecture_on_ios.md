@@ -1461,7 +1461,7 @@ This could be done for every domain that provides screen flows through the appli
 
 Similarly to unit tests the UI tests would also have their place in the grouped app. By default in this case it could be a UI test plan defined in the `xctestplan` consisting of all hosting apps and their UI tests from the whole Application Framework, leaving developers with singular place to run all those tests for all available targets in one go. 
 
-No need to mention that this UI xctestplan could be also scripted on the CI and only tests that are relevant to a change would be compiled and run on a Pull Request.
+No need to mention that this UI `xctestplan` could be also scripted on the CI and only tests that are relevant to a change would be compiled and run on a Pull Request.
 
 Sadly, UI tests are usually very expensive to run, it is not a surprise that sometimes those tests take hours before finishing, therefore, they could run on a nightly basis or another development workflow relevant time.
 
