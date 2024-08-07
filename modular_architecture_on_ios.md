@@ -171,7 +171,7 @@ The diagram above describes the concrete linking of modules for the app. Let us 
 
 The `Peripheries` domain links the `Heat Radiator`, `Solar Array`, and `Docking Port` services from which data about those peripheries are gathered so as `UIComponents` for bootstrapping the screens' development.
 
-The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (Bluetooth Low Energy) or other technology which would connect to the solar array or heat radiator. Further, `UIComponents` are used to bootstrap the design and `Persistence` is used for a database operations.
+The linked services use the `Network` and `Radio` core modules. These provide the foundation for the communication with other systems via network protocols. `Radio` in this case could implement some communication channel via BLE (Bluetooth Low Energy) or other technology which would connect to the solar array or heat radiator. Further, `UIComponents` are used to bootstrap the design and `Persistence` is used for database operations.
 
 ### Cosmonaut
 
