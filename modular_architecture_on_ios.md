@@ -1717,7 +1717,7 @@ With mergeable libraries, the launch time of an app can be reduced quite signifi
 Frameworks shared with your app extensions (for example a widget), can not be merged into the main app executable, as the app extensions still depend on these dynamic frameworks. If they would be merged into the app extensions as well, the code inside the frameworks would be shippted twice to all users: once merged into the main executable and once merged into the app extension.
 The frameworks will only be merged for release builds, meaning for debug builds, all the benefits of dynamically linked libraries are still there.
 
-The generated app in the four-layered-architecture has also been tested for launch time: the same application that took 1.5 seconds to launch on the iPHone 14 Pro only took 0.15 seconds to launch with mergeable libraries enabled. The same application with static linking took 0.12 seconds to launch. With that, it can be concluded that apps built with mergeable libraries take about the same time to launch than statically linked applications.
+The generated app in the four-layered-architecture has also been tested for launch time: the same application that took 1.5 seconds to launch on the iPhone 14 Pro only took 0.15 seconds to launch with mergeable libraries enabled. The same application with static linking took 0.12 seconds to launch. With that, it can be concluded that apps built with mergeable libraries take about the same time to launch than statically linked applications.
 
 ## Conclusion
 When building apps in the described modular architecture, some considerations need to be taken from the results of the benchmark results.
