@@ -179,7 +179,7 @@ The linked services use the `Network` and `Radio` core modules. These provide th
 
 The `Cosmonaut` app links the `Spacesuit` and `Cosmonaut` domains. This is the same for every other domain, each domain is responsible for screens and users flow through the part of the app.
 
-`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service` services that provide data for domain-specific screens and `UIComponents` provides the UI parts.
+`Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and `Cosmonaut Service`, services that provide data for domain-specific screens. `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts spacesuit via BLE or another type of radio technology. `Cosmonaut` service uses `Network` for updating Houston about the current state of the `Cosmonaut` and uses `Persistence` for storing the data of the cosmonaut for offline usage.
 
