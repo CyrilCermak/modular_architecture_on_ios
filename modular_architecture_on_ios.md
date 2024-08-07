@@ -1724,7 +1724,7 @@ When building apps in the described modular architecture, some considerations ne
 
 - If mergeable libraries are not enabled, adding a new framework to an Application Framework should be done with absolute care. Splitting the apps up into multiple smaller frameworks might lead to longer launch times for users of that app.
 
-- If possible at all, mergeable libraries should be enabled. It esentially results in the launch time of a statically built app. For the tested sample app on the iPhone 14, it reduces the launch time by about 90%! 
+- If at all possible, mergeable libraries should be enabled. It esentially results in the launch time of a statically built app. For the tested sample app on the iPhone 14, it reduces the launch time by about 90%! 
 
 - Separating the moduels into their core and implementation parts might make your app compile time faster. If no protocol or interface changes are made, the modules depending only on the core part of said framework do not need to be recompiled. Only the main application which then should depend on the concrete implementation module needs to be rebuild, which needs to happen anyway. The main benefit of this architecture however remains, that linking on the same layer is possible.
 
