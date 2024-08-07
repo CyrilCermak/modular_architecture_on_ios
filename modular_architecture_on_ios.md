@@ -2314,7 +2314,7 @@ If this book helped you or you found it interesting any kind of donation would b
 [![paypal](assets/donate.png)](https://www.paypal.com/donate?hosted_button_id=MYSY29ZZF4GSN)
 
 # Licence
-Copyright © 2021 Cyril Cermak.
+Copyright © 2024 Cyril Cermak.
 
 All rights reserved. This book or any portion thereof may not be reproduced or used in any manner whatsoever without the express written permission of the publisher except for the use of brief quotations in a book review.
 
