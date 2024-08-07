@@ -146,7 +146,7 @@ For example, a shared module in an e-commerce app could be `Logging` or `AppAnal
 
 ## Example: International Space Station
 
-Now in this example, we will have a look at how such architecture could look like for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). The diagram below shows the five-layer architecture with the modules and links. This structure is then further referenced as Application Framework.
+Now in this example, we will have a look at how such architecture could look like for the [International Space Station](https://en.wikipedia.org/wiki/International_Space_Station). The diagram below shows the five-layer architecture with the modules and links. This structure is henceforth referenced to as Application Framework throughout this work.
 
 While this chapter is rather theoretical, in the following chapters everything will be explained and showcased in practice.
 
