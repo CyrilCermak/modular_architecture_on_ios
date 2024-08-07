@@ -1670,7 +1670,7 @@ For mergeable frameworks, the dynamically linked app in the four-layered-archite
 The following sections show the results of the described applications in the four mentioned metrics: app size, memory usage, compile time, and cold launch time.
 
 ### App size
-![App size benchmarking results](assets/benchmarking/app-size.png) { width=80% }
+![App size benchmarking results](assets/benchmarking/app-size.png)
 The results of the app size measurements are shown in the table above. Dynamic and static linking are shown in the columns while the four different architectures are shown in the rows. Each cell is then further subdivided into three smaller cells. The first cell shows the overall application bundle size, while the second shows the size of the main executable and the third shows the size of the Frameworks folder. As there is no such folder for statically linked applications, this cell is marked with “n/a” in the table. Dynamic linking with the monolith architecture is also not possible and is therefore marked “n/a” as well.
 
 The results of the statically linked application for the 4-layered and protocol modular architecture show the expected results of having a similar size as the monolith application, even if a bit smaller. The 4-layered dynamically linked application is about 30% bigger than the static monolithic application, showing the overhead for packaging the same code in 300 different dynamic frameworks. The Core-separated application has an application bundle size that is about 22% bigger than the monolith application or the comparable statically linked application, showing the overhead for 200 dynamic frameworks to be smaller than for 300 frameworks. It thus could be concluded that 100 dynamic frameworks have roughly an overhead of 10 MB.
@@ -1680,13 +1680,13 @@ Outliers from this data are both the dynamically and statically linked 3-layered
 For the applications with fewer modules, the application sizes are shown in the following table. They all are very similar in size to the monolith application. The main executable for the dynamically compiled applications in the table even have the exact same size. The only measurable size difference was then seen in the size of the dynamic frameworks folder.
 
 ### Memory usage
-![Memory usage benchmarking results](assets/benchmarking/memory-usage.png) { width=80% }
+![Memory usage benchmarking results](assets/benchmarking/memory-usage.png)
 
 The results of the memory usage measurements show the expected results as seen in the table above. All measured values are in the range of (10.3 ± 0.5)MB, regardless of device age, architecture and linking method. As all applications load the same view when launching, this result is expected. The small remaining difference can only be explained with run-to-run variations. As this measurement showed no deviation, it was not measured for the test cases with fewer dynamic frameworks. It would be expected that the memory usage would be in the same range as well.
 
 ### Compile time
 
-![Compile time benchmarking results](assets/benchmarking/compile-time.png) { width=80% }
+![Compile time benchmarking results](assets/benchmarking/compile-time.png)
 
 The results of the compile-time measurements are shown in the figure above. Results of the incremental build are marked accordingly. The compilation of the monolith application took 115.8 s. Compiling the 4-layered modular, 3-layered modular and protocol modular static linked applications was around 5 to 20s faster than the monolith application with 109.5 s, 105.3 s and 95.4 s respectively. This increase in speed could be due to an increase in the parallel compilation of the different static frameworks. With a monolith application, Xcode may not be as optimized to compile the different source code files in parallel.
 
@@ -1701,11 +1701,11 @@ Launch time of the application is heavily dependend on the used device. Due to t
 The following three figures show the cold launch times of the tested applications on the different iPhones (6s, Xs and 14 Pro) respectively:
 
 
-![Launch time usage benchmarking results](assets/benchmarking/launch-6s.png) { width=80% }
+![Launch time usage benchmarking results](assets/benchmarking/launch-6s.png)
 
-![Launch time usage benchmarking results](assets/benchmarking/launch-xs.png) { width=80% }
+![Launch time usage benchmarking results](assets/benchmarking/launch-xs.png)
 
-![Launch time usage benchmarking results](assets/benchmarking/launch-14.png) { width=80% }
+![Launch time usage benchmarking results](assets/benchmarking/launch-14.png)
 
 The difference in age and processing power between the iPhone 6s and 14 Pro can clearly be seen here. The older device launches the same application (4-layered modular with dynamic linking) about 10 times more slowly than the new device, while the iPhone Xs is about half as fast as the latest iPhone. While the iPhone 6s takes 14.4 s to launch the 4-layered modular application with dynamic linking, the iPhone Xs takes 2.94 s and the iPhone 14 Pro takes 1.54 s. This reduction in launch time for the newer iPhone models is greater than the improvement in device specs over the years.
 

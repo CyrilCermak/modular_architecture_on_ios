@@ -306,8 +306,8 @@ Now in this example, we will have a look at how such architecture could
 look like for the [International Space
 Station](https://en.wikipedia.org/wiki/International_Space_Station). The
 diagram below shows the five-layer architecture with the modules and
-links. This structure is then further referenced as Application
-Framework.
+links. This structure is henceforth referenced to as Application
+Framework throughout this work.
 
 While this chapter is rather theoretical, in the following chapters
 everything will be explained and showcased in practice.
@@ -347,7 +347,7 @@ network protocols. `Radio` in this case could implement some
 communication channel via BLE (Bluetooth Low Energy) or other technology
 which would connect to the solar array or heat radiator. Further,
 `UIComponents` are used to bootstrap the design and `Persistence` is
-used for a database operations.
+used for database operations.
 
 ### Cosmonaut
 
@@ -358,8 +358,8 @@ is the same for every other domain, each domain is responsible for
 screens and users flow through the part of the app.
 
 `Spacesuit` and `Cosmonaut` domains link `Spacesuit Service` and
-`Cosmonaut Service` services that provide data for domain-specific
-screens and `UIComponents` provides the UI parts.
+`Cosmonaut Service`, services that provide data for domain-specific
+screens. `UIComponents` provides the UI parts.
 
 `Spacesuit` service is using `Radio` for communication with cosmonauts
 spacesuit via BLE or another type of radio technology. `Cosmonaut`
@@ -410,17 +410,16 @@ dynamically linked library is nowadays referred to simply as
 `Framework`. The statically linked library is known as the
 `Static Library`.
 
-Actually, at this point, we might say there is third. A short note
-deserves also Swift Package and Swift Package Manager (SPM). SPM is part
-of the Swift's ecosystem rather than Apple's. A swift package describes
-how a source code should be attached to a target, leaving up to the
-swift package developer if static or dynamic linking is used. By
-default, SPM uses static linking and similarly as a Framework can have
-additional resources attached to it. SPM is not designed to share a
-compiled executables, it is designed to share source code files with
-ease. It also became a common practice to share a xcframework via SPM,
-in that case SPM servers just as a wrapper around the attached compiled
-binary.
+Actually, at this point, a short note deserves also Swift Package and
+Swift Package Manager (SPM). SPM is part of the Swift's ecosystem rather
+than Apple's. A swift package describes how a source code should be
+attached to a target, leaving up to the swift package developer if
+static or dynamic linking is used. By default, SPM uses static linking
+and similarly as a Framework can have additional resources attached to
+it. SPM is not designed to share a compiled executables, it is designed
+to share source code files with ease. It also became a common practice
+to share a `XCFramework` via SPM, in that case SPM servers just as a
+wrapper around the attached compiled binary.
 
 ![Xcode Framework Types](assets/FrameworksType.png)
 
@@ -589,7 +588,7 @@ Now let's have a look at some pros & cons of both.
     -   The main executable must be recompiled when the library has an
         update even though the library's interface remains the same.
     -   Compile time is slower as there are no hard interfaces and the
-        build system must always figure it out what to re-compile
+        build system must always figure out what to re-compile
 
 ## Essentials
 
@@ -2173,7 +2172,7 @@ using and creating new instances as they like.
 
 ### Core Framework disadvantages
 
-As everything in our industry also core frameworks are having some
+As with everything in our industry, core frameworks also have some
 downsides. First and foremost it is yet another framework that must be
 properly linked within the Application Framework and taken care of. In
 our example project that might be very simple but on big projects the
@@ -2227,10 +2226,10 @@ designed, developed, and supported locally and on the CI systems.
 
 ### Unit Testing in Isolation
 
-First and foremost, unit testing and the ability to run tests in
-isolation. Not surprisingly, each Xcode project created should also
-contain unit tests for the implementations of the main framework.
-Continuing on our example, the test bundle can be added just by
+First and foremost, let us look at unit testing and the ability to run
+tests in isolation. Not surprisingly, each Xcode project created should
+also contain unit tests for the implementations of the main framework.
+Continuing on the example, the test bundle can be added just by
 extending the configuration in the project.yml.
 
 ``` yaml
@@ -2422,9 +2421,9 @@ in the `xctestplan` consisting of all hosting apps and their UI tests
 from the whole Application Framework, leaving developers with singular
 place to run all those tests for all available targets in one go.
 
-No need to mention that this UI xctestplan could be also scripted on the
-CI and only tests that are relevant to a change would be compiled and
-run on a Pull Request.
+No need to mention that this UI `xctestplan` could be also scripted on
+the CI and only tests that are relevant to a change would be compiled
+and run on a Pull Request.
 
 Sadly, UI tests are usually very expensive to run, it is not a surprise
 that sometimes those tests take hours before finishing, therefore, they
@@ -2581,7 +2580,7 @@ two statically linked and two dynamically linked applications. One of
 those two applications with 30 modules and the other one with 300
 modules. With that strategy, all architectures can be compared for each
 linking method and how the metrics change with an increased number of
-modules. The tolal number of tested applications is 13 (4 different
+modules. The total number of tested applications is 13 (4 different
 architecture x 2 linking methods x 2 different number of modules + 1
 monolith).
 
@@ -2741,17 +2740,16 @@ cold launch time.
 
 ### App size
 
-![App size benchmarking results](assets/benchmarking/app-size.png) {
-width=80% } The results of the app size measurements are shown in the
-table above. Dynamic and static linking are shown in the columns while
-the four different architectures are shown in the rows. Each cell is
-then further subdivided into three smaller cells. The first cell shows
-the overall application bundle size, while the second shows the size of
-the main executable and the third shows the size of the Frameworks
-folder. As there is no such folder for statically linked applications,
-this cell is marked with "n/a" in the table. Dynamic linking with the
-monolith architecture is also not possible and is therefore marked "n/a"
-as well.
+![App size benchmarking results](assets/benchmarking/app-size.png) The
+results of the app size measurements are shown in the table above.
+Dynamic and static linking are shown in the columns while the four
+different architectures are shown in the rows. Each cell is then further
+subdivided into three smaller cells. The first cell shows the overall
+application bundle size, while the second shows the size of the main
+executable and the third shows the size of the Frameworks folder. As
+there is no such folder for statically linked applications, this cell is
+marked with "n/a" in the table. Dynamic linking with the monolith
+architecture is also not possible and is therefore marked "n/a" as well.
 
 The results of the statically linked application for the 4-layered and
 protocol modular architecture show the expected results of having a
@@ -2786,7 +2784,7 @@ frameworks folder.
 ### Memory usage
 
 ![Memory usage benchmarking
-results](assets/benchmarking/memory-usage.png) { width=80% }
+results](assets/benchmarking/memory-usage.png)
 
 The results of the memory usage measurements show the expected results
 as seen in the table above. All measured values are in the range of
@@ -2801,7 +2799,7 @@ well.
 ### Compile time
 
 ![Compile time benchmarking
-results](assets/benchmarking/compile-time.png) { width=80% }
+results](assets/benchmarking/compile-time.png)
 
 The results of the compile-time measurements are shown in the figure
 above. Results of the incremental build are marked accordingly. The
@@ -2854,13 +2852,13 @@ The following three figures show the cold launch times of the tested
 applications on the different iPhones (6s, Xs and 14 Pro) respectively:
 
 ![Launch time usage benchmarking
-results](assets/benchmarking/launch-6s.png) { width=80% }
+results](assets/benchmarking/launch-6s.png)
 
 ![Launch time usage benchmarking
-results](assets/benchmarking/launch-xs.png) { width=80% }
+results](assets/benchmarking/launch-xs.png)
 
 ![Launch time usage benchmarking
-results](assets/benchmarking/launch-14.png) { width=80% }
+results](assets/benchmarking/launch-14.png)
 
 The difference in age and processing power between the iPhone 6s and 14
 Pro can clearly be seen here. The older device launches the same
@@ -2910,7 +2908,7 @@ there.
 
 The generated app in the four-layered-architecture has also been tested
 for launch time: the same application that took 1.5 seconds to launch on
-the iPHone 14 Pro only took 0.15 seconds to launch with mergeable
+the iPhone 14 Pro only took 0.15 seconds to launch with mergeable
 libraries enabled. The same application with static linking took 0.12
 seconds to launch. With that, it can be concluded that apps built with
 mergeable libraries take about the same time to launch than statically
@@ -2927,7 +2925,7 @@ results.
     the apps up into multiple smaller frameworks might lead to longer
     launch times for users of that app.
 
--   If possible at all, mergeable libraries should be enabled. It
+-   If at all possible, mergeable libraries should be enabled. It
     esentially results in the launch time of a statically built app. For
     the tested sample app on the iPhone 14, it reduces the launch time
     by about 90%!
