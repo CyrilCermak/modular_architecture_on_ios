@@ -284,7 +284,7 @@ Now let's have a look at some pros & cons of both.
   - **CONS**
     - The library must NOT be linked transitively as each link of the library would add it again. The library must be present only once in the memory either in the main executable or one of its dependencies otherwise the app will need to decide on startup which library is going to be used.
     - The main executable must be recompiled when the library has an update even though the library's interface remains the same.
-    - Compile time is slower as there are no hard interfaces and the build system must always figure it out what to re-compile
+    - Compile time is slower as there are no hard interfaces and the build system must always figure out what to re-compile
 
 ## Essentials
 
