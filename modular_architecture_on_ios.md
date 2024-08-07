@@ -1359,7 +1359,7 @@ Since we already have a good working structure of our highly modular Application
 
 ### Unit Testing in Isolation
 
-First and foremost, unit testing and the ability to run tests in isolation. Not surprisingly, each Xcode project created should also contain unit tests for the implementations of the main framework. Continuing on our example, the test bundle can be added just by extending the configuration in the project.yml.
+First and foremost, let us look at unit testing and the ability to run tests in isolation. Not surprisingly, each Xcode project created should also contain unit tests for the implementations of the main framework. Continuing on the example, the test bundle can be added just by extending the configuration in the project.yml.
 
 ```yaml
 ...
