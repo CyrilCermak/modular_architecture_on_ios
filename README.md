@@ -7,7 +7,7 @@
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven
 Design
 
-**CFBundleVersion** - 2.0.0 - Developer preview
+**CFBundleVersion** - 2.0.0
 
 \newpage
 
@@ -39,7 +39,7 @@ book. Most of my professional career was spent building iOS apps or iOS
 frameworks. My professional career began at Skoda Auto Connect App in
 Prague, continued for Freelancer Ltd in Sydney building iOS platform,
 included numerous start-ups along the way, and, currently, has me as an
-iOS TechLead in Stuttgart for Porsche AG. In this book, I am describing
+iOS Architect Porsche AG, in Stuttgart. In this book, I am describing
 different approaches for building modular iOS architectures and will be
 providing some mechanisms and essential knowledge that should help one
 decide which approach would fit the best or should be considered for a
@@ -525,7 +525,7 @@ Now let's have a look at some pros & cons of both.
 
 -   **PROS**
     -   Can be opened on demand, therefore, might not get opened at all
-        if user do not open specific part of the app (`dlopen`).
+        if user does not open specific part of the app (`dlopen`).
     -   Can be linked transitively to other dynamic libraries without
         any difficulty.
     -   Can be exchanged without the recompile of the main executable
@@ -538,20 +538,22 @@ Now let's have a look at some pros & cons of both.
         into the memory (`dlsym`).
     -   Can be loaded lazily, only objects that are referenced will be
         loaded.
+    -   Can be re-used between targets e.g an iOS app and its app
+        extensions, an watch app and its extensions.
     -   Library can perform some cleanup tasks when it is closed
         (`dlclose`).
     -   Potentially faster app start time as if a library is linked
         lazily, and opened in the runtime.
-    -   Mergeable libraries, Xcode 15 feature could be used to combine
-        all dynamic libraries into a single framework leveraging the
-        best from the both worlds.
+    -   Mergeable libraries, Xcode 15 feature could be used for
+        production builds to combine all dynamic libraries into a single
+        framework leveraging the best from the both worlds.
     -   Hard separation of the codebase improves the compile time of the
         application.
 -   **CONS**
     -   Slower app launch as each dynamic library must be opened, and
         loaded to memory separately. At the very worst case, a library
         can run some computational difficult algorithm on the dlopen
-        initialiser which could slow the start up time even further.\
+        initialiser which could slow the start up time even further.
     -   The target must copy all dynamic libraries else the app crashes
         on the start or during runtime with `dyld library not found`.
     -   The overall size of the binary is bigger than the static one as
@@ -2257,10 +2259,10 @@ Something definitely worth mentioning when developing in the Application
 Framework is the run in isolation. A developer no longer needs to
 compile the whole app consisting of lots frameworks but can set and
 build the desired framework just by setting it as a run/build target in
-Xcode. This allows beautiful tunnel focus isolation on the framework
-from the whole project. By doing so, the setup is the most optimal way
-to do test driven development, especially for a lower level UI free
-frameworks.
+Xcode. This allows beautiful tunnel focus isolation on a particular
+framework from the whole Application Framework. By doing so, the setup
+is the most optimal way to do test driven development, especially for a
+lower level UI free frameworks.
 
 To ensure the stability and good health of a framework, tests should run
 on any change within the framework so as on any change of the dependent
@@ -2349,8 +2351,8 @@ could be a significant which is something, we as good citizens of
 Application Framework should badly avoid doing.
 
 Yet another stunningly beautiful part of this highly modular
-architecture comes in to play. Let us call it UITests in isolation.
-Instead of defining the UITests on the app level, they can directly be
+architecture comes in to play. Let us call it UI Tests in isolation.
+Instead of defining the UI Tests on the app level, they can directly be
 defined on the domain level. A domain e.g `ISSCosmonaut`, can have its
 own so called by Apple `HostingApp`. The hosting app would be created
 within the Xcode project of the Cosmonaut domain and be nicely
@@ -2405,9 +2407,9 @@ coordinators need to interact with and set up the app just as simply as
 instantiating the coordinators stack.
 
 Within such architecture the UITestsHostApp could be up and ready in no
-time, leaving the adequate team to develop the UITests. Essentially, the
-UITestsHostApp would just copy the instantiating boilerplate from the
-main app to ensure the consistency.
+time, leaving the adequate team to develop the UI Tests. Essentially,
+the UITestsHostApp would just copy the instantiating boilerplate from
+the main app to ensure the consistency.
 
 This could be done for every domain that provides screen flows through
 the application, covering the Application Framework with as many tests
@@ -2488,15 +2490,19 @@ featuring everything previously described. In our example
 `CosmonautService` seems like the ideal candidate that leverages
 everything described in here.
 
-The `CosmonautService` has - **CosmonautServiceTests** - Ensuring
-stability via unit testing - **CosmonautServiceUITests** - Ensuring
-stability via UI testing in the CosmonautServiceUITestsHostApp -
-**CosmonautServiceUITestsHostApp** - A special container app that allows
-the service to profile its features and run them in isolation from the
-whole Application Framework - **CosmonautService** - The main framework
-for developing the CosmonautService module - **CosmonautServiceCore** -
-The core framework for the main, ensuring that across others only the
-interfaces are used so as enabling the same layer re-reusability
+The `CosmonautService` has
+
+-   **CosmonautServiceTests** - Ensuring stability via unit testing
+-   **CosmonautServiceUITests** - Ensuring stability via UI testing in
+    the CosmonautServiceUITestsHostApp
+-   **CosmonautServiceUITestsHostApp** - A special container app that
+    allows the service to profile its features and run them in isolation
+    from the whole Application Framework
+-   **CosmonautService** - The main framework for developing the
+    CosmonautService module
+-   **CosmonautServiceCore** - The core framework for the main, ensuring
+    that across others only the interfaces are used so as enabling the
+    same layer re-reusability
 
 ![Cosmonaut Service Fully Fledged
 Framework](assets/fully_fledged_framework.png){width="60%"}
@@ -2515,7 +2521,7 @@ pros and cons, this scalable architecture would be a big overhead for a
 team of two or three developers. However, when having many teams
 contributing to the codebase on a daily basis this would definitely be a
 huge benefit. I can tell from my experience where at Porsche we scaled
-from two teams to nowadays \~25 teams with this approach. The
+from two teams to nowadays \~30 teams with this approach. The
 development of frameworks can and should start simply, when needed the
 architecture can be enhanced.
 
@@ -2533,16 +2539,16 @@ Framework, different performance metrics and the working structure
 should be considered. The metrics in focus of in the following section
 are app size, app compile time, memory usage and - most interestingly -
 app launch time. These metrics will be compared for static and dynamic
-linking for different architectues.
+linking for different architectures.
 
-The first architecture is the modular architecture with four layers, as
-described in the previous chapters, but without the usage of the
-separation of the frameworks into core and implementation. The second
-architeture is simmilar to the previous one, but with a combined domain
-and service layer, resulting in a three-layered architecture. The third
-and final architecture resembles the approach of separating the modules
-into their protocols and implementations frameworks, as described in
-previous chapters with the Core modules.
+The first architecture is the modular architecture with four/five
+layers, as described in the previous chapters, but without the usage of
+the separation of the frameworks into core and implementation. The
+second architecture is simmilar to the previous one, but with a combined
+domain and service layer, resulting in a three-layered architecture. The
+third and final architecture resembles the approach of separating the
+modules into their protocols and implementations frameworks, as
+described in previous chapters with the Core modules.
 
 As a baseline comparison, a monolithic app will be used. In this app,
 code is not separated into different modules. All the code is directly
@@ -2565,10 +2571,9 @@ each other, so an implementation of protocol A will reference protocol
 B. While generating these files, they are structured automatically by
 the generator according to the architectures that are benchmarked
 against each other. The contents of the files try to resemble real-world
-projects like the MPA and use complex features like `Combine` and
-generics. The generated swift files were then combined into an iOS App
-project using `xcodegen` to generate the coresponding Xcode project
-files.
+projects and use complex features like `Combine` and generics. The
+generated swift files were then combined into an iOS App project using
+`xcodegen` to generate the coresponding Xcode project files.
 
 Using this method, multiple different apps were generated: One
 monolithic application as a baseline; four apps using the described
@@ -2802,7 +2807,7 @@ well.
 results](assets/benchmarking/compile-time.png)
 
 The results of the compile-time measurements are shown in the figure
-above. Results of the incremental build are marked accordingly. The
+below. Results of the incremental build are marked accordingly. The
 compilation of the monolith application took 115.8 s. Compiling the
 4-layered modular, 3-layered modular and protocol modular static linked
 applications was around 5 to 20s faster than the monolith application
@@ -2827,8 +2832,8 @@ clean build (or even a slightly longer time as seen in this example).
 Compared to the compile times for the applications with fewer static and
 dynamic frameworks (by a factor of 10) as seen in Figure 4.6, the clean
 build time decreases drastically. For the 4-layered application, the
-dynamically linked application now compiles in 80.7 s instead of 144.3 s
-for example. The other two application archi- tectures see a similar
+dynamically linked application now compiles in 47,4 s instead of 144.3 s
+for example. The other two application architectures see a similar
 reduction in compile time, if not as drastic as the 4-layered
 applications. The dynamically linked 3-layered and protocol modular
 applications now compile faster than their statically linked
@@ -2873,7 +2878,7 @@ specs over the years.
 The figures also show very clearly that having more dynamic frameworks
 is the greatest factor contributing to the application launch time.
 While the tested 4-layered application has 300 frameworks, the 3-layered
-and Core-separeted application have about 200 frameworks, a clear
+and Core-separated application have about 200 frameworks, a clear
 increase in launch time from the 3-layered to the 4-layered applications
 can be seen across all devices. This effect is also visible with fewer
 frameworks (by a factor of 10, resulting in 30 frameworks for the
@@ -2893,25 +2898,25 @@ still only about half as fast as the iPhone 14 Pro, a launch time of
 times with dynamic linking.
 
 With mergeable libraries, the launch time of an app can be reduced quite
-significantly. All dynamic frameworks that are not needed in your app
-extensions will get merged into the main exectuable as if they were
-statically linked. This means that the frameworks no longer need to be
-dynamically loaded on app start. Frameworks shared with your app
-extensions (for example a widget), can not be merged into the main app
-executable, as the app extensions still depend on these dynamic
-frameworks. If they would be merged into the app extensions as well, the
-code inside the frameworks would be shippted twice to all users: once
-merged into the main executable and once merged into the app extension.
-The frameworks will only be merged for release builds, meaning for debug
-builds, all the benefits of dynamically linked libraries are still
-there.
+significantly for production built apps. All dynamic frameworks that are
+not needed in your app extensions will get merged into the main
+executable as if they were statically linked. This means that the
+frameworks no longer need to be dynamically loaded on app start.
+Frameworks shared with your app extensions (for example a widget), can
+not be merged into the main app executable, as the app extensions still
+depend on these dynamic frameworks. If they would be merged into the app
+extensions as well, the code inside the frameworks would be shipped
+twice to all users: once merged into the main executable and once merged
+into the app extension. The frameworks will only be merged for release
+builds, meaning for debug builds, all the benefits of dynamically linked
+libraries are still there.
 
 The generated app in the four-layered-architecture has also been tested
 for launch time: the same application that took 1.5 seconds to launch on
 the iPhone 14 Pro only took 0.15 seconds to launch with mergeable
 libraries enabled. The same application with static linking took 0.12
 seconds to launch. With that, it can be concluded that apps built with
-mergeable libraries take about the same time to launch than statically
+mergeable libraries take about the same time to launch as statically
 linked applications.
 
 ## Conclusion
@@ -2926,11 +2931,11 @@ results.
     launch times for users of that app.
 
 -   If at all possible, mergeable libraries should be enabled. It
-    esentially results in the launch time of a statically built app. For
-    the tested sample app on the iPhone 14, it reduces the launch time
-    by about 90%!
+    essentially results in the launch time of a statically built app.
+    For the tested sample app on the iPhone 14, it reduces the launch
+    time by about 90%!
 
--   Separating the moduels into their core and implementation parts
+-   Separating the modules into their core and implementation parts
     might make your app compile time faster. If no protocol or interface
     changes are made, the modules depending only on the core part of
     said framework do not need to be recompiled. Only the main
@@ -2941,7 +2946,7 @@ results.
 
 -   If mergeable libraries are not enabled, the separation into Core
     modules will also lead to more modules and dynamic libraries need to
-    be loaeded on app start and in turn a longer app launch time. This
+    be loaded on app start and in turn a longer app launch time. This
     separation should then only be done when the horizontal linking
     benefit is actually needed for that framework.
 
@@ -4083,7 +4088,7 @@ would be greatly appreciated.
 
 # Licence
 
-Copyright © 2021 Cyril Cermak.
+Copyright © 2024 Cyril Cermak.
 
 All rights reserved. This book or any portion thereof may not be
 reproduced or used in any manner whatsoever without the express written
