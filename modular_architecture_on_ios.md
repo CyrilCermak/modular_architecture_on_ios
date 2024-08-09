@@ -999,7 +999,7 @@ In this chapter, the basics of Swift compiler architecture were explored. I hope
 [executable path, load path and rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
 
 \newpage
-# Development of the modular architecture
+# Development of the Modular Architecture
 
 The necessary theory about Apple's libraries and some essentials were explained. Finally, it is time to deep dive into the building phase.
 
@@ -1513,20 +1513,28 @@ In this chapter we delved on the modularisation of the whole Application Framewo
 
 In the next chapter we are going to have a look at other possibilities of modularisation. Particularly, we are going to focus on the difference between static and dynamic linking, launch time of the app based on the number of modules, and compile time of each different approach from on a developer's change in the codebase to a full clean build and similar to an incremental build. 
 
-# Benchmarking of the different architectures
+# Benchmarking of Modular Architecture
 
-When choosing an architecture for an app or any kind of Application Framework, different performance metrics and the working structure should be considered. The metrics in focus of in the following section are app size, app compile time, memory usage and - most interestingly -  app launch time. These metrics will be compared for static and dynamic linking for different architectures.
+When choosing an architecture for an application or any type of application framework, there are several performance metrics and working structures to consider. The metrics we will focus on in the following section are application size, application compile time, memory usage and, most interestingly, application launch time. These metrics are compared for static and dynamic linking for different architectures.
 
-The first architecture is the modular architecture with four/five layers, as described in the previous chapters, but without the usage of the separation of the frameworks into core and implementation. The second architecture is simmilar to the previous one, but with a combined domain and service layer, resulting in a three-layered architecture. The third and final architecture resembles the approach of separating the modules into their protocols and implementations frameworks, as described in previous chapters with the Core modules.
+The first architecture to be benchmarked is the four-layer modular architecture described in the previous chapters, but without the separation of frameworks into core and implementation. The second architecture is similar to the previous one, but with a combined domain and service layer, resulting in a three-layer architecture. The third and final architecture is similar to the approach of separating modules into their protocols and implementation frameworks, as described in previous chapters with core modules.
 
-As a baseline comparison, a monolithic app will be used. In this app, code is not separated into different modules. All the code is directly added into the main app's project in Xcode. It does therefore not use any linking at all. In the following comparisons, it is often compared to the statically linked applications, as monoliths are closer to statically linked applications then dynamically linked ones. For launch time, monolith applications and statically linked ones behave very simmilar.
-
+A monolithic application is used as a baseline for comparison. In this application, the code is not separated into different modules. All code is added directly to the main application project in Xcode. It therefore does not use any linking at all. In the following comparisons, it is often compared to the statically linked applications, as monoliths are closer to statically linked applications than dynamically linked ones. At launch time, monolith and statically linked applications behave similarly.
 
 ## Test setup
-For testing the different architectures, it wasn't feasibly to migrate a working app of considerable size into the different architectures, as this would take quite a lot of time and effort. Instead, a code generator has been written. This generator can dynamically generate enums, protocols and corresponding implementations according to a template and replace the name of the file. These files also reference each other, so an implementation of protocol A will reference protocol B. While generating these files, they are structured automatically by the generator according to the architectures that are benchmarked against each other. The contents of the files try to resemble real-world projects and use complex features like `Combine` and generics. The generated swift files were then combined into an iOS App project using `xcodegen` to generate the coresponding Xcode project files.
+In order to test the different architectures, it wasn't feasible to migrate a working application of significant size to the different architectures, as this would take a lot of time and effort. Instead, a code generator was written. 
 
-Using this method, multiple different apps were generated: One monolithic application as a baseline; four apps using the described four-layered-architecutre, four apps using a three-layered-architecture, and four apps using the separated Core module architecture of the four-layered-architecture. For each of the architectures (exluduing the monolithic application), four variants of the apps have been generated: two statically linked and two dynamically linked applications. One of those two applications with 30 modules and the other one with 300 modules. With that strategy, all architectures can be compared for each linking method and how the metrics change with an increased number of modules.
-The total number of tested applications is 13 (4 different architecture x 2 linking methods x 2 different number of modules + 1 monolith).
+The generator can dynamically generate enums, protocols and corresponding implementations according to a template and replace the name of the file. These files also reference each other, so an implementation of protocol A will reference protocol B. As these files are generated, they are automatically structured by the generator according to the architectures being benchmarked against each other. 
+
+The content of the files tries to resemble real-world projects, using complex features such as `Combine` and generics. The generated swift files were then included into an iOS app project using `xcodegen` to generate the corresponding Xcode project files.
+
+Using this method, several different applications were created: A monolithic application as a baseline; four applications using the described four-layer architecture; four applications using a three-layer architecture; and four applications using the separated core module architecture of the four-layer architecture. 
+
+For each of the architectures (excluding the monolithic application), four variants of the applications were generated: two statically linked and two dynamically linked applications. One of these two applications has 30 modules and the other has 300 modules. 
+
+With this strategy, it is possible to compare all architectures for each linking method and how the metrics change with increasing number of modules.
+
+The total number of applications tested is 13 (4 different architectures x 2 different linking methods x 2 different number of modules + 1 monolith).
 
 For the generation of the swift files, the following templates were used for enums:
 ```swift
@@ -1664,43 +1672,56 @@ public class ##name##: ##protocol## {
 }
 ```
 
-Each app contains 1000 generated enums, 1000 generated protocols and 1000 protocol implementations. With that way, the only variables are the linking methods, architectures, and the number of used frameworks.
+Each application contains 1000 generated enums, 1000 generated protocols and 1000 protocol implementations. The only variables are the linking methods, the architectures and the number of frameworks used.
 
-For mergeable frameworks, the dynamically linked app in the four-layered-architecture has been also enabled for mergeable frameworks. As similar results to the statically linked frameworks are expected, this app is only used as a comparison that mergeable libraries behave as expected.
+For `mergeable libraries`, the dynamically linked app in the four-layer architecture was enabled. As similar results to the statically linked frameworks are expected, this application is only used as a comparison that mergeable libraries behave as expected thus can indeed achieve the start up time of a statically linked application. Let's find out!
 
 ## Test results
-The following sections show the results of the described applications in the four mentioned metrics: app size, memory usage, compile time, and cold launch time.
+The following sub-sections show the results of the applications described in terms of the four metrics mentioned: application size, memory usage, compile time and cold start time.
 
 ### App size
 ![App size benchmarking results](assets/benchmarking/app-size.png)
-The results of the app size measurements are shown in the table above. Dynamic and static linking are shown in the columns while the four different architectures are shown in the rows. Each cell is then further subdivided into three smaller cells. The first cell shows the overall application bundle size, while the second shows the size of the main executable and the third shows the size of the Frameworks folder. As there is no such folder for statically linked applications, this cell is marked with “n/a” in the table. Dynamic linking with the monolith architecture is also not possible and is therefore marked “n/a” as well.
+The results of the application size measurements are shown in the table above. Dynamic and static linking are shown in the columns, while the four different architectures are shown in the rows.
 
-The results of the statically linked application for the 4-layered and protocol modular architecture show the expected results of having a similar size as the monolith application, even if a bit smaller. The 4-layered dynamically linked application is about 30% bigger than the static monolithic application, showing the overhead for packaging the same code in 300 different dynamic frameworks. The Core-separated application has an application bundle size that is about 22% bigger than the monolith application or the comparable statically linked application, showing the overhead for 200 dynamic frameworks to be smaller than for 300 frameworks. It thus could be concluded that 100 dynamic frameworks have roughly an overhead of 10 MB.
+The results of the statically linked application for the four-layer and protocol modular architectures show the expected results of having a similar size to the monolithic application, although slightly smaller. 
 
-Outliers from this data are both the dynamically and statically linked 3-layered applications. They show a significant reduction in bundle size, application size and Frameworks folder size respectively. Even after multiple retests, the results stayed the same. One possible explanation could be a specific Swift compiler optimization that happens for this architecture, even if it is unlikely. Confirming that all 200 dynamic frameworks were part of the application bundle did also not help explain the significantly smaller size. As each of the dynamic frameworks is about of the same size as the frameworks from the other applications, the explanation of this discrepancy cannot be explained.
+The four-layer dynamically linked application is about 30% larger than the static monolithic application, showing the overhead of packaging the same code in 300 different dynamic frameworks. 
 
-For the applications with fewer modules, the application sizes are shown in the following table. They all are very similar in size to the monolith application. The main executable for the dynamically compiled applications in the table even have the exact same size. The only measurable size difference was then seen in the size of the dynamic frameworks folder.
+The core-separated application has an application bundle size that is about 22% larger than either the monolithic application or the comparable statically linked application, showing that the overhead for 200 dynamic frameworks is less than for 300 frameworks. It can be concluded that 100 dynamic frameworks have an overhead of approximately 10MB.
+
+Outliers from this data are both the dynamically and statically linked three-layer applications. They show a significant reduction in bundle size, application size and frameworks folder size respectively. Even after multiple retests, the results remained the same. A possible explanation could be a specific Swift compiler optimisation for this architecture, although this is unlikely. Confirming that all 200 dynamic frameworks were part of the application bundle also failed to explain the significantly smaller size. Since each of the dynamic frameworks is about the same size as the frameworks in the other applications, there is no explanation for this discrepancy.
+
+They are all very similar in size to the monolithic application. In fact, the main executable for the dynamically compiled applications in the table is exactly the same size. The only measurable size difference was then seen in the size of the dynamic frameworks folder.
 
 ### Memory usage
 ![Memory usage benchmarking results](assets/benchmarking/memory-usage.png)
 
-The results of the memory usage measurements show the expected results as seen in the table above. All measured values are in the range of (10.3 ± 0.5)MB, regardless of device age, architecture and linking method. As all applications load the same view when launching, this result is expected. The small remaining difference can only be explained with run-to-run variations. As this measurement showed no deviation, it was not measured for the test cases with fewer dynamic frameworks. It would be expected that the memory usage would be in the same range as well.
+The results of the memory usage measurements show the expected results as shown in the table above. All readings are in the range of (10.3 ± 0.5) MB, regardless of device age, architecture and linking method. 
+
+As all applications load the same view at startup, this result is expected. The small remaining difference can only be explained by run-to-run variations. As this measurement showed no deviation, it was not measured for the test cases with fewer dynamic frameworks. It would be expected that the memory usage would also be in the same range.
 
 ### Compile time
 
 ![Compile time benchmarking results](assets/benchmarking/compile-time.png)
 
-The results of the compile-time measurements are shown in the figure below. Results of the incremental build are marked accordingly. The compilation of the monolith application took 115.8 s. Compiling the 4-layered modular, 3-layered modular and protocol modular static linked applications was around 5 to 20s faster than the monolith application with 109.5 s, 105.3 s and 95.4 s respectively. This increase in speed could be due to an increase in the parallel compilation of the different static frameworks. With a monolith application, Xcode may not be as optimized to compile the different source code files in parallel.
+The results of the compile-time measurements are shown in the graph below. The incremental build results are marked accordingly. 
 
-Compiling the dynamically linked 4-layered application compared to the statically linked application took about 32% longer. This increase may be the overhead of compiling the different dynamic frameworks and linking them to the main executable. For the protocol modular and 3-layered application, no noticeable build time difference can be seen compared to the statically linked counterpart. This is in contrast to the increase for the 4-layered application. Incremental builds for all modular application architectures are then faster than the clean build by a factor of 2-3. For the monolithic application, no such decrease can be observed. This is likely the case as Xcode will recompile all files in the monolithic module, resulting in the same build time as with a clean build (or even a slightly longer time as seen in this example).
+Compiling the monolith application took 115.8 s. Compiling the four-layer modular, three-layer modular and protocol modular static linked applications was about 5 to 20 s faster than the monolith application at 109.5 s, 105.3 s and 95.4 s respectively. This increase in speed could be due to an increase in parallel compilation of the different static frameworks. With a monolith application, Xcode may not be as optimised to compile the different source files in parallel.
 
-Compared to the compile times for the applications with fewer static and dynamic frameworks (by a factor of 10) as seen in Figure 4.6, the clean build time decreases drastically. For the 4-layered application, the dynamically linked application now compiles in 47,4 s instead of 144.3 s for example. The other two application architectures see a similar reduction in compile time, if not as drastic as the 4-layered applications. The dynamically linked 3-layered and protocol modular applications now compile faster than their statically linked counterparts. As this is not the case for the 4-layered application, there seems to be a threshold somewhere between 20 and 30 frameworks (for the configurations tested in this benchmark), under which it is faster to compile them dynamically. Above this threshold, static linking seems to be faster.
+Compiling the dynamically linked four-layer application took about 32% longer than the statically linked application. This increase may be due to the overhead of compiling the various dynamic frameworks and linking them to the main executable. 
 
+For the protocol modular and three-layer application, there is no noticeable difference in build time compared to the statically linked counterpart. In contrast, there is an increase for the four-layer application. Incremental builds for all modular application architectures are then faster than the clean build by a factor of 2-3. There is no such decrease for the monolithic application. This is probably because Xcode recompiles all files in the monolithic module, resulting in the same build time as a clean build (or even slightly longer, as seen in this example).
+
+Compared to the compile times for the applications with fewer static and dynamic frameworks (by a factor of 10), as shown in the graph, the clean build time is drastically reduced. For example, for the four-layer application, the dynamically linked application now compiles in 47.4 seconds instead of 144.3 seconds. 
+
+The other two application architectures see a similar reduction in compile time, although not as drastic as the four-layer applications. The dynamically linked three-layer and protocol modular applications now compile faster than their statically linked counterparts. As this is not the case for the four-layer application, there seems to be a threshold somewhere between 20 and 30 frameworks (for the configurations tested in this benchmark) under which it is faster to compile dynamically. Above this threshold, static linking seems to be faster.
 
 ### Launch time
-Launch time of the application is heavily dependend on the used device. Due to that, the tests were run on iPhones from different generations. The tested phones were an iPhone 6s, an iPhone Xs and an iPhone 14 Pro. These phones were not brand new for these tests and already heavily used for app development. Even though these phones were used, the results should still be valid as all devices still indicated high performance mode on their battery health settings.
+The launch time of the application is highly dependent on the device used. For this reason, the tests were carried out on iPhones of different generations. 
 
-The following three figures show the cold launch times of the tested applications on the different iPhones (6s, Xs and 14 Pro) respectively:
+The phones tested were an iPhone 6s, an iPhone Xs and an iPhone 14 Pro. These phones were not brand new at the time of the tests and had already been used extensively for app development. Even though these phones were in use, the results should still be valid, as all of the devices still showed high performance mode in their battery health settings.
+
+The following three graphs show the cold start times of the tested applications on the different iPhones (6s, Xs and 14 Pro):
 
 
 ![Launch time usage benchmarking results](assets/benchmarking/launch-6s.png)
@@ -1709,29 +1730,27 @@ The following three figures show the cold launch times of the tested application
 
 ![Launch time usage benchmarking results](assets/benchmarking/launch-14.png)
 
-The difference in age and processing power between the iPhone 6s and 14 Pro can clearly be seen here. The older device launches the same application (4-layered modular with dynamic linking) about 10 times more slowly than the new device, while the iPhone Xs is about half as fast as the latest iPhone. While the iPhone 6s takes 14.4 s to launch the 4-layered modular application with dynamic linking, the iPhone Xs takes 2.94 s and the iPhone 14 Pro takes 1.54 s. This reduction in launch time for the newer iPhone models is greater than the improvement in device specs over the years.
+The difference in age and processing power between the iPhone 6s and the 14 Pro is clearly visible here. The older device launches the same application (four-layer modular with dynamic linking) about 10 times slower than the new device, while the iPhone Xs is about half as fast as the latest iPhone. While the iPhone 6s takes 14.4 s to launch the four-layer modular application with dynamic linking, the iPhone Xs takes 2.94 s and the iPhone 14 Pro takes 1.54 s. This reduction in launch time for the newer iPhone models is greater than the improvement in device specifications over the years.
 
-The figures also show very clearly that having more dynamic frameworks is the greatest factor contributing to the application launch time. While the tested 4-layered application has 300 frameworks, the 3-layered and Core-separated application have about 200 frameworks, a clear increase in launch time from the 3-layered to the 4-layered applications can be seen across all devices. This effect is also visible with fewer frameworks (by a factor of 10, resulting in 30 frameworks for the 4-layered application and 20 frameworks for the 3-layered and Core-separated), though with less margin. The results with fewer dynamic frameworks are marked accordingly. The reduction in launch time for 10 times fewer dynamic frameworks, however, does not result in a 10 times reduction in launch time. For the iPhone 14 Pro, going from 300 to 30 frameworks in the 4-layered modular architecture (in Figure 4.2), results in a launch time increase by a factor of roughly `7.7`.
+The figures also clearly show that having more dynamic frameworks is the biggest contributor to application startup time. While the tested four-layer application has 300 frameworks, and the three-layer and core-separated application have around 200 frameworks, there is a clear increase in launch time from the three-layer to the four-layer application across all devices. This effect is also seen with fewer frameworks (by a factor of 10, resulting in 30 frameworks for the four-layer application and 20 frameworks for the 3-layer and core-separated), but with a smaller margin. The results with fewer dynamic frameworks are marked accordingly. However, the reduction in startup time with 10 times fewer dynamic frameworks does not translate into a 10 times reduction in startup time. For the iPhone 14 Pro, the reduction from 300 to 30 frameworks in the four-layer modular architecture results in an decrease of the start time by a factor of about 7.7.
 
 With static linking, no dynamic frameworks need to be loaded at all. This results in a very fast application cold launch time for all three devices, comparable to the monolith launch time. While the iPhone 6s is still only about half as fast as the iPhone 14 Pro, a launch time of 0.13s, 0.16s and 0.33s respectively is still fast compared to the launch times with dynamic linking.
 
-With mergeable libraries, the launch time of an app can be reduced quite significantly for production built apps. All dynamic frameworks that are not needed in your app extensions will get merged into the main executable as if they were statically linked. This means that the frameworks no longer need to be dynamically loaded on app start.
-Frameworks shared with your app extensions (for example a widget), can not be merged into the main app executable, as the app extensions still depend on these dynamic frameworks. If they would be merged into the app extensions as well, the code inside the frameworks would be shipped twice to all users: once merged into the main executable and once merged into the app extension.
-The frameworks will only be merged for release builds, meaning for debug builds, all the benefits of dynamically linked libraries are still there.
+Mergeable libraries can significantly reduce the startup time of production-built applications. Any dynamic frameworks that are not needed in your app extensions are merged into the main executable as if they were statically linked. This means that the frameworks no longer need to be dynamically loaded on app startup.
 
-The generated app in the four-layered-architecture has also been tested for launch time: the same application that took 1.5 seconds to launch on the iPhone 14 Pro only took 0.15 seconds to launch with mergeable libraries enabled. The same application with static linking took 0.12 seconds to launch. With that, it can be concluded that apps built with mergeable libraries take about the same time to launch as statically linked applications.
+Frameworks that are shared with your app extensions (for example, a widget) cannot be merged into the main app executable because the app extensions still depend on these dynamic frameworks. If they were also merged into the app extensions, the code inside the frameworks would be shipped twice to all users: once merged into the main executable and once merged into the app extension.
+The frameworks are only merged for release builds, meaning that debug builds still have all the benefits of dynamically linked libraries.
+
+The generated app in the four-layer architecture was also tested for launch time: the same app that took 1.5 seconds to launch on the iPhone 14 Pro took only 0.15 seconds to launch with mergeable libraries enabled. The same application with static linking took 0.12 seconds to launch. This suggests that apps built with mergeable libraries take about the same time to launch as statically linked apps.
 
 ## Conclusion
-When building apps in the described modular architecture, some considerations need to be taken from the results of the benchmark results.
+When building applications in the modular architecture described above, the benchmark results suggest a number of considerations.
 
-- If mergeable libraries are not enabled, adding a new framework to an Application Framework should be done with absolute care. Splitting the apps up into multiple smaller frameworks might lead to longer launch times for users of that app.
+1. If mergeable libraries are not enabled, adding a new framework to an application framework should be done with absolute care. Splitting the application into several smaller frameworks could result in longer startup times for users of that application.
 
-- If at all possible, mergeable libraries should be enabled. It essentially results in the launch time of a statically built app. For the tested sample app on the iPhone 14, it reduces the launch time by about 90%! 
+2. If at all possible, mergeable libraries should be enabled. The result is essentially the launch time of a statically built app. For the sample app tested on the iPhone 14, it reduces the launch time by about 90%! 
 
-- Separating the modules into their core and implementation parts might make your app compile time faster. If no protocol or interface changes are made, the modules depending only on the core part of said framework do not need to be recompiled. Only the main application which then should depend on the concrete implementation module needs to be rebuild, which needs to happen anyway. The main benefit of this architecture however remains, that linking on the same layer is possible.
-
-- If mergeable libraries are not enabled, the separation into Core modules will also lead to more modules and dynamic libraries need to be loaded on app start and in turn a longer app launch time. This separation should then only be done when the horizontal linking benefit is actually needed for that framework.
-
+3. Separating the modules into their core and implementation parts may speed up your application's compile time. If no protocol or interface changes are made, the modules that only depend on the core part of the framework do not need to be recompiled. Only the main application, which depends on the concrete implementation module, needs to be recompiled, which has to be done anyway. Other advantage of this architecture, however, is that it allows linking at the same level.
 
 # SPM (maybe v3? or never)
 
