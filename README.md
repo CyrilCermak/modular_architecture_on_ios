@@ -2747,29 +2747,23 @@ start up time of a statically linked application. Let's find out!
 
 ## Test results
 
-The following sections show the results of the applications described in
-terms of the four metrics mentioned: application size, memory usage,
-compile time and cold start time.
+The following sub-sections show the results of the applications
+described in terms of the four metrics mentioned: application size,
+memory usage, compile time and cold start time.
 
 ### App size
 
 ![App size benchmarking results](assets/benchmarking/app-size.png) The
 results of the application size measurements are shown in the table
 above. Dynamic and static linking are shown in the columns, while the
-four different architectures are shown in the rows. Each cell is then
-divided into three smaller cells. The first cell shows the total size of
-the application bundle, the second shows the size of the main
-executable, and the third shows the size of the Frameworks folder. As
-there is no such folder for statically linked applications, this cell is
-marked 'n/a' in the table. Dynamic linking is also not possible with the
-monolithic architecture and is therefore also marked 'n/a'.
+four different architectures are shown in the rows.
 
 The results of the statically linked application for the four-layer and
 protocol modular architectures show the expected results of having a
 similar size to the monolithic application, although slightly smaller.
 
-The 4-layer dynamically linked application is about 30% larger than the
-static monolithic application, showing the overhead of packaging the
+The four-layer dynamically linked application is about 30% larger than
+the static monolithic application, showing the overhead of packaging the
 same code in 300 different dynamic frameworks.
 
 The core-separated application has an application bundle size that is
@@ -2780,21 +2774,15 @@ concluded that 100 dynamic frameworks have an overhead of approximately
 10MB.
 
 Outliers from this data are both the dynamically and statically linked
-three-layer applications.
-
-They show a significant reduction in bundle size, application size and
-frameworks folder size respectively.
-
-Even after multiple retests, the results remained the same. A possible
+three-layer applications. They show a significant reduction in bundle
+size, application size and frameworks folder size respectively. Even
+after multiple retests, the results remained the same. A possible
 explanation could be a specific Swift compiler optimisation for this
 architecture, although this is unlikely. Confirming that all 200 dynamic
 frameworks were part of the application bundle also failed to explain
 the significantly smaller size. Since each of the dynamic frameworks is
 about the same size as the frameworks in the other applications, there
 is no explanation for this discrepancy.
-
-For the applications with fewer modules, the application sizes are shown
-in the following table.
 
 They are all very similar in size to the monolithic application. In
 fact, the main executable for the dynamically compiled applications in
@@ -2821,7 +2809,7 @@ be expected that the memory usage would also be in the same range.
 ![Compile time benchmarking
 results](assets/benchmarking/compile-time.png)
 
-The results of the compile-time measurements are shown in the figure
+The results of the compile-time measurements are shown in the graph
 below. The incremental build results are marked accordingly.
 
 Compiling the monolith application took 115.8 s. Compiling the
@@ -2848,8 +2836,8 @@ resulting in the same build time as a clean build (or even slightly
 longer, as seen in this example).
 
 Compared to the compile times for the applications with fewer static and
-dynamic frameworks (by a factor of 10), as shown in Figure 4.6, the
-clean build time is drastically reduced. For example, for the four-layer
+dynamic frameworks (by a factor of 10), as shown in the graph, the clean
+build time is drastically reduced. For example, for the four-layer
 application, the dynamically linked application now compiles in 47.4
 seconds instead of 144.3 seconds.
 
@@ -2903,14 +2891,14 @@ core-separated application have around 200 frameworks, there is a clear
 increase in launch time from the three-layer to the four-layer
 application across all devices. This effect is also seen with fewer
 frameworks (by a factor of 10, resulting in 30 frameworks for the
-4-layer application and 20 frameworks for the 3-layer and
+four-layer application and 20 frameworks for the 3-layer and
 core-separated), but with a smaller margin. The results with fewer
 dynamic frameworks are marked accordingly. However, the reduction in
 startup time with 10 times fewer dynamic frameworks does not translate
 into a 10 times reduction in startup time. For the iPhone 14 Pro, the
 reduction from 300 to 30 frameworks in the four-layer modular
-architecture (in Figure 4.2) results in an decrease of the start time by
-a factor of about 7.7.
+architecture results in an decrease of the start time by a factor of
+about 7.7.
 
 With static linking, no dynamic frameworks need to be loaded at all.
 This results in a very fast application cold launch time for all three
@@ -2993,6 +2981,11 @@ access and print out the secrets while debugging or bypass SSLPinning
 and sniff the secrets from the network. Considering, the SSLPinning was
 in a place like it should. In any case, it will take much more effort
 than just dumping binary strings that contain secrets.
+
+If taking it a step further, in an ideal scenario all application's
+secrets should be used by the backend. The front end mobile client
+should be free of those secrets, however, for directly integrated SDK's
+like GoogleMaps or any vendor's SDKs the keys are sometimes necessary.
 
 About two years ago me and my colleague Jörg Nestele had a look at the
 problem and over few weekends we came out with an open-source project
@@ -3105,9 +3098,9 @@ like mentioned before.
 While this book is mostly focused on the development aspects of modular
 architecture, some management essentials must also be mentioned. Not
 surprisingly, developing software for a large organisation can be a real
-challenge. Imagine a scenario where around 30 to 50 developers per
-platform (iOS/Android/Backend) are working on the same project toward
-the same goal. Those developers are usually divided into multiple
+challenge. Imagine a scenario where around \~100 developers per platform
+(iOS/Android/Backend) are working on the same project towards the same
+goal. Those developers are usually divided into multiple
 cross-functional teams that are working independently as toward each
 team's own goals.
 
@@ -3208,7 +3201,7 @@ create a new framework or app and start the implementation right away.
 Nevertheless, the onboarding of a new colleague or the whole team takes
 time which needs to be considered by the project management.
 
-Most likely, scaling to a 6th team working on the framework will require
+Most likely, scaling to a Nth team working on the framework will require
 quite an extensive onboarding session. Due to the amount of code, design
 patterns, CI/CD, code style and so on, it may take a lot of time for
 newcomers to get the speed. In such a case, platform technical leads
@@ -3271,10 +3264,12 @@ important. Since it relies on the e.g service layer frameworks that are
 still in development the tests will start failing. Interfaces need to be
 updated and so on. In the end, this will require additional effort for
 one of the teams to just take care of it until a further decision is
-made for development. Another approach would be to archive it, remove it
-from the actively developed codebase and when the time comes, put it
-back. Furthermore, update all interfaces and changes that happened in
-the framework and then happily continue the development.
+made for development.
+
+Another approach would be to archive it, remove it from the actively
+developed codebase and when the time comes, put it back. Furthermore,
+update all interfaces and changes that happened in the framework and
+then happily continue the development.
 
 ### Code style
 
