@@ -2878,9 +2878,9 @@ The difference in age and processing power between the iPhone 6s and the
 14 Pro is clearly visible here. The older device launches the same
 application (four-layer modular with dynamic linking) about 10 times
 slower than the new device, while the iPhone Xs is about half as fast as
-the latest iPhone. While the iPhone 6s takes 14.4 s to launch the
+the latest iPhone. While the iPhone 6s takes 14.4s to launch the
 four-layer modular application with dynamic linking, the iPhone Xs takes
-2.94 s and the iPhone 14 Pro takes 1.54 s. This reduction in launch time
+2.94s and the iPhone 14 Pro takes 1.54s. This reduction in launch time
 for the newer iPhone models is greater than the improvement in device
 specifications over the years.
 
