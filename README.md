@@ -60,6 +60,13 @@ varied experiences. My reviews are known for their unique blend of
 hard-hitting analysis and absurd humor, ensuring that even the driest of
 subjects can elicit a hearty chuckle.
 
+## About Contributors
+
+Special thanks to David Ullmer, a dear colleague of mine, who did a
+bachelor thesis on modularisation of iOS applications with my guidance.
+David wrote the Benchmarking of Modular Architecture section of this
+book.
+
 \newpage
 \tableofcontents
 \newpage
