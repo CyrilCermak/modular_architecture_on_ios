@@ -50,6 +50,10 @@ Our paths first crossed amidst a whirlwind of iOS Swift code, Ruby code, and Git
 In this book, I provided a meticulous, albeit whimsical, review of modular iOS architectures, contributing not just technical insights but also arcane wisdom gathered from my vast and varied experiences.
 My reviews are known for their unique blend of hard-hitting analysis and absurd humor, ensuring that even the driest of subjects can elicit a hearty chuckle.
 
+## About Contributors
+
+Special thanks to David Ullmer, a dear colleague of mine, who did a bachelor thesis on modularisation of iOS applications with my guidance. David wrote the Benchmarking of Modular Architecture section of this book.
+
 \newpage
 \tableofcontents
 \newpage
