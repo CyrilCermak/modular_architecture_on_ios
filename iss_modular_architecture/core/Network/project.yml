@@ -16,6 +16,33 @@ targets:
     type: framework
     platform: iOS
     sources: Network
+    scheme: {}
+    settings:
+      groups:
+      - BuildSettings
+      base:
+        APPLICATION_EXTENSION_API_ONLY: true
+  
+  # Interface framework exposure for the main framework
+  ISSNetworkCore:
+    type: framework
+    platform: iOS
+    sources: NetworkCore
+    scheme: {}
+    settings:
+      groups:
+      - BuildSettings
+      base:
+        APPLICATION_EXTENSION_API_ONLY: true
+        
+  # Interface framework exposure for the main framework
+  ISSNetworkMock:
+    type: framework
+    platform: iOS
+    sources: NetworkMocks
+    dependencies:
+      - framework: ISSNetworkCore.framework
+        implicit: true
   
   # Tests for the main application
   NetworkTests:

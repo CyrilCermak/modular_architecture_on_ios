@@ -11,13 +11,20 @@ settings:
 # Definition of the targets that exists within the project
 targets:
   
-  # The main application
+  # The service framework containing implementations
   ISSCosmonautService:
     type: framework
     platform: iOS
     sources: CosmonautService
     dependencies:
-      # Core
+      # Linking and implements the `ISSCosmonautServiceCore`  
+      - framework: ISSCosmonautServiceCore.framework
+        implicit: true
+      # Linking the SpacesuitServiceCore in order to be able to use
+      # the public interfaces from it.
+      - framework: ISSSpacesuitServiceCore.framework
+        implicit: true
+      # Core layer
       - framework: ISSPersistence.framework
         implicit: true
       - framework: ISSNetwork.framework
@@ -26,6 +33,19 @@ targets:
         implicit: true
       - framework: ISSRadio.framework
         implicit: true
+      - framework: ISSNetworkCore.framework
+        implicit: true
+  
+  # Core Framework for ISSCosmonautService
+  # defines interfaces and plain public types
+  ISSCosmonautServiceCore:
+    type: framework
+    platform: iOS
+    sources: CosmonautServiceCore
+    dependencies:
+      - framework: ISSNetworkCore.framework
+        implicit: true
+        
   # Tests for the main application
   CosmonautServiceTests:
     type: bundle.unit-test
@@ -33,3 +53,26 @@ targets:
     sources: CosmonautServiceTests
     dependencies:
       - target: ISSCosmonautService
+
+  CosmonautServiceUITestsHostApp:
+    type: application
+    platform: iOS
+    sources: CosmonautServiceUITestsHostApp
+    dependencies:
+      # Service Core can be linked here
+      - framework: ISSCosmonautServiceCore.framework
+        implicit: true
+      # Core
+      - framework: ISSUIComponents.framework
+        implicit: true
+      # Core dependencies
+      - framework: ISSNetwork.framework
+        implicit: true
+      - framework: ISSPersistence.framework
+        implicit: true
+        
+  CosmonautServiceUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+    - path: CosmonautServiceUITests
