@@ -36,7 +36,7 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
-"Finally, to my current girlfriend ... whoever she might be"
+"Finally, to my current girlfriend ... whoever she might be at this very moment"
 
 \newpage
 

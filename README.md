@@ -28,7 +28,8 @@ says; Don't just take, give something back. This is me giving back."
 
 &&
 
-"Finally, to my current girlfriend ... whoever she might be"
+"Finally, to my current girlfriend ... whoever she might be at this very
+moment"
 
 \newpage
 
