@@ -10,9 +10,9 @@ toc-own-page: true
 disable-header-and-footer: true
 footer-left: Modular Architecture on iOS/macOS
 titlepage-background: "assets/cover.png"
-linkcolor: black
-toccolor: black
-urlcolor: cyan
+linkcolor: PorscheMiamiBlue
+urlcolor: PorscheMiamiBlue
+toccolor: PorscheMiamiBlue
 ...
 
 \newpage
@@ -41,10 +41,10 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 \newpage
 
 # About the Author
-Hi, I am Cyril, a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS Architect Porsche AG, in Stuttgart. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
+Hi, I am [Cyril Cermak](https://www.linkedin.com/in/cyril-cermak-210a8b6b/), a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS Architect Porsche AG, in Stuttgart. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
 
 ## About the Reviewer
-Greetings, I am Kristopher K. Kruger, the unintentional and forever grateful reviewer of this book in both its current and previous editions.
+Greetings, I am [Kristopher K. Kruger](https://www.linkedin.com/in/yesvegan/), the unintentional and forever grateful reviewer of this book in both its current and previous editions.
 My professional journey as an iOS Software Developer took an unexpected turn when I met the illustrious Cyril while working on the same groundbreaking project.
 Our paths first crossed amidst a whirlwind of iOS Swift code, Ruby code, and GitHub Actions during the development of the aforementioned project.
 In this book, I provided a meticulous, albeit whimsical, review of modular iOS architectures, contributing not just technical insights but also arcane wisdom gathered from my vast and varied experiences.
@@ -52,7 +52,11 @@ My reviews are known for their unique blend of hard-hitting analysis and absurd 
 
 ## About Contributors
 
-Special thanks to David Ullmer, a dear colleague of mine, who did a bachelor thesis on modularisation of iOS applications with my guidance. David wrote the Benchmarking of Modular Architecture section of this book.
+Special thanks to [David Ullmer](https://www.linkedin.com/in/david-ullmer-214bbb223/), a dear colleague of mine, who did a bachelor thesis on modularisation of iOS applications with my guidance. David wrote the Benchmarking of Modular Architecture chapter of this book. 
+
+## How to Contribute
+
+Feel free to contribute to this work by opening a PR. 
 
 \newpage
 \tableofcontents
