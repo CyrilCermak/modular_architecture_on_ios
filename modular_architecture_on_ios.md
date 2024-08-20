@@ -28,10 +28,6 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
-"To all my non-tech friends for whom I am always fixing various problems: not enough disk space, printers not working, forgotten passcodes etc., and who will never in their lives read this line."
-
-&&
-
 "To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger says; Don't just take, give something back. This is me giving back." 
 
 &&
