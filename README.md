@@ -11,6 +11,9 @@ Design
 
 Need assistance or consultation? Reach out to [Cyril Cermak](https://www.linkedin.com/in/cyril-cermak-210a8b6b/).
 
+[Download as PDF](https://github.com/CyrilCermak/modular_architecture_on_ios/blob/master/modular_architecture_on_ios.pdf)
+[Download as ePUB](https://github.com/CyrilCermak/modular_architecture_on_ios/blob/master/modular_architecture_on_ios.epub)
+
 \newpage
 
 # Dedication
