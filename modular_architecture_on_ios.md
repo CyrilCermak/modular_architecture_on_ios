@@ -32,6 +32,10 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
+"To my amazing colleagues, whose dedication and teamwork made our project possible so that this book could be written.
+
+&&
+
 "Finally, to my current girlfriend ... whoever she might be at this very moment"
 
 \newpage

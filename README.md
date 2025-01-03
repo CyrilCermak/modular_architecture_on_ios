@@ -9,6 +9,8 @@ Design
 
 **CFBundleVersion** - 2.0.0
 
+Need assistance or consultation? Reach out to [Cyril Cermak](https://www.linkedin.com/in/cyril-cermak-210a8b6b/).
+
 \newpage
 
 # Dedication
@@ -19,6 +21,11 @@ Design
 
 "To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger
 says; Don't just take, give something back. This is me giving back."
+
+&&
+
+"To my amazing colleagues, whose dedication and teamwork made our
+project possible so that this book could be written.
 
 &&
 
@@ -2059,11 +2066,11 @@ ISSSpacesuitService:
   platform: iOS
   sources: SpacesuitService
   dependencies:
-  # Linking and implements the `ISSSpacesuitServiceCore` protocols  
+  # Linking and implements the `ISSSpacesuitServiceCore` protocols
   - framework: ISSSpacesuitServiceCore.framework
     implicit: true
 ...
-    
+
 # Core Framework for ISSSpacesuitServiceCore
 # defines interfaces and plain public types
 ISSSpacesuitServiceCore:
@@ -2254,7 +2261,7 @@ ISSCosmonautService:
     - framework: ISSNetworkCore.framework
       implicit: true
     ...
-... 
+...
 CosmonautServiceTests:
   type: bundle.unit-test
   platform: iOS
@@ -2398,7 +2405,7 @@ CosmonautUITestsHostApp:
     - framework: ISSCosmonautService.framework
       implicit: true
     ...
-      
+
 CosmonautUITests:
   type: bundle.ui-testing
   platform: iOS
