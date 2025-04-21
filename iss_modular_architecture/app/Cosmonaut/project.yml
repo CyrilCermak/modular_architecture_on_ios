@@ -10,7 +10,7 @@ settings:
 
 # Definition of the targets that exists within the project
 targets:
-  
+
   # The main application
   CosmonautApp:
     type: application
@@ -20,6 +20,8 @@ targets:
       groups:
         - BuildSettings
     dependencies:
+      # App Extensions
+      - target: CosmonautWidgetExtension
       # Domains
       - framework: ISSCosmonaut.framework
         implicit: true
@@ -43,7 +45,36 @@ targets:
         implicit: true
       - framework: ISSUIComponents.framework
         implicit: true
-  
+
+  # The main application
+  CosmonautWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources: CosmonautWidgetExtension
+    scheme: {}
+    settings:
+      # groups:
+      # - BuildSettings
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.iss.CosmonautApp.Widget
+        INFOPLIST_FILE: CosmonautWidgetExtension/Info.plist
+    dependencies:
+    - framework: ISSRadio.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSCosmonautService.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSCosmonautServiceCore.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSSpaceSuitService.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSSpaceSuitServiceCore.framework
+      implicit: true
+      codeSign: false
+
   # Tests for the main application
   CosmonautAppTests:
     type: bundle.unit-test
