@@ -52,9 +52,19 @@ public class RadioService: RadioServicing {
     public func connect(connectable: Connectable) -> AnyPublisher<Data, Error> {
         switch connectable {
         case .cosmonautHealthCheck:
+            
+            if let data = DataFactory.healthJson.data(using: .utf8) {
+                healthPublisher.send(data)
+            }
+            
             observeHealthValues()
             return healthPublisher.eraseToAnyPublisher()
         case .spacesuit:
+            
+            if let data = DataFactory.spacesuitJson.data(using: .utf8) {
+                spacesuitPublisher.send(data)
+            }
+            
             observeSpacesuitValues()
             return spacesuitPublisher.eraseToAnyPublisher()
         }
