@@ -28,7 +28,7 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
 &&
 
-"To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger says; Don't just take, give something back. This is me giving back." 
+"To the community, rule no. 5 of my childhood hero Arnold Schwarzenegger says; Don't just take, give something back. This is me giving back."
 
 &&
 
@@ -52,11 +52,11 @@ My reviews are known for their unique blend of hard-hitting analysis and absurd 
 
 ## About Contributors
 
-Special thanks to [David Ullmer](https://www.linkedin.com/in/david-ullmer-214bbb223/), a dear colleague of mine, who did a bachelor thesis on modularisation of iOS applications with my guidance. David wrote the Benchmarking of Modular Architecture chapter of this book. 
+Special thanks to [David Ullmer](https://www.linkedin.com/in/david-ullmer-214bbb223/), a dear colleague of mine, who did a bachelor thesis on modularisation of iOS applications with my guidance. David wrote the Benchmarking of Modular Architecture chapter of this book.
 
 ## How to Contribute
 
-Feel free to contribute to this work by opening a PR. 
+Feel free to contribute to this work by opening a PR.
 
 \newpage
 \tableofcontents
@@ -82,7 +82,7 @@ Hopefully, this introduction provided enough motivation that you will want to di
 The latest version of [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) for compiling the demo examples, [brew](https://brew.sh/) to install some mandatory dependencies, [Ruby](https://www.ruby-lang.org/en/), and [bundler](https://bundler.io/) for running scripts and downloading some ruby gems.
 
 ## What is this book about
-This book describes the essentials of building a modular architecture on iOS which further can be extended to all Apple platforms. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project. This book focuses on high level architecture, modularisation of a project, and collaboration in way to be the most efficient.  
+This book describes the essentials of building a modular architecture on iOS which further can be extended to all Apple platforms. You will find examples of different approaches, framework types, their pros and cons, common problems and so on. By the end of this book, you should have a very good understanding of what benefits such an architecture will bring to your project, whether it is necessary at all, and which way would be the best for modularising the project. This book focuses on high level architecture, modularisation of a project, and collaboration in way to be the most efficient.
 
 ## What is this book NOT about
 SwiftUI.
@@ -148,7 +148,7 @@ The core layer is the enabler for the whole app. Services will link the necessar
 A core module in our e-commerce app could be `Network` or `UIComponents`.
 
 ### Shared Layer
-The shared layer is a supporting layer for the whole framework. It can happen that this layer might not need to exist, therefore, it is not considered in all diagrams. However, a perfect example of the shared layer is some logging mechanism. Even core layer modules may want to log some output and that could potentially lead to duplicates. This duplicated code could be solved by the shared layer or by following principles of clean architecture. Nevertheless, more on that topic later. 
+The shared layer is a supporting layer for the whole framework. It can happen that this layer might not need to exist, therefore, it is not considered in all diagrams. However, a perfect example of the shared layer is some logging mechanism. Even core layer modules may want to log some output and that could potentially lead to duplicates. This duplicated code could be solved by the shared layer or by following principles of clean architecture. Nevertheless, more on that topic later.
 
 For example, a shared module in an e-commerce app could be `Logging` or `AppAnalytics`.
 
@@ -214,7 +214,7 @@ Before we deep dive into the development of previously described architecture, t
 
 In Apple's ecosystem as of today, we have two main options when it comes to creating a library. The library can either be statically or dynamically linked. Previously known as `Cocoa Touch Framework`, the dynamically linked library is nowadays referred to simply as `Framework`. The statically linked library is known as the `Static Library`.
 
-Actually, at this point, a short note deserves also Swift Package and Swift Package Manager (SPM). SPM is part of the Swift's ecosystem rather than Apple's. A swift package describes how a source code should be attached to a target, leaving up to the swift package developer if static or dynamic linking is used. By default, SPM uses static linking and similarly as a Framework can have additional resources attached to it. SPM is not designed to share a compiled executables, it is designed to share source code files with ease. It also became a common practice to share a `XCFramework` via SPM, in that case SPM servers just as a wrapper around the attached compiled binary.  
+Actually, at this point, a short note deserves also Swift Package and Swift Package Manager (SPM). SPM is part of the Swift's ecosystem rather than Apple's. A swift package describes how a source code should be attached to a target, leaving up to the swift package developer if static or dynamic linking is used. By default, SPM uses static linking and similarly as a Framework can have additional resources attached to it. SPM is not designed to share a compiled executables, it is designed to share source code files with ease. It also became a common practice to share a `XCFramework` via SPM, in that case SPM servers just as a wrapper around the attached compiled binary.
 
 ![Xcode Framework Types](assets/FrameworksType.png)
 
@@ -270,7 +270,7 @@ Now let's have a look at some pros & cons of both.
     - Can be re-used between targets e.g an iOS app and its app extensions, an watch app and its extensions.
     - Library can perform some cleanup tasks when it is closed (`dlclose`).
     - Potentially faster app start time as if a library is linked lazily, and opened in the runtime.
-    - Mergeable libraries, Xcode 15 feature could be used for production builds to combine all dynamic libraries into a single framework leveraging the best from the both worlds. 
+    - Mergeable libraries, Xcode 15 feature could be used for production builds to combine all dynamic libraries into a single framework leveraging the best from the both worlds.
     - Hard separation of the codebase improves the compile time of the application.
 
   - **CONS**
@@ -1265,13 +1265,13 @@ Needless to say, any higher-level layer framework can link any framework from an
 
 ## Core Framework
 
-For most cases, the architecture described until now would be sufficient. However, as teams and the Application Framework grow, there will be more and more use cases where the services will have to interact. There is always a possibility to connect the services on a higher level, in this case described they could be interacting either on a domain level or if more domains would be in need of it, even on the app level. 
+For most cases, the architecture described until now would be sufficient. However, as teams and the Application Framework grow, there will be more and more use cases where the services will have to interact. There is always a possibility to connect the services on a higher level, in this case described they could be interacting either on a domain level or if more domains would be in need of it, even on the app level.
 
 Let us look at the concrete example. We can take a `CosmonautService` abstracted by a public protocol `CosmonautServicing` and `SpacesuitService` abstracted by a public protocol `SpacesuitServicing` each implemented in the relevant framework. A valid architectural need could be that `CosmonautService` must somehow interact with the `SpacesuitService` meaning knowing the public interface of the `SpacesuitService` such that an instance conforming to the public protocol can be passed in. The easiest way would be to interconnect those services via callbacks on a domain level or the app level, where an output of `CosmonautService` would be observed and trigger the needed functionality of the `SpacesuitService`. Having one case like that is probably fine, however, as such interaction grows the code will get ugly, luckily there is a way to improve our existing architecture by introducing something we can call a `Core` framework.
 
 ### Using Core Framework
 
-Core framework is essentially another Framework target within the `SpacesuitService` Xcode project of the main framework. In our example of SpacesuitService, a core framework would be `SpacesuitServiceCore`. The `SpacesuitServiceCore` framework would however have to follow yet another set of rules to avoid any kind of cross compile issues. 
+Core framework is essentially another Framework target within the `SpacesuitService` Xcode project of the main framework. In our example of SpacesuitService, a core framework would be `SpacesuitServiceCore`. The `SpacesuitServiceCore` framework would however have to follow yet another set of rules to avoid any kind of cross compile issues.
 
 In XcodeGen the Core framework could be defined as follows;
 
@@ -1283,11 +1283,11 @@ ISSSpacesuitService:
   platform: iOS
   sources: SpacesuitService
   dependencies:
-  # Linking and implements the `ISSSpacesuitServiceCore` protocols  
+  # Linking and implements the `ISSSpacesuitServiceCore` protocols
   - framework: ISSSpacesuitServiceCore.framework
     implicit: true
 ...
-    
+
 # Core Framework for ISSSpacesuitServiceCore
 # defines interfaces and plain public types
 ISSSpacesuitServiceCore:
@@ -1325,17 +1325,17 @@ In Xcode another target would just appear under the available targets and within
 
 ### Core Framework Usage and Best Practices
 
-Not surprisingly, when introducing e.g a new service framework, the best practice would be to start simple. For starters, having just the main framework with the protocols, types and implementations all mixed in. As the use cases of re-using some of the public parts of the service within another framework on the same layer emerge, the main framework could be split and the core parts could be moved out of the main framework to the core one. 
+Not surprisingly, when introducing e.g a new service framework, the best practice would be to start simple. For starters, having just the main framework with the protocols, types and implementations all mixed in. As the use cases of re-using some of the public parts of the service within another framework on the same layer emerge, the main framework could be split and the core parts could be moved out of the main framework to the core one.
 
-The core framework should contain only plain protocols, type definitions and basic data objects to really express only the "core". Certainly, in the ideal world, the core framework would not have any concrete implementations, however, in practice sometimes it is inevitable to add some helper class or a small class there. 
+The core framework should contain only plain protocols, type definitions and basic data objects to really express only the "core". Certainly, in the ideal world, the core framework would not have any concrete implementations, however, in practice sometimes it is inevitable to add some helper class or a small class there.
 
 ### Core Framework linking and advantages
 
-The most brilliant part about the Core framework is actually not only its reusability on the same layer while ensuring no cross compile issues but also the linking abstraction. As soon as the Core framework exists, it is no longer needed to link the main implementation heavy framework in services or domains. Instead, the Core is used as a dependency to higher layers. The framework that is linking the core framework will depend on the lightweight abstraction part of it. This further brings couple of wins. 
+The most brilliant part about the Core framework is actually not only its reusability on the same layer while ensuring no cross compile issues but also the linking abstraction. As soon as the Core framework exists, it is no longer needed to link the main implementation heavy framework in services or domains. Instead, the Core is used as a dependency to higher layers. The framework that is linking the core framework will depend on the lightweight abstraction part of it. This further brings couple of wins.
 
 **Compile time decrease**
 
-A compile time could be heavily decreased. Let us have a look at why. Since now on the broader scope services and domains would depend on core frameworks representing protocols and basic types only, build system would not have to recompile or re-check to ensure the stability of dependent frameworks. If any implementation is changed within the main framework, the change affects only the main framework which ideally is linked only to the main app in order to instantiate the objects. Therefore, everything else within the Application Framework dependent on the core framework remains untouched. The build system instead of re-building the whole tree and checking recursively all dependencies would just have to re-compile the implementation. That already is a big win. However, no need to say that this applies to changes that are not modifying the core. If for example a protocol would be updated in the core module then no compile time would be saved. Yet another reason to focus and design protocols well - this however applies and is absolutely crucial in a later stage of development. 
+A compile time could be heavily decreased. Let us have a look at why. Since now on the broader scope services and domains would depend on core frameworks representing protocols and basic types only, build system would not have to recompile or re-check to ensure the stability of dependent frameworks. If any implementation is changed within the main framework, the change affects only the main framework which ideally is linked only to the main app in order to instantiate the objects. Therefore, everything else within the Application Framework dependent on the core framework remains untouched. The build system instead of re-building the whole tree and checking recursively all dependencies would just have to re-compile the implementation. That already is a big win. However, no need to say that this applies to changes that are not modifying the core. If for example a protocol would be updated in the core module then no compile time would be saved. Yet another reason to focus and design protocols well - this however applies and is absolutely crucial in a later stage of development.
 
 **Tests needed to run decrease**
 
@@ -1343,28 +1343,28 @@ Similarly to compile time, the tests that need to run to ensure stability and he
 
 **Framework Control And Encapsulation**
 
-A less significant benefit is, the fact that clients of the linked framework can no longer instantiate objects on their own. There is no concrete implementation within the Core. The main framework would have to be linked in order to let the client instantiate the objects. This particular case can improve the code a lot. Due to the fact that each client depends on the abstraction only and for example only the app instantiates the concrete objects which are then passed down to lower layers or registered in a dependency injection pool, all by the abstracted protocols. This further is ensuring single instances of classes are used across the app lifecycle rather than random clients using and creating new instances as they like. 
+A less significant benefit is, the fact that clients of the linked framework can no longer instantiate objects on their own. There is no concrete implementation within the Core. The main framework would have to be linked in order to let the client instantiate the objects. This particular case can improve the code a lot. Due to the fact that each client depends on the abstraction only and for example only the app instantiates the concrete objects which are then passed down to lower layers or registered in a dependency injection pool, all by the abstracted protocols. This further is ensuring single instances of classes are used across the app lifecycle rather than random clients using and creating new instances as they like.
 
 ### Core Framework disadvantages
 
-As with everything in our industry, core frameworks also have some downsides. First and foremost it is yet another framework that must be properly linked within the Application Framework and taken care of. In our example project that might be very simple but on big projects the Application Framework can contain hundreds of frameworks and the core parts potentially at some points doubles the amount. 
+As with everything in our industry, core frameworks also have some downsides. First and foremost it is yet another framework that must be properly linked within the Application Framework and taken care of. In our example project that might be very simple but on big projects the Application Framework can contain hundreds of frameworks and the core parts potentially at some points doubles the amount.
 
-Further, worth mentioning point is the app start time, as not surprisingly core frameworks introducing new dynamic frameworks that must be linked and copied to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices. 
+Further, worth mentioning point is the app start time, as not surprisingly core frameworks introducing new dynamic frameworks that must be linked and copied to the main app which will make the cold starts slower, as each dynamic framework must be loaded and opened on the app start which takes time, especially on older devices.
 
 **Mergeable Libraries**
 
 Mergeable libraries to the rescue, Apple introduced in WWDC2023 new compiler feature which can merge dynamic frameworks into one shared framework, drastically improving the start up time while leaving developers with the flexibility of dynamic linking. Unfortunately, as of now, almost one year after this feature was introduced the mergeable libraries are still having lots of issues. Certainly, those will be fixed with new Xcode updates and then the disadvantage of slower app start will be heavily improved.
 [Apple Documentation - Mergable Libraries](https://developer.apple.com/documentation/xcode/configuring-your-project-to-use-mergeable-libraries)
 
-### Core Framework Rules 
+### Core Framework Rules
 
-Generally, a core framework should not have many dependencies. However, it is possible to link lower layer frameworks, ideally abstracted by the core framework but also the concrete implementation if such pattern on lower framework was not applied. Furthermore, a core framework can potentially link another core framework on the same layer. Delving on our `CosmonautServiceCore` and `SpacesuitServiceCore`, each could link one and other. Given that there are no concrete implementations in it no issues should arise. However such case should be carefully evaluated to avoid tangling and yet again the compiler issues when cross linking.    
+Generally, a core framework should not have many dependencies. However, it is possible to link lower layer frameworks, ideally abstracted by the core framework but also the concrete implementation if such pattern on lower framework was not applied. Furthermore, a core framework can potentially link another core framework on the same layer. Delving on our `CosmonautServiceCore` and `SpacesuitServiceCore`, each could link one and other. Given that there are no concrete implementations in it no issues should arise. However such case should be carefully evaluated to avoid tangling and yet again the compiler issues when cross linking.
 
 Certainly, linking the framework downwards should not be allowed in our example, `CosmonautServiceCore` should never be linked to `NetworkService` or any of its parts as lower layer must be agnostic of the upper layer.
 
 ## Testing
 
-Since we already have a good working structure of our highly modular Application Framework let us have a look at how to test it in the most efficient and effective way. On small projects time spend on testing might not play very significant part as tests might be finished within a couple of minutes contrary on a big project and in our case tests could easily take hours to finish. Accordingly, the test strategy must be designed, developed, and supported locally and on the CI systems. 
+Since we already have a good working structure of our highly modular Application Framework let us have a look at how to test it in the most efficient and effective way. On small projects time spend on testing might not play very significant part as tests might be finished within a couple of minutes contrary on a big project and in our case tests could easily take hours to finish. Accordingly, the test strategy must be designed, developed, and supported locally and on the CI systems.
 
 ### Unit Testing in Isolation
 
@@ -1381,7 +1381,7 @@ ISSCosmonautService:
     - framework: ISSNetworkCore.framework
       implicit: true
     ...
-... 
+...
 CosmonautServiceTests:
   type: bundle.unit-test
   platform: iOS
@@ -1405,9 +1405,9 @@ I hope those two different examples gave a good idea of how drastically the time
 
 ### Application Framework App
 
-Up until now, the testing happened under one umbrella of an app in the Application Framework. However, Application Framework can have multiple applications consisting of the frameworks available. Those frameworks does not necessarily have to be related. There might be frameworks solely dedicated to one app, but leveraging the foundational work of the application framework. Meaning, using the same core frameworks for e.g Networking, Persistence etc. 
+Up until now, the testing happened under one umbrella of an app in the Application Framework. However, Application Framework can have multiple applications consisting of the frameworks available. Those frameworks does not necessarily have to be related. There might be frameworks solely dedicated to one app, but leveraging the foundational work of the application framework. Meaning, using the same core frameworks for e.g Networking, Persistence etc.
 
-This scenario somehow forces us to introduce something we can call `Application Framework App`, which is a dummy application living on the app level consisting of all frameworks available within the Application Framework. The app does not necessarily have to do anything. It is there just to provide a container, an encapsulation of the whole Application Framework. The app by default can have all frameworks in, including one or more XCTestPlans defining the testing strategy and all test targets. 
+This scenario somehow forces us to introduce something we can call `Application Framework App`, which is a dummy application living on the app level consisting of all frameworks available within the Application Framework. The app does not necessarily have to do anything. It is there just to provide a container, an encapsulation of the whole Application Framework. The app by default can have all frameworks in, including one or more XCTestPlans defining the testing strategy and all test targets.
 
 ### Unit Testing in Application Framework App
 
@@ -1418,7 +1418,7 @@ On the CI, however, this app could be scripted and created on the fly based on t
 ### UITesting in Isolation
 
 Similarly to unit testing the UI tests can be developed and executed. Unlike unit tests, UI tests need an app to run in, as there is the actual UI. The first logical idea that comes to mind is to implement and maintain the UI tests on the app level. There the full application is created and can be deployed to a simulator or a device to run those tests. While this is surely the most intuitive way of introducing UI tests to the project it is not the ideal one. Imagine a scenario, where a domain, e.g `ISSUser` which provides the user's sign up / sign in functionality, profile details its flows etc. should be UI tested. Such a common business domain can be easily re-used across different apps. As those apps would grow, they would also aim for the UI testing strategy, and here we have the conflict. Either one app would give up on UI testing the user profile part of the app; if even possible. As login might be required to test some of the app's functionalities or the tests would be simply duplicated. In case of UI tests, the code duplication could be a significant which is something, we as good citizens of Application Framework should badly avoid doing.
-   
+
 Yet another stunningly beautiful part of this highly modular architecture comes in to play. Let us call it UI Tests in isolation. Instead of defining the UI Tests on the app level, they can directly be defined on the domain level. A domain e.g `ISSCosmonaut`, can have its own so called by Apple `HostingApp`. The hosting app would be created within the Xcode project of the Cosmonaut domain and be nicely encapsulated in the Xcode's project. All this can be easily defined in project.yml.
 
 ```yaml
@@ -1451,7 +1451,7 @@ CosmonautUITestsHostApp:
     - framework: ISSCosmonautService.framework
       implicit: true
     ...
-      
+
 CosmonautUITests:
   type: bundle.ui-testing
   platform: iOS
@@ -1460,25 +1460,25 @@ CosmonautUITests:
 ...
 ```
 
-UITestsHostApp brings again another level of testing in isolation. Independently from the whole Application Framework, the app can be deployed and UI tested. An ideal scenario is when a domain is represented by a coordinator or many coordinators which take over the screen. The UITestsHostApp would simply mock the services those coordinators need to interact with and set up the app just as simply as instantiating the coordinators stack. 
+UITestsHostApp brings again another level of testing in isolation. Independently from the whole Application Framework, the app can be deployed and UI tested. An ideal scenario is when a domain is represented by a coordinator or many coordinators which take over the screen. The UITestsHostApp would simply mock the services those coordinators need to interact with and set up the app just as simply as instantiating the coordinators stack.
 
-Within such architecture the UITestsHostApp could be up and ready in no time, leaving the adequate team to develop the UI Tests. Essentially, the UITestsHostApp would just copy the instantiating boilerplate from the main app to ensure the consistency. 
+Within such architecture the UITestsHostApp could be up and ready in no time, leaving the adequate team to develop the UI Tests. Essentially, the UITestsHostApp would just copy the instantiating boilerplate from the main app to ensure the consistency.
 
 This could be done for every domain that provides screen flows through the application, covering the Application Framework with as many tests as possible.
 
 ### UITesting in Application Framework App
 
-Similarly to unit tests the UI tests would also have their place in the grouped app. By default in this case it could be a UI test plan defined in the `xctestplan` consisting of all hosting apps and their UI tests from the whole Application Framework, leaving developers with singular place to run all those tests for all available targets in one go. 
+Similarly to unit tests the UI tests would also have their place in the grouped app. By default in this case it could be a UI test plan defined in the `xctestplan` consisting of all hosting apps and their UI tests from the whole Application Framework, leaving developers with singular place to run all those tests for all available targets in one go.
 
 No need to mention that this UI `xctestplan` could be also scripted on the CI and only tests that are relevant to a change would be compiled and run on a Pull Request.
 
 Sadly, UI tests are usually very expensive to run, it is not a surprise that sometimes those tests take hours before finishing, therefore, they could run on a nightly basis or another development workflow relevant time.
 
-### Mock Framework 
+### Mock Framework
 
 As the tests grow there will be a pattern emerging, lots of frameworks will start implementing their own stubs and mocks from linked framework. As an example, a `CosmonautServiceTests` could instantiate the `CosmonautService` with stubbed `NetworkService`, in order to provide the data or return mocked responses. This mocked `NetworkService` however will get implmeneted pretty much in every tests of a framework that is linking and using the `NetworkService`. Therefore, over time those stubs and mocks will be by each test module that needs them, making very difficult to adjust the `NetworkService` protocol because on such change all conformed objects will have to be adapted. Making the developer go through all tests and adapt the mocks and stubs accordingly.
 
-Luckily, yet again, there is a beautiful solution for such problem in our modular architecture. Let us call it a Mock framework. A Mock framework sits again within the same Xcode project as the main framework and just simply provide generic stubs and mocks which can then further be extended or adapted as needed for the tests. 
+Luckily, yet again, there is a beautiful solution for such problem in our modular architecture. Let us call it a Mock framework. A Mock framework sits again within the same Xcode project as the main framework and just simply provide generic stubs and mocks which can then further be extended or adapted as needed for the tests.
 
 There are many advantages of the Mock framework. First of all, it enforces a developer to make one great mock or a stub which is highly flexible and re-usable. Having a mock framework drastically reduces the need of creating such class in the test modules all over again. It also nicely separates the mock objects from the main production framework, pre-compiler macros would achieve the same but when mocking lots of classes, separating them completely to a different framework is even better.
 
@@ -1501,7 +1501,7 @@ For the test from dependent frameworks bundles, only change would be to link the
 ## Final Look at One Fully Fledged Xcode Project (module)
 Finally, let us have a look at one fully fledged module which is featuring everything previously described. In our example `CosmonautService` seems like the ideal candidate that leverages everything described in here.
 
-The `CosmonautService` has 
+The `CosmonautService` has
 
   - **CosmonautServiceTests** - Ensuring stability via unit testing
   - **CosmonautServiceUITests** - Ensuring stability via UI testing in the CosmonautServiceUITestsHostApp
@@ -1513,13 +1513,13 @@ The `CosmonautService` has
 
 
 ![Cosmonaut Service - Xcode project](assets/cosmonautService_full.png){ width=60% }
-     
+
 
 ## Conclusion
 
 In this chapter we delved on the modularisation of the whole Application Framework, further slicing a framework and separating it into its Core, or adding the UITestingHostApp to it which further allows running the framework in complete isolation from the rest. I hope that the benefits of this approach are now well understood. Like everything, there is a pros and cons, this scalable architecture would be a big overhead for a team of two or three developers. However, when having many teams contributing to the codebase on a daily basis this would definitely be a huge benefit. I can tell from my experience where at Porsche we scaled from two teams to nowadays ~30 teams with this approach. The development of frameworks can and should start simply, when needed the architecture can be enhanced.
 
-In the next chapter we are going to have a look at other possibilities of modularisation. Particularly, we are going to focus on the difference between static and dynamic linking, launch time of the app based on the number of modules, and compile time of each different approach from on a developer's change in the codebase to a full clean build and similar to an incremental build. 
+In the next chapter we are going to have a look at other possibilities of modularisation. Particularly, we are going to focus on the difference between static and dynamic linking, launch time of the app based on the number of modules, and compile time of each different approach from on a developer's change in the codebase to a full clean build and similar to an incremental build.
 
 # Benchmarking of Modular Architecture
 
@@ -1530,15 +1530,15 @@ The first architecture to be benchmarked is the four-layer modular architecture 
 A monolithic application is used as a baseline for comparison. In this application, the code is not separated into different modules. All code is added directly to the main application project in Xcode. It therefore does not use any linking at all. In the following comparisons, it is often compared to the statically linked applications, as monoliths are closer to statically linked applications than dynamically linked ones. At launch time, monolith and statically linked applications behave similarly.
 
 ## Test setup
-In order to test the different architectures, it wasn't feasible to migrate a working application of significant size to the different architectures, as this would take a lot of time and effort. Instead, a code generator was written. 
+In order to test the different architectures, it wasn't feasible to migrate a working application of significant size to the different architectures, as this would take a lot of time and effort. Instead, a code generator was written.
 
-The generator can dynamically generate enums, protocols and corresponding implementations according to a template and replace the name of the file. These files also reference each other, so an implementation of protocol A will reference protocol B. As these files are generated, they are automatically structured by the generator according to the architectures being benchmarked against each other. 
+The generator can dynamically generate enums, protocols and corresponding implementations according to a template and replace the name of the file. These files also reference each other, so an implementation of protocol A will reference protocol B. As these files are generated, they are automatically structured by the generator according to the architectures being benchmarked against each other.
 
 The content of the files tries to resemble real-world projects, using complex features such as `Combine` and generics. The generated swift files were then included into an iOS app project using `xcodegen` to generate the corresponding Xcode project files.
 
-Using this method, several different applications were created: A monolithic application as a baseline; four applications using the described four-layer architecture; four applications using a three-layer architecture; and four applications using the separated core module architecture of the four-layer architecture. 
+Using this method, several different applications were created: A monolithic application as a baseline; four applications using the described four-layer architecture; four applications using a three-layer architecture; and four applications using the separated core module architecture of the four-layer architecture.
 
-For each of the architectures (excluding the monolithic application), four variants of the applications were generated: two statically linked and two dynamically linked applications. One of these two applications has 30 modules and the other has 300 modules. 
+For each of the architectures (excluding the monolithic application), four variants of the applications were generated: two statically linked and two dynamically linked applications. One of these two applications has 30 modules and the other has 300 modules.
 
 With this strategy, it is possible to compare all architectures for each linking method and how the metrics change with increasing number of modules.
 
@@ -1691,9 +1691,9 @@ The following sub-sections show the results of the applications described in ter
 ![App size benchmarking results](assets/benchmarking/app-size.png)
 The results of the application size measurements are shown in the table above. Dynamic and static linking are shown in the columns, while the four different architectures are shown in the rows.
 
-The results of the statically linked application for the four-layer and protocol modular architectures show the expected results of having a similar size to the monolithic application, although slightly smaller. 
+The results of the statically linked application for the four-layer and protocol modular architectures show the expected results of having a similar size to the monolithic application, although slightly smaller.
 
-The four-layer dynamically linked application is about 30% larger than the static monolithic application, showing the overhead of packaging the same code in 300 different dynamic frameworks. 
+The four-layer dynamically linked application is about 30% larger than the static monolithic application, showing the overhead of packaging the same code in 300 different dynamic frameworks.
 
 The core-separated application has an application bundle size that is about 22% larger than either the monolithic application or the comparable statically linked application, showing that the overhead for 200 dynamic frameworks is less than for 300 frameworks. It can be concluded that 100 dynamic frameworks have an overhead of approximately 10MB.
 
@@ -1704,7 +1704,7 @@ They are all very similar in size to the monolithic application. In fact, the ma
 ### Memory usage
 ![Memory usage benchmarking results](assets/benchmarking/memory-usage.png)
 
-The results of the memory usage measurements show the expected results as shown in the table above. All readings are in the range of (10.3 ± 0.5) MB, regardless of device age, architecture and linking method. 
+The results of the memory usage measurements show the expected results as shown in the table above. All readings are in the range of (10.3 ± 0.5) MB, regardless of device age, architecture and linking method.
 
 As all applications load the same view at startup, this result is expected. The small remaining difference can only be explained by run-to-run variations. As this measurement showed no deviation, it was not measured for the test cases with fewer dynamic frameworks. It would be expected that the memory usage would also be in the same range.
 
@@ -1712,20 +1712,20 @@ As all applications load the same view at startup, this result is expected. The 
 
 ![Compile time benchmarking results](assets/benchmarking/compile-time.png)
 
-The results of the compile-time measurements are shown in the graph below. The incremental build results are marked accordingly. 
+The results of the compile-time measurements are shown in the graph below. The incremental build results are marked accordingly.
 
 Compiling the monolith application took 115.8 s. Compiling the four-layer modular, three-layer modular and protocol modular static linked applications was about 5 to 20 s faster than the monolith application at 109.5 s, 105.3 s and 95.4 s respectively. This increase in speed could be due to an increase in parallel compilation of the different static frameworks. With a monolith application, Xcode may not be as optimised to compile the different source files in parallel.
 
-Compiling the dynamically linked four-layer application took about 32% longer than the statically linked application. This increase may be due to the overhead of compiling the various dynamic frameworks and linking them to the main executable. 
+Compiling the dynamically linked four-layer application took about 32% longer than the statically linked application. This increase may be due to the overhead of compiling the various dynamic frameworks and linking them to the main executable.
 
 For the protocol modular and three-layer application, there is no noticeable difference in build time compared to the statically linked counterpart. In contrast, there is an increase for the four-layer application. Incremental builds for all modular application architectures are then faster than the clean build by a factor of 2-3. There is no such decrease for the monolithic application. This is probably because Xcode recompiles all files in the monolithic module, resulting in the same build time as a clean build (or even slightly longer, as seen in this example).
 
-Compared to the compile times for the applications with fewer static and dynamic frameworks (by a factor of 10), as shown in the graph, the clean build time is drastically reduced. For example, for the four-layer application, the dynamically linked application now compiles in 47.4 seconds instead of 144.3 seconds. 
+Compared to the compile times for the applications with fewer static and dynamic frameworks (by a factor of 10), as shown in the graph, the clean build time is drastically reduced. For example, for the four-layer application, the dynamically linked application now compiles in 47.4 seconds instead of 144.3 seconds.
 
 The other two application architectures see a similar reduction in compile time, although not as drastic as the four-layer applications. The dynamically linked three-layer and protocol modular applications now compile faster than their statically linked counterparts. As this is not the case for the four-layer application, there seems to be a threshold somewhere between 20 and 30 frameworks (for the configurations tested in this benchmark) under which it is faster to compile dynamically. Above this threshold, static linking seems to be faster.
 
 ### Launch time
-The launch time of the application is highly dependent on the device used. For this reason, the tests were carried out on iPhones of different generations. 
+The launch time of the application is highly dependent on the device used. For this reason, the tests were carried out on iPhones of different generations.
 
 The phones tested were an iPhone 6s, an iPhone Xs and an iPhone 14 Pro. These phones were not brand new at the time of the tests and had already been used extensively for app development. Even though these phones were in use, the results should still be valid, as all of the devices still showed high performance mode in their battery health settings.
 
@@ -1756,9 +1756,63 @@ When building applications in the modular architecture described above, the benc
 
 1. If mergeable libraries are not enabled, adding a new framework to an application framework should be done with absolute care. Splitting the application into several smaller frameworks could result in longer startup times for users of that application.
 
-2. If at all possible, mergeable libraries should be enabled. The result is essentially the launch time of a statically built app. For the sample app tested on the iPhone 14, it reduces the launch time by about 90%! 
+2. If at all possible, mergeable libraries should be enabled. The result is essentially the launch time of a statically built app. For the sample app tested on the iPhone 14, it reduces the launch time by about 90%!
 
 3. Separating the modules into their core and implementation parts may speed up your application's compile time. If no protocol or interface changes are made, the modules that only depend on the core part of the framework do not need to be recompiled. Only the main application, which depends on the concrete implementation module, needs to be recompiled, which has to be done anyway. Other advantage of this architecture, however, is that it allows linking at the same level.
+
+4. Re-using code via frameworks wherever possible is the key to build highly scalable modular Application Framework.
+
+The next chapter will introduce re-usibility of frameworks via multiple targets of the app like App Extensions or Watch etc.
+
+# App Extensions and Watch and other targets in the Modular Architecture
+
+A special chapter of this book is dedicated to App Extensions and other possible targets or platforms of an Application. The modularity of our application framework brings makes the challenges of re-using code and resources among other application targets much easier. However, nothing comes without challenges, in this case mergable libraries are not possible to use as the code used between the main app and the app's extension must be loaded into memory.
+
+## App Extensions
+App Extensions essentially integrate an iOS application deeper into the Apple's ecosystem. They usually allow an app to be accessed from many different places of iOS or Apple's apps. One of the most common could be the Widget, an extension that allows you to display valuable data of your application on the HomeScreen. Next could be ShareExtension which allows a certain data to be shared with an app from other places, e.g Apple Maps can share a POI with other application that integrates ShareExtension.
+
+Before we dive further let's have a look at some of the commonly known and used app extension on iOS. (listed by GPT)
+
+1. **Today Extensions (Widgets)**
+   - Display quick, glanceable information or provide functionality directly in the iOS Today View or Home Screen widgets.
+
+2. **Share Extensions**
+   - Allow users to share content (e.g., text, images, links) from other apps to your app.
+
+3. **Action Extensions**
+   - Perform specific actions on content within another app, such as editing an image, translating text, or adding annotations.
+
+4. **Photo Editing Extensions**
+   - Integrate your app's photo editing tools directly into the Photos app, enabling users to edit images without leaving the Photos app.
+
+5. **Custom Keyboard Extensions**
+   - Provide a custom keyboard that users can use system-wide, such as emoji keyboards, GIF keyboards, or specialized input methods.
+
+6. **Document Provider Extensions**
+   - Allow your app to act as a file provider, enabling users to access and manage files stored in your app from other apps or the Files app.
+
+7. **File Provider Extensions**
+   - Integrate your app with the Files app, allowing users to browse, upload, and manage files stored in your app's cloud or local storage.
+
+8. **SiriKit Extensions**
+   - Enable your app to interact with Siri, allowing users to perform tasks or retrieve information using voice commands.
+
+9. **iMessage App Extensions**
+   - Create custom stickers, games, or app functionality that users can access directly within the Messages app.
+
+10. **Notification Content Extensions**
+    - Customize the appearance of notifications by adding rich media (e.g., images, videos) or interactive elements.
+
+and many more...
+
+Similarly, other Apple's architectures like watchOS, tvOS, visionOS have their own extensions. It is not uncommon for an application to have many extensions integrated.
+
+App Extensions are always having a target which is not surprisingly the main application. One application can have many app extensions whereas an app extension has exactly one target.
+
+## Setting up App Extension in Modular Architecture
+
+Since now we know the basics, let us setup a Widget extension for the Cosmonaut application.
+
 
 # SPM (maybe v3? or never)
 
@@ -1766,7 +1820,7 @@ When building applications in the modular architecture described above, the benc
 
 # Application Framework - Best Practices
 
-At this point, we have a very well designed and benchmarked architecture, let us continue in this chapter with the best practices of contribution and collaboration on the modularised Application Framework. 
+At this point, we have a very well designed and benchmarked architecture, let us continue in this chapter with the best practices of contribution and collaboration on the modularised Application Framework.
 
 ## App secrets
 
@@ -1774,7 +1828,7 @@ Project secrets could be API keys, SDK keys, encryption keys, as well as configu
 
 The app ideally should decrypt encrypted secret during its runtime. Even though, on a jailbroken iPhone the potential attacker could gain runtime access and print out the secrets while debugging or bypass SSLPinning and sniff the secrets from the network. Considering, the SSLPinning was in a place like it should. In any case, it will take much more effort than just dumping binary strings that contain secrets.
 
-If taking it a step further, in an ideal scenario all application's secrets should be used by the backend. The front end mobile client should be free of those secrets, however, for directly integrated SDK's like GoogleMaps or any vendor's SDKs the keys are sometimes necessary.  
+If taking it a step further, in an ideal scenario all application's secrets should be used by the backend. The front end mobile client should be free of those secrets, however, for directly integrated SDK's like GoogleMaps or any vendor's SDKs the keys are sometimes necessary.
 
 About two years ago me and my colleague Jörg Nestele had a look at the problem and over few weekends we came out with an open-source project written purely in Ruby called Mobile Secrets which solves this problem in a Swifty way.
 
@@ -1877,7 +1931,7 @@ While praising such architecture pretty much all the time, like everything, it c
 
 First things first, the maintenance of the application framework can be very inefficient and difficult. The application framework will not go far without technical leads who can align the company strategy for the development of the framework and products. Thereafter, technical leads give the directions for the development technically backed up by system and solution architects. Since there can be many teams working and contributing to the repository some maintenance might be happening daily. The most affected part is probably the CI/CD chain. On the CI/CD things can break quickly, furthermore, maintenance of failing unit-tests, legacy code, supporting apps that are no longer in development etc is needed.
 
-In case of the maintenance, a particular difficulty (challenge) could be maintaining apps or frameworks that are no longer in development. Let us say, an app consisting of domains and services was successfully delivered to the customers and there is no more development planned for it. This results in code that runs in production. Therefore, it is very important. Since it relies on the e.g service layer frameworks that are still in development the tests will start failing. Interfaces need to be updated and so on. In the end, this will require additional effort for one of the teams to just take care of it until a further decision is made for development. 
+In case of the maintenance, a particular difficulty (challenge) could be maintaining apps or frameworks that are no longer in development. Let us say, an app consisting of domains and services was successfully delivered to the customers and there is no more development planned for it. This results in code that runs in production. Therefore, it is very important. Since it relies on the e.g service layer frameworks that are still in development the tests will start failing. Interfaces need to be updated and so on. In the end, this will require additional effort for one of the teams to just take care of it until a further decision is made for development.
 
 Another approach would be to archive it, remove it from the actively developed codebase and when the time comes, put it back. Furthermore, update all interfaces and changes that happened in the framework and then happily continue the development.
 
@@ -2354,4 +2408,4 @@ All rights reserved. This book or any portion thereof may not be reproduced or u
 Publisher
 Cyril Cermak
 
-www.cyrilcermak.com 
+www.cyrilcermak.com
