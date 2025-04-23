@@ -1769,6 +1769,7 @@ The next chapter will introduce re-usibility of frameworks via multiple targets 
 A special chapter of this book is dedicated to App Extensions and other possible targets or platforms of an Application. The modularity of our application framework brings makes the challenges of re-using code and resources among other application targets much easier. However, nothing comes without challenges, in this case mergable libraries are not possible to use as the code used between the main app and the app's extension must be loaded into memory.
 
 ## App Extensions
+
 App Extensions essentially integrate an iOS application deeper into the Apple's ecosystem. They usually allow an app to be accessed from many different places of iOS or Apple's apps. One of the most common could be the Widget, an extension that allows you to display valuable data of your application on the HomeScreen. Next could be ShareExtension which allows a certain data to be shared with an app from other places, e.g Apple Maps can share a POI with other application that integrates ShareExtension.
 
 Before we dive further let's have a look at some of the commonly known and used app extension on iOS. (listed by GPT)
@@ -1811,7 +1812,82 @@ App Extensions are always having a target which is not surprisingly the main app
 
 ## Setting up App Extension in Modular Architecture
 
-Since now we know the basics, let us setup a Widget extension for the Cosmonaut application.
+In the Cosmonaut app example, let us say that the widget should display information about the space suit and the cosmonaut's health, both available via `ISSCosmonautService` and `ISSSpaceSuitService` respectively. A critical app information users' might appreciate having on the Home Screen of the phone.
+
+Since now we know the basics, let us setup a Widget extension for the Cosmonaut application. Easily said, and even more easily done via Xcodegen.
+There, we just make sure that the App Extension is assigned to a target that is being extended by the extension. In our case, we will add `- target: CosmonautWidgetExtension` to the CosmonautApp and define a new target `CosmonautWidgetExtension` as shown below.
+
+```yaml
+# iss_modular_architecture/app/CosmonautApp/project.yml
+  CosmonautApp:
+    type: application
+    platform: iOS
+    sources: CosmonautApp
+    settings:
+      groups:
+        - BuildSettings
+    dependencies:
+      # App Extensions
+      - target: CosmonautWidgetExtension
+      # Domains
+      - framework: ISSCosmonautService.framework
+        implicit: true
+      # ... (All needed frameworks are linked in the app here)
+
+  # The main application
+  CosmonautWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources: CosmonautWidgetExtension
+    scheme: {}
+    settings:
+      # groups:
+      # - BuildSettings
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.iss.CosmonautApp.Widget
+        INFOPLIST_FILE: CosmonautWidgetExtension/Info.plist
+    dependencies:
+    - framework: ISSRadio.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSCosmonautService.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSCosmonautServiceCore.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSSpaceSuitService.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSSpaceSuitServiceCore.framework
+      implicit: true
+      codeSign: false
+```
+
+Since all frameworks needed in the `CosmonautWidgetExtension` are already in the main target, `codeSign` must be set to `false`, else it would be re-signed which would lead to rejection by App Store Connect.
+
+The `project.yml` file of the main Cosmonaut App clearly shows that we are re-using 5 frameworks among those two targets. Therefore, for production builds, none of those shared frameworks can be merged to the singular framework via the `mergable libraries` compiler's option. If done so, the app extension would not find the executable and consequently it would crash on start. Sadly, this cannot be found and stopped in the compile time.
+
+In our example, it is clear which frameworks must not be merged, however, in reality Application Framework can have hundreds of frameworks, out of which the app extension might need 20, there the challenge begins. Setting up the extension will be quite straightforward, but further maintaining it and ensure it's stability some integration tests will be needed to make sure that the app extension does not crash on start by a having missing framework; which was merged into the main executable.
+
+## Apple Watch target
+
+Similarly to App Extensions, we can also target Watch and other Apple's platforms.
+
+```yaml
+  ISSCosmonautService:
+    type: framework
+    platform:
+     - iOS
+     - watchOS
+    sources: CosmonautService
+    dependencies:
+      # Linking and implements the `ISSCosmonautServiceCore`
+      - framework: ISSCosmonautServiceCore.framework
+        implicit: true
+```
+
+
 
 
 # SPM (maybe v3? or never)
