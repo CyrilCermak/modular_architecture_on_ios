@@ -1766,7 +1766,7 @@ The next chapter will introduce re-usibility of frameworks via multiple targets 
 
 # App Extensions and Watch and other targets in the Modular Architecture
 
-A special chapter of this book is dedicated to App Extensions and other possible targets or platforms of an Application. The modularity of our application framework brings makes the challenges of re-using code and resources among other application targets much easier. However, nothing comes without challenges, in this case mergable libraries are not possible to use as the code used between the main app and the app's extension must be loaded into memory.
+A special chapter of this book is dedicated to App Extensions and other possible targets or platforms of an application. The modularity of our application framework makes the challenges of re-using code and resources among other application targets much easier. However, nothing comes without a price, in this case, frameworks shared between multiple targets sharing the same platform architecture cannot use compiler's mergable libraries feature. As a dynamic framework must be created and linked accordingly to both targets, therefore, the framework's code cannot be merged into a single binary. This also applies for transitive dependencies of the shared framework, without them, the framework itself cannot run properly.
 
 ## App Extensions
 
@@ -1868,11 +1868,11 @@ Since all frameworks needed in the `CosmonautWidgetExtension` are already in the
 
 The `project.yml` file of the main Cosmonaut App clearly shows that we are re-using 5 frameworks among those two targets. Therefore, for production builds, none of those shared frameworks can be merged to the singular framework via the `mergable libraries` compiler's option. If done so, the app extension would not find the executable and consequently it would crash on start. Sadly, this cannot be found and stopped in the compile time.
 
-In our example, it is clear which frameworks must not be merged, however, in reality Application Framework can have hundreds of frameworks, out of which the app extension might need 20, there the challenge begins. Setting up the extension will be quite straightforward, but further maintaining it and ensure it's stability some integration tests will be needed to make sure that the app extension does not crash on start by a having missing framework; which was merged into the main executable.
+In our example, it is clear which frameworks must not be merged, however, in reality, Application Framework can have hundreds of frameworks, out of which the app extension might need 20, there the challenge begins. Setting up the extension will be quite straightforward, but further maintaining it and ensure it's stability might be difficult. An integration tests might be needed to make sure that the app extension does not crash on start by a having missing framework; which was merged into the main executable.
 
 ## Apple Watch target
 
-Similarly to App Extensions, we can also target Watch and other Apple's platforms.
+Similarly to App Extensions, we can also target Watch and other Apple platforms.
 
 ```yaml
   ISSCosmonautService:
@@ -1887,7 +1887,7 @@ Similarly to App Extensions, we can also target Watch and other Apple's platform
         implicit: true
 ```
 
-
+The watch target is another platform in the Apple's ecosystem, therefore, here we won't need to worry much about the impact on the main iOS application. Highly likely only a handful of frameworks will be shared between the iOS app and the watch app. Furthermore, as of now the mergable libraries are supported only by iOS platform, thus this option is completely out.
 
 
 # SPM (maybe v3? or never)
