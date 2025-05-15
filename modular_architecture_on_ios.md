@@ -1868,9 +1868,45 @@ Since all frameworks needed in the `CosmonautWidgetExtension` are already in the
 
 The `project.yml` file of the main Cosmonaut App clearly shows that we are re-using 5 frameworks among those two targets. Therefore, for production builds, none of those shared frameworks can be merged to the singular framework via the `mergable libraries` compiler's option. If done so, the app extension would not find the executable and consequently it would crash on start. Sadly, this cannot be found and stopped in the compile time.
 
-TODO:// Add code sample from the Widget showing the imported shared frameworks
+A simple `TimelineProvider` implementation of the new CosmonautWidget can be shown on the sample below.
+
+```swift
+// Sample from a file: iss_modular_architecture/app/Cosmonaut/CosmonautWidgetExtension/CosmonautWidgetExtension.swift
+
+import SwiftUI
+import Intents
+import WidgetKit
+import ISSRadio
+import ISSCosmonautService
+import ISSSpacesuitService
+
+struct CosmonautWidgetProvider: TimelineProvider {
+    private let cosmonautHealthService = CosmonautHealthService(radio: RadioService())
+    private let spacesuitService = SpacesuitService(radio: RadioService())
+
+    func getSnapshot(in context: Context, completion: @escaping (CosmonautWidgetEntry) -> Void) {
+        cosmonautHealthService.startHealthMonitoring()
+        spacesuitService.startSpacesuitMonitoring()
+
+        let entry = CosmonautWidgetEntry(date: Date(),
+                                         bloodPressure: cosmonautHealthService.health.bloodPressure?.level ?? "",
+                                         bloodOxygen: cosmonautHealthService.health.bloodOxygen?.level ?? "",
+                                         heartRate: cosmonautHealthService.health.heartRate?.level ?? "",
+                                         bodyTemperature: cosmonautHealthService.health.bodyTemperature?.level ?? "",
+                                         outsideTemperature: spacesuitService.spacesuit.outsideTemperature?.level ?? "",
+                                         charge: spacesuitService.spacesuit.charge?.level ?? "",
+                                         pressure: spacesuitService.spacesuit.pressure?.level ?? "")
+
+        completion(entry)
+    }
+
+    // Other required protocol implementations
+}
+```
 
 In our example, it is clear which frameworks must not be merged, however, in reality, Application Framework can have hundreds of frameworks, out of which the app extension might need 20, there the challenge begins. Setting up the extension will be quite straightforward, but further maintaining it and ensure it's stability might be difficult. An integration tests might be needed to make sure that the app extension does not crash on start by a having missing framework; which was merged into the main executable.
+
+Debugging a crashing app extension can be a real challenge as very often Xcode is not very helpful, especially, when you run the app extension from within the main app target. However macOS Console.app is here to help in those cases. Usually, the reason why an app extension could not start due to a missing framework etc. can be found there.
 
 ## Apple Watch target
 
@@ -1890,8 +1926,6 @@ Similarly to App Extensions, we can also target Watch and other Apple platforms.
 ```
 
 The watch target is another platform in the Apple's ecosystem, therefore, here we won't need to worry much about the impact on the main iOS application. Highly likely only a handful of frameworks will be shared between the iOS app and the watch app. Furthermore, as of now the mergable libraries are supported only by iOS platform, thus this option is completely out.
-
-TODO:// Add debugging app extension crashes on start
 
 # SPM (maybe v3? or never)
 
