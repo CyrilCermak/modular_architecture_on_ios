@@ -1770,7 +1770,7 @@ A special chapter of this book is dedicated to App Extensions and other possible
 
 ## App Extensions
 
-App Extensions essentially integrate an iOS application deeper into the Apple's ecosystem. They usually allow an app to be accessed from many different places of iOS or Apple's apps. One of the most common could be the Widget, an extension that allows you to display valuable data of your application on the HomeScreen. Next could be ShareExtension which allows a certain data to be shared with an app from other places, e.g Apple Maps can share a POI with other application that integrates ShareExtension.
+App Extensions essentially integrate an iOS application deeper into the Apple's ecosystem. They usually allow an app to be accessed from many different places of iOS or Apple's apps. One of the most common extensions could be the Widget. An extension that allows you to display valuable data of your application on the HomeScreen. Next example could be ShareExtension which allows a certain data to be shared with an app from other places, e.g Apple Maps can share a POI with other application that integrates ShareExtension.
 
 Before we dive further let's have a look at some of the commonly known and used app extension on iOS. (listed by GPT)
 
@@ -1815,10 +1815,11 @@ App Extensions are always having a target which is not surprisingly the main app
 In the Cosmonaut app example, let us say that the widget should display information about the space suit and the cosmonaut's health, both available via `ISSCosmonautService` and `ISSSpaceSuitService` respectively. A critical app information users' might appreciate having on the Home Screen of the phone.
 
 Since now we know the basics, let us setup a Widget extension for the Cosmonaut application. Easily said, and even more easily done via Xcodegen.
-There, we just make sure that the App Extension is assigned to a target that is being extended by the extension. In our case, we will add `- target: CosmonautWidgetExtension` to the CosmonautApp and define a new target `CosmonautWidgetExtension` as shown below.
+In Xcodegen, we just make sure that the App Extension is assigned to a target that is being extended by the extension. In our case, we will add `- target: CosmonautWidgetExtension` to the CosmonautApp and define a new target `CosmonautWidgetExtension` as shown below.
 
 ```yaml
 # iss_modular_architecture/app/CosmonautApp/project.yml
+  # The main application
   CosmonautApp:
     type: application
     platform: iOS
@@ -1828,13 +1829,13 @@ There, we just make sure that the App Extension is assigned to a target that is 
         - BuildSettings
     dependencies:
       # App Extensions
-      - target: CosmonautWidgetExtension
+      - target: CosmonautWidgetExtension # The newly added target
       # Domains
       - framework: ISSCosmonautService.framework
         implicit: true
       # ... (All needed frameworks are linked in the app here)
 
-  # The main application
+  # The cosmonaut desktop widget extension
   CosmonautWidgetExtension:
     type: app-extension
     platform: iOS
@@ -1868,7 +1869,7 @@ Since all frameworks needed in the `CosmonautWidgetExtension` are already in the
 
 The `project.yml` file of the main Cosmonaut App clearly shows that we are re-using 5 frameworks among those two targets. Therefore, for production builds, none of those shared frameworks can be merged to the singular framework via the `mergable libraries` compiler's option. If done so, the app extension would not find the executable and consequently it would crash on start. Sadly, this cannot be found and stopped in the compile time.
 
-A simple `TimelineProvider` implementation of the new CosmonautWidget can be shown on the sample below.
+A simple `TimelineProvider` implementation of the new CosmonautWidgetExtension can be shown on the sample below. All frameworks are available, thus the extension can re-instantiate the needed services and provide the data to the widget.
 
 ```swift
 // Sample from a file: iss_modular_architecture/app/Cosmonaut/CosmonautWidgetExtension/CosmonautWidgetExtension.swift
@@ -1904,9 +1905,9 @@ struct CosmonautWidgetProvider: TimelineProvider {
 }
 ```
 
-In our example, it is clear which frameworks must not be merged, however, in reality, Application Framework can have hundreds of frameworks, out of which the app extension might need 20, there the challenge begins. Setting up the extension will be quite straightforward, but further maintaining it and ensure it's stability might be difficult. An integration tests might be needed to make sure that the app extension does not crash on start by a having missing framework; which was merged into the main executable.
+In our CosmonautWidgetExtension, it is clear which frameworks must not be merged, however, in the real world scenario, Application Framework can have hundreds of frameworks, out of which the app extension might need a smaller subset, there the challenge begins. Setting up the extension will be quite straightforward, however, further maintaining it and ensure it's stability might be more challenging. Linking between modules can change, new modules are linked to the underlying transitive modules, all that could break the app extension. Integration tests might be needed to ensure that the app extension does not crash on start by having a missing framework; which was e.g merged into the main executable by mergable libraries.
 
-Debugging a crashing app extension can be a real challenge as very often Xcode is not very helpful, especially, when you run the app extension from within the main app target. However macOS Console.app is here to help in those cases. Usually, the reason why an app extension could not start due to a missing framework etc. can be found there.
+Debugging a crashing app extension before it appears in the iOS's extension list can be a real challenge. Very often Xcode is not very helpful, especially, when you run the app extension from within the main app target. However macOS `Console.app` is here to help in those cases. Very often, the reason why an app extension was killed by iOS even before it could appear, in  case of HomeScreen widget on the selection list, can be found there. Highly likely the reason will be a missing framework or something fundamental that the extension could not start without.
 
 ## Apple Watch target
 
@@ -1917,15 +1918,19 @@ Similarly to App Extensions, we can also target Watch and other Apple platforms.
     type: framework
     platform:
      - iOS
-     - watchOS
+     - watchOS # Supporting watchOS platform, code must be adapted to support both platforms
     sources: CosmonautService
     dependencies:
       # Linking and implements the `ISSCosmonautServiceCore`
       - framework: ISSCosmonautServiceCore.framework
         implicit: true
+        # ...
 ```
 
-The watch target is another platform in the Apple's ecosystem, therefore, here we won't need to worry much about the impact on the main iOS application. Highly likely only a handful of frameworks will be shared between the iOS app and the watch app. Furthermore, as of now the mergable libraries are supported only by iOS platform, thus this option is completely out.
+The watch target is another platform in the Apple's ecosystem, therefore, here we won't need to worry much about the impact on the main iOS application. Furthermore, as of now the mergable libraries are supported only by iOS platform, thus this option is completely out. Worth mentioning is the size limitation of the app on watchOS. Today the uncompressed maximum app size for Watch is 75MB, whereas for iOS app it is 4GB.
+
+Due to the size limitation between the platforms, API differences, SDK availability, ..., in the Apple's ecosystem the watch app won't be able to re-use many of iOS frameworks. In our example, the Cosmonaut watch app, might be able to re-use only some services, but domains less likely. Possibly, a watch app can be treated as a separate domain or multiple standalone domains, afterall, the watch has different user flows, views, even a design system used to develop the watch app might differ from the main app.
+
 
 # SPM (maybe v3? or never)
 
