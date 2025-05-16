@@ -1766,11 +1766,11 @@ The next chapter will introduce re-usibility of frameworks via multiple targets 
 
 # App Extensions and Watch and other targets in the Modular Architecture
 
-A special chapter of this book is dedicated to App Extensions and other possible targets or platforms of an application. The modularity of our application framework makes the challenges of re-using code and resources among other application targets much easier. However, nothing comes without a price, in this case, frameworks shared between multiple targets sharing the same platform architecture cannot use compiler's mergable libraries feature. As a dynamic framework must be created and linked accordingly to both targets, therefore, the framework's code cannot be merged into a single binary. This also applies for transitive dependencies of the shared framework, without them, the framework itself cannot run properly.
+A special chapter of this book is dedicated to App Extensions and other potential targets or platforms of an application. The modularity of our application framework simplifies the challenges of reusing code and resources across various application targets. However, this does come with a trade-off. Frameworks shared between multiple targets on the same platform architecture cannot utilize the compiler's mergeable libraries feature. Since a dynamic framework must be created and linked separately for each target, the framework's code cannot be merged into a single binary. This limitation also applies to transitive dependencies of the shared framework, as the framework itself cannot function properly without them.
 
 ## App Extensions
 
-App Extensions essentially integrate an iOS application deeper into the Apple's ecosystem. They usually allow an app to be accessed from many different places of iOS or Apple's apps. One of the most common extensions could be the Widget. An extension that allows you to display valuable data of your application on the HomeScreen. Next example could be ShareExtension which allows a certain data to be shared with an app from other places, e.g Apple Maps can share a POI with other application that integrates ShareExtension.
+App Extensions integrate an iOS application more deeply into Apple's ecosystem. They enable an app to be accessed from various parts of iOS or Apple's apps. One of the most common extensions is the Widget, which allows you to display valuable data from your application directly on the Home Screen. Another example is the Share Extension, which enables data to be shared with an app from other locations. For instance, Apple Maps can share a point of interest (POI) with another application that supports the Share Extension.
 
 Before we dive further let's have a look at some of the commonly known and used app extension on iOS. (listed by GPT)
 
@@ -1806,13 +1806,13 @@ Before we dive further let's have a look at some of the commonly known and used 
 
 and many more...
 
-Similarly, other Apple's architectures like watchOS, tvOS, visionOS have their own extensions. It is not uncommon for an application to have many extensions integrated.
+Similarly, other Apple architectures like watchOS, tvOS, and visionOS have their own extensions. It is common for an application to integrate multiple extensions.
 
-App Extensions are always having a target which is not surprisingly the main application. One application can have many app extensions whereas an app extension has exactly one target.
+App Extensions always have a target, which, unsurprisingly, is the main application. A single application can include multiple app extensions, while each app extension is associated with exactly one target.
 
 ## Setting up App Extension in Modular Architecture
 
-In the Cosmonaut app example, let us say that the widget should display information about the space suit and the cosmonaut's health, both available via `ISSCosmonautService` and `ISSSpaceSuitService` respectively. A critical app information users' might appreciate having on the Home Screen of the phone.
+In the Cosmonaut app example, suppose the widget is designed to display information about the space suit and the cosmonaut's health, both of which are accessible via `ISSCosmonautService` and `ISSSpaceSuitService`, respectively. This is critical app information that users might find valuable to have readily available on their Home Screen.
 
 Since now we know the basics, let us setup a Widget extension for the Cosmonaut application. Easily said, and even more easily done via Xcodegen.
 In Xcodegen, we just make sure that the App Extension is assigned to a target that is being extended by the extension. In our case, we will add `- target: CosmonautWidgetExtension` to the CosmonautApp and define a new target `CosmonautWidgetExtension` as shown below.
@@ -1927,15 +1927,15 @@ Similarly to App Extensions, we can also target Watch and other Apple platforms.
         # ...
 ```
 
-The watch target is another platform in the Apple's ecosystem, therefore, here we won't need to worry much about the impact on the main iOS application. Furthermore, as of now the mergable libraries are supported only by iOS platform, thus this option is completely out. Worth mentioning is the size limitation of the app on watchOS. Today the uncompressed maximum app size for Watch is 75MB, whereas for iOS app it is 4GB.
+The watch target is another platform in Apple's ecosystem; therefore, we don't need to worry much about its impact on the main iOS application. Furthermore, as of now, mergeable libraries are supported only on the iOS platform, making this option unavailable for watchOS. It is also worth noting to mention the size limitation for apps on watchOS. Currently, the uncompressed maximum app size for watchOS is 75MB, compared to 4GB for iOS apps.
 
-Due to the size limitation between the platforms, API differences, SDK availability, ..., in the Apple's ecosystem the watch app won't be able to re-use many of iOS frameworks. In our example, the Cosmonaut watch app, might be able to re-use only some services, but domains less likely. Possibly, a watch app can be treated as a separate domain or multiple standalone domains, afterall, the watch has different user flows, views, even a design system used to develop the watch app might differ from the main app.
+Due to these size limitations, API differences, and SDK availability within Apple's ecosystem, the watch app won't be theoretically able to reuse many of the iOS frameworks. In our example, the Cosmonaut watch app might be able to reuse only some services, but domains are less likely. A watch app could potentially have it's own separate domain or multiple watch only domains. After all, the watch has different user flows, views, and even a distinct design system, which may differ significantly from the main app.
 
 ## Conclusion
 
-The Application Framework fully supports, and with an ease lets re-using frameworks between multiple extension targets producing the final IPA from the binary and packaging point of view as clean as possible. On iOS, we have to be a bit more cautious of the mergable libraries optimisation, as that prevents the re-usability of frameworks in production builds, potentionally  leaving the app extension crash on start.
+The Application Framework fully supports and easily enables the re-use of frameworks between multiple extension targets, producing the final IPA from the binary and packaging point of view as cleanly as possible. On iOS, we have to be a bit more cautious of the mergeable libraries optimization, as that prevents the re-usability of frameworks in production builds, potentially leaving the app extension to crash on start.
 
-On other platforms, the re-usability can be also easily done, however, platform differences might let us write e.g the UI part specifically to the platform rather than re-using the one for the main app.
+On other platforms, the re-usability can also be easily achieved; however, platform differences might require us to write, for example, the UI part specifically for the platform rather than re-using the one for the main app.
 
 # SPM (maybe v3? or never)
 
