@@ -1931,6 +1931,11 @@ The watch target is another platform in the Apple's ecosystem, therefore, here w
 
 Due to the size limitation between the platforms, API differences, SDK availability, ..., in the Apple's ecosystem the watch app won't be able to re-use many of iOS frameworks. In our example, the Cosmonaut watch app, might be able to re-use only some services, but domains less likely. Possibly, a watch app can be treated as a separate domain or multiple standalone domains, afterall, the watch has different user flows, views, even a design system used to develop the watch app might differ from the main app.
 
+## Conclusion
+
+The Application Framework fully supports, and with an ease lets re-using frameworks between multiple extension targets producing the final IPA from the binary and packaging point of view as clean as possible. On iOS, we have to be a bit more cautious of the mergable libraries optimisation, as that prevents the re-usability of frameworks in production builds, potentionally  leaving the app extension crash on start.
+
+On other platforms, the re-usability can be also easily done, however, platform differences might let us write e.g the UI part specifically to the platform rather than re-using the one for the main app.
 
 # SPM (maybe v3? or never)
 
