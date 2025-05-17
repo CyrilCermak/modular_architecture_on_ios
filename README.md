@@ -2545,6 +2545,8 @@ simply, when needed the architecture can be enhanced.
 The next chapter will explore the reusability of frameworks when
 creating multiple targets, such as App Extensions or Watch applications.
 
+\newpage
+
 # App Extensions, Watch and other targets in the Modular Architecture
 
 A special chapter of this book is dedicated to App Extensions and other
@@ -2552,11 +2554,12 @@ potential targets or platforms of an application. The modularity of our
 application framework simplifies the challenges of reusing code and
 resources across various application targets. However, this does come
 with a trade-off. Frameworks shared between multiple targets on the same
-platform architecture cannot utilize the compiler's mergeable libraries
-feature. Since a dynamic framework must be created and linked separately
-for each target, the framework's code cannot be merged into a single
-binary. This limitation also applies to transitive dependencies of the
-shared framework, as the framework itself cannot function properly
+platform cannot utilize the compiler's mergeable libraries feature.
+
+A dynamic framework must be created and linked separately for each
+target thus the framework's code must not be merged into a single
+mergbale binary. This limitation also applies to transitive dependencies
+of a shared framework, as the framework itself cannot function properly
 without them.
 
 ## App Extensions
@@ -2626,13 +2629,12 @@ which are accessible via `ISSCosmonautService` and
 that users might find valuable to have readily available on their Home
 Screen.
 
-Since now we know the basics, let us setup a Widget extension for the
-Cosmonaut application. Easily said, and even more easily done via
-Xcodegen. In Xcodegen, we just make sure that the App Extension is
-assigned to a target that is being extended by the extension. In our
-case, we will add `- target: CosmonautWidgetExtension` to the
-CosmonautApp and define a new target `CosmonautWidgetExtension` as shown
-below.
+Since now we know the needs, let us setup a Widget extension for the
+Cosmonaut application. Easily said, and easily done via Xcodegen. In
+Xcodegen, we just make sure that the App Extension is assigned to a
+target that is being extended by the extension. In our case, we will add
+`- target: CosmonautWidgetExtension` to the `CosmonautApp` and define a
+new target `CosmonautWidgetExtension` as shown below.
 
 ``` yaml
 # iss_modular_architecture/app/CosmonautApp/project.yml
@@ -2692,10 +2694,10 @@ production builds, none of those shared frameworks can be merged to the
 singular framework via the `mergable libraries` compiler's option. If
 done so, the app extension would not find the executable and
 consequently it would crash on start. Sadly, this cannot be found and
-stopped in the compile time.
+stopped at the compile time.
 
 A simple `TimelineProvider` implementation of the new
-CosmonautWidgetExtension can be shown on the sample below. All
+`CosmonautWidgetExtension` can be shown on the sample below. All
 frameworks are available, thus the extension can re-instantiate the
 needed services and provide the data to the widget.
 
@@ -2733,26 +2735,28 @@ struct CosmonautWidgetProvider: TimelineProvider {
 }
 ```
 
-In our CosmonautWidgetExtension, it is clear which frameworks must not
+In our `CosmonautWidgetExtension`, it is clear which frameworks must not
 be merged, however, in the real world scenario, Application Framework
 can have hundreds of frameworks, out of which the app extension might
 need a smaller subset, there the challenge begins. Setting up the
 extension will be quite straightforward, however, further maintaining it
-and ensure it's stability might be more challenging. Linking between
-modules can change, new modules are linked to the underlying transitive
-modules, all that could break the app extension. Integration tests might
-be needed to ensure that the app extension does not crash on start by
-having a missing framework; which was e.g merged into the main
-executable by mergable libraries.
+and ensure it's stability might be more challenging.
+
+Linking between modules can change, new modules are linked to the
+underlying transitive modules, all that could break the app extension.
+Integration tests might be needed to ensure that the app extension does
+not crash on start by having a missing framework; which was e.g merged
+into the main executable by mergable libraries.
 
 Debugging a crashing app extension before it appears in the iOS's
 extension list can be a real challenge. Very often Xcode is not very
 helpful, especially, when you run the app extension from within the main
 app target. However macOS `Console.app` is here to help in those cases.
 The reason why an app extension was killed by iOS even before it could
-appear, in case of HomeScreen widget on the selection list, can be found
-there. The reason will be probably a missing framework or something
-fundamental that the extension could not start without.
+appear, in case of Home Screen widget on the selection list, can usually
+be found there. Probably a missing framework or something fundamental
+that the extension could not start without will be reported in the
+Console.
 
 ## Apple Watch target
 
@@ -2774,10 +2778,11 @@ platforms.
 ```
 
 The watch target is another platform in Apple's ecosystem; therefore, we
-don't need to worry much about its impact on the main iOS application.
-Furthermore, as of now, mergeable libraries are supported only on the
-iOS platform, making this option unavailable for watchOS. It is also
-worth noting to mention the size limitation for apps on watchOS.
+don't need to worry much about its impact on the main iOS application,
+besides ensuring the code compile compatibility between supported
+platforms. Furthermore, as of now, mergeable libraries are supported
+only on the iOS platform, making this option unavailable for watchOS. It
+is also worth noting to mention the size limitation for apps on watchOS.
 Currently, the uncompressed maximum app size for watchOS is 75MB,
 compared to 4GB for iOS apps.
 
