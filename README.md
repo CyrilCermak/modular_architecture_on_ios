@@ -2554,11 +2554,12 @@ potential targets or platforms of an application. The modularity of our
 application framework simplifies the challenges of reusing code and
 resources across various application targets. However, this does come
 with a trade-off. Frameworks shared between multiple targets on the same
-platform cannot utilize the compiler's mergeable libraries feature.
+platform cannot utilize, the so much praised in the previous chapter,
+compiler's mergeable libraries feature.
 
 A dynamic framework must be created and linked separately for each
 target thus the framework's code must not be merged into a single
-mergbale binary. This limitation also applies to transitive dependencies
+mergable binary. This limitation also applies to transitive dependencies
 of a shared framework, as the framework itself cannot function properly
 without them.
 
