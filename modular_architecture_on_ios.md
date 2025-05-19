@@ -1534,7 +1534,7 @@ The next chapter will explore the reusability of frameworks when creating multip
 
 A special chapter of this book is dedicated to App Extensions and other potential targets or platforms of an application. The modularity of our application framework simplifies the challenges of reusing code and resources across various application targets. However, this does come with a trade-off. Frameworks shared between multiple targets on the same platform cannot utilize, the so much praised in the previous chapter, compiler's mergeable libraries feature.
 
-A dynamic framework must be created and linked separately for each target thus the framework's code must not be merged into a single mergable binary. This limitation also applies to transitive dependencies of a shared framework, as the framework itself cannot function properly without them.
+A dynamic framework must be created and linked separately for each target thus the framework's code must not be merged into a single mergeable binary. This limitation also applies to transitive dependencies of a shared framework, as the framework itself cannot function properly without them.
 
 ## App Extensions
 
