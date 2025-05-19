@@ -20,7 +20,16 @@ toccolor: PorscheMiamiBlue
 
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 
-**CFBundleVersion** - 2.0.0
+**CFBundleVersion** - 2.1.0
+
+2.1.0 - Introducing App Extensions chapter
+2.0.0 - Introducing Benchmarking Modular Architecture chapter
+1.0.0 - First public release
+
+Need assistance or consultation? Reach out to [Cyril Cermak](https://www.linkedin.com/in/cyril-cermak-210a8b6b/).
+
+[Download as PDF](https://github.com/CyrilCermak/modular_architecture_on_ios/blob/master/modular_architecture_on_ios.pdf)
+[Download as ePUB](https://github.com/CyrilCermak/modular_architecture_on_ios/blob/master/modular_architecture_on_ios.epub)
 
 \newpage
 # Dedication
