@@ -1525,7 +1525,7 @@ The `CosmonautService` has
 
 In this chapter we delved on the modularisation of the whole Application Framework, further slicing a framework and separating it into its Core, or adding the UITestingHostApp to it which further allows running the framework in complete isolation from the rest. I hope that the benefits of this approach are now well understood.
 
-Like everything, there is a pros and cons, this scalable architecture would be a big overhead for a team of two or three developers. However, when having many teams contributing to the codebase on a daily basis this would definitely be a huge benefit. I can tell from my experience where at Porsche we scaled from two teams to nowadays ~30 teams with this approach. The development of frameworks can and should start simply, when needed the architecture can be enhanced.
+Like everything, there are pros and cons, this scalable architecture would be a big overhead for a team of two or three developers. However, when having many teams contributing to the codebase on a daily basis this would definitely be a huge benefit. I can tell from my experience where at Porsche we scaled from two teams to nowadays ~30 teams with this approach. The development of frameworks can and should start simply, when needed the architecture can be enhanced.
 
 The next chapter will explore the reusability of frameworks when creating multiple targets, such as App Extensions or Watch applications.
 
