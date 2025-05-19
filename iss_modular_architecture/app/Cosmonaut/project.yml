@@ -46,7 +46,7 @@ targets:
       - framework: ISSUIComponents.framework
         implicit: true
 
-  # The main application
+  # The widget extension for the main application
   CosmonautWidgetExtension:
     type: app-extension
     platform: iOS
