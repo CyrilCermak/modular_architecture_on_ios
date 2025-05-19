@@ -9,8 +9,6 @@ Design
 
 **CFBundleVersion** - 2.0.0
 
-\newpage
-
 # Dedication
 
 "To my Mom and Dad, because they really tried."
@@ -29,8 +27,6 @@ project possible so that this book could be written.
 
 "Finally, to my current girlfriend ... whoever she might be at this very
 moment"
-
-\newpage
 
 # About the Author
 
@@ -74,9 +70,126 @@ Architecture chapter of this book.
 
 Feel free to contribute to this work by opening a PR.
 
-\newpage
-\tableofcontents
-\newpage
+# Modular Architecture on iOS and macOS
+# Introduction
+  ## What you Need
+  ## What is this book about
+  ## What is this book NOT about
+# Modular Architecture
+  ## Design
+  ## Layers
+    ### Application Layer
+    ### Domain Layer
+    ### Service Layer
+    ### Core Layer
+    ### Shared Layer
+  ## Example: International Space Station
+    ### Overview
+    ### Cosmonaut
+    ### Laboratory
+  ## Conclusion
+# Libraries on Apple's ecosystem
+  ## Dynamic vs static library?
+    ### PROS & CONS
+  ## Essentials
+  ## Exposing static 3rd party library
+  ## Examining library
+    ### Mach-O file format
+    ### Fat headers
+    ### Executable type
+    ### Dependencies
+    ### Symbols table
+    ### Strings
+  ## Build system
+  ## Conclusion
+# Swift Compiler (optional)
+  ## Compiler Architecture
+    ### Parsing
+    ### Semantic analysis
+    ### Clang importer
+    ### SIL generation
+    ### LLVM IR Generation
+    ### Exporting dylib
+  ## Conclusion
+# Development of the Modular Architecture
+  ## Creating workspace structure
+    ### Automating the process
+    ### Xcode's workspace
+  ## Generating projects
+    ### Hello XcodeGen
+  ## Ground Rules
+    ### Cross-linking dependencies
+    ### Vertical linking
+  ## Core Framework
+    ### Using Core Framework
+    ### Core Framework Usage and Best Practices
+    ### Core Framework linking and advantages
+    ### Core Framework disadvantages
+    ### Core Framework Rules
+  ## Testing
+    ### Unit Testing in Isolation
+    ### Application Framework App
+    ### Unit Testing in Application Framework App
+    ### UITesting in Isolation
+    ### UITesting in Application Framework App
+    ### Mock Framework
+  ## Final Look at One Fully Fledged Xcode Project (module)
+  ## Conclusion
+# App Extensions, Watch and other targets in the Modular Architecture
+  ## App Extensions
+  ## Setting up App Extension in Modular Architecture
+  ## Apple Watch target
+  ## Conclusion
+# Benchmarking of Modular Architecture
+  ## Test setup
+  ## Test results
+    ### App size
+    ### Memory usage
+    ### Compile time
+    ### Launch time
+  ## Conclusion
+# Application Framework - Best Practices
+  ## App secrets
+    ### How to handle secrets
+    ### The GnuPG (GPG)
+    ### GEM: Mobile Secrets
+    ### The ugly and brilliant part of the Secrets source code
+  ## Workflow
+    ### Teams
+    ### Git & Contribution
+    ### Scalability
+    ### Application Framework & Distribution
+  ## Common Problems
+    ### Maintenance
+    ### Code style
+    ### Not fully autonomous teams
+  ## Conclusion
+# Dependency Managers
+  ## Cocoapods
+    ### Integration with the application framework
+    ### available libraries within the whole Application Framework
+    ### Project paths with required libraries
+    ### Domain
+  ## Carthage
+  ## SwiftPM
+  ## Conclusion
+# Design Patterns
+  ## Coordinator
+  ## Strategy
+  ## Configuration
+  ## Decoupling
+  ## MVVM + C
+  ## Protocol Oriented Programming (POP)
+  ## Conclusion
+# Project Automation
+  ## Fastlane
+  ## Continuous Integration (CI)
+  ## Continuous Delivery (CD)
+  ## Ruby, programmer's best friend
+  ## Conclusion
+# THE END
+# Donation
+# Licence
 
 # Introduction
 
@@ -165,8 +278,6 @@ be the most efficient.
 ## What is this book NOT about
 
 SwiftUI.
-
-\newpage
 
 # Modular Architecture
 
@@ -407,8 +518,6 @@ programming comes into play so as a proper project onboarding, software
 architecture document and the overall documentation of modules which
 helps newcomers to get on the right track.
 
-\newpage
-
 # Libraries on Apple's ecosystem
 
 Before we deep dive into the development of previously described
@@ -444,8 +553,6 @@ your target."*
 
 What are symbols? *Symbols reference to chunks of code or data within
 binary.*
-
-\newpage
 
 **Types of libraries:**
 
@@ -1088,8 +1195,6 @@ Used binaries:
 
 [Realm](https://realm.io/docs/swift/latest)
 
-\newpage
-
 # Swift Compiler (optional)
 
 Since we touched the Xcode's build system in the previous chapter it
@@ -1187,8 +1292,6 @@ let employee = Employee(firstName: "Cyril",
 employee.printEmployeeInfo()
 ```
 
-\newpage
-
 ### Parsing
 
 > The parser is a simple, recursive-descent parser (implemented in
@@ -1267,8 +1370,6 @@ soon as it type checks the source file.
     (var_decl range=[./employee.swift:4:9 - line:4:9] "houseNo" type='<null type>'./employee.swift:4:9: error: property in protocol must have explicit { get } or { get set } specifier
         var houseNo: Int; { get }
     ...
-
-\newpage
 
 ### Semantic analysis
 
@@ -1428,8 +1529,6 @@ Source:
 Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-\newpage
-
 ### LLVM IR Generation
 
 > IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at
@@ -1468,8 +1567,6 @@ entry:
    br i1 %flags.isInline, label %inline, label %outline
 ...
 ```
-
-\newpage
 
 ### Exporting dylib
 
@@ -1554,8 +1651,6 @@ Cyril Cermak
 1. PorschePlatz, Stuttgart, Germany
 ```
 
-\newpage
-
 ## Conclusion
 
 In this chapter, the basics of Swift compiler architecture were
@@ -1580,8 +1675,6 @@ Development](https://modocache.io/getting-started-with-swift-development)
 
 [executable path, load path and
 rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
-
-\newpage
 
 # Development of the Modular Architecture
 
@@ -2524,8 +2617,6 @@ Framework](assets/fully_fledged_framework.png){width="40%"}
 ![Cosmonaut Service - Xcode
 project](assets/cosmonautService_full.png){width="60%"}
 
-\newpage
-
 ## Conclusion
 
 In this chapter we delved on the modularisation of the whole Application
@@ -2544,8 +2635,6 @@ simply, when needed the architecture can be enhanced.
 
 The next chapter will explore the reusability of frameworks when
 creating multiple targets, such as App Extensions or Watch applications.
-
-\newpage
 
 # App Extensions, Watch and other targets in the Modular Architecture
 
@@ -2623,12 +2712,12 @@ while each app extension is associated with exactly one target.
 
 ## Setting up App Extension in Modular Architecture
 
-In the Cosmonaut app example, suppose the widget is designed to display
-information about the space suit and the cosmonaut's health, both of
-which are accessible via `ISSCosmonautService` and
-`ISSSpaceSuitService`, respectively. This is critical app information
-that users might find valuable to have readily available on their Home
-Screen.
+In the Cosmonaut app example, let us extend it by the the Home Screen
+widget extension to display information about the space suit and the
+cosmonaut's health, both of which are accessible via
+`ISSCosmonautService` and `ISSSpaceSuitService`, respectively. This is
+critical app information that users might find valuable to have readily
+available on their Home Screen.
 
 Since now we know the needs, let us setup a Widget extension for the
 Cosmonaut application. Easily said, and easily done via Xcodegen. In
@@ -3603,8 +3692,6 @@ common problems people working on such projects will be facing.
 I hope it all provided a good understanding of how to work in such a
 setup.
 
-\newpage
-
 # Dependency Managers
 
 Generally, a good practice when working on large codebases is not to
@@ -3979,8 +4066,6 @@ good way to go. That being said, with the hybrid approach, the project
 benefits from both feature sets which could speed up everyday
 development dramatically.
 
-\newpage
-
 # Design Patterns
 
 Design patterns help developers to solve complex problems in a known,
@@ -4208,8 +4293,6 @@ patterns that helps when developing modular architecture. I would highly
 recommend deep diving more into this topic via books that are specially
 focused on such topic.
 
-\newpage
-
 # Project Automation
 
 When it comes to a project where many developers are contributing
@@ -4352,8 +4435,6 @@ article and free ebook.
 
 https://blog.codemagic.io/the-complete-guide-to-ci-cd/
 https://codemagic.io/ci-cd-ebook/
-
-\newpage
 
 # THE END
 

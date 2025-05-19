@@ -39,7 +39,6 @@ Building large scalable iOS/macOS apps and frameworks with Domain-Driven Design
 "Finally, to my current girlfriend ... whoever she might be at this very moment"
 
 \newpage
-
 # About the Author
 Hi, I am [Cyril Cermak](https://www.linkedin.com/in/cyril-cermak-210a8b6b/), a software engineer by heart and the author of this book. Most of my professional career was spent building iOS apps or iOS frameworks. My professional career began at Skoda Auto Connect App in Prague, continued for Freelancer Ltd in Sydney building iOS platform, included numerous start-ups along the way, and, currently, has me as an iOS Architect Porsche AG, in Stuttgart. In this book, I am describing different approaches for building modular iOS architectures and will be providing some mechanisms and essential knowledge that should help one decide which approach would fit the best or should be considered for a project.
 
@@ -61,7 +60,6 @@ Feel free to contribute to this work by opening a PR.
 \newpage
 \tableofcontents
 \newpage
-
 # Introduction
 In the software engineering field, people are going from project to project, gaining a different kind of experience out of it. In particular, on iOS, mostly the monolithic approaches are used. In some cases it makes total sense, so nothing against it. However, scaling up the team, or even better, the team of teams on a monolithically built app is horrifying and nearly impossible without some major build time impacts on a daily basis. Numerous problems will rise, that limit the way iOS projects are built or managed at the organisational level.
 
@@ -1573,7 +1571,7 @@ App Extensions always have a target, which, unsurprisingly, is the main applicat
 
 ## Setting up App Extension in Modular Architecture
 
-In the Cosmonaut app example, suppose the widget is designed to display information about the space suit and the cosmonaut's health, both of which are accessible via `ISSCosmonautService` and `ISSSpaceSuitService`, respectively. This is critical app information that users might find valuable to have readily available on their Home Screen.
+In the Cosmonaut app example, let us extend it by the the Home Screen widget extension to display information about the space suit and the cosmonaut's health, both of which are accessible via `ISSCosmonautService` and `ISSSpaceSuitService`, respectively. This is critical app information that users might find valuable to have readily available on their Home Screen.
 
 Since now we know the needs, let us setup a Widget extension for the Cosmonaut application. Easily said, and easily done via Xcodegen. In Xcodegen, we just make sure that the App Extension is assigned to a target that is being extended by the extension. In our case, we will add `- target: CosmonautWidgetExtension` to the `CosmonautApp` and define a new target `CosmonautWidgetExtension` as shown below.
 
