@@ -1578,6 +1578,8 @@ Similarly, other Apple platforms like watchOS, tvOS, and visionOS have their own
 
 App Extensions always have a target, which, unsurprisingly, is the main application. A single application can include multiple app extensions, while each app extension is associated with exactly one target.
 
+\newpage
+
 ## Setting up App Extension in Modular Architecture
 
 In the Cosmonaut app example, let us extend it by the the Home Screen widget extension to display information about the space suit and the cosmonaut's health, both of which are accessible via `ISSCosmonautService` and `ISSSpaceSuitService`, respectively. This is critical app information that users might find valuable to have readily available on their Home Screen.
