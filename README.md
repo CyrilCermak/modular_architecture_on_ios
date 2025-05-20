@@ -7,14 +7,16 @@
 Building large scalable iOS/macOS apps and frameworks with Domain-Driven
 Design
 
-**CFBundleVersion** - 2.0.0
+**CFBundleVersion** - 2.1.0
+
+2.1.0 - Introducing App Extensions chapter
+2.0.0 - Introducing Benchmarking Modular Architecture chapter
+1.0.0 - First public release
 
 Need assistance or consultation? Reach out to [Cyril Cermak](https://www.linkedin.com/in/cyril-cermak-210a8b6b/).
 
 [Download as PDF](https://github.com/CyrilCermak/modular_architecture_on_ios/blob/master/modular_architecture_on_ios.pdf)
 [Download as ePUB](https://github.com/CyrilCermak/modular_architecture_on_ios/blob/master/modular_architecture_on_ios.epub)
-
-\newpage
 
 # Dedication
 
@@ -34,8 +36,6 @@ project possible so that this book could be written.
 
 "Finally, to my current girlfriend ... whoever she might be at this very
 moment"
-
-\newpage
 
 # About the Author
 
@@ -79,9 +79,126 @@ Architecture chapter of this book.
 
 Feel free to contribute to this work by opening a PR.
 
-\newpage
-\tableofcontents
-\newpage
+# Modular Architecture on iOS and macOS
+# Introduction
+  ## What you Need
+  ## What is this book about
+  ## What is this book NOT about
+# Modular Architecture
+  ## Design
+  ## Layers
+    ### Application Layer
+    ### Domain Layer
+    ### Service Layer
+    ### Core Layer
+    ### Shared Layer
+  ## Example: International Space Station
+    ### Overview
+    ### Cosmonaut
+    ### Laboratory
+  ## Conclusion
+# Libraries on Apple's ecosystem
+  ## Dynamic vs static library?
+    ### PROS & CONS
+  ## Essentials
+  ## Exposing static 3rd party library
+  ## Examining library
+    ### Mach-O file format
+    ### Fat headers
+    ### Executable type
+    ### Dependencies
+    ### Symbols table
+    ### Strings
+  ## Build system
+  ## Conclusion
+# Swift Compiler (optional)
+  ## Compiler Architecture
+    ### Parsing
+    ### Semantic analysis
+    ### Clang importer
+    ### SIL generation
+    ### LLVM IR Generation
+    ### Exporting dylib
+  ## Conclusion
+# Development of the Modular Architecture
+  ## Creating workspace structure
+    ### Automating the process
+    ### Xcode's workspace
+  ## Generating projects
+    ### Hello XcodeGen
+  ## Ground Rules
+    ### Cross-linking dependencies
+    ### Vertical linking
+  ## Core Framework
+    ### Using Core Framework
+    ### Core Framework Usage and Best Practices
+    ### Core Framework linking and advantages
+    ### Core Framework disadvantages
+    ### Core Framework Rules
+  ## Testing
+    ### Unit Testing in Isolation
+    ### Application Framework App
+    ### Unit Testing in Application Framework App
+    ### UITesting in Isolation
+    ### UITesting in Application Framework App
+    ### Mock Framework
+  ## Final Look at One Fully Fledged Xcode Project (module)
+  ## Conclusion
+# App Extensions, Watch and other targets in the Modular Architecture
+  ## App Extensions
+  ## Setting up App Extension in Modular Architecture
+  ## Apple Watch target
+  ## Conclusion
+# Benchmarking of Modular Architecture
+  ## Test setup
+  ## Test results
+    ### App size
+    ### Memory usage
+    ### Compile time
+    ### Launch time
+  ## Conclusion
+# Application Framework - Best Practices
+  ## App secrets
+    ### How to handle secrets
+    ### The GnuPG (GPG)
+    ### GEM: Mobile Secrets
+    ### The ugly and brilliant part of the Secrets source code
+  ## Workflow
+    ### Teams
+    ### Git & Contribution
+    ### Scalability
+    ### Application Framework & Distribution
+  ## Common Problems
+    ### Maintenance
+    ### Code style
+    ### Not fully autonomous teams
+  ## Conclusion
+# Dependency Managers
+  ## Cocoapods
+    ### Integration with the application framework
+    ### available libraries within the whole Application Framework
+    ### Project paths with required libraries
+    ### Domain
+  ## Carthage
+  ## SwiftPM
+  ## Conclusion
+# Design Patterns
+  ## Coordinator
+  ## Strategy
+  ## Configuration
+  ## Decoupling
+  ## MVVM + C
+  ## Protocol Oriented Programming (POP)
+  ## Conclusion
+# Project Automation
+  ## Fastlane
+  ## Continuous Integration (CI)
+  ## Continuous Delivery (CD)
+  ## Ruby, programmer's best friend
+  ## Conclusion
+# THE END
+# Donation
+# Licence
 
 # Introduction
 
@@ -170,8 +287,6 @@ be the most efficient.
 ## What is this book NOT about
 
 SwiftUI.
-
-\newpage
 
 # Modular Architecture
 
@@ -412,8 +527,6 @@ programming comes into play so as a proper project onboarding, software
 architecture document and the overall documentation of modules which
 helps newcomers to get on the right track.
 
-\newpage
-
 # Libraries on Apple's ecosystem
 
 Before we deep dive into the development of previously described
@@ -449,8 +562,6 @@ your target."*
 
 What are symbols? *Symbols reference to chunks of code or data within
 binary.*
-
-\newpage
 
 **Types of libraries:**
 
@@ -1093,8 +1204,6 @@ Used binaries:
 
 [Realm](https://realm.io/docs/swift/latest)
 
-\newpage
-
 # Swift Compiler (optional)
 
 Since we touched the Xcode's build system in the previous chapter it
@@ -1192,8 +1301,6 @@ let employee = Employee(firstName: "Cyril",
 employee.printEmployeeInfo()
 ```
 
-\newpage
-
 ### Parsing
 
 > The parser is a simple, recursive-descent parser (implemented in
@@ -1272,8 +1379,6 @@ soon as it type checks the source file.
     (var_decl range=[./employee.swift:4:9 - line:4:9] "houseNo" type='<null type>'./employee.swift:4:9: error: property in protocol must have explicit { get } or { get set } specifier
         var houseNo: Int; { get }
     ...
-
-\newpage
 
 ### Semantic analysis
 
@@ -1433,8 +1538,6 @@ Source:
 Source:
 [swift.org](https://swift.org/swift-compiler/#compiler-architecture)
 
-\newpage
-
 ### LLVM IR Generation
 
 > IR generation (implemented in lib/IRGen) lowers SIL to LLVM IR, at
@@ -1473,8 +1576,6 @@ entry:
    br i1 %flags.isInline, label %inline, label %outline
 ...
 ```
-
-\newpage
 
 ### Exporting dylib
 
@@ -1559,8 +1660,6 @@ Cyril Cermak
 1. PorschePlatz, Stuttgart, Germany
 ```
 
-\newpage
-
 ## Conclusion
 
 In this chapter, the basics of Swift compiler architecture were
@@ -1585,8 +1684,6 @@ Development](https://modocache.io/getting-started-with-swift-development)
 
 [executable path, load path and
 rpath](https://wincent.com/wiki/%40executable_path%2C_%40load_path_and_%40rpath)
-
-\newpage
 
 # Development of the Modular Architecture
 
@@ -2524,7 +2621,7 @@ The `CosmonautService` has
     same layer re-reusability
 
 ![Cosmonaut Service Fully Fledged
-Framework](assets/fully_fledged_framework.png){width="60%"}
+Framework](assets/fully_fledged_framework.png){width="40%"}
 
 ![Cosmonaut Service - Xcode
 project](assets/cosmonautService_full.png){width="60%"}
@@ -2535,14 +2632,283 @@ In this chapter we delved on the modularisation of the whole Application
 Framework, further slicing a framework and separating it into its Core,
 or adding the UITestingHostApp to it which further allows running the
 framework in complete isolation from the rest. I hope that the benefits
-of this approach are now well understood. Like everything, there is a
-pros and cons, this scalable architecture would be a big overhead for a
-team of two or three developers. However, when having many teams
-contributing to the codebase on a daily basis this would definitely be a
-huge benefit. I can tell from my experience where at Porsche we scaled
-from two teams to nowadays \~30 teams with this approach. The
-development of frameworks can and should start simply, when needed the
-architecture can be enhanced.
+of this approach are now well understood.
+
+Like everything, there is a pros and cons, this scalable architecture
+would be a big overhead for a team of two or three developers. However,
+when having many teams contributing to the codebase on a daily basis
+this would definitely be a huge benefit. I can tell from my experience
+where at Porsche we scaled from two teams to nowadays \~30 teams with
+this approach. The development of frameworks can and should start
+simply, when needed the architecture can be enhanced.
+
+The next chapter will explore the reusability of frameworks when
+creating multiple targets, such as App Extensions or Watch applications.
+
+# App Extensions, Watch and other targets in the Modular Architecture
+
+A special chapter of this book is dedicated to App Extensions and other
+potential targets or platforms of an application. The modularity of our
+application framework simplifies the challenges of reusing code and
+resources across various application targets. However, this does come
+with a trade-off. Frameworks shared between multiple targets on the same
+platform cannot utilize, the so much praised in the previous chapter,
+compiler's mergeable libraries feature.
+
+A dynamic framework must be created and linked separately for each
+target thus the framework's code must not be merged into a single
+mergable binary. This limitation also applies to transitive dependencies
+of a shared framework, as the framework itself cannot function properly
+without them.
+
+## App Extensions
+
+App Extensions integrate an iOS application more deeply into Apple's
+ecosystem. They enable an app to be accessed from various parts of iOS
+or Apple's apps. One of the most common extensions is the Widget, which
+allows you to display valuable data from your application directly on
+the Home Screen. Another example is the Share Extension, which enables
+data to be shared with an app from other locations. For instance, Apple
+Maps can share a point of interest (POI) with another application that
+supports the Share Extension.
+
+Before we dive further let's have a look at some of the commonly known
+and used app extension on iOS. (listed by GPT)
+
+1.  **Today Extensions (Widgets)**
+    -   Display quick, glanceable information or provide functionality
+        directly in the iOS Today View or Home Screen widgets.
+2.  **Share Extensions**
+    -   Allow users to share content (e.g., text, images, links) from
+        other apps to your app.
+3.  **Action Extensions**
+    -   Perform specific actions on content within another app, such as
+        editing an image, translating text, or adding annotations.
+4.  **Photo Editing Extensions**
+    -   Integrate your app's photo editing tools directly into the
+        Photos app, enabling users to edit images without leaving the
+        Photos app.
+5.  **Custom Keyboard Extensions**
+    -   Provide a custom keyboard that users can use system-wide, such
+        as emoji keyboards, GIF keyboards, or specialized input methods.
+6.  **Document Provider Extensions**
+    -   Allow your app to act as a file provider, enabling users to
+        access and manage files stored in your app from other apps or
+        the Files app.
+7.  **File Provider Extensions**
+    -   Integrate your app with the Files app, allowing users to browse,
+        upload, and manage files stored in your app's cloud or local
+        storage.
+8.  **SiriKit Extensions**
+    -   Enable your app to interact with Siri, allowing users to perform
+        tasks or retrieve information using voice commands.
+9.  **iMessage App Extensions**
+    -   Create custom stickers, games, or app functionality that users
+        can access directly within the Messages app.
+10. **Notification Content Extensions**
+    -   Customize the appearance of notifications by adding rich media
+        (e.g., images, videos) or interactive elements.
+
+and many more...
+
+Similarly, other Apple platforms like watchOS, tvOS, and visionOS have
+their own extensions. It is common for an application to integrate
+multiple extensions.
+
+App Extensions always have a target, which, unsurprisingly, is the main
+application. A single application can include multiple app extensions,
+while each app extension is associated with exactly one target.
+
+## Setting up App Extension in Modular Architecture
+
+In the Cosmonaut app example, let us extend it by the the Home Screen
+widget extension to display information about the space suit and the
+cosmonaut's health, both of which are accessible via
+`ISSCosmonautService` and `ISSSpaceSuitService`, respectively. This is
+critical app information that users might find valuable to have readily
+available on their Home Screen.
+
+Since now we know the needs, let us setup a Widget extension for the
+Cosmonaut application. Easily said, and easily done via Xcodegen. In
+Xcodegen, we just make sure that the App Extension is assigned to a
+target that is being extended by the extension. In our case, we will add
+`- target: CosmonautWidgetExtension` to the `CosmonautApp` and define a
+new target `CosmonautWidgetExtension` as shown below.
+
+``` yaml
+# iss_modular_architecture/app/CosmonautApp/project.yml
+  # The main application
+  CosmonautApp:
+    type: application
+    platform: iOS
+    sources: CosmonautApp
+    settings:
+      groups:
+        - BuildSettings
+    dependencies:
+      # App Extensions
+      - target: CosmonautWidgetExtension # The newly added target
+      # Domains
+      - framework: ISSCosmonautService.framework
+        implicit: true
+      # ... (All needed frameworks are linked in the app here)
+
+  # The cosmonaut desktop widget extension
+  CosmonautWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources: CosmonautWidgetExtension
+    scheme: {}
+    settings:
+      groups:
+      - BuildSettings
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.iss.CosmonautApp.Widget
+        INFOPLIST_FILE: CosmonautWidgetExtension/Info.plist
+    dependencies:
+    - framework: ISSRadio.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSCosmonautService.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSCosmonautServiceCore.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSSpaceSuitService.framework
+      implicit: true
+      codeSign: false
+    - framework: ISSSpaceSuitServiceCore.framework
+      implicit: true
+      codeSign: false
+```
+
+Since all frameworks needed in the `CosmonautWidgetExtension` are
+already in the main target, `codeSign` must be set to `false`, else it
+would be re-signed which would lead to rejection by App Store Connect.
+
+The `project.yml` file of the main Cosmonaut App clearly shows that we
+are re-using 5 frameworks among those two targets. Therefore, for
+production builds, none of those shared frameworks can be merged to the
+singular framework via the `mergable libraries` compiler's option. If
+done so, the app extension would not find the executable and
+consequently it would crash on start. Sadly, this cannot be found and
+stopped at the compile time.
+
+A simple `TimelineProvider` implementation of the new
+`CosmonautWidgetExtension` can be shown on the sample below. All
+frameworks are available, thus the extension can re-instantiate the
+needed services and provide the data to the widget.
+
+``` swift
+// Sample from a file: iss_modular_architecture/app/Cosmonaut/CosmonautWidgetExtension/CosmonautWidgetExtension.swift
+
+import SwiftUI
+import Intents
+import WidgetKit
+import ISSRadio
+import ISSCosmonautService
+import ISSSpacesuitService
+
+struct CosmonautWidgetProvider: TimelineProvider {
+    private let cosmonautHealthService = CosmonautHealthService(radio: RadioService())
+    private let spacesuitService = SpacesuitService(radio: RadioService())
+
+    func getSnapshot(in context: Context, completion: @escaping (CosmonautWidgetEntry) -> Void) {
+        cosmonautHealthService.startHealthMonitoring()
+        spacesuitService.startSpacesuitMonitoring()
+
+        let entry = CosmonautWidgetEntry(date: Date(),
+                                         bloodPressure: cosmonautHealthService.health.bloodPressure?.level ?? "",
+                                         bloodOxygen: cosmonautHealthService.health.bloodOxygen?.level ?? "",
+                                         heartRate: cosmonautHealthService.health.heartRate?.level ?? "",
+                                         bodyTemperature: cosmonautHealthService.health.bodyTemperature?.level ?? "",
+                                         outsideTemperature: spacesuitService.spacesuit.outsideTemperature?.level ?? "",
+                                         charge: spacesuitService.spacesuit.charge?.level ?? "",
+                                         pressure: spacesuitService.spacesuit.pressure?.level ?? "")
+
+        completion(entry)
+    }
+
+    // Other required protocol implementations
+}
+```
+
+In our `CosmonautWidgetExtension`, it is clear which frameworks must not
+be merged, however, in the real world scenario, Application Framework
+can have hundreds of frameworks, out of which the app extension might
+need a smaller subset, there the challenge begins. Setting up the
+extension will be quite straightforward, however, further maintaining it
+and ensure it's stability might be more challenging.
+
+Linking between modules can change, new modules are linked to the
+underlying transitive modules, all that could break the app extension.
+Integration tests might be needed to ensure that the app extension does
+not crash on start by having a missing framework; which was e.g merged
+into the main executable by mergable libraries.
+
+Debugging a crashing app extension before it appears in the iOS's
+extension list can be a real challenge. Very often Xcode is not very
+helpful, especially, when you run the app extension from within the main
+app target. However macOS `Console.app` is here to help in those cases.
+The reason why an app extension was killed by iOS even before it could
+appear, in case of Home Screen widget on the selection list, can usually
+be found there. Probably a missing framework or something fundamental
+that the extension could not start without will be reported in the
+Console.
+
+## Apple Watch target
+
+Similarly to App Extensions, we can also target Watch and other Apple
+platforms.
+
+``` yaml
+  ISSCosmonautService:
+    type: framework
+    platform:
+     - iOS
+     - watchOS # Supporting watchOS platform, code must be adapted to support both platforms
+    sources: CosmonautService
+    dependencies:
+      # Linking and implements the `ISSCosmonautServiceCore`
+      - framework: ISSCosmonautServiceCore.framework
+        implicit: true
+        # ...
+```
+
+The watch target is another platform in Apple's ecosystem; therefore, we
+don't need to worry much about its impact on the main iOS application,
+besides ensuring the code compile compatibility between supported
+platforms. Furthermore, as of now, mergeable libraries are supported
+only on the iOS platform, making this option unavailable for watchOS. It
+is also worth noting to mention the size limitation for apps on watchOS.
+Currently, the uncompressed maximum app size for watchOS is 75MB,
+compared to 4GB for iOS apps.
+
+Due to these size limitations, API differences, and SDK availability
+within Apple's ecosystem, the watch app won't be theoretically able to
+reuse many of the iOS frameworks. In our example, the Cosmonaut watch
+app might be able to reuse only some services, but domains are less
+likely. A watch app could potentially have it's own separate domain or
+multiple watch platform only domains. After all, the watch has different
+user flows, views, and even a distinct design system, which may differ
+significantly from the main app.
+
+## Conclusion
+
+The Application Framework fully supports and easily enables the re-use
+of frameworks between multiple extension targets, producing the final
+IPA from the binary and packaging point of view as cleanly as possible.
+
+On iOS, we have to be a bit more cautious of the mergeable libraries
+optimization, as that prevents the re-usability of frameworks in
+production builds, potentially leaving the app extension to crash on
+start.
+
+On other platforms, the re-usability can also be easily achieved;
+however, platform differences might require us to write, for example,
+the UI part specifically for the platform rather than re-using the one
+for the main app.
 
 In the next chapter we are going to have a look at other possibilities
 of modularisation. Particularly, we are going to focus on the difference
@@ -2972,6 +3338,9 @@ the benchmark results suggest a number of considerations.
     of this architecture, however, is that it allows linking at the same
     level.
 
+4.  Re-using code via frameworks wherever possible is the key to build
+    highly scalable modular Application Framework.
+
 # SPM (maybe v3? or never)
 
 // TODO: Building the same with SPM
@@ -3331,8 +3700,6 @@ common problems people working on such projects will be facing.
 
 I hope it all provided a good understanding of how to work in such a
 setup.
-
-\newpage
 
 # Dependency Managers
 
@@ -3708,8 +4075,6 @@ good way to go. That being said, with the hybrid approach, the project
 benefits from both feature sets which could speed up everyday
 development dramatically.
 
-\newpage
-
 # Design Patterns
 
 Design patterns help developers to solve complex problems in a known,
@@ -3937,8 +4302,6 @@ patterns that helps when developing modular architecture. I would highly
 recommend deep diving more into this topic via books that are specially
 focused on such topic.
 
-\newpage
-
 # Project Automation
 
 When it comes to a project where many developers are contributing
@@ -4081,8 +4444,6 @@ article and free ebook.
 
 https://blog.codemagic.io/the-complete-guide-to-ci-cd/
 https://codemagic.io/ci-cd-ebook/
-
-\newpage
 
 # THE END
 
